@@ -11,7 +11,9 @@
 }
 
 .product-info h2 {
-  font-size: 18px;
+  font-size: 16px;
+  text-align: center;
+  margin-top: 15px
 }
 
 .shop-products {

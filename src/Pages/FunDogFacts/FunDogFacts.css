@@ -7,6 +7,7 @@
   background-color: var(--alt-card-color);
   padding: 15px;
   width: 90%;
+  height:45svh;
   border-radius: 10px;
   border: 1px solid var(--button-border-color);
   text-align: center;
@@ -15,6 +16,7 @@
 }
 .dog-fact-header {
   color: var(--text-color);
+  margin-bottom: 40px;
 }
 .dog-fact {
   font-size: 1.1rem;
@@ -24,9 +26,9 @@
 
 .fact-spinner {
   position: absolute;
-  top: 65%;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, -65%);
+  transform: translate(-50%, -50%);
   color: var(--accent-color);
 }
 
@@ -40,6 +42,10 @@
 }
 
 .new-fact-btn {
+position: absolute;
+bottom: 1%;
+left: 50%;
+    transform: translateX(-50%);
   width: 140px;
   margin-bottom: 15px;
   border: none;
@@ -48,18 +54,16 @@
 @media (max-width: 459px) {
   .new-fact-btn {
     width: 120px;
-    margin-right: 10px;
-    margin-left: 0px;
+  
   }
+   
 }
 @media screen and (max-width: 941px) and (orientation: landscape) {
   .dog-fact-container {
     width: 80%;
-    height: 65svh;
+    height: 50svh;
   }
-  .new-fact-btn {
-    position: absolute;
-    bottom: 2%;
-    left: 37.5%;
-  }
+ .dog-fact-header {
+  margin-bottom: 0px;
+ }
 }

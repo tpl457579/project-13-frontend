@@ -6,7 +6,7 @@
   display: none;
 }
 
-@media (max-width: 941px) {
+@media (max-width: 952px) {
   .hamburger-btn {
     color: var(--alt-card-color);
     transition: filter 0.3s ease;

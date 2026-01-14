@@ -15,6 +15,7 @@ import AdminProducts from './Pages/AdminProducts/AdminProducts.jsx'
 import DogSearch from './Pages/DogSearch/DogSearch.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import ThemeToggle from './components/ThemeToggle/ThemeToggle.jsx'
+import {Footer} from './components/Footer/Footer.jsx'
 
 const App = () => {
   return (
@@ -43,6 +44,8 @@ const App = () => {
       </Routes>
       <ThemeToggle />
       <ChatWidget />
+     {!location.pathname.startsWith('/admin') && <Footer />}
+
     </div>
   )
 }

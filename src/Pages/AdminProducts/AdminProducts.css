@@ -166,11 +166,12 @@
   z-index: 10;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 952px) {
   .admin-add-btn {
     display: none;
   }
 }
+
 @media (max-width: 784px) {
   .admin-product-card {
     position: relative;

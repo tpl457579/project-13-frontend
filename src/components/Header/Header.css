@@ -83,7 +83,7 @@ header {
   }
 }
 
-@media (max-width: 941px) {
+@media (max-width: 952px) {
   header {
     position: fixed;
     top: 0;

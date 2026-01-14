@@ -17,7 +17,7 @@ A fun questionnaire that helps you to find your perfect dog buddy. The questionn
 
 # Shop
 
-A page where users can find the perfect toys for their dogs. The page uses the **Dog Character API** to fetch information on different dog breeds and their corresponding toys. Users can filter the toys by breed, price, and rating.
+A page where users can find the perfect toys for their dogs. The page uses the **Dog Character API** to fetch information on different dog breeds and their corresponding toys. Users can filter the toys by breed, price, and rating. The **Shop** is the whole reason for this application to exist, to earn money from **affiliate marketing**, the games etc. are to attract and keep customers engaged.
 
 # APIs Used
 
@@ -48,7 +48,7 @@ A page where users can find the perfect toys for their dogs. The page uses the *
 
 # Shop
 
-Products in the shop are **scraped** from the internet using a tool named **scraper.js**.
+Products in the shop are **scraped** from the internet using a tool named **scraper.js**. The scraper is set to scrape from Amazon - if you need to scrape from other websites modifications will be necessary.
 
 In the the shop you can add and remove your **favourites** to your favourites page by clicking the **heart button**, from the favourites page you can remove the products by clicking on the **heart button**. By clicking on the product you will be brought to the page where you can by the product.
 
@@ -78,13 +78,18 @@ A full-stack admin dashboard for managing products with image uploads, scraping,
 - Custom hooks for buttons, fetches, modals, and more
 - Pages to show favourites, profile, and admin dashboard.
 
+## New Feature !!!
+
+On the admin page to add a product you simply have to enter the url from Amazon and the form will automatically fill in the product info.
+
 ---
 
 ## Setup Instructions
 
 Deployment Url - https://starlit-semolina-e24ea6.netlify.app/
 
-- clone the repo
+- clone the repo from github - https://github.com/tomludden/project-13-frontend
+- npm init -y (to install dependencies)
 - npm run dev
 - npm run scrape(if needs to be tested)
 

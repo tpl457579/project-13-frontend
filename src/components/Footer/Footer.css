@@ -2,7 +2,7 @@
   display: none;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 952px) {
   .footer-container {
     position: fixed;
     bottom: 0;

@@ -12,7 +12,7 @@ import { showPopup } from '../../components/ShowPopup/ShowPopup.js'
 import Button from '../../components/Buttons/Button.jsx'
 import Modal from '../../components/Modal/Modal.jsx'
 import { apiFetch } from '../../components/apiFetch.js'
-import { Footer } from '../../components/Footer/Footer.jsx'
+import {Footer} from '../../components/Footer/Footer.jsx'
 
 const PLACEHOLDER = './assets/images/placeholder.png'
 
@@ -24,6 +24,7 @@ const AdminProducts = () => {
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
+  
 
   const {
     searchTerm,
@@ -264,6 +265,7 @@ const AdminProducts = () => {
         </Modal>
       )}
       <Footer openModal={openModal} />
+     
     </div>
   )
 }

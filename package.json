@@ -40,6 +40,19 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
-    "vite": "^7.0.3"
-  }
+    "vite": "^7.3.1"
+  },
+  "description": "**Dog Lovers** is a fun React app for anyone that loves to know about dogs that includes a **Guess the Dog Game** & a page to learn **Fun Dog facts**. Also a cool questionnaire that help you to find your **perfect buddy**, and a **shop** to find the perfect toys for your best friend.",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomludden/project-13-frontend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tomludden/project-13-frontend/issues"
+  },
+  "homepage": "https://github.com/tomludden/project-13-frontend#readme"
 }
