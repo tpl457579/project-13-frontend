@@ -2,6 +2,16 @@
 
 **Dog Lovers** is a fun React app for anyone that loves to know about dogs that includes a **Guess the Dog Game** & a page to learn **Fun Dog facts**. Also a cool questionnaire that help you to find your **perfect buddy**, and a **shop** to find the perfect toys for your best friend.
 
+## Setup Instructions
+
+Deployment Url - https://silver-choux-195ea8.netlify.app/
+
+- clone the repo from github - https://github.com/tpl457579/project-13-frontend
+- npm init -y (to install dependencies)
+- npm run dev
+- npm run scrape(if needs to be tested)
+c
+
 # Guess the Dog Breed Game
 
 A simple fun game where users guess the correct breed of a dog from three random images. Players earn points for correct guesses & lose lives for wrong answers.
@@ -84,14 +94,6 @@ On the admin page to add a product you simply have to enter the url from Amazon 
 
 ---
 
-## Setup Instructions
-
-Deployment Url - https://starlit-semolina-e24ea6.netlify.app/
-
-- clone the repo from github - https://github.com/tomludden/project-13-frontend
-- npm init -y (to install dependencies)
-- npm run dev
-- npm run scrape(if needs to be tested)
 
 You can setup admin accounts
 node createAdmin.js

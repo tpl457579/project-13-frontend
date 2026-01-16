@@ -4,7 +4,6 @@ import './Header.css'
 import { AuthContext } from '../../components/AuthContext.jsx'
 import Button from '../Buttons/Button.jsx'
 import Hamburger from '../Hamburger/Hamburger.jsx'
-import DogSearch from '../../Pages/DogSearch/DogSearch'
 
 const Header = React.memo(() => {
   const { user, logout } = useContext(AuthContext)

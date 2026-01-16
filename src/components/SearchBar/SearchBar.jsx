@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react'
+import { useMemo, useCallback } from 'react'
 import './SearchBar.css'
 
 const SearchBar = ({ value, onChange, placeholder = 'Search...' }) => {

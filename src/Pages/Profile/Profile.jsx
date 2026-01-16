@@ -1,5 +1,5 @@
 import './Profile.css'
-import React, {
+import {
   useContext,
   useState,
   useEffect,
@@ -119,7 +119,6 @@ const Profile = () => {
           Username
           <FormInput
             name='userName'
-            value={formData.userName}
             onChange={handleChange}
             placeholder='Name'
             ref={usernameRef}
@@ -130,7 +129,6 @@ const Profile = () => {
           Email
           <FormInput
             name='email'
-            value={formData.email}
             onChange={handleChange}
             type='email'
             placeholder='Email'

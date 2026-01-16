@@ -6,13 +6,14 @@ import { useFilters } from '../../Hooks/useFilters.js'
 import PaginationControls from '../../components/PaginationControls/PaginationControls'
 import { usePagination } from '../../Hooks/usePagination.js'
 import ProductForm from '../../components/ProductForm/ProductForm'
+import DogForm from '../../components/DogForm/DogForm.jsx'
 import DogLoader from '../../components/DogLoader/DogLoader'
 import './AdminProducts.css'
 import { showPopup } from '../../components/ShowPopup/ShowPopup.js'
 import Button from '../../components/Buttons/Button.jsx'
 import Modal from '../../components/Modal/Modal.jsx'
 import { apiFetch } from '../../components/apiFetch.js'
-import {Footer} from '../../components/Footer/Footer.jsx'
+import { Footer } from '../../components/Footer/Footer.jsx'
 
 const PLACEHOLDER = './assets/images/placeholder.png'
 
@@ -24,7 +25,8 @@ const AdminProducts = () => {
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
-  
+  const [addTypeModal, setAddTypeModal] = useState(false)
+  const [addType, setAddType] = useState(null)
 
   const {
     searchTerm,
@@ -53,6 +55,7 @@ const AdminProducts = () => {
   const openModal = useCallback((product = null) => {
     setEditingProduct(product)
     setIsSubmitting(false)
+    setAddType('product')
     setShowModal(true)
   }, [])
 
@@ -71,16 +74,8 @@ const AdminProducts = () => {
     setDeleteModal(false)
   }, [])
 
-  const handleSave = useCallback(
-    async ({
-      name,
-      price,
-      rating,
-      description = '',
-      imageUrl,
-      publicId,
-      url
-    }) => {
+  const handleSaveProduct = useCallback(
+    async ({ name, price, rating, description = '', imageUrl, publicId, url }) => {
       const payload = {
         ...(editingProduct ? { _id: editingProduct._id } : {}),
         name,
@@ -92,7 +87,6 @@ const AdminProducts = () => {
         url
       }
 
-      console.log(payload)
       try {
         const token = localStorage.getItem('token')
         const res = await apiFetch('/products/save', {
@@ -107,16 +101,14 @@ const AdminProducts = () => {
           return
         }
         if (editingProduct && editingProduct._id) {
-          setProducts((prev) =>
-            prev.map((p) => (p._id === product._id ? product : p))
-          )
+          setProducts((prev) => prev.map((p) => (p._id === product._id ? product : p)))
           showPopup('Product edited successfully')
         } else {
           setProducts((prev) => [...prev, product])
           showPopup('Product added successfully')
         }
         closeModal()
-      } catch (err) {
+      } catch {
         showPopup('Failed to save product', 'error')
       } finally {
         setIsSubmitting(false)
@@ -124,6 +116,21 @@ const AdminProducts = () => {
     },
     [editingProduct, closeModal, setProducts]
   )
+
+  const handleSaveDog = async (dogData) => {
+    try {
+      const token = localStorage.getItem('token')
+      await apiFetch('/dogs/add', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+        data: dogData
+      })
+      showPopup('Dog added successfully')
+      closeModal()
+    } catch {
+      showPopup('Failed to save dog', 'error')
+    }
+  }
 
   const handleDelete = useCallback(async () => {
     if (!selectedProduct?._id) return
@@ -137,7 +144,7 @@ const AdminProducts = () => {
       setProducts((prev) => prev.filter((p) => p._id !== selectedProduct._id))
       showPopup('Product deleted successfully')
       closeDeleteModal()
-    } catch (err) {
+    } catch {
       showPopup('Failed to delete product', 'error')
     } finally {
       setIsDeleting(false)
@@ -152,11 +159,9 @@ const AdminProducts = () => {
   return (
     <div className='admin-products'>
       <h1>Admin Dashboard</h1>
-      <SearchBar
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder='Search products...'
-      />
+
+      <SearchBar value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder='Search products...' />
+
       <FilterControls
         size={size}
         setSize={setSize}
@@ -166,9 +171,9 @@ const AdminProducts = () => {
         setMinRating={setMinRating}
         clearFilters={handleClearFilters}
       />
-      <button className='admin-add-btn' onClick={() => openModal()}>
-        +
-      </button>
+
+      <button className='admin-add-btn' onClick={() => setAddTypeModal(true)}>+</button>
+
       {loading ? (
         <DogLoader />
       ) : error ? (
@@ -181,32 +186,16 @@ const AdminProducts = () => {
                 if (!p?._id) return null
                 return (
                   <div key={p._id} className='admin-product-card'>
-                    <img
-                      src={p?.imageUrl || PLACEHOLDER}
-                      alt={p?.name || 'Unnamed'}
-                      loading='lazy'
-                    />
+                    <img src={p?.imageUrl || PLACEHOLDER} alt={p?.name || 'Unnamed'} loading='lazy' />
                     <div className='admin-product-card-info'>
-                      <a
-                        href={p?.url || '#'}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        className='product-link'
-                      >
+                      <a href={p?.url || '#'} target='_blank' rel='noopener noreferrer' className='product-link'>
                         <h4>{p?.name || 'Unnamed'}</h4>
                       </a>
                       <p>€{Number(p?.price || 0).toFixed(2)}</p>
                       {p?.rating && <p>Rating: {p.rating} ⭐</p>}
                       <div className='admin-card-buttons'>
-                        <Button variant='primary' onClick={() => openModal(p)}>
-                          Edit
-                        </Button>
-                        <Button
-                          variant='primary'
-                          onClick={() => openDeleteModal(p)}
-                        >
-                          Delete
-                        </Button>
+                        <Button variant='primary' onClick={() => openModal(p)}>Edit</Button>
+                        <Button variant='primary' onClick={() => openDeleteModal(p)}>Delete</Button>
                       </div>
                     </div>
                   </div>
@@ -216,6 +205,7 @@ const AdminProducts = () => {
               <p>No products found.</p>
             )}
           </div>
+
           <PaginationControls
             currentPage={currentPage}
             totalPages={totalPages}
@@ -224,48 +214,78 @@ const AdminProducts = () => {
           />
         </>
       )}
-      {showModal && (
-        <Modal isOpen={showModal} onClose={closeModal}>
-          <ProductForm
-            initialData={editingProduct || {}}
-            isSubmitting={isSubmitting}
-            onCancel={closeModal}
-            onSubmit={handleSave}
-          />
+
+      {addTypeModal && (
+        <Modal isOpen={addTypeModal} onClose={() => setAddTypeModal(false)}>
+          <div className='add-type-container'>
+          <div className='add-type-modal'>
+            <h3 className='admin-add-title'>Add New</h3>
+            <div className='add-type-buttons'>
+              <Button className='admin-add-button'
+                variant='primary'
+                onClick={() => {
+                  setAddType('product')
+                  setAddTypeModal(false)
+                  openModal(null)
+                }}
+              >
+            Product
+            <img className='admin-add-img' src= "https://cdn-icons-png.flaticon.com/128/12517/12517897.png" />
+              </Button>
+
+              <Button className='admin-add-button'
+                variant='primary'
+                onClick={() => {
+                  setAddType('dog')
+                  setAddTypeModal(false)
+                  setShowModal(true)
+                }}
+              >
+              Dog
+              <img className= 'admin-add-img' src= "https://cdn-icons-png.flaticon.com/512/181/181867.png"/>
+              </Button>
+            </div>
+          </div>
+          </div>
         </Modal>
       )}
+
+      {showModal && (
+        <Modal isOpen={showModal} onClose={closeModal}>
+          {addType === 'product' ? (
+            <ProductForm
+              initialData={editingProduct || {}}
+              isSubmitting={isSubmitting}
+              onCancel={closeModal}
+              onSubmit={handleSaveProduct}
+            />
+          ) : (
+            <DogForm className= 'dog-form'
+              initialData={{}}
+              isSubmitting={isSubmitting}
+              onCancel={closeModal}
+              onSubmit={handleSaveDog}
+            />
+          )}
+        </Modal>
+      )}
+
       {deleteModal && (
         <Modal isOpen={deleteModal} onClose={closeDeleteModal}>
           <div className='delete-modal-content'>
             <h3>Confirm Delete</h3>
-            <p>
-              Are you sure you want to delete{' '}
-              <strong>{selectedProduct?.name}</strong>?
-            </p>
+            <p>Are you sure you want to delete <strong>{selectedProduct?.name}</strong>?</p>
             <div className='modal-buttons'>
-              <Button
-                variant='secondary'
-                className='confirm-btn'
-                onClick={handleDelete}
-                loading={isDeleting}
-                loadingText='Deleting'
-                showSpinner
-              >
+              <Button variant='secondary' className='confirm-btn' onClick={handleDelete} loading={isDeleting} loadingText='Deleting' showSpinner>
                 Delete
               </Button>
-              <Button
-                variant='primary'
-                className='cancel-btn'
-                onClick={closeDeleteModal}
-              >
-                Cancel
-              </Button>
+              <Button variant='primary' className='cancel-btn' onClick={closeDeleteModal}>Cancel</Button>
             </div>
           </div>
         </Modal>
       )}
-      <Footer openModal={openModal} />
-     
+
+      <Footer openModal={() => setAddTypeModal(true)} />
     </div>
   )
 }

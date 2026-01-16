@@ -1,5 +1,5 @@
 import './FilterControls.css'
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import Button from '../components/Buttons/Button'
 
 const FilterControls = ({

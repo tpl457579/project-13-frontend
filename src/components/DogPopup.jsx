@@ -1,4 +1,3 @@
-import React from 'react'
 import Modal from '../components/Modal/Modal'
 import '../Pages/SuitableDog/SuitableDog.css'
 
@@ -40,7 +39,7 @@ const DogPopup = ({ isOpen, closePopup, dog }) => {
             )}
             {dog.life_span && (
               <p>
-                <strong>Life Span:</strong> {dog.life_span} years
+                <strong>Life Span:</strong> {dog.life_span}
               </p>
             )}
           </div>

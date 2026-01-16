@@ -1,5 +1,5 @@
 import './Home.css'
-import React, { useEffect, useState, useCallback, useMemo } from 'react'
+import { useEffect, useState, useCallback, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../../components/Buttons/Button'
 import { showPopup } from '../../components/ShowPopup/ShowPopup'

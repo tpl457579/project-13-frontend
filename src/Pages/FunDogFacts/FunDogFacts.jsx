@@ -1,5 +1,5 @@
 import './FunDogFacts.css'
-import React, { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import Button from '../../components/Buttons/Button.jsx'
 import Spinner from '../../components/Spinner/Spinner.jsx'
 

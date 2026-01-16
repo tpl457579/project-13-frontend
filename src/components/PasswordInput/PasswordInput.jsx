@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import './PasswordInput.css'
 
 const PasswordInput = ({ value, onChange, placeholder = 'Password', name }) => {

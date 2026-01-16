@@ -1,5 +1,5 @@
 import './SuitableDog.css'
-import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import DogLoader from '../../components/DogLoader/DogLoader'
 import Button from '../../components/Buttons/Button'
 import { useModal } from '../../Hooks/useModal.js'

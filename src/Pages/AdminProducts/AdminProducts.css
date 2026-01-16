@@ -122,7 +122,47 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
+.add-type-container {
+  display: flex;
+  justify-content: center;
+  width: 200px;
+  height: 350px;
+  border: 1px solid var(--button-border-color);
+  border-radius: 10px;
+  background: var(--background-color);
+  color: var(--text-color);
+}
+
+.admin-add-title {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.admin-add-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 150px;
+  height: 140px;
+}
+
+.add-type-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.admin-add-img {
+  width: 100px;
+  filter: invert(0.7);
+}
+
 .modal-content {
+  display: flex;
+  flex-direction: column;
+  gap:20px;
+  align-items: center;
   background-color: var(--background-color);
   color: var(--text-color);
   border: 2px solid var(--button-border-color);

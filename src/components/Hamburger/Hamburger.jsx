@@ -1,5 +1,5 @@
 import './Hamburger.css'
-import React, {
+import  {
   useContext,
   useState,
   useEffect,

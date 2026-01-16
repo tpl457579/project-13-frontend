@@ -17,9 +17,6 @@ export const Footer = ({ openModal }) => {
   const isAdmin = user?.role === 'admin'
   const isOnAdminPage = location.pathname.startsWith('/admin')
 
-  console.log("USER:", user)
-console.log("ROLE:", user?.role)
-
 
   return (
     <footer className='footer-container'>

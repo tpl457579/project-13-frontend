@@ -1,5 +1,5 @@
 import './DogSearch.css'
-import React, { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import DogLoader from '../../components/DogLoader/DogLoader'
 import SearchBar from '../../components/SearchBar/SearchBar.jsx'
 import PaginationControls from '../../components/PaginationControls/PaginationControls.jsx'

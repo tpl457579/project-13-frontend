@@ -1,5 +1,5 @@
 import './GuessTheDog.css'
-import React, {
+import {
   useEffect,
   useReducer,
   useCallback,
