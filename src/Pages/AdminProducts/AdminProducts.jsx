@@ -77,8 +77,9 @@ const AdminProducts = () => {
     async function fetchDogs() {
       setDogsLoading(true)
       try {
-        const res = await apiFetch('/dogs')
-        setDogs(res?.data || res || [])
+  const res = await apiFetch('/dogs')
+setDogs(Array.isArray(res?.dogs) ? res.dogs : [])
+
       } catch (e) {
         setDogsError('Failed to fetch dogs')
       } finally {
