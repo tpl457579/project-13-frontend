@@ -67,7 +67,7 @@ const Home = () => {
 
   return (
     <div className='home-container'>
-      <h1>Welcome Dog Lovers!</h1>
+      <h1 className='home-h1'>Welcome Dog Lovers!</h1>
       <div className='home'>
         <img
           className='home-img'

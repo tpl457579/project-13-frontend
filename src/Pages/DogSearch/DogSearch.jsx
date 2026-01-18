@@ -2,7 +2,6 @@ import './DogSearch.css'
 import { useState, useEffect, useMemo } from 'react'
 import DogLoader from '../../components/DogLoader/DogLoader'
 import SearchBar from '../../components/SearchBar/SearchBar.jsx'
-import PaginationControls from '../../components/PaginationControls/PaginationControls.jsx'
 import DogPopup from '../../components/DogPopup.jsx'
 
 const ITEMS_PER_PAGE = 8
@@ -18,13 +17,17 @@ const getSize = (dog) => {
 }
 
 export default function DogSearchPaginated() {
-  const [dogs, setDogs] = useState(null)
+  const [dogs, setDogs] = useState([])
   const [loading, setLoading] = useState(true)
+
   const [search, setSearch] = useState('')
-  const [sizeFilter, setSizeFilter] = useState('all')
-  const [temperamentFilter, setTemperamentFilter] = useState('all')
+  const [sizeFilter, setSizeFilter] = useState('All')
+  const [temperamentFilter, setTemperamentFilter] = useState('All')
   const [temperaments, setTemperaments] = useState([])
-  const [currentPage, setCurrentPage] = useState(1)
+  const [letterFilter, setLetterFilter] = useState('All')
+  const [loadedCount, setLoadedCount] = useState(ITEMS_PER_PAGE)
+  const [lettersOpen, setLettersOpen] = useState(false)
+
   const [selectedDog, setSelectedDog] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -40,7 +43,6 @@ export default function DogSearchPaginated() {
           .filter((d) => d.id != null)
           .map((d) => ({ ...d, dogSize: getSize(d) }))
         setDogs(validDogs)
-
         const allTemps = validDogs.flatMap((d) =>
           d.temperament ? d.temperament.split(',').map((t) => t.trim()) : []
         )
@@ -61,27 +63,25 @@ export default function DogSearchPaginated() {
   }, [])
 
   const filteredDogs = useMemo(() => {
-    if (!dogs) return []
     return dogs.filter((dog) => {
       const matchesSearch = dog.name
         .toLowerCase()
         .includes(search.toLowerCase())
-      const matchesSize = sizeFilter === 'all' || dog.dogSize === sizeFilter
+      const matchesSize = sizeFilter === 'All' || dog.dogSize === sizeFilter
       const matchesTemp =
-        temperamentFilter === 'all' ||
+        temperamentFilter === 'All' ||
         (dog.temperament &&
           dog.temperament
             .toLowerCase()
             .includes(temperamentFilter.toLowerCase()))
-      return matchesSearch && matchesSize && matchesTemp
+      const matchesLetter =
+        letterFilter === 'All' ||
+        dog.name[0].toLowerCase() === letterFilter.toLowerCase()
+      return matchesSearch && matchesSize && matchesTemp && matchesLetter
     })
-  }, [dogs, search, sizeFilter, temperamentFilter])
+  }, [dogs, search, sizeFilter, temperamentFilter, letterFilter])
 
-  const totalPages = Math.ceil(filteredDogs.length / ITEMS_PER_PAGE)
-  const currentDogs = filteredDogs.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
-  )
+  const visibleDogs = filteredDogs.slice(0, loadedCount)
 
   const openModal = (dog) => {
     setSelectedDog(dog)
@@ -93,34 +93,35 @@ export default function DogSearchPaginated() {
     setIsModalOpen(false)
   }
 
-  if (loading || !dogs) return <DogLoader />
+  if (loading) return <DogLoader />
 
   return (
-    <div className='dog-search-container'>
-      <h1>Dog Breed Lookup</h1>
+    <div className='dog-search-layout'>
+      <main className='dog-search-main'>
+        <h1 className='dog-search-h1'>Dog Breed Lookup</h1>
 
-      <div>
         <SearchBar
           value={search}
           onChange={(e) => {
             setSearch(e.target.value)
-            setCurrentPage(1)
+            setLoadedCount(ITEMS_PER_PAGE)
           }}
           placeholder='Search breed...'
         />
+
         <div className='filters'>
           <select
             className='filter-select-dog-search'
             value={sizeFilter}
             onChange={(e) => {
               setSizeFilter(e.target.value)
-              setCurrentPage(1)
+              setLoadedCount(ITEMS_PER_PAGE)
             }}
           >
-            <option value='all'>All Sizes</option>
+            <option value='All'>All Sizes</option>
             <option value='small'>Small</option>
-            <option value='medium'>Medium </option>
-            <option value='large'>Large </option>
+            <option value='medium'>Medium</option>
+            <option value='large'>Large</option>
           </select>
 
           <select
@@ -128,10 +129,10 @@ export default function DogSearchPaginated() {
             value={temperamentFilter}
             onChange={(e) => {
               setTemperamentFilter(e.target.value)
-              setCurrentPage(1)
+              setLoadedCount(ITEMS_PER_PAGE)
             }}
           >
-            <option value='all'>Temperaments</option>
+            <option value='All'>Temperaments</option>
             {temperaments.map((t) => (
               <option key={t} value={t}>
                 {t}
@@ -139,39 +140,77 @@ export default function DogSearchPaginated() {
             ))}
           </select>
         </div>
-      </div>
-      <h3>Click on the dogs to learn more</h3>
 
-      {currentDogs.length === 0 ? (
-        <p className='resultsText'>No dog breeds match your search.</p>
-      ) : (
-        <div className='dog-search-grid'>
-          {currentDogs.map((dog) => (
-            <div
-              key={dog.id}
-              className='dogCard'
-              onClick={() => openModal(dog)}
-            >
-              {dog.image_link && (
-                <img src={dog.image_link} alt={dog.name} className='dogImg' />
-              )}
-              <h3>{dog.name}</h3>
-            </div>
-          ))}
-        </div>
-      )}
+        <h3>Click on the dogs to learn more</h3>
 
-      <PaginationControls
-        currentPage={currentPage}
-        totalPages={totalPages}
-        goPrev={() => setCurrentPage((p) => Math.max(1, p - 1))}
-        goNext={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-      />
-      <DogPopup
-        isOpen={isModalOpen}
-        closePopup={closeModal}
-        dog={selectedDog}
-      />
-    </div>
+        {visibleDogs.length === 0 ? (
+          <p className='resultsText'>No dog breeds match your search.</p>
+        ) : (
+          <div className='dog-search-grid'>
+            {visibleDogs.map((dog) => (
+              <div
+                key={dog.id}
+                className='dogCard'
+                onClick={() => openModal(dog)}
+              >
+                {dog.image_link && (
+                  <img
+                    src={dog.image_link}
+                    alt={dog.name}
+                    className='dogImg'
+                  />
+                )}
+                <h3>{dog.name}</h3>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {loadedCount < filteredDogs.length && (
+          <button
+            className='load-more-btn'
+            onClick={() =>
+              setLoadedCount((prev) => prev + ITEMS_PER_PAGE)
+            }
+          >
+            Load More Dogs
+          </button>
+        )}
+
+        <DogPopup
+          isOpen={isModalOpen}
+          closePopup={closeModal}
+          dog={selectedDog}
+        />
+      </main>
+
+      <div className="alphabet-container">
+  <button
+    className="alphabet-toggle-btn"
+    onClick={() => setLettersOpen(!lettersOpen)}
+  >
+    <img className='az-img' src='https://cdn-icons-png.flaticon.com/128/11449/11449637.png'/>
+  </button>
+
+  <div className={`alphabet-letters ${lettersOpen ? 'open' : ''}`}>
+    {['All', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')].map((letter) => (
+      <button
+        key={letter}
+        className={`alphabet-btn ${
+          letterFilter === letter ? 'active' : ''
+        }`}
+        onClick={() => {
+          setLetterFilter(letter)
+          setLoadedCount(ITEMS_PER_PAGE)
+        }}
+      >
+        {letter}
+      </button>
+    ))}
+  </div>
+</div>
+
+     </div>
+   
   )
 }

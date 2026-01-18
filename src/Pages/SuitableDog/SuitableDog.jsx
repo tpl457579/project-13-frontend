@@ -213,7 +213,10 @@ export default function SuitableDog() {
                     className='suitable-dog-img'
                   />
                 )}
-                <h3 style={{ fontSize: '16px' }}>{dog.name}</h3>
+                <h3>
+  {dog?.name}
+</h3>
+
                 <p>
                   <strong>Total Match:</strong> {dog.score}%
                 </p>
