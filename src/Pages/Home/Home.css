@@ -1,4 +1,6 @@
-
+.home-container{
+  margin-top:10svh
+}
 
 .home-h1 {
   color: var(--text-color);
@@ -56,7 +58,6 @@
 .fun-options {
   display: flex;
   align-items: center;
-  gap: 10px;
   margin-top: 20px;
   opacity: 0;
 }
@@ -159,10 +160,10 @@
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 400px) {
   .home-img {
-    width: 300px;
-    height: 300px;
+    width: 280px;
+    height: 280px;
   }
 }
 .fun-options > .home-btn {
@@ -193,26 +194,6 @@
     margin: 0px;
   }
 
-  .score-lives {
-    width: 100px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    align-content: space-between;
-    flex-direction: column;
-  }
-
-  .pause-btn {
-    transform: translateX(50%);
-    position: absolute;
-    top: 30svh;
-    right: 10svw;
-    background: var(--fill-button-color);
-    color: #f6f0f6;
-    transition: all 0.1s ease;
-    width: 40px;
-    height: 34px;
-  }
   .home-buttons {
     display: flex;
     width: 32%;

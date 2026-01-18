@@ -1,8 +1,9 @@
 import './DogSearch.css'
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import DogLoader from '../../components/DogLoader/DogLoader'
 import SearchBar from '../../components/SearchBar/SearchBar.jsx'
 import DogPopup from '../../components/DogPopup.jsx'
+import { useDogFilters } from '../../Hooks/useDogFilters.js'
 
 const ITEMS_PER_PAGE = 8
 
@@ -19,15 +20,8 @@ const getSize = (dog) => {
 export default function DogSearchPaginated() {
   const [dogs, setDogs] = useState([])
   const [loading, setLoading] = useState(true)
-
-  const [search, setSearch] = useState('')
-  const [sizeFilter, setSizeFilter] = useState('All')
-  const [temperamentFilter, setTemperamentFilter] = useState('All')
   const [temperaments, setTemperaments] = useState([])
-  const [letterFilter, setLetterFilter] = useState('All')
-  const [loadedCount, setLoadedCount] = useState(ITEMS_PER_PAGE)
   const [lettersOpen, setLettersOpen] = useState(false)
-
   const [selectedDog, setSelectedDog] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -35,14 +29,13 @@ export default function DogSearchPaginated() {
     async function fetchDogs() {
       try {
         setLoading(true)
-        const res = await fetch(
-          'https://dog-character-api.onrender.com/api/dogs'
-        )
+        const res = await fetch('https://dog-character-api.onrender.com/api/dogs')
         const data = await res.json()
         const validDogs = data
           .filter((d) => d.id != null)
           .map((d) => ({ ...d, dogSize: getSize(d) }))
         setDogs(validDogs)
+
         const allTemps = validDogs.flatMap((d) =>
           d.temperament ? d.temperament.split(',').map((t) => t.trim()) : []
         )
@@ -62,26 +55,21 @@ export default function DogSearchPaginated() {
     fetchDogs()
   }, [])
 
-  const filteredDogs = useMemo(() => {
-    return dogs.filter((dog) => {
-      const matchesSearch = dog.name
-        .toLowerCase()
-        .includes(search.toLowerCase())
-      const matchesSize = sizeFilter === 'All' || dog.dogSize === sizeFilter
-      const matchesTemp =
-        temperamentFilter === 'All' ||
-        (dog.temperament &&
-          dog.temperament
-            .toLowerCase()
-            .includes(temperamentFilter.toLowerCase()))
-      const matchesLetter =
-        letterFilter === 'All' ||
-        dog.name[0].toLowerCase() === letterFilter.toLowerCase()
-      return matchesSearch && matchesSize && matchesTemp && matchesLetter
-    })
-  }, [dogs, search, sizeFilter, temperamentFilter, letterFilter])
-
-  const visibleDogs = filteredDogs.slice(0, loadedCount)
+  const {
+    search,
+    setSearch,
+    size,
+    setSize,
+    temperament,
+    setTemperament,
+    letter,
+    setLetter,
+    filteredDogs,
+    visibleDogs,
+    loadedCount,
+    setLoadedCount,
+    clearFilters
+  } = useDogFilters(dogs)
 
   const openModal = (dog) => {
     setSelectedDog(dog)
@@ -112,9 +100,9 @@ export default function DogSearchPaginated() {
         <div className='filters'>
           <select
             className='filter-select-dog-search'
-            value={sizeFilter}
+            value={size}
             onChange={(e) => {
-              setSizeFilter(e.target.value)
+              setSize(e.target.value)
               setLoadedCount(ITEMS_PER_PAGE)
             }}
           >
@@ -126,9 +114,9 @@ export default function DogSearchPaginated() {
 
           <select
             className='filter-select-dog-search'
-            value={temperamentFilter}
+            value={temperament}
             onChange={(e) => {
-              setTemperamentFilter(e.target.value)
+              setTemperament(e.target.value)
               setLoadedCount(ITEMS_PER_PAGE)
             }}
           >
@@ -139,6 +127,10 @@ export default function DogSearchPaginated() {
               </option>
             ))}
           </select>
+
+          <button className='clear-filters-btn' onClick={clearFilters}>
+            Clear Filters
+          </button>
         </div>
 
         <h3>Click on the dogs to learn more</h3>
@@ -184,33 +176,32 @@ export default function DogSearchPaginated() {
         />
       </main>
 
-      <div className="alphabet-container">
-  <button
-    className="alphabet-toggle-btn"
-    onClick={() => setLettersOpen(!lettersOpen)}
-  >
-    <img className='az-img' src='https://cdn-icons-png.flaticon.com/128/11449/11449637.png'/>
-  </button>
+      <div className='alphabet-container'>
+        <button
+          className='alphabet-toggle-btn'
+          onClick={() => setLettersOpen(!lettersOpen)}
+        >
+          <img
+            className='az-img'
+            src='https://cdn-icons-png.flaticon.com/128/11449/11449637.png'
+          />
+        </button>
 
-  <div className={`alphabet-letters ${lettersOpen ? 'open' : ''}`}>
-    {['All', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')].map((letter) => (
-      <button
-        key={letter}
-        className={`alphabet-btn ${
-          letterFilter === letter ? 'active' : ''
-        }`}
-        onClick={() => {
-          setLetterFilter(letter)
-          setLoadedCount(ITEMS_PER_PAGE)
-        }}
-      >
-        {letter}
-      </button>
-    ))}
-  </div>
-</div>
-
-     </div>
-   
+        <div className={`alphabet-letters ${lettersOpen ? 'open' : ''}`}>
+          {[...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')].map((l) => (
+            <button
+              key={l}
+              className={`alphabet-btn ${letter === l ? 'active' : ''}`}
+              onClick={() => {
+                setLetter(l)
+                setLoadedCount(ITEMS_PER_PAGE)
+              }}
+            >
+              {l}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
   )
 }
