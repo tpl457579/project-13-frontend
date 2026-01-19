@@ -14,7 +14,6 @@ import Button from '../../components/Buttons/Button.jsx'
 import Modal from '../../components/Modal/Modal.jsx'
 import { apiFetch } from '../../components/apiFetch.js'
 import { Footer } from '../../components/Footer/Footer.jsx'
-import { usePagination as useDogsPagination } from '../../Hooks/usePagination.js'
 
 const PLACEHOLDER = './assets/images/placeholder.png'
 
@@ -33,6 +32,7 @@ const AdminProducts = () => {
   const [addType, setAddType] = useState(null)
   const [activeTab, setActiveTab] = useState('products')
   const [searchDogsTerm, setSearchDogsTerm] = useState('')
+  const [dogDetailsOpen, setDogDetailsOpen] = useState({})
 
   const {
     searchTerm,
@@ -63,23 +63,17 @@ const AdminProducts = () => {
     totalPages: dogTotalPages,
     currentPage: dogCurrentPage,
     setPage: setDogPage
-  } = useDogsPagination(filteredDogs, 8)
+  } = usePagination(filteredDogs, 8)
 
-  useEffect(() => {
-    setPage(1)
-  }, [searchTerm, size, maxPrice, minRating, setPage])
-
-  useEffect(() => {
-    setDogPage(1)
-  }, [searchDogsTerm, setDogPage])
+  useEffect(() => { setPage(1) }, [searchTerm, size, maxPrice, minRating, setPage])
+  useEffect(() => { setDogPage(1) }, [searchDogsTerm, setDogPage])
 
   useEffect(() => {
     async function fetchDogs() {
       setDogsLoading(true)
       try {
-  const res = await apiFetch('/dogs')
-setDogs(Array.isArray(res?.dogs) ? res.dogs : [])
-
+        const res = await apiFetch('/dogs')
+        setDogs(Array.isArray(res?.dogs) ? res.dogs : [])
       } catch (e) {
         setDogsError('Failed to fetch dogs')
       } finally {
@@ -113,16 +107,7 @@ setDogs(Array.isArray(res?.dogs) ? res.dogs : [])
 
   const handleSaveProduct = useCallback(
     async ({ name, price, rating, description = '', imageUrl, publicId, url }) => {
-      const payload = {
-        ...(editingItem ? { _id: editingItem._id } : {}),
-        name,
-        rating,
-        price,
-        description,
-        imageUrl,
-        publicId,
-        url
-      }
+      const payload = { ...(editingItem ? { _id: editingItem._id } : {}), name, rating, price, description, imageUrl, publicId, url }
       try {
         const token = localStorage.getItem('token')
         const res = await apiFetch('/products/save', {
@@ -132,10 +117,7 @@ setDogs(Array.isArray(res?.dogs) ? res.dogs : [])
         })
         const product = res?.product || res?.data || res
         setIsSubmitting(true)
-        if (!product?._id) {
-          showPopup('Failed to save product', 'error')
-          return
-        }
+        if (!product?._id) { showPopup('Failed to save product', 'error'); return }
         if (editingItem && editingItem._id) {
           setProducts((prev) => prev.map((p) => (p._id === product._id ? product : p)))
           showPopup('Product edited successfully')
@@ -146,9 +128,7 @@ setDogs(Array.isArray(res?.dogs) ? res.dogs : [])
         closeModal()
       } catch {
         showPopup('Failed to save product', 'error')
-      } finally {
-        setIsSubmitting(false)
-      }
+      } finally { setIsSubmitting(false) }
     },
     [editingItem, closeModal, setProducts]
   )
@@ -175,25 +155,17 @@ setDogs(Array.isArray(res?.dogs) ? res.dogs : [])
     try {
       const token = localStorage.getItem('token')
       if (selectedItem.type === 'product') {
-        await apiFetch(`/products/${selectedItem._id}`, {
-          method: 'DELETE',
-          headers: { Authorization: `Bearer ${token}` }
-        })
+        await apiFetch(`/products/${selectedItem._id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } })
         setProducts((prev) => prev.filter((p) => p._id !== selectedItem._id))
       } else {
-        await apiFetch(`/dogs/${selectedItem._id}`, {
-          method: 'DELETE',
-          headers: { Authorization: `Bearer ${token}` }
-        })
+        await apiFetch(`/dogs/${selectedItem._id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } })
         setDogs((prev) => prev.filter((d) => d._id !== selectedItem._id))
       }
       showPopup(`${selectedItem.type === 'product' ? 'Product' : 'Dog'} deleted successfully`)
       closeDeleteModal()
     } catch {
       showPopup('Failed to delete item', 'error')
-    } finally {
-      setIsDeleting(false)
-    }
+    } finally { setIsDeleting(false) }
   }, [selectedItem, setProducts, closeDeleteModal])
 
   const handleClearFilters = useCallback(() => {
@@ -241,31 +213,75 @@ setDogs(Array.isArray(res?.dogs) ? res.dogs : [])
       )}
 
       {activeTab === 'dogs' && (
-        <>
-          <SearchBar value={searchDogsTerm} onChange={(e) => setSearchDogsTerm(e.target.value)} placeholder='Search dogs...' />
-          {dogsLoading ? <DogLoader /> : dogsError ? <p>{dogsError}</p> : (
-            <>
-              <div className='product-list'>
-                {visibleDogs.length ? visibleDogs.map((dog) => (
-                  <div key={dog._id} className='admin-product-card'>
-                    <img src={dog.image_link || PLACEHOLDER} alt={dog.name} />
-                    <div className='admin-product-card-info'>
-                      <h4>{dog.name}</h4>
-                      {dog.weight && <p>{dog.weight}</p>}
-                      {dog.temperament && <p>{dog.temperament}</p>}
-                      <div className='admin-card-buttons'>
-                        <Button onClick={() => openModal(dog, 'dog')}>Edit</Button>
-                        <Button onClick={() => openDeleteModal(dog, 'dog')}>Delete</Button>
-                      </div>
-                    </div>
+  <>
+    <SearchBar
+      value={searchDogsTerm}
+      onChange={(e) => setSearchDogsTerm(e.target.value)}
+      placeholder='Search dogs...'
+    />
+    {dogsLoading ? (
+      <DogLoader />
+    ) : dogsError ? (
+      <p>{dogsError}</p>
+    ) : (
+      <>
+        <div className='product-list'>
+          {visibleDogs.length ? visibleDogs.map((dog) => (
+            <div key={dog._id} className='admin-dog-card'>
+              <img
+                src={dog.image_link || PLACEHOLDER}
+                alt={dog.name}
+                onError={(e) => (e.target.src = PLACEHOLDER)}
+              />
+              <div className='admin-product-card-info'>
+                <h4>{dog.name}</h4>
+                {dog.weight && <p><strong>Weight:</strong> {dog.weight}</p>}
+                {dog.height && <p><strong>Height:</strong> {dog.height}</p>}
+                {dog.temperament && <p><strong>Temperament:</strong> {dog.temperament}</p>}
+
+                <button
+                  className='toggle-details-btn'
+                  onClick={() =>
+                    setDogDetailsOpen(prev => ({ ...prev, [dog._id]: !prev[dog._id] }))
+                  }
+                >
+                  {dogDetailsOpen[dog._id] ? 'Hide Details ▲' : 'Show Details ▼'}
+                </button>
+
+                {dogDetailsOpen[dog._id] && (
+                  <div className='dog-details-scroll'>
+                    {dog.life_span && <p><strong>Life Span:</strong> {dog.life_span}</p>}
+                    {dog.good_with_children != null && <p><strong>Good with children:</strong> {dog.good_with_children}/10</p>}
+                    {dog.good_with_other_dogs != null && <p><strong>Good with other dogs:</strong> {dog.good_with_other_dogs}/10</p>}
+                    {dog.good_with_strangers != null && <p><strong>Good with strangers:</strong> {dog.good_with_strangers}/10</p>}
+                    {dog.energy != null && <p><strong>Energy:</strong> {dog.energy}/10</p>}
+                    {dog.playfulness != null && <p><strong>Playfulness:</strong> {dog.playfulness}/10</p>}
+                    {dog.protectiveness != null && <p><strong>Protectiveness:</strong> {dog.protectiveness}/10</p>}
+                    {dog.shedding != null && <p><strong>Shedding:</strong> {dog.shedding}/10</p>}
+                    {dog.grooming != null && <p><strong>Grooming:</strong> {dog.grooming}/10</p>}
                   </div>
-                )) : <p>No dogs found.</p>}
+                )}
+
+                <div className='admin-card-buttons'>
+                  <Button onClick={() => openModal(dog, 'dog')}>Edit</Button>
+                  <Button onClick={() => openDeleteModal(dog, 'dog')}>Delete</Button>
+                </div>
               </div>
-              <PaginationControls currentPage={dogCurrentPage} totalPages={dogTotalPages} goPrev={() => setDogPage(dogCurrentPage - 1)} goNext={() => setDogPage(dogCurrentPage + 1)} />
-            </>
+            </div>
+          )) : (
+            <p>No dogs found.</p>
           )}
-        </>
-      )}
+        </div>
+        <PaginationControls
+          currentPage={dogCurrentPage}
+          totalPages={dogTotalPages}
+          goPrev={() => setDogPage(dogCurrentPage - 1)}
+          goNext={() => setDogPage(dogCurrentPage + 1)}
+        />
+      </>
+    )}
+  </>
+)}
 
       {addTypeModal && (
         <Modal isOpen={addTypeModal} onClose={() => setAddTypeModal(false)}>

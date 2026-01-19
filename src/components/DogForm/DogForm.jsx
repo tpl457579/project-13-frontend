@@ -18,13 +18,7 @@ function DropZone({ handleFileChange }) {
       onClick={() => fileInputRef.current.click()}
     >
       <p>Drag & drop an image here, or <span className='browse-link'>browse</span></p>
-      <input
-        type='file'
-        accept='image/*'
-        ref={fileInputRef}
-        onChange={handleFileChange}
-        hidden
-      />
+      <input type='file' accept='image/*' ref={fileInputRef} onChange={handleFileChange} hidden />
     </div>
   )
 }
@@ -67,41 +61,44 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
     { key: 'energy', label: 'Energy (1-10)', type: 'number' }
   ], [])
 
-  const [formData, setFormData] = useState(() => ({
+  const [formData, setFormData] = useState({
     temperament: Array.isArray(initialData.temperament)
       ? initialData.temperament
-      : (initialData.temperament ? String(initialData.temperament).split(',').map(s => s.trim()).filter(Boolean) : []),
+      : initialData.temperament
+        ? String(initialData.temperament).split(',').map(s => s.trim()).filter(Boolean)
+        : [],
     weight: initialData.weight || '',
     height: initialData.height || '',
     life_span: initialData.life_span || '',
-    good_with_children: initialData.good_with_children ?? '',
-    good_with_other_dogs: initialData.good_with_other_dogs ?? '',
-    shedding: initialData.shedding ?? '',
-    grooming: initialData.grooming ?? '',
-    good_with_strangers: initialData.good_with_strangers ?? '',
-    playfulness: initialData.playfulness ?? '',
-    protectiveness: initialData.protectiveness ?? '',
-    energy: initialData.energy ?? ''
-  }))
+    good_with_children: initialData.good_with_children ?? 1,
+    good_with_other_dogs: initialData.good_with_other_dogs ?? 1,
+    shedding: initialData.shedding ?? 1,
+    grooming: initialData.grooming ?? 1,
+    good_with_strangers: initialData.good_with_strangers ?? 1,
+    playfulness: initialData.playfulness ?? 1,
+    protectiveness: initialData.protectiveness ?? 1,
+    energy: initialData.energy ?? 1
+  })
 
   useEffect(() => {
-    setFormData(prev => ({
-      ...prev,
+    setFormData({
       temperament: Array.isArray(initialData.temperament)
         ? initialData.temperament
-        : (initialData.temperament ? String(initialData.temperament).split(',').map(s => s.trim()).filter(Boolean) : prev.temperament),
-      weight: initialData.weight || prev.weight,
-      height: initialData.height || prev.height,
-      life_span: initialData.life_span || prev.life_span,
-      good_with_children: initialData.good_with_children ?? prev.good_with_children,
-      good_with_other_dogs: initialData.good_with_other_dogs ?? prev.good_with_other_dogs,
-      shedding: initialData.shedding ?? prev.shedding,
-      grooming: initialData.grooming ?? prev.grooming,
-      good_with_strangers: initialData.good_with_strangers ?? prev.good_with_strangers,
-      playfulness: initialData.playfulness ?? prev.playfulness,
-      protectiveness: initialData.protectiveness ?? prev.protectiveness,
-      energy: initialData.energy ?? prev.energy
-    }))
+        : initialData.temperament
+          ? String(initialData.temperament).split(',').map(s => s.trim()).filter(Boolean)
+          : [],
+      weight: initialData.weight || '',
+      height: initialData.height || '',
+      life_span: initialData.life_span || '',
+      good_with_children: initialData.good_with_children ?? 1,
+      good_with_other_dogs: initialData.good_with_other_dogs ?? 1,
+      shedding: initialData.shedding ?? 1,
+      grooming: initialData.grooming ?? 1,
+      good_with_strangers: initialData.good_with_strangers ?? 1,
+      playfulness: initialData.playfulness ?? 1,
+      protectiveness: initialData.protectiveness ?? 1,
+      energy: initialData.energy ?? 1
+    })
   }, [initialData])
 
   const [step, setStep] = useState(0)
@@ -109,134 +106,39 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
   const autoTimer = useRef(null)
   const [error, setError] = useState('')
   const skipAutoRef = useRef(false)
-  const skipResetTimer = useRef(null)
-
-  const [openTemperament, setOpenTemperament] = useState(false)
-  const temperamentRef = useRef(null)
 
   useEffect(() => {
     inputRef.current?.focus()
   }, [step])
 
-  useEffect(() => {
-    function handleClickOutside(e) {
-      if (temperamentRef.current && !temperamentRef.current.contains(e.target)) {
-        setOpenTemperament(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
-
-  const clearSkipAuto = () => {
-    if (skipResetTimer.current) clearTimeout(skipResetTimer.current)
-    skipResetTimer.current = setTimeout(() => {
-      skipAutoRef.current = false
-    }, 600)
-  }
-  const markManualNavigation = () => {
-    skipAutoRef.current = true
-    clearSkipAuto()
-  }
-
   const isValidValue = useCallback((value, field) => {
-    if (!field) return false
-    if (field.key === 'weight') {
-      return /^\s*\d+\s*-\s*\d+\s*kg\s*$/i.test(String(value || '').trim())
-    }
-    if (field.key === 'height') {
-      return /^\s*\d+\s*-\s*\d+\s*cm\s*$/i.test(String(value || '').trim())
-    }
-    if (field.key === 'life_span') {
-      return /^\s*\d+\s*-\s*\d+\s*years\s*$/i.test(String(value || '').trim())
-    }
     if (field.type === 'number') {
-      if (value === '' || value === null || value === undefined) return false
       const n = Number(value)
       return Number.isFinite(n) && n >= 1 && n <= 10
     }
+    if (field.key === 'weight') return /^\s*\d+\s*-\s*\d+\s*kg\s*$/i.test(String(value))
+    if (field.key === 'height') return /^\s*\d+\s*-\s*\d+\s*cm\s*$/i.test(String(value))
+    if (field.key === 'life_span') return /^\s*\d+\s*-\s*\d+\s*years\s*$/i.test(String(value))
     return String(value).trim().length > 0
   }, [])
 
   useEffect(() => {
-    const key = fields[step].key
-    const value = formData[key]
+    const field = fields[step]
+    const value = formData[field.key]
     if (autoTimer.current) clearTimeout(autoTimer.current)
-    if (!skipAutoRef.current && isValidValue(value, fields[step]) && step < fields.length - 1) {
-      autoTimer.current = setTimeout(() => {
-        setError('')
-        setStep((s) => Math.min(s + 1, fields.length - 1))
-      }, 450)
+    if (!skipAutoRef.current && isValidValue(value, field) && step < fields.length - 1) {
+      autoTimer.current = setTimeout(() => setStep(s => s + 1), 400)
     }
-    return () => {
-      if (autoTimer.current) clearTimeout(autoTimer.current)
-    }
+    return () => autoTimer.current && clearTimeout(autoTimer.current)
   }, [formData, step, fields, isValidValue])
 
-  const handleFieldChange = useCallback((value) => {
+  const handleFieldChange = (value) => {
     const key = fields[step].key
-    setFormData((prev) => ({ ...prev, [key]: value }))
-    if (error) {
-      const field = fields[step]
-      if (field.type === 'number') {
-        const n = Number(value)
-        if (Number.isFinite(n) && n >= 1 && n <= 10) setError('')
-      } else {
-        if (isValidValue(value, field)) setError('')
-      }
-    }
-  }, [step, fields, error, isValidValue])
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault()
-      const key = fields[step].key
-      const value = formData[key]
-      if (isValidValue(value, fields[step])) {
-        setError('')
-        markManualNavigation()
-        if (step < fields.length - 1) setStep((s) => s + 1)
-        else e.target.form.requestSubmit()
-      } else {
-        if (fields[step].type === 'number') setError('You must insert a number between 1 and 10')
-        else if (fields[step].key === 'weight') setError('Use format 10 - 20 kg')
-        else if (fields[step].key === 'height') setError('Use format 10 - 20 cm')
-        else if (fields[step].key === 'life_span') setError('Use format 10 - 14 years')
-        else setError('This field cannot be empty')
-        inputRef.current?.focus()
-      }
-    }
-    if (e.key === 'ArrowLeft' && step > 0) {
-      markManualNavigation()
-      setStep((s) => s - 1)
-    }
-    if (e.key === 'ArrowRight' && step < fields.length - 1) {
-      const key = fields[step].key
-      const value = formData[key]
-      if (isValidValue(value, fields[step])) {
-        markManualNavigation()
-        setError('')
-        setStep((s) => s + 1)
-      } else {
-        if (fields[step].type === 'number') setError('You must insert a number between 1 and 10')
-        else if (fields[step].key === 'weight') setError('Use format 10 - 20 kg')
-        else if (fields[step].key === 'height') setError('Use format 10 - 20 cm')
-        else if (fields[step].key === 'life_span') setError('Use format 10 - 14 years')
-        else setError('This field cannot be empty')
-        inputRef.current?.focus()
-      }
-    }
+    setFormData(prev => ({ ...prev, [key]: value }))
+    setError('')
   }
 
-  const handleBack = () => {
-    if (step > 0) {
-      setError('')
-      markManualNavigation()
-      setStep((s) => s - 1)
-    }
-  }
-
-  const handleFileChange = useCallback(async (e) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files?.[0]
     if (!file) return
     if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current)
@@ -260,32 +162,26 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
     } finally {
       setUploading(false)
     }
-  }, [])
-
-  const toggleTemperament = (value) => {
-    setFormData(prev => {
-      const set = new Set(prev.temperament || [])
-      if (set.has(value)) set.delete(value)
-      else set.add(value)
-      return { ...prev, temperament: Array.from(set) }
-    })
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const numericKeys = ['good_with_children','good_with_other_dogs','shedding','grooming','good_with_strangers','playfulness','protectiveness','energy']
-    const payload = { name, image_link: imageUrl, imageUrl, publicId, ...formData }
-    numericKeys.forEach((k) => {
-      const v = payload[k]
-      payload[k] = v === '' || v === null || v === undefined ? 0 : Number(v)
+    const payload = {
+      name,
+      image_link: imageUrl,
+      imageUrl,
+      publicId,
+      ...formData
+    }
+    Object.keys(payload).forEach((k) => {
+      if (fields.find(f => f.key === k && f.type === 'number')) {
+        payload[k] = Number(payload[k])
+      }
     })
-    payload.temperament = Array.isArray(payload.temperament) ? Array.from(new Set(payload.temperament)) : []
     await onSubmit(payload)
   }
 
-  const previewSrc = useMemo(() => preview || PLACEHOLDER, [preview])
   const currentField = fields[step]
-  const currentValue = formData[currentField.key]
 
   return (
     <div className='modal-content' onClick={(e) => e.stopPropagation()}>
@@ -294,85 +190,32 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
 
         <div className='dog-layout'>
           <div className='add-dog-image'>
-            <img src={previewSrc} alt='Dog' onError={(e) => (e.target.src = PLACEHOLDER)} />
+            <img src={preview || PLACEHOLDER} alt='Dog' />
           </div>
 
           <div className='dog-fields'>
-            <input
-              type='text'
-              placeholder='Name'
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-
-            <input
-              type='url'
-              placeholder='Image URL'
-              value={imageUrl}
-              onChange={(e) => { setImageUrl(e.target.value); setPreview(e.target.value) }}
-            />
-
-            <div className='temperament-select' ref={temperamentRef}>
-             
-              <button
-                type='button'
-                className='temperament-toggle'
-                aria-haspopup='listbox'
-                aria-expanded={openTemperament}
-                onClick={() => setOpenTemperament((v) => !v)}
-              >
-                {formData.temperament && formData.temperament.length > 0
-                  ? formData.temperament.join(', ')
-                  : 'Select temperaments'}
-              </button>
-
-              {openTemperament && (
-                <div className='temperament-options' role='listbox' aria-multiselectable='true'>
-                  {temperamentOptions.map((t) => {
-                    const checked = (formData.temperament || []).includes(t)
-                    return (
-                      <label key={t} className='temperament-option'>
-                        <input
-                          type='checkbox'
-                          checked={checked}
-                          onChange={() => toggleTemperament(t)}
-                        />
-                        <span>{t}</span>
-                      </label>
-                    )
-                  })}
-                </div>
-              )}
-            </div>
+            <input value={name} onChange={(e) => setName(e.target.value)} placeholder='Name' required />
+            <input value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} placeholder='Image URL' />
           </div>
         </div>
 
         <DropZone handleFileChange={handleFileChange} />
 
-        {uploading && (
-          <div className='metadata-spinner'>
-            <Spinner />
-            <p>Uploading image</p>
-          </div>
-        )}
+        {uploading && <Spinner />}
 
         <div className='theme-field'>
-          <label className='progress-indicator'><span className='progress-text'>{step + 1} / {fields.length}</span></label>
           <input
             ref={inputRef}
             type={currentField.type}
-            value={currentValue}
+            value={formData[currentField.key]}
             onChange={(e) => handleFieldChange(e.target.value)}
-            onKeyDown={handleKeyDown}
             placeholder={currentField.label}
           />
-          {error && <div className='field-error' role='alert'>{error}</div>}
+          {error && <div className='field-error'>{error}</div>}
         </div>
 
         <div className='modal-buttons'>
-          <Button type='button' variant='secondary' onClick={handleBack} disabled={step === 0}>Back</Button>
-          <Button type='submit' variant='primary' loading={isSubmitting || uploading} showSpinner>{initialData._id ? 'Save' : 'Add'}</Button>
+          <Button type='submit' loading={isSubmitting || uploading}>Save</Button>
           <button type='button' onClick={onCancel}>Cancel</button>
         </div>
       </form>
