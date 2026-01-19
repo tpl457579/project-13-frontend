@@ -226,15 +226,15 @@
 }
 
 .dog-details-scroll {
-    max-height: 95px;
+    max-height
+    : 95px;
+    background: var(--background-color);
     overflow-y: auto;
+    border-radius: 10px;
     scrollbar-width: none;
-    z-index: 1;
 }
 
-.dog-details-scroll::-webkit-scrollbar {
-  width: 0;
-}
+
 
 .admin-tabs {
       display: flex;
