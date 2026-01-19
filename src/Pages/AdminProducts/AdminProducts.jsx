@@ -238,7 +238,6 @@ const AdminProducts = () => {
                 {dog.weight && <p><strong>Weight:</strong> {dog.weight}</p>}
                 {dog.height && <p><strong>Height:</strong> {dog.height}</p>}
                 {dog.temperament && <p><strong>Temperament:</strong> {dog.temperament}</p>}
-
                 <button
                   className='toggle-details-btn'
                   onClick={() =>
@@ -247,7 +246,6 @@ const AdminProducts = () => {
                 >
                   {dogDetailsOpen[dog._id] ? 'Hide Details ▲' : 'Show Details ▼'}
                 </button>
-
                 {dogDetailsOpen[dog._id] && (
                   <div className='dog-details-scroll'>
                     {dog.life_span && <p><strong>Life Span:</strong> {dog.life_span}</p>}
@@ -261,27 +259,25 @@ const AdminProducts = () => {
                     {dog.grooming != null && <p><strong>Grooming:</strong> {dog.grooming}/10</p>}
                   </div>
                 )}
-
                 <div className='admin-card-buttons'>
                   <Button onClick={() => openModal(dog, 'dog')}>Edit</Button>
                   <Button onClick={() => openDeleteModal(dog, 'dog')}>Delete</Button>
                 </div>
               </div>
             </div>
-          )) : (
-            <p>No dogs found.</p>
-          )}
+          )) : <p>No dogs found.</p>}
         </div>
         <PaginationControls
           currentPage={dogCurrentPage}
           totalPages={dogTotalPages}
-          goPrev={() => setDogPage(dogCurrentPage - 1)}
-          goNext={() => setDogPage(dogCurrentPage + 1)}
+          goPrev={() => dogCurrentPage > 1 && setDogPage(dogCurrentPage - 1)}
+          goNext={() => dogCurrentPage < dogTotalPages && setDogPage(dogCurrentPage + 1)}
         />
       </>
     )}
   </>
 )}
+
 
       {addTypeModal && (
         <Modal isOpen={addTypeModal} onClose={() => setAddTypeModal(false)}>
