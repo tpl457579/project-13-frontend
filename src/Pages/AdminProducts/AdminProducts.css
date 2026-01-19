@@ -243,6 +243,7 @@
 }
 .admin-tab{
       background: var(--button-color);
+      width: 120px;
     border: 1px solid #8f44ad;
     border-radius: 6px;
     cursor: pointer;
