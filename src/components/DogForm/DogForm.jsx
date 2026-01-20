@@ -48,9 +48,9 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
   ], [])
 
   const fields = useMemo(() => [
-    { key: 'weight', label: 'Weight 10 - 20 kg', type: 'text' },
-    { key: 'height', label: 'Height 10 - 20 cm', type: 'text' },
-    { key: 'life_span', label: 'Life Span 10 - 14 years', type: 'text' },
+    { key: 'weight', label: 'Weight (format 10 - 20 kg)', type: 'text' },
+    { key: 'height', label: 'Height (format 10 - 20 cm)', type: 'text' },
+    { key: 'life_span', label: 'Life Span (format 10 - 14 years)', type: 'text' },
     { key: 'good_with_children', label: 'Good with children (1-10)', type: 'number' },
     { key: 'good_with_other_dogs', label: 'Good with other dogs (1-10)', type: 'number' },
     { key: 'shedding', label: 'Shedding (1-10)', type: 'number' },

@@ -4,6 +4,7 @@ import DogLoader from '../../components/DogLoader/DogLoader'
 import SearchBar from '../../components/SearchBar/SearchBar.jsx'
 import DogPopup from '../../components/DogPopup.jsx'
 import { useDogFilters } from '../../Hooks/useDogFilters.js'
+import { apiFetch } from '../../components/apiFetch.js' // Import your helper
 
 const ITEMS_PER_PAGE = 8
 
@@ -29,15 +30,19 @@ export default function DogSearchPaginated() {
     async function fetchDogs() {
       try {
         setLoading(true)
-        const res = await fetch('https://dog-character-api.onrender.com/api/dogs')
-        const data = await res.json()
-        const validDogs = data
-          .filter((d) => d.id != null)
+        // Switch from external Render API to your internal MongoDB API
+        const res = await apiFetch('/') 
+        
+        // Ensure data is an array (handling different possible API response shapes)
+        const data = res?.dogs || res?.data || res
+        const validDogs = (Array.isArray(data) ? data : [])
           .map((d) => ({ ...d, dogSize: getSize(d) }))
+        
         setDogs(validDogs)
 
+        // Generate temperament list from MongoDB data
         const allTemps = validDogs.flatMap((d) =>
-          d.temperament ? d.temperament.split(',').map((t) => t.trim()) : []
+          d.temperament ? (Array.isArray(d.temperament) ? d.temperament : d.temperament.split(',')).map((t) => t.trim()) : []
         )
         const freqMap = {}
         allTemps.forEach((t) => (freqMap[t] = (freqMap[t] || 0) + 1))
@@ -46,7 +51,8 @@ export default function DogSearchPaginated() {
           .slice(0, 10)
           .map(([temp]) => temp)
         setTemperaments(topTen)
-      } catch {
+      } catch (err) {
+        console.error("Error fetching dogs from MongoDB:", err)
         setDogs([])
       } finally {
         setLoading(false)
@@ -56,14 +62,10 @@ export default function DogSearchPaginated() {
   }, [])
 
   const {
-    search,
-    setSearch,
-    size,
-    setSize,
-    temperament,
-    setTemperament,
-    letter,
-    setLetter,
+    search, setSearch,
+    size, setSize,
+    temperament, setTemperament,
+    letter, setLetter,
     filteredDogs,
     visibleDogs,
     loadedCount,
@@ -122,9 +124,7 @@ export default function DogSearchPaginated() {
           >
             <option value='All'>Temperaments</option>
             {temperaments.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
+              <option key={t} value={t}>{t}</option>
             ))}
           </select>
 
@@ -141,7 +141,7 @@ export default function DogSearchPaginated() {
           <div className='dog-search-grid'>
             {visibleDogs.map((dog) => (
               <div
-                key={dog.id}
+                key={dog._id || dog.id} // MongoDB uses _id
                 className='dogCard'
                 onClick={() => openModal(dog)}
               >
@@ -158,15 +158,17 @@ export default function DogSearchPaginated() {
           </div>
         )}
 
+        <p className='resultsText' style={{ margin: '15px 0' }}>
+          Showing {visibleDogs.length} of {filteredDogs.length} dogs
+        </p>
+
         {loadedCount < filteredDogs.length && (
-          <button
-            className='load-more-btn'
-            onClick={() =>
-              setLoadedCount((prev) => prev + ITEMS_PER_PAGE)
-            }
-          >
-            Load More Dogs
-          </button>
+           <button
+             className='load-more-btn'
+             onClick={() => setLoadedCount((prev) => prev + ITEMS_PER_PAGE)}
+           >
+             Load More Dogs
+           </button>
         )}
 
         <DogPopup
@@ -184,11 +186,12 @@ export default function DogSearchPaginated() {
           <img
             className='az-img'
             src='https://cdn-icons-png.flaticon.com/128/11449/11449637.png'
+            alt="A-Z"
           />
         </button>
 
         <div className={`alphabet-letters ${lettersOpen ? 'open' : ''}`}>
-          {[...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')].map((l) => (
+          {[...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'].map((l) => (
             <button
               key={l}
               className={`alphabet-btn ${letter === l ? 'active' : ''}`}

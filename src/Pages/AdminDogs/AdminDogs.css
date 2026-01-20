@@ -10,22 +10,18 @@
   margin-bottom: 20px;
 }
 
-.admin-product-card-info {
-  width: 70%;
+.admin-dog-card-info {
     display: flex;
-    gap: 5px;
+    gap: 15px;
     padding: 10px;
     font-size: 14px;
-    color: var(--text-color);
     flex-direction: column;
 }
+.admin-dog-card-info p {
+color: var(--text-color);
 
-.admin-product-card-info h4, .admin-product-card-info p{
-
-  color:var(--accent-color)
 }
-
-.product-list {
+.dog-list {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -34,34 +30,26 @@
   align-items: center;
   justify-content: center;
   margin: 0px 20px;
-  margin-bottom: 150px;
+  margin-bottom: 40px;
 }
-
-.pagination-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.pagination-wrapper {
-  display: flex;
-  justify-content: center;
-}
-
 
 .pagination-container {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 20px 0;
-  margin-top: -120px;
-  margin-bottom: 40px;
+  padding: 40px 0;
+  margin-top: 0; /* Changed from -120px to prevent overlapping cards */
   position: relative;
   z-index: 5;
+  clear: both;
 }
-
-.admin-product-card, .admin-dog-card{
+.pagination{
+    width: 100%;
+    height: 250px;
+    display: flex;
+}
+.admin-dog-card{
   position: relative;
   height: 580px;
   width: 320px;
@@ -78,37 +66,19 @@
   margin-bottom: 15px;
 }
 
-.admin-product-card:hover {
+.admin-dog-card:hover {
   transform: translateY(-5px);
 }
 
-.admin-product-card img {
-  width: 240px;
-  height: 240px;
+.admin-dog-card img {
+  width: 100%;
+  height: 300px;
   background: #fff;
   object-fit: contain;
   border-radius: 10px;
   margin-bottom: 10px;
 }
 
-.admin-dog-card img {
-     width: 100%;
-    height: 210px;
-    border-radius: 10px;
-    object-fit: cover;
-}
-
-.admin-dog-card-info {
-    display: flex;
-    gap: 15px;
-    padding: 10px;
-    font-size: 14px;
-    flex-direction: column;
-}
-.admin-dog-card-info p {
-color: var(--text-color);
-
-}
 
 .admin-product-card h2 {
   font-size: 1rem;
@@ -119,13 +89,10 @@ color: var(--text-color);
 .admin-product-card, .admin-dog-card h4 {
   text-align: center;
     font-size: 19px;
-    font-weight: 300;
+    font-weight: 400;
     color: var(--accent-color);
 }
 
-.admin-product-card p {
- font-size: 14px;
-}
 
 .admin-card-buttons {
   position: absolute;
@@ -193,6 +160,9 @@ color: var(--text-color);
   margin-bottom: 10px;
 }
 
+.dog-title-h1 {
+  margin-top: 10svh;
+}
 .admin-add-button {
   display: flex;
   flex-direction: column;
@@ -270,7 +240,38 @@ color: var(--text-color);
   font-size: 0.9rem;
 }
 
+.dog-details-scroll {
+    max-height: 72px;
+    background: var(--background-color);
+    overflow-y: auto;
+    border-radius: 10px;
+    scrollbar-width: none;
+}
 
+/* Target the specific class used in your React component */
+.dog-details-scroll::-webkit-scrollbar {
+  width: 6px; /* Slightly wider for better accessibility */
+}
+
+.dog-details-scroll::-webkit-scrollbar-track {
+  border-radius: 8px;
+  background-color: #f1f1f1;
+  border: 1px solid #e0e0e0;
+}
+
+.dog-details-scroll::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: var(--accent-color, #d55959); /* Use your variable or fallback */
+}
+
+/* Firefox Support */
+.dog-details-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color, #d55959) #f1f1f1;
+}
+.dog-details-scroll p {
+  color: var(--text-color);
+}
 
 .admin-tabs {
       display: flex;
@@ -294,7 +295,18 @@ color: var(--text-color);
     padding: var(--button-padding);
 }
 
+.load-more-btn {
+  background-color: var(--accent-color, #d55959);
+  color: white;
+  border: none;
+  font-weight: bold;
+  transition: transform 0.2s, background-color 0.2s;
+}
 
+.load-more-btn:hover {
+  transform: scale(1.05);
+  background-color: #b04646; /* Slightly darker on hover */
+}
 
 @media (max-width: 952px) {
   .admin-add-btn {

@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation, Navigate } from 'react-router-dom'
 import Header from './components/Header/Header.jsx'
 import Home from './Pages/Home/Home.jsx'
 import GuessTheDog from './Pages/GuessTheDog/GuessTheDog.jsx'
@@ -15,9 +15,12 @@ import AdminProducts from './Pages/AdminProducts/AdminProducts.jsx'
 import DogSearch from './Pages/DogSearch/DogSearch.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import ThemeToggle from './components/ThemeToggle/ThemeToggle.jsx'
-import {Footer} from './components/Footer/Footer.jsx'
+import { Footer } from './components/Footer/Footer.jsx'
+import AdminDogs from './Pages/AdminDogs/AdminDogs.jsx'
 
 const App = () => {
+  const location = useLocation()
+
   return (
     <div>
       <Header />
@@ -33,19 +36,34 @@ const App = () => {
         <Route path='/dog-search' element={<DogSearch />} />
         <Route path='/favourites' element={<FavouritesPage />} />
         <Route path='/profile' element={<Profile />} />
+        
+       
         <Route
-          path='/admin'
+          path='/admin-products'
           element={
             <ProtectedRoute requireAdmin={true}>
               <AdminProducts />
             </ProtectedRoute>
           }
         />
+        <Route
+          path='/admin-dogs'
+          element={
+            <ProtectedRoute requireAdmin={true}>
+              <AdminDogs />
+            </ProtectedRoute>
+          }
+        />
+        
+       
+        <Route path='/admin' element={<Navigate to='/admin-products' replace />} />
       </Routes>
+
       <ThemeToggle />
       <ChatWidget />
-     {!location.pathname.startsWith('/admin') && <Footer />}
+      
 
+      {!location.pathname.startsWith('/admin') && <Footer />}
     </div>
   )
 }

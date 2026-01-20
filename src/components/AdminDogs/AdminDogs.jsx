@@ -4,6 +4,8 @@ import Modal from '../../components/Modal/Modal'
 import Button from '../../components/Buttons/Button'
 import Spinner from '../../components/Spinner/Spinner'
 import { showPopup } from '../../components/ShowPopup/ShowPopup'
+import PaginationControls from '../PaginationControls/PaginationControls'
+
 import './AdminDogs.css'
 
 const PLACEHOLDER = './assets/images/placeholder.png'

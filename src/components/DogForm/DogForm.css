@@ -36,8 +36,12 @@ h3 {
 }
 
 .dog-fields input {
-  background: var(--background-color);
-  color: var(--text-color);
+    background: var(--background-color);
+    color: var(--text-color);
+    border: 1px solid var(--button-border-color);
+    border-radius: 6px;
+    padding-left: 10px;
+    height: 35px;
 }
 
 .modal-content {

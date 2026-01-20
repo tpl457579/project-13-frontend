@@ -26,9 +26,9 @@
 
 .fact-spinner {
   position: absolute;
-  top: 50%;
+  bottom: 50px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%);
   color: var(--accent-color);
 }
 
@@ -49,8 +49,11 @@ left: 50%;
   width: 140px;
   margin-bottom: 15px;
   border: none;
+
 }
 
+
+ 
 @media (max-width: 459px) {
   .new-fact-btn {
     width: 120px;
@@ -58,12 +61,5 @@ left: 50%;
   }
    
 }
-@media screen and (max-width: 941px) and (orientation: landscape) {
-  .dog-fact-container {
-    width: 80%;
-    height: 50svh;
-  }
- .dog-fact-header {
-  margin-bottom: 0px;
- }
-}
+
+

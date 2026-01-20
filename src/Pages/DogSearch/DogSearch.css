@@ -113,7 +113,7 @@ h3 {
 
 .dog-search-main {
   flex: 1;
-  padding: 30px 0px;
+ margin-bottom: 40px;
 }
 
 .az-img {
