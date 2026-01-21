@@ -47,7 +47,7 @@ const AdminDogs = () => {
     async function fetchDogs() {
       try {
         setLoading(true)
-        const res = await apiFetch('/')
+        const res = await apiFetch('/dogs')
         const data = res?.dogs || res?.data || res
         const validDogs = (Array.isArray(data) ? data : [])
           .map((d) => ({ ...d, dogSize: getSize(d) }))
