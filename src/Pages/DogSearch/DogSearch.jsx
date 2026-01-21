@@ -30,17 +30,15 @@ export default function DogSearchPaginated() {
     async function fetchDogs() {
       try {
         setLoading(true)
-        // Switch from external Render API to your internal MongoDB API
-        const res = await apiFetch('/') 
+    
+        const res = await apiFetch('/dogs') 
         
-        // Ensure data is an array (handling different possible API response shapes)
         const data = res?.dogs || res?.data || res
         const validDogs = (Array.isArray(data) ? data : [])
           .map((d) => ({ ...d, dogSize: getSize(d) }))
         
         setDogs(validDogs)
 
-        // Generate temperament list from MongoDB data
         const allTemps = validDogs.flatMap((d) =>
           d.temperament ? (Array.isArray(d.temperament) ? d.temperament : d.temperament.split(',')).map((t) => t.trim()) : []
         )
