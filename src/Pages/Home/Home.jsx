@@ -15,21 +15,21 @@ const Home = () => {
   }, [])
 
   const goTo = useCallback((path) => navigate(path), [navigate])
-  const toggleFunOptions = useCallback(() => setShowFunOptions(true), [])
 
   const requireLogin = useCallback(
-    (path) => {
-      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'
-      if (isLoggedIn) {
-        navigate(path)
-      } else {
-        showPopup('You must register or log in to access this page!')
-        navigate('/login')
-      }
-    },
-    [navigate]
-  )
-
+  (path) => {
+    const user = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
+    
+    if (user || token) {
+      navigate(path);
+    } else {
+      showPopup('You must register or log in to access this page!');
+      navigate('/login');
+    }
+  },
+  [navigate]
+);
   const mainButtons = useMemo(
     () => (
       <>
@@ -43,26 +43,32 @@ const Home = () => {
         <Button
           variant='secondary'
           className='home-btn'
-          onClick={toggleFunOptions}
+          onClick={() => setShowFunOptions(true)}
         >
           Fun Stuff
         </Button>
       </>
     ),
-    [goTo, toggleFunOptions]
+    [goTo]
   )
 
   const funButtons = useMemo(
     () => (
       <div className='fun-options fade-in'>
         <Button onClick={() => goTo('/guess-the-dog')}>Dog Game</Button>
+        
         <Button onClick={() => requireLogin('/suitable-dog')}>
           My Perfect Dog
         </Button>
+        
         <Button onClick={() => goTo('/fun-dog-facts')}>Fun Dog Facts</Button>
+
+        <button className="back-link" onClick={() => setShowFunOptions(false)}>
+          &larr; Back
+        </button>
       </div>
     ),
-    [goTo, requireLogin]
+    [goTo, requireLogin] 
   )
 
   return (
@@ -71,7 +77,7 @@ const Home = () => {
       <div className='home'>
         <img
           className='home-img'
-          src='./assets/images/home-dog-image.jpg'
+          src='/assets/images/home-dog-image.jpg' 
           alt='Cute Dog'
         />
         {showButtons && (

@@ -8,6 +8,7 @@ import Button from '../../components/Buttons/Button.jsx'
 import Modal from '../../components/Modal/Modal.jsx'
 import { apiFetch } from '../../components/apiFetch.js'
 import { showPopup } from '../../components/ShowPopup/ShowPopup.js'
+import { Footer } from '../../components/Footer/Footer.jsx'
 
 import './AdminDogs.css'
 
@@ -181,25 +182,14 @@ const AdminDogs = () => {
           <button className='admin-add-btn' onClick={() => openModal(null)}>+</button>
         </div>
 
-        <p className='resultsText' style={{ margin: '15px 0' }}>
-          Showing {visibleDogs.length} of {filteredDogs.length} dogs
-        </p>
-
-        <div className='product-list'>
+        <div className='dog-list'>
           {visibleDogs.length ? visibleDogs.map(dog => (
             <div key={dog._id} className='admin-dog-card'>
               <img className='admin-dog-card-img' src={dog.image_link || PLACEHOLDER} alt={dog.name} onError={e => e.target.src = PLACEHOLDER} />
               <div className='admin-dog-card-info'>
                 <h4>{dog.name}</h4>
-                <button className='toggle-details-btn' onClick={() => setDogDetailsOpen(p => ({ ...p, [dog._id]: !p[dog._id] }))}>
-                  {dogDetailsOpen[dog._id] ? 'Hide Details ▲' : 'Show Details ▼'}
-                </button>
-                {dogDetailsOpen[dog._id] && (
-                  <div className='dog-details-scroll' id='scrollbar1'>
-                    <p><strong>Size:</strong> {dog.dogSize || 'N/A'}</p>
-                    <p><strong>Temperament:</strong> {Array.isArray(dog.temperament) ? dog.temperament.join(', ') : dog.temperament}</p>
-                  </div>
-                )}
+                 
+                
                 <div className='admin-card-buttons'>
                   <Button onClick={() => openModal(dog)}>Edit</Button>
                   <Button onClick={() => openDeleteModal(dog)}>Delete</Button>
@@ -208,10 +198,13 @@ const AdminDogs = () => {
             </div>
           )) : <p>No dogs found matching your filters.</p>}
         </div>
+        
 
-        <div className='pagination-container'>
+        <div className='dog-pagination-container'>
           <div className='pagination-wrapper'>
-            {loadedCount < filteredDogs.length && (
+             <p className='resultsText' style={{ margin: '15px 0' }}>
+          Showing {visibleDogs.length} of {filteredDogs.length} dogs
+        </p>
               <button
                 className='load-more-btn'
                 onClick={() => setLoadedCount((prev) => prev + ITEMS_PER_PAGE)}
@@ -224,12 +217,12 @@ const AdminDogs = () => {
               >
                 Load More Dogs
               </button>
-            )}
+            
           </div>
         </div>
       </main>
 
-      <div className='alphabet-container'>
+      <div className='dog-alphabet-container'>
         <button className='alphabet-toggle-btn' onClick={() => setLettersOpen(!lettersOpen)}>
           <img className='az-img' src='https://cdn-icons-png.flaticon.com/128/11449/11449637.png' alt="A-Z" />
         </button>
@@ -263,8 +256,11 @@ const AdminDogs = () => {
           </div>
         </Modal>
       )}
+      <Footer openModal={() => openModal(null)} />
     </div>
+    
   )
+  
 }
 
 export default AdminDogs

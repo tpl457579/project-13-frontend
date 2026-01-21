@@ -91,8 +91,6 @@ h3 {
 }
 
 .add-dog-image {
-    width: 190px;
-    height: 190px;
     margin-bottom: 15px;
     object-fit: cover;
     margin-bottom: 10px;

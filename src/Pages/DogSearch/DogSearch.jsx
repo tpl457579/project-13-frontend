@@ -139,7 +139,7 @@ export default function DogSearchPaginated() {
           <div className='dog-search-grid'>
             {visibleDogs.map((dog) => (
               <div
-                key={dog._id || dog.id} // MongoDB uses _id
+                key={dog._id || dog.id} 
                 className='dogCard'
                 onClick={() => openModal(dog)}
               >

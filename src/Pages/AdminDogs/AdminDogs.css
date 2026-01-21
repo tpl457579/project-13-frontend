@@ -21,6 +21,15 @@
 color: var(--text-color);
 
 }
+
+.dog-alphabet-container {
+  position: fixed;
+  right: 18px;
+  top: 135px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .dog-list {
   display: flex;
   flex-wrap: wrap;
@@ -29,29 +38,28 @@ color: var(--text-color);
   align-content: center;
   align-items: center;
   justify-content: center;
-  margin: 0px 20px;
-  margin-bottom: 40px;
+  margin: 20px 0px;
 }
 
-.pagination-container {
+.dog-pagination-container {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 40px 0;
-  margin-top: 0; /* Changed from -120px to prevent overlapping cards */
   position: relative;
   z-index: 5;
   clear: both;
+
 }
-.pagination{
-    width: 100%;
-    height: 250px;
-    display: flex;
+
+.pagination-wrapper{
+  display: flex;
+  flex-direction: column;
 }
+
 .admin-dog-card{
   position: relative;
-  height: 580px;
+  height: 350px;
   width: 320px;
   background-color:var(--background-color);
   border-radius: 12px;
@@ -72,8 +80,6 @@ color: var(--text-color);
 
 .admin-dog-card img {
   width: 100%;
-  height: 300px;
-  background: #fff;
   object-fit: contain;
   border-radius: 10px;
   margin-bottom: 10px;
@@ -95,11 +101,14 @@ color: var(--text-color);
 
 
 .admin-card-buttons {
-  position: absolute;
-  bottom: 15px;
-  right: 55px;
-  display: flex;
-  gap: 10px;
+    width: 100%;
+    position: absolute;
+    bottom: 15px;
+    right: 0px;
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .drop-zone {
@@ -248,9 +257,9 @@ color: var(--text-color);
     scrollbar-width: none;
 }
 
-/* Target the specific class used in your React component */
+
 .dog-details-scroll::-webkit-scrollbar {
-  width: 6px; /* Slightly wider for better accessibility */
+  width: 6px; 
 }
 
 .dog-details-scroll::-webkit-scrollbar-track {
@@ -261,10 +270,10 @@ color: var(--text-color);
 
 .dog-details-scroll::-webkit-scrollbar-thumb {
   border-radius: 8px;
-  background-color: var(--accent-color, #d55959); /* Use your variable or fallback */
+  background-color: var(--accent-color, #d55959); 
 }
 
-/* Firefox Support */
+
 .dog-details-scroll {
   scrollbar-width: thin;
   scrollbar-color: var(--accent-color, #d55959) #f1f1f1;
@@ -296,16 +305,15 @@ color: var(--text-color);
 }
 
 .load-more-btn {
-  background-color: var(--accent-color, #d55959);
-  color: white;
-  border: none;
-  font-weight: bold;
+  color: var(--text-color);
+  border:1px solid var(--accent-color);
+  font-weight: 300;
   transition: transform 0.2s, background-color 0.2s;
 }
 
 .load-more-btn:hover {
   transform: scale(1.05);
-  background-color: #b04646; /* Slightly darker on hover */
+  background-color: var(--fill-button-hover-color);
 }
 
 @media (max-width: 952px) {
@@ -314,61 +322,57 @@ color: var(--text-color);
   }
 }
 
-@media (max-width: 784px) {
-  .admin-product-card {
-    position: relative;
-    width: 80%;
-    height: 280px;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    text-align: center;
-    transition: transform 0.2s;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 15px;
-    margin-bottom: 15px;
-  }
-}
 
-@media (max-width: 740px) {
-  .admin-product-card img {
-    width: 220px;
-    height: 240px;
-  }
-  .admin-product-card-info h4 {
-    font-size: 15px;
-  }
-  .admin-card-buttons {
-    right: 25px;
-  }
-}
 
-@media (max-width: 592px) {
-  .admin-product-card {
+@media (max-width: 760px) {
+ 
+.admin-dog-card {height:300px;
+  width: 250px;
+}
+}
+@media (max-width: 615px) {
+  .admin-dog-card {
     position: relative;
-    height: 600px;
-    width: 320px;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    text-align: center;
-    transition: transform 0.2s;
-    display: flex;
-    gap: 15px;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 15px;
+    height: 260px;
+    width: 210px;
   }
   .admin-card-buttons {
     position: absolute;
     bottom: 15px;
-    right: 55px;
+    right: 0px;
     display: flex;
     gap: 10px;
   }
+  .admin-card-buttons button{
+    width: 80px;
+  }
 }
 
+@media (max-height: 600px){
+  .dog-alphabet-container{
+    top: 60px;
+        right: 14px;
+  }
+}
+
+@media (max-width: 560px){
+
+  .admin-dog-card{
+    width:300px;
+    height: 350px;
+  }
+  .admin-card-buttons button{
+    width: 120px;
+  }
+  .search-bar input {
+    margin-bottom: 0px;
+  }
+  .load-more-btn{
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 450px){
+.admin-tabs{transform: scale(0.8);}
+
+}

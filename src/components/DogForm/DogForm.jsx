@@ -48,9 +48,9 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
   ], [])
 
   const fields = useMemo(() => [
-    { key: 'weight', label: 'Weight (format 10 - 20 kg)', type: 'text' },
-    { key: 'height', label: 'Height (format 10 - 20 cm)', type: 'text' },
-    { key: 'life_span', label: 'Life Span (format 10 - 14 years)', type: 'text' },
+    { key: 'weight', label: 'Weight (e.g. 10 - 20 kg)', type: 'text' },
+    { key: 'height', label: 'Height (e.g. 10 - 20 cm)', type: 'text' },
+    { key: 'life_span', label: 'Life Span (e.g. 10 - 14 years)', type: 'text' },
     { key: 'good_with_children', label: 'Good with children (1-10)', type: 'number' },
     { key: 'good_with_other_dogs', label: 'Good with other dogs (1-10)', type: 'number' },
     { key: 'shedding', label: 'Shedding (1-10)', type: 'number' },
@@ -127,7 +127,7 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
     const value = formData[field.key]
     if (autoTimer.current) clearTimeout(autoTimer.current)
     if (!skipAutoRef.current && isValidValue(value, field) && step < fields.length - 1) {
-      autoTimer.current = setTimeout(() => setStep(s => s + 1), 400)
+      autoTimer.current = setTimeout(() => setStep(s => s + 1), 800)
     }
     return () => autoTimer.current && clearTimeout(autoTimer.current)
   }, [formData, step, fields, isValidValue])
@@ -204,6 +204,7 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
         {uploading && <Spinner />}
 
         <div className='theme-field'>
+          <label className="field-label">{currentField.label}</label>
           <input
             ref={inputRef}
             type={currentField.type}
@@ -214,9 +215,15 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
           {error && <div className='field-error'>{error}</div>}
         </div>
 
+        <div className="step-navigation">
+          <button type="button" disabled={step === 0} onClick={() => setStep(s => s - 1)}>Prev</button>
+          <span>Step {step + 1} of {fields.length}</span>
+          <button type="button" disabled={step === fields.length - 1} onClick={() => setStep(s => s + 1)}>Next</button>
+        </div>
+
         <div className='modal-buttons'>
-          <Button type='submit' loading={isSubmitting || uploading}>Save</Button>
-          <button type='button' onClick={onCancel}>Cancel</button>
+          <Button type='submit' loading={isSubmitting || uploading}>Save Dog</Button>
+          <button type='button' className="cancel-btn" onClick={onCancel}>Cancel</button>
         </div>
       </form>
     </div>
