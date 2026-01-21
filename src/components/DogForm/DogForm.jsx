@@ -29,6 +29,7 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
   const [imageUrl, setImageUrl] = useState(initialData.imageUrl || initialData.image_link || '')
   const [publicId, setPublicId] = useState(initialData.imagePublicId || '')
   const [uploading, setUploading] = useState(false)
+  const [isAutoNavEnabled, setIsAutoNavEnabled] = useState(!initialData._id)
   const previewUrlRef = useRef(null)
 
   useEffect(() => {
@@ -36,16 +37,8 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
     setPreview(initialData.imageUrl || initialData.image_link || '')
     setImageUrl(initialData.imageUrl || initialData.image_link || '')
     setPublicId(initialData.imagePublicId || '')
+    setIsAutoNavEnabled(!initialData._id)
   }, [initialData])
-
-  const temperamentOptions = useMemo(() => [
-    'Stubborn','Curious','Playful','Adventurous','Active','Fun-loving','Aloof','Clownish',
-    'Dignified','Independent','Happy','Outgoing','Friendly','Alert','Confident','Intelligent',
-    'Courageous','Docile','Responsive','Composed','Receptive','Faithful','Affectionate',
-    'Devoted','Loyal','Assertive','Energetic','Gentle','Dominant','Reserved','Protective',
-    'Kind','Sweet-Tempered','Loving','Tenacious','Attentive','Obedient','Trainable','Steady',
-    'Bold','Proud'
-  ], [])
 
   const fields = useMemo(() => [
     { key: 'weight', label: 'Weight (e.g. 10 - 20 kg)', type: 'text' },
@@ -105,7 +98,6 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
   const inputRef = useRef(null)
   const autoTimer = useRef(null)
   const [error, setError] = useState('')
-  const skipAutoRef = useRef(false)
 
   useEffect(() => {
     inputRef.current?.focus()
@@ -123,14 +115,18 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
   }, [])
 
   useEffect(() => {
+    if (!isAutoNavEnabled) return
+
     const field = fields[step]
     const value = formData[field.key]
+    
     if (autoTimer.current) clearTimeout(autoTimer.current)
-    if (!skipAutoRef.current && isValidValue(value, field) && step < fields.length - 1) {
+    
+    if (isValidValue(value, field) && step < fields.length - 1) {
       autoTimer.current = setTimeout(() => setStep(s => s + 1), 800)
     }
     return () => autoTimer.current && clearTimeout(autoTimer.current)
-  }, [formData, step, fields, isValidValue])
+  }, [formData, step, fields, isValidValue, isAutoNavEnabled])
 
   const handleFieldChange = (value) => {
     const key = fields[step].key
@@ -138,32 +134,48 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
     setError('')
   }
 
-  const handleFileChange = async (e) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-    if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current)
-    const localUrl = URL.createObjectURL(file)
-    previewUrlRef.current = localUrl
-    setPreview(localUrl)
-    setUploading(true)
-    try {
-      const cloudName = import.meta.env.VITE_CLOUD_NAME
-      const uploadPreset = import.meta.env.VITE_UPLOAD_PRESET
-      const fd = new FormData()
-      fd.append('file', file)
-      fd.append('upload_preset', uploadPreset)
-      const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, { method: 'POST', body: fd })
-      const data = await res.json()
-      if (data.secure_url) {
-        setImageUrl(data.secure_url)
-        setPublicId(data.public_id)
-        setPreview(data.secure_url)
-      }
-    } finally {
-      setUploading(false)
-    }
+  const handleManualStep = (index) => {
+    setIsAutoNavEnabled(false)
+    setStep(index)
   }
 
+ const handleFileChange = async (e) => {
+  const file = e.target.files?.[0]
+  if (!file) return
+
+  if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current)
+  const localUrl = URL.createObjectURL(file)
+  previewUrlRef.current = localUrl
+  setPreview(localUrl)
+  setUploading(true)
+
+  try {
+    const cloudName = import.meta.env.VITE_CLOUD_NAME
+    const uploadPreset = import.meta.env.VITE_UPLOAD_PRESET
+    
+    const fd = new FormData()
+    fd.append('file', file)
+    fd.append('upload_preset', uploadPreset)
+
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, { 
+      method: 'POST', 
+      body: fd 
+    })
+    
+    const data = await res.json()
+
+    if (data.secure_url) {
+      setImageUrl(data.secure_url)
+      setPublicId(data.public_id)
+      setPreview(data.secure_url)
+    }
+  } catch (err) {
+    console.error("Upload failed:", err)
+    setError("Image upload failed. Please try again.")
+  } finally {
+    setUploading(false)
+  }
+}
   const handleSubmit = async (e) => {
     e.preventDefault()
     const payload = {
@@ -216,9 +228,35 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
         </div>
 
         <div className="step-navigation">
-          <button type="button" disabled={step === 0} onClick={() => setStep(s => s - 1)}>Prev</button>
-          <span>Step {step + 1} of {fields.length}</span>
-          <button type="button" disabled={step === fields.length - 1} onClick={() => setStep(s => s + 1)}>Next</button>
+          <button 
+            type="button" 
+            className="nav-arrow"
+            disabled={step === 0} 
+            onClick={() => handleManualStep(step - 1)}
+          >
+            &larr;
+          </button>
+
+          <div className="step-dots">
+            {fields.map((_, index) => (
+              <button
+                key={index}
+                type="button"
+                className={`step-dot ${index === step ? 'active' : ''}`}
+                onClick={() => handleManualStep(index)}
+                title={`Go to ${fields[index].label}`}
+              />
+            ))}
+          </div>
+
+          <button 
+            type="button" 
+            className="nav-arrow"
+            disabled={step === fields.length - 1} 
+            onClick={() => handleManualStep(step + 1)}
+          >
+            &rarr;
+          </button>
         </div>
 
         <div className='modal-buttons'>
