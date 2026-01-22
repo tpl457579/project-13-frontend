@@ -1,3 +1,14 @@
+.edit-form {
+    height: 82svh;
+    border: 2px solid var(--button-border-color);
+    width: 350px;
+    border-radius: 12px;
+    background: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .admin-products {
   position: relative;
 }
@@ -289,6 +300,22 @@ color: var(--text-color);
     display: flex;
     gap: 10px;
   }
+}
+
+@media (max-height: 520px){
+  .edit-form {
+    border: 2px solid var(--button-border-color);
+    width: 350px;
+    scale: 0.6;
+    border-radius: 12px;
+    background: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.admin-product-card{
+  width: 280px;
+}
 }
 @media (max-width: 508px){
 
