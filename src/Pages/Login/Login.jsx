@@ -7,23 +7,22 @@ import PasswordInput from '../../components/PasswordInput/PasswordInput'
 import { apiFetch } from '../../components/apiFetch'
 import Button from '../../components/Buttons/Button'
 import FormInput from '../../components/FormInput/FormInput'
+import DogIntro from '../../components/DogIntro/DogIntro'
 
 const LoginPage = () => {
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const [isLoggingIn, setIsLoggingIn] = useState(false)
+  
   const { login } = useContext(AuthContext)
   const navigate = useNavigate()
 
-  const handleUserNameChange = useCallback(
-    (e) => setUserName(e.target.value),
-    []
-  )
-  const handlePasswordChange = useCallback(
-    (e) => setPassword(e.target.value),
-    []
-  )
-
+  // Standard change handlers
+  const handleUserNameChange = useCallback((e) => setUserName(e.target.value), [])
+  const handlePasswordChange = useCallback((e) => setPassword(e.target.value), [])
+  
+  // Memoized payload to avoid unnecessary re-renders in child components if passed as props
   const payload = useMemo(() => ({ userName, password }), [userName, password])
 
   const handleLogin = useCallback(
@@ -43,8 +42,7 @@ const LoginPage = () => {
         })
 
         if (!data.user || !data.token) {
-          showPopup('Login failed: incomplete response from server', 'error')
-          return
+          throw new Error('Incomplete response from server')
         }
 
         localStorage.setItem('token', data.token)
@@ -59,16 +57,31 @@ const LoginPage = () => {
         }
 
         login(loggedInUser)
-        showPopup('Logged in successfully', 'success')
-        navigate('/')
+        setIsLoggingIn(true) // Triggers the DogIntro animation
+        
       } catch (err) {
         showPopup(err.message || 'Login failed. Please try again.', 'error')
       } finally {
         setLoading(false)
       }
     },
-    [userName, password, payload, login, navigate]
+    [payload, login] // Simplified dependencies
   )
+
+  // Early return for the "Success Animation" state
+  if (isLoggingIn) {
+    return (
+      <DogIntro 
+        onFinished={() => {
+          navigate('/')
+          // Small delay so the popup appears after the navigation transition
+          setTimeout(() => {
+            showPopup('Logged in successfully', 'success')
+          }, 500)
+        }} 
+      />
+    )
+  }
 
   return (
     <div className='login-container'>
@@ -80,21 +93,23 @@ const LoginPage = () => {
           onChange={handleUserNameChange}
           placeholder='Username'
           required
+          disabled={loading}
         />
 
         <PasswordInput
           name='password'
           value={password}
           onChange={handlePasswordChange}
-          type='password'
           placeholder='Password'
           required
+          disabled={loading}
         />
 
         <Button
           variant='primary'
           className='login-button'
           type='submit'
+          disabled={loading} // Prevent multiple clicks
           loading={loading}
           loadingText='Logging in'
           showSpinner={true}
@@ -102,11 +117,13 @@ const LoginPage = () => {
           Login
         </Button>
       </form>
+      
       <h4>
-        If you dont have an account already{' '}
+        If you don't have an account already{' '}
         <span
           className='login-register-link'
           onClick={() => navigate('/register')}
+          style={{ cursor: 'pointer' }}
         >
           Register here
         </span>
