@@ -99,28 +99,38 @@ const AdminDogs = () => {
   const openDeleteModal = useCallback(dog => { setSelectedDog(dog); setDeleteModal(true) }, [])
   const closeDeleteModal = useCallback(() => { setSelectedDog(null); setDeleteModal(false) }, [])
 
-  const handleSaveDog = async dogData => {
-    setIsSubmitting(true)
-    try {
-      const token = localStorage.getItem('token')
-      const res = await apiFetch('/save', {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${token}` },
-        data: { ...(editingDog ? { _id: editingDog._id } : {}), ...dogData }
-      })
-      const dog = res?.dog || res?.data || res
-      if (editingDog) {
-        setDogs(prev => prev.map(d => d._id === dog._id ? { ...dog, dogSize: getSize(dog) } : d))
-        showPopup('Dog updated successfully')
-      } else {
-        setDogs(prev => [...prev, { ...dog, dogSize: getSize(dog) }])
-        showPopup('Dog added successfully')
-      }
-      closeModal()
-    } catch {
-      showPopup('Failed to save dog', 'error')
-    } finally { setIsSubmitting(false) }
+ const handleSaveDog = async (dogData) => {
+  setIsSubmitting(true)
+  try {
+    const token = localStorage.getItem('token')
+    
+    const res = await apiFetch('/dogs/save', {
+      method: 'POST',
+      headers: { 
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json' 
+      },
+      data: dogData 
+    })
+
+  
+    const dog = res?.dog || res?.data || res
+
+    if (editingDog) {
+      setDogs(prev => prev.map(d => (d._id === dog._id ? { ...dog, dogSize: getSize(dog) } : d)))
+      showPopup('Dog updated successfully')
+    } else {
+      setDogs(prev => [...prev, { ...dog, dogSize: getSize(dog) }])
+      showPopup('Dog added successfully')
+    }
+    closeModal()
+  } catch (err) {
+    console.error("Save Error Detail:", err) 
+    showPopup('Failed to save dog', 'error')
+  } finally {
+    setIsSubmitting(false)
   }
+}
 
   const handleDelete = async () => {
     setIsDeleting(true)

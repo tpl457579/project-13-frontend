@@ -24,12 +24,12 @@ const DogPopup = ({ isOpen, closePopup, dog }) => {
           <div className='popup-text'>
             {dog.weight && (
               <p>
-                <strong>Weight:</strong> {dog.weight} kg
+                <strong>Weight:</strong> {dog.weight} 
               </p>
             )}
             {dog.height && (
               <p>
-                <strong>Height:</strong> {dog.height} cm
+                <strong>Height:</strong> {dog.height} 
               </p>
             )}
             {dog.temperament && (
