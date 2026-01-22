@@ -10,15 +10,6 @@
   margin-bottom: 20px;
 }
 
-.admin-product-card-info {
-  width: 90%;
-    display: flex;
-    gap: 5px;
-    padding: 10px;
-    font-size: 14px;
-    color: var(--text-color);
-    flex-direction: column;
-}
 
 .admin-product-card-info h4, .admin-product-card-info p{
 
@@ -83,11 +74,13 @@
 
 
 
-.admin-dog-card-info {
+.admin-product-card-info {
+  
     display: flex;
-    gap: 15px;
+    gap: 10px;
     padding: 10px;
     font-size: 14px;
+    color: var(--text-color);
     flex-direction: column;
 }
 .admin-dog-card-info p {
@@ -124,6 +117,7 @@ color: var(--text-color);
 
 .drop-zone {
   border-color: var(--button-border-color);
+  margin: 10px 0px;
 }
 
 .drop-zone p {
@@ -200,21 +194,7 @@ color: var(--text-color);
   filter: invert(0.7);
 }
 
-.modal-content {
-  display: flex;
-  flex-direction: column;
-  gap:20px;
-  align-items: center;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  border: 2px solid var(--button-border-color);
-  padding: 20px;
-  border-radius: 12px;
-  width: 100%;
-  margin: auto;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-  animation: fadeIn 0.3s ease;
-}
+
 
 .delete-modal-content {
   width: 90%;
@@ -289,30 +269,9 @@ color: var(--text-color);
   }
 }
 
-@media (max-width: 784px) {
-  .admin-product-card {
-    position: relative;
-    width: 80%;
-    height: 280px;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    text-align: center;
-    transition: transform 0.2s;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 15px;
-    margin-bottom: 15px;
-  }
-}
 
 @media (max-width: 740px) {
-  .admin-product-card img {
-    width: 220px;
-    height: 240px;
-  }
+  
   .admin-product-card-info h4 {
     font-size: 15px;
   }
@@ -322,22 +281,7 @@ color: var(--text-color);
 }
 
 @media (max-width: 615px) {
-  .admin-product-card {
-    position: relative;
-    height: 600px;
-    width: 320px;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    text-align: center;
-    transition: transform 0.2s;
-    display: flex;
-    gap: 15px;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 15px;
-  }
+ 
   .admin-card-buttons {
     position: absolute;
     bottom: 15px;
@@ -346,4 +290,23 @@ color: var(--text-color);
     gap: 10px;
   }
 }
+@media (max-width: 508px){
+
+  .edit-form {
+    display: flex;
+    flex-direction: column;
+        height: 80svh;
+        border-radius: 12px;
+        background: var(--background-color);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 2px solid var(--button-border-color);
+    }
+}
+  .admin-product-card {
+    height: 80svh;
+    width: 320px;
+  }
+
 

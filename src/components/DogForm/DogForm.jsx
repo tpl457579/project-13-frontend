@@ -172,7 +172,7 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
 
   return (
     <div className='modal-content' onClick={(e) => e.stopPropagation()}>
-      <form className='edit-form' onSubmit={handleSubmit}>
+      <form className='dog-edit-form' onSubmit={handleSubmit}>
         <h3>{initialData._id ? 'Edit Dog' : 'Add Dog'}</h3>
         <div className='dog-layout'>
           <div className='add-dog-image'>

@@ -192,21 +192,6 @@ color: var(--text-color);
   filter: invert(0.7);
 }
 
-.modal-content {
-  display: flex;
-  flex-direction: column;
-  gap:20px;
-  align-items: center;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  border: 2px solid var(--button-border-color);
-  padding: 20px;
-  border-radius: 12px;
-  width: 100%;
-  margin: auto;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-  animation: fadeIn 0.3s ease;
-}
 
 .delete-modal-content {
   width: 90%;
@@ -356,6 +341,9 @@ color: var(--text-color);
 }
 
 @media (max-width: 560px){
+  .dog-alphabet-container{
+    right:6px;
+  }
 
   .admin-dog-card{
     width:300px;

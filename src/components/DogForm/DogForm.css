@@ -1,17 +1,24 @@
-.edit-form {
+.dog-edit-form {
   display: flex;
-  width:350px;
+  width: 350px;
+  height: 80svh;
+  align-items: center;
+  background: var(--background-color);
+  border: 2px solid var(--button-border-color);
+  border-radius: 12px;
   flex-direction: column;
   gap:0px
 }
 
 h3 {
-  text-align: center;
-  margin-bottom: 5px;
-  color: var(--text-color);
+    text-align: center;
+    color: var(--accent-color);
+    font-weight: 400;
+    font-size: 20px;
+    margin-bottom: 10px;
 }
 
-.edit-form input[type='text'], .edit-form input[type='number'], .edit-form input[type='file'], .edit-form input[type='url'] {
+.dog-edit-form input[type='text'], .edit-form input[type='number'], .edit-form input[type='file'], .edit-form input[type='url'] {
     padding: 8px 10px;
     border: 1px solid var(--button-border-color);
     background: var(--background-color);
@@ -26,38 +33,31 @@ h3 {
     align-items: center;
 }
 
+.dog-fields{
+  display: flex;
+  gap: 10px;
+}
 .dog-fields input {
+  padding-left: 10px;
     background: var(--background-color);
     color: var(--text-color);
+    width: 100%;
     border: 1px solid var(--button-border-color);
     border-radius: 6px;
-    padding-left: 10px;
     height: 35px;
 }
 
-.modal-content {
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  width: 320px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-  animation: fadeIn 0.3s ease;
-}
 
-.modal-content p {
-  margin-bottom: 15px;
-  font-size: 14px;
-  text-align: center;
-}
 
-.edit-form input[type='text'],
-.edit-form input[type='number'],
-.edit-form input[type='file'],
-.edit-form input[type='url'] {
+.dog-edit-form input[type='text'],
+.dog-edit-form input[type='number'],
+.dog-edit-form input[type='file'],
+.dog-edit-form input[type='url'] {
   padding: 8px 10px;
   border-radius: 6px;
+  width: 90%;
 }
-.edit-form input[type='url'] {
+.dog-edit-form input[type='url'] {
   position: relative;
 }
 .file-label {
@@ -236,6 +236,7 @@ width: 280px;
   display: flex;
   justify-content: center;
   gap: 15px;
+  margin-bottom: 15px;
 }
 
 .modal-buttons button:first-child,
@@ -375,6 +376,7 @@ width: 280px;
 
 
 @media (max-width: 740px) {
+  
   .product-card img {
     width: 220px;
     height: 240px;
@@ -391,8 +393,49 @@ width: 280px;
   }
 }
 
-@media (max-width: 540px) {
- 
+@media (max-height: 520px){
+
+  .dog-edit-form {
+    display: flex;
+    scale: 0.6;
+    height: auto;
+    align-items: center;
+    background: var(--background-color);
+    border: 2px solid var(--button-border-color);
+    border-radius: 12px;
+    flex-direction: column;
+    gap: 0px;
+}
+  .dog-fields {
+    display: flex;
+    width: 110%;
+    gap: 10px;
+    flex-direction: column;
+}
+}
+
+@media (max-width: 476px) {
+  .dog-edit-form {
+    width:320px;
+    height:82svh;
+   
+  }
+
+  .dog-fields {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    flex-direction: column;
+}
+     .drop-zone {
+        height: 45px;
+        margin: auto;
+        width: 90%;
+        margin: 10px 0px;
+    }
+ .drop-zone p{
+  font-size: 12px;
+ }
   .product-card-info h4 {
     font-size: 14px;
   }

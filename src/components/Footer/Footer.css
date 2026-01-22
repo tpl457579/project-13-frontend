@@ -12,7 +12,7 @@
     height: 55px;
     width: 100%;
     border-top: 1px solid var(--button-color);
-    z-index: 10;
+    z-index: 1;
     background-color: var(--background-color);
   }
 
