@@ -3,37 +3,38 @@ import './DogIntro.css'
 
 const DogIntro = ({ onFinished }) => {
   const [isBreaking, setIsBreaking] = useState(false)
-  const colors = ['#FFD700', '#FF4500', '#00BFFF', '#ADFF2F', '#FF69B4', '#FFFFFF',' #8e44ad']
+  const colors = ['#FFD700', '#FF4500', '#00BFFF', '#ADFF2F', '#FF69B4', '#FFFFFF', '#8e44ad']
 
   useEffect(() => {
-  const pulseTimeline = 2200; 
-  
-  const breakTimer = setTimeout(() => {
-    setIsBreaking(true);
-  }, pulseTimeline);
+    const pulseTimeline = 2200; 
+    const explosionDuration = 1200;
 
-  const finishTimer = setTimeout(() => {
-    console.log("Animation finished, calling onFinished..."); 
-  }, pulseTimeline + 1200); 
+    const breakTimer = setTimeout(() => {
+      setIsBreaking(true);
+    }, pulseTimeline);
 
-  return () => {
-    clearTimeout(breakTimer);
-    clearTimeout(finishTimer);
-  };
-}, [onFinished]);
+    const finishTimer = setTimeout(() => {
+      if (onFinished) {
+        onFinished();
+      }
+    }, pulseTimeline + explosionDuration); 
+
+    return () => {
+      clearTimeout(breakTimer);
+      clearTimeout(finishTimer);
+    };
+  }, [onFinished]); 
 
   return (
     <div className={`dog-intro-overlay dark-bg ${isBreaking ? 'shake' : ''}`}>
       <div className="dog-container">
-        {!isBreaking && (
+        {!isBreaking ? (
           <img
             src='./assets/images/dog1.png'
             className='dog-intro-icon'
             alt='Loading...'
           />
-        )}
-        
-        {isBreaking && (
+        ) : (
           <div className="pixel-wrap">
             {[...Array(250)].map((_, i) => (
               <div 
