@@ -2,6 +2,7 @@
   width: 150px;
   filter: invert(1);
   height: 150px;
+  background: none;
   animation: pulse 1s ease-in-out infinite;
   filter: invert(100%);
 }

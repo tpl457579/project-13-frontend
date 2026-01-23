@@ -7,15 +7,15 @@
 }
 .filter select,
 .filter input {
-  padding: var(--button-padding);
-  background: var(--button-color);
+  background: var(--background-color);
   color: var(--text-color);
   border: 1px solid var(--button-border-color);
-  border-radius: var(--button-border-radius);
+  border-radius: 8px;
   font-size: 14px;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
   cursor: pointer;
+  padding-left: 5px;
   width: 150px;
   height: 38px;
 }
@@ -27,21 +27,29 @@
 }
 
 .filter input::placeholder {
-  color: rgb(192, 184, 184);
+  color: var(--placeholder-color);
 }
 
-.filter button {
+.clear-filters-btn {
   width: 120px;
   height: 38px;
   border: none;
 }
 
-@media (max-width: 671px) {
+@media (max-width: 650px){
+
   .filter select,
   .filter input,
   .filter button {
     width: 100px;
     height: 35px;
     font-size: 12px;
+    padding-left: 5px;
+  }
+}
+
+@media (max-width: 520px){
+  .filters {
+    scale:0.8;
   }
 }

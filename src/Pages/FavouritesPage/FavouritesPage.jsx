@@ -3,7 +3,7 @@ import { AuthContext } from '../../components/AuthContext'
 import { useFavourites } from '../../Hooks/useFavourites'
 import { usePagination } from '../../Hooks/usePagination'
 import PaginationControls from '../../components/PaginationControls/PaginationControls'
-import ProductCard from '../../components/ProductCard/ProductCard'
+import FavouriteCard from '../../components/FavouriteCard/FavouriteCard'
 import DogLoader from '../../components/DogLoader/DogLoader'
 import './FavouritesPage.css'
 
@@ -70,7 +70,7 @@ const FavouritesPage = () => {
         <>
           <div className='favourites-products'>
             {currentFavourites.map(({ _id, ...rest }) => (
-              <ProductCard
+              <FavouriteCard className='favourite-card'
                 key={_id}
                 product={{ _id, ...rest }}
                 isFavourite

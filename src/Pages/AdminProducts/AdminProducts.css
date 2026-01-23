@@ -22,7 +22,7 @@
 }
 
 
-.admin-product-card-info h4, .admin-product-card-info p{
+.admin-product-card-info h4{
 
   color:var(--accent-color)
 }
@@ -57,7 +57,7 @@
   position: relative;
   height: 520px;
   width: 320px;
-  background-color:var(--background-color);
+  background:var(--background-color);
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -76,7 +76,7 @@
 
 .admin-product-card img {
   height: 240px;
-  width:320px;
+  width:318px;
   background: #fff;
   object-fit: contain;
   border-radius: 10px;
@@ -100,9 +100,11 @@ color: var(--text-color);
 }
 
 .admin-product-card h2 {
-  font-size: 1rem;
+  font-size: 17px;
+  font-weight: 400;
   margin-bottom: 8px;
   text-align: center;
+  padding: 0px 5px;
 }
 
 .admin-product-card, .admin-dog-card h4 {
@@ -256,7 +258,7 @@ color: var(--text-color);
     justify-content: center;
 }
 .admin-tab{
-      background: var(--button-color);
+      background: var(--background-color);
       width: 120px;
     border: 1px solid #8f44ad;
     border-radius: 6px;

@@ -1,17 +1,19 @@
 .game {
     display: flex;
     width: 100%;
+    height: 90svh;
     position: relative;
     text-align: center;
+    background: var(--background-color);
     padding: 15px;
     flex-direction: column;
     align-items: center;
 }
-
 .game h1 {
-  color: var(--text-color);
+  color: var(--accent-color);
   font-size: 30px;
   text-align: center;
+  font-weight: 400;
   margin-bottom: 15px;
 }
 .score-lives {
@@ -32,6 +34,7 @@
 .game h2 {
   margin-bottom: 70px;
   margin-top: 80px;
+  color: var(--text-color);
 }
 
 .game-text {
@@ -117,10 +120,18 @@
 
 .pause-btn {
   position: absolute;
-  top: 16svh;
+  top: 15svh;
   right: calc(50% - 20px);
   width: 40px;
   height: 32px;
+}
+
+.lucide.lucide-play{
+  background: none;
+}
+
+.lucide.lucide-pause{
+  background: none;
 }
 
 .paused {
@@ -172,7 +183,7 @@
     margin-top: 100px;
   }
 }
-@media (max-width: 900px) {
+@media (max-width: 901px) {
   .dog-grid {
     width: 100%;
   }
@@ -183,7 +194,7 @@
   }
   
   .game h1 {
-    margin-top: 8svh;
+    margin-top: 10svh;
   }
   .game h2 {
     margin-bottom: 20px;
@@ -281,7 +292,7 @@
 }
 
 .game h1 {
-  margin-top: 5svh;
+  margin-top: 9svh;
 
 }
 

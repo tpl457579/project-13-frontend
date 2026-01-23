@@ -13,27 +13,23 @@ h3 {
 }
 
 .edit-form input {
-  width: 90%;
-  margin-bottom: 10px;
-  color:var(--text-color);
-  font-size: 0.9rem;
-  cursor: text;
-}
-
-.edit-form input:hover {
-  border: 1.5px solid var(--button-hover-border-color);
-}
-
-
-.edit-form input[type='text'],
-.edit-form input[type='number'],
-.edit-form input[type='file'],
-.edit-form input[type='url'] {
-     padding: 8px 10px;
+    width: 90%;
+    margin-bottom: 10px;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    padding: 8px 10px;
     background: var(--background-color);
+    cursor: text;
     border: 1px solid var(--button-border-color);
     border-radius: 6px;
 }
+
+
+.edit-form input:hover{
+color: var(--accent-color);
+}
+
+
 
 .file-label {
   font-size: 14px;
@@ -58,17 +54,22 @@ h3 {
   justify-content: center;
 }
 .drop-zone {
-  border: 1px dashed #ccc;
-  border-radius: 10px;
-  padding: 10px;
-  text-align: center;
-  color: var(--button-text-color);
-  cursor: pointer;
-  transition: border-color 0.2s;
+    display: flex;
+    border: 1px dashed var(--button-border-color);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    height: 80px;
+    width: 90%;
+    color: var(--button-text-color);
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: border-color 0.2s;
+    align-items: center;
 }
 
 .drop-zone:hover {
-  border-color: #8e44ad;
+  border-color: var(--accent-color);
 }
 
 .drop-zone p {
@@ -87,7 +88,7 @@ h3 {
 }
 
 .save-btn {
-  background: var(--fill-button-color);
+  background: var(--fill-background-color);
   color: var(--fill-button-text);
   width: 40%;
   border: none;
@@ -107,7 +108,7 @@ h3 {
   border: 0.5px solid var(--button-border-color);
   border-radius: var(--button-border-radius);
   cursor: pointer;
-  background: var(--button-color);
+  background: var(--background-color);
   color: var(--button-text-color);
   transition: background 0.2s ease;
 }
@@ -133,7 +134,7 @@ h3 {
 .modal-buttons button:first-child {
   color: var(--text-color);
   border: 0.5px solid var(--button-border-color);
-  background: var(--button-color);
+  background: var(--background-color);
 }
 
 .modal-buttons button:first-child:hover {
@@ -141,7 +142,7 @@ h3 {
 }
 
 .modal-buttons button:last-child {
-  background: var(--fill-button-color);
+  background: var(--fill-background-color);
   color: var(--fill-button-text);
   border: none;
 }
@@ -181,14 +182,14 @@ h3 {
   font-size: 12px;
   display: inline-block;
   padding: 4px 12px;
-  background-color: var(--fill-button-color);
+  background: var(--fill-background-color);
   color: #fff;
   text-decoration: none;
   border-radius: 4px;
   transition: background-color 0.2s;
 }
 .test-link-btn:hover {
-  background-color: var(--fill-button-hover-color);
+  background: var(--fill-button-hover-color);
 }
 .url-link {
   position: relative;

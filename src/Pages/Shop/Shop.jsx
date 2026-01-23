@@ -7,7 +7,7 @@ import FilterControls from '../../FilterControls/FilterControls.jsx'
 import { useFavourites } from '../../Hooks/useFavourites.js'
 import { usePagination } from '../../Hooks/usePagination.js'
 import PaginationControls from '../../components/PaginationControls/PaginationControls.jsx'
-import ProductCard from '../../components/ProductCard/ProductCard.jsx'
+import ShopProductCard from '../../components/ShopProductCard/ShopProductCard.jsx'
 import SearchBar from '../../components/SearchBar/SearchBar'
 import DogLoader from '../../components/DogLoader/DogLoader.jsx'
 
@@ -85,8 +85,8 @@ const Shop = () => {
             const isDisabled = loadingIds.includes(product._id)
 
             return (
-              <ProductCard
-                className='product-card'
+              <ShopProductCard
+                className='shop-product-card'
                 key={product._id}
                 product={product}
                 isFavourite={isFavourite}

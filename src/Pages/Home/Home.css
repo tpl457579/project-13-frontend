@@ -1,10 +1,15 @@
-.home-container{
-  margin-top:10svh
+.home-container {
+  width: 100%;
+  height: 85svh;
+  background: var(--background-color);
 }
 
+
+
 .home-h1 {
-  color: var(--text-color);
-  margin-top: 5svh;
+  color: var(--accent-color);
+  margin-top: 12svh;
+  font-weight: 400;
   font-size: 30px;
   text-align: center;
 }
@@ -52,7 +57,7 @@
 
 .home-btn:hover {
   transform: scale(1.05);
-  background-color: var(--fill-button-hover-color);
+  background: var(--fill-button-hover-color);
 }
 
 .fun-options {
@@ -64,6 +69,7 @@
 }
 
 .fun-options.fade-in {
+  background: var(--background-color);
   animation: fadeInUp 0.8s ease forwards;
 }
 
@@ -137,6 +143,20 @@
 
 .fun-options button:hover {
   transform: scale(1.05);
+}
+.fun-options > .back-link {
+    width: 100px;
+    color: var(--text-color);
+    background: none;
+    border: 2px solid var(--accent-color);
+}
+
+.back-link:hover{
+   background: linear-gradient(200deg, #8f44ad, #7b3696, #c53dbb, #8f44ad);
+  background-size: 200% 200%;
+  animation: gradientShift 6s ease infinite, pulseGlow 3s ease-in-out infinite;
+  transition: transform 0.3s ease;
+
 }
 
 @media (max-width: 622px) {

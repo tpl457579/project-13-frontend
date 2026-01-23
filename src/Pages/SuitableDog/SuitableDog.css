@@ -11,7 +11,7 @@
 .questionnaire h1 {
   color: var(--text-color);
   font-size: 26px;
-  margin-top: 10svh;
+  margin-top: 3svh;
   padding: 20px;
   text-align: center;
 }
@@ -21,37 +21,40 @@
   font-size: 22px;
 }
 
-.dogCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: var(--text-color);
-  cursor: pointer;
-  justify-content: space-evenly;
-  width: 300px;
-  height: 300px;
-  border-radius: 10px;
-  box-shadow: 0px 1px 3px 0px var(--box-shadow);
-  border-bottom: 1.5px solid rgb(6, 5, 5);
+.suitable-dog-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-color);
+    cursor: pointer;
+    justify-content: flex-start;
+    width: 300px;
+    height: 320px;
+    border-radius: 10px;
+    box-shadow: 0px 1px 3px 0px var(--box-shadow);
+    border-bottom: 1.5px solid rgb(6, 5, 5);
 }
 
-.dogCard h3{
-  color: var(--text-color);
+.suitable-dog-card h3{
+  color: var(--accent-color);
   text-align: center;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 5px;
+  font-size: 20px;
+  font-weight: 400;
+  margin: 10px 0px;
   
 }
-.dogCardInner{
-  height:100%
+
+.suitable-dog-card p {
+  text-align: center;
+  font-size: 14px;
 }
+
 .suitable-dog-img {
   width: 100%;
-  height: 220px;
+  height: 229px;
   object-fit: cover;
   margin-bottom: 10px;
-  border-radius: var(--button-border-radius);
+  border-radius: 12px;
 }
 
 
@@ -88,7 +91,7 @@
         width: 450px;
         margin-top: 0px;
         border: 1px solid var(--button-border-color);
-        max-height: 90svh;
+        height: 90svh;
         position: relative;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         transform: scale(0.8);
@@ -171,20 +174,20 @@
 }
 
 .options {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
 }
 .optionInput {
-  width: 280px;
-  padding: var(--button-padding);
-  border: 0.5px solid var(--input-border-color);
-  cursor: pointer;
-  border-radius: var(--button-border-radius);
-  background-color: var(--button-color);
+    width: 280px;
+    height: 38px;
+    border-radius: 8px;
+    padding: var(--button-padding);
+    border: 0.5px solid var(--input-border-color);
+    cursor: pointer;
 }
 .optionInput:hover {
   border: 1.5px solid #8e44ad;
@@ -207,15 +210,72 @@
     margin-bottom: 40px;
 }
 
-@media (max-width: 580px) {
+@media (max-width: 952px){
+
+.top-dogs h1{ 
+  margin-top: 10svh;
+}
+}
+
+@media (max-width: 750px){
+.suitable-dog-card{
+  width: 240px;
+}
+
+}
+
+@media (max-width: 635px){
+.suitable-dog-card{
+  width: 220px;
+}
+.suitable-dog-card h3{
+  font-size: 20px;
+}
+
+}
+
+@media (max-width: 570px) {
+
+  .suitable-dog-card {
+        width: 320px;
+        justify-content: flex-start;
+        height: 320px;
+        border-radius: 12px;
+  }
+
+  .suitable-dog-popup-content{
+    width:320px;
+    height: 80svh;
+  }
+  
   .suitable-dog-popup-content p {
     padding: 0px;
     margin-bottom: 10px;
   }
-
+.dogImgLarge{
+  width:70%
+}
 }
 
 @media (max-height: 520px) {
+
+.suitable-dog-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-color);
+    cursor: pointer;
+    justify-content: flex-start;
+    width: 240px;
+    height: 310px;
+    border-radius: 10px;
+    box-shadow: 0px 1px 3px 0px var(--box-shadow);
+    border-bottom: 1.5px solid rgb(6, 5, 5);
+}
+
+  .suitable-dog-img {
+    height:180px;
+  }
 .options {
   gap: 10px;
 }
@@ -226,66 +286,36 @@
 .questionnaire h1 {
   font-size: 24px;
   padding: 0px;
-  margin-top: 8svh;
+  margin-top: 12svh;
 }
 .questionnaire h2 {
   font-size: 18px;
   font-weight: 400;
 }
+
+.questionnaire-back-btn{
+  margin-top: 10px;
 }
 
-@media screen and (max-width: 900px) and (orientation: landscape) {
-  .popup-wrapper {
-    display: flex;
-  }
-
-      /* .suitable-dog-popup-content {
-        background: var(--background-color);
-        border-radius: 12px;
-        position: relative;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        text-align: center;
-        animation: popupFadeIn 0.3s forwards;
-        display: flex;
-        flex-direction: column;
-        width: 450px;
-        margin-top: 0px;
-        border: 1px solid var(--button-border-color);
-        max-height: 90svh;
-        position: relative;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        transform: scale(0.8);
-        opacity: 0;
-        animation: popupFadeIn 0.3s forwards;
-    } */
-
-  .suitable-dog-popup-content h2 {
-    margin: 0px;
-  }
-
-  .questionnaire {
-    margin-bottom: 60px;
-  }
-
-  .questionnaire-back-btn {
-    margin-top: 5px;
-  }
-  .popup-heading {
-    margin: 0px;
-  }
-
-  .popup-text {
-        display: flex;
-        flex-direction: column;
-        margin-left: 10px;
-        justify-content: center;
-      
-    }
-
-  .suitable-dog-popup-content p {
-    margin-bottom: 0px;
-    padding: 8px;
-  }
-
- 
+.popup-wrapper {
+  height: 270px;
+  display: flex;
+    align-items: center;
 }
+
+.optionInput{
+  height:26px
+}
+
+
+.suitable-dog-popup-content h2 {
+  margin-bottom: 0px;
+}
+
+.hamburger-menu{
+  height:190px;
+  overflow-y: hidden;
+}
+
+}
+

@@ -143,7 +143,7 @@ const Hamburger = () => {
         className='hamburger-btn'
         onClick={() => setMenuOpen((prev) => !prev)}
       >
-        <FaBars size={28} />
+        <FaBars className='hamburger-bars' size={28} />
       </div>
 
       <ul ref={menuRef} className={`hamburger-menu ${menuOpen ? 'open' : ''}`}>

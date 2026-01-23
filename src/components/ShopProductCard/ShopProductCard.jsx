@@ -3,9 +3,9 @@ import mojs from '@mojs/core'
 import { AuthContext } from '/src/components/AuthContext'
 import { showPopup } from '../ShowPopup/ShowPopup.js'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
-import './ProductCard.css'
+import './ShopProductCard.css'
 
-const ProductCard = ({ product, isFavourite, onToggleFavourite }) => {
+const ShopProductCard = ({ product, isFavourite, onToggleFavourite }) => {
   if (!product || !product._id) return null
   const { user } = useContext(AuthContext)
   const buttonRef = useRef(null)
@@ -74,7 +74,7 @@ const ProductCard = ({ product, isFavourite, onToggleFavourite }) => {
   }
 
   return (
-    <div className='product-card'>
+    <div className='shop-product-card'>
       <a
         href={product.url || '#'}
         target='_blank'
@@ -82,18 +82,18 @@ const ProductCard = ({ product, isFavourite, onToggleFavourite }) => {
         className='product-link'
       >
         <img
-          className='product-card-img'
+          className='shop-product-card-img'
           src={product.imageUrl}
           alt={product.name}
         />
       </a>
 
-      <div className='product-info'>
+      <div className='shop-product-info'>
         <a
           href={product.url || '#'}
           target='_blank'
           rel='noopener noreferrer'
-          className='product-link'
+          className='shop-product-link'
         >
           <h2>{product.name || 'Unnamed'}</h2>
         </a>
@@ -120,4 +120,4 @@ const ProductCard = ({ product, isFavourite, onToggleFavourite }) => {
   )
 }
 
-export default ProductCard
+export default ShopProductCard

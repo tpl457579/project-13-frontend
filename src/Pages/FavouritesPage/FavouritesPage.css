@@ -1,3 +1,9 @@
+.favourites-card {
+  width:320px;
+  height: 500px;
+}
+
+
 .favourites-page h1 {
   color: var(--text-color);
   font-size: 30px;

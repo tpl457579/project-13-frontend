@@ -61,7 +61,7 @@ const FilterControls = ({
 
       <Button
         variant='secondary'
-        className='filter-button'
+        className='clear-filters-button'
         onClick={handleClear}
       >
         Clear Filters

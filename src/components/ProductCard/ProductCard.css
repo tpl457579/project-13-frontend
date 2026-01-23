@@ -60,7 +60,7 @@
   background: red !important;
 }
 
-@media screen and (max-width: 784px) and (orientation: landscape) {
+@media (max-height: 520px) {
   .product-card {
     width: 80%;
     height: 280px;
@@ -68,7 +68,7 @@
     align-items: flex-start;
   }
 
-  .product-img {
+  .product-card-img {
     width: 250px;
     height: 250px;
     object-fit: contain;

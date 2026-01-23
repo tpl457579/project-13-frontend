@@ -18,11 +18,9 @@ const LoginPage = () => {
   const { login } = useContext(AuthContext)
   const navigate = useNavigate()
 
-  // Standard change handlers
   const handleUserNameChange = useCallback((e) => setUserName(e.target.value), [])
   const handlePasswordChange = useCallback((e) => setPassword(e.target.value), [])
-  
-  // Memoized payload to avoid unnecessary re-renders in child components if passed as props
+
   const payload = useMemo(() => ({ userName, password }), [userName, password])
 
   const handleLogin = useCallback(
@@ -57,7 +55,7 @@ const LoginPage = () => {
         }
 
         login(loggedInUser)
-        setIsLoggingIn(true) // Triggers the DogIntro animation
+        setIsLoggingIn(true) 
         
       } catch (err) {
         showPopup(err.message || 'Login failed. Please try again.', 'error')
@@ -65,16 +63,14 @@ const LoginPage = () => {
         setLoading(false)
       }
     },
-    [payload, login] // Simplified dependencies
+    [payload, login] 
   )
 
-  // Early return for the "Success Animation" state
   if (isLoggingIn) {
     return (
       <DogIntro 
         onFinished={() => {
           navigate('/')
-          // Small delay so the popup appears after the navigation transition
           setTimeout(() => {
             showPopup('Logged in successfully', 'success')
           }, 500)
@@ -109,7 +105,7 @@ const LoginPage = () => {
           variant='primary'
           className='login-button'
           type='submit'
-          disabled={loading} // Prevent multiple clicks
+          disabled={loading} 
           loading={loading}
           loadingText='Logging in'
           showSpinner={true}

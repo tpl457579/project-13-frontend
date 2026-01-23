@@ -14,6 +14,7 @@
 
 .dog-loader-icon {
   width: 150px;
+  background: none;
   height: 150px;
   animation: pulse 1s ease-in-out infinite;
   filter: invert(100%);

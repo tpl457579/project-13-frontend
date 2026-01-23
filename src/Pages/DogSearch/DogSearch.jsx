@@ -131,7 +131,7 @@ export default function DogSearchPaginated() {
           </button>
         </div>
 
-        <h3>Click on the dogs to learn more</h3>
+        <h3 className='dog-search-h3'>Click on the dogs to learn more</h3>
 
         {visibleDogs.length === 0 ? (
           <p className='resultsText'>No dog breeds match your search.</p>
@@ -140,14 +140,14 @@ export default function DogSearchPaginated() {
             {visibleDogs.map((dog) => (
               <div
                 key={dog._id || dog.id} 
-                className='dogCard'
+                className='search-dog-card'
                 onClick={() => openModal(dog)}
               >
                 {dog.image_link && (
                   <img
                     src={dog.image_link}
                     alt={dog.name}
-                    className='dogImg'
+                    className='dog-search-img'
                   />
                 )}
                 <h3>{dog.name}</h3>

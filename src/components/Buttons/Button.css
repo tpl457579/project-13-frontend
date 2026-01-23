@@ -1,10 +1,10 @@
 .site-button {
-  width: 100px;
-  font-weight: 300;
-  padding: var(--button-padding);
-  border-radius: var(--button-border-radius);
-  cursor: pointer;
-  transition: all 0.1s ease;
+    width: 100px;
+    font-weight: 300;
+    padding: 6px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.1s ease;
 }
 
 .site-button:disabled {
@@ -13,8 +13,8 @@
 }
 
 .site-button-primary {
-  background: var(--button-color);
-  border: 0.5px solid var(--button-border-color);
+  background: var(--input-color);
+  border: 1px solid var(accent-color);
   color: var(--text-color);
 }
 
@@ -24,7 +24,7 @@
 }
 
 .site-button-secondary {
-  background: var(--fill-button-color);
+  background: var(--fill-background-color);
   color: var(--fill-button-text);
   border: none;
   cursor: pointer;
@@ -38,6 +38,17 @@
 .button-loading {
   display: flex;
   align-items: center;
+  background: none;
   justify-content: center;
   gap: 8px;
+}
+.site-button:active,
+.site-button[disabled] {
+  background-color: transparent !important;
+  background-image: none !important;
+  border-color: var(--accent-color); 
+}
+
+.site-button .button-loading {
+  background: transparent;
 }

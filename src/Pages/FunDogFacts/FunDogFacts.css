@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: var(--alt-card-color);
+  background: var(--alt-card-color);
   padding: 15px;
   width: 90%;
   height:45svh;
@@ -16,28 +16,31 @@
 }
 .dog-fact-header {
   color: var(--text-color);
-  margin-bottom: 40px;
+  background: none;
 }
 .dog-fact {
   font-size: 1.1rem;
   margin: 1rem 0;
-  color: #333;
-}
-
-.fact-spinner {
-  position: absolute;
-  bottom: 50px;
-  left: 50%;
-  transform: translate(-50%);
-  color: var(--accent-color);
-}
-
-.loading-dog-fact {
   color: var(--text-color);
+  background: none;
+}
+
+
+.loading-dog-fact{
+  color: var(--text-color);
+  background: none;
+}
+
+.loading-dog-fact p{
+  background: none;
+}
+.loading-fact{
+  background: none;
 }
 
 .fact-text {
   color: var(--text-color);
+  background: none;
   margin-bottom: 25px;
 }
 
@@ -52,8 +55,14 @@ left: 50%;
 
 }
 
-
- 
+@media (max-height: 520px){
+  .dog-fact-container{
+    height: 48svh;
+  }
+.fact-text{
+  font-size: 16px;
+}
+}
 @media (max-width: 459px) {
   .new-fact-btn {
     width: 120px;

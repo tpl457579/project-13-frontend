@@ -2,10 +2,12 @@ header {
   height: 10svh;
   width: 100%;
   z-index: 10;
-  opacity: 98%;
+  opacity: 97%;
   backdrop-filter: blur(2px);
-  background-color: var(--background-color);
-  border-bottom: 1px solid var(--button-color);
+  background: var(--header-color);
+  border-bottom: 1px solid var(--button-border-color);
+  box-shadow:
+  -3px 2px 25px 10px rgba(24, 23, 26, 1);
 }
 
 .navbar {
@@ -25,7 +27,7 @@ header {
 }
 
 .nav-list li a {
-  color: var(--text-color, #333);
+  color: var(--text-color);
   font-size: 16px;
   padding: 5px 10px;
   transition: color 0.2s ease;
@@ -88,7 +90,7 @@ header {
     position: fixed;
     top: 0;
     height: 9svh;
-    border-bottom: 0px;
+    border-bottom: none;
     background: var(--background-color);
   }
   .navbar {

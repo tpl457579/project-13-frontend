@@ -173,7 +173,6 @@ export default function ProductForm({
           required
         />
 
-        <div className='url-link'>
           <input
             type='url'
             placeholder='Product URL'
@@ -191,7 +190,7 @@ export default function ProductForm({
               Test Link
             </a>
           )}
-        </div>
+        
 
         {fetchingMetadata && (
           <div className='metadata-spinner'>

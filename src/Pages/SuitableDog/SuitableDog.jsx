@@ -202,7 +202,7 @@ export default function SuitableDog() {
           {results.map((dog, index) => (
             <div
               key={`${dog.name}-${index}`}
-              className='dogCard'
+              className='suitable-dog-card'
               onClick={() => openPopup(dog)}
             >
               <div className='dogCardInner'>
