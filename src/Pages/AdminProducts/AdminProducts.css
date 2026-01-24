@@ -1,7 +1,6 @@
 .edit-form {
     height: 82svh;
     border: 2px solid var(--button-border-color);
-    width: 350px;
     border-radius: 12px;
     background: var(--background-color);
     display: flex;
@@ -14,16 +13,16 @@
 }
 
 .admin-products h1 {
-  color: var(--text-color);
-  margin-top: 10svh;
-  font-size: 30px;
-  text-align: center;
-  margin-bottom: 20px;
+    color: var(--accent-color);
+    margin-top: 7svh;
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 
 .admin-product-card-info h4{
-
+font-size: 16px;
   color:var(--accent-color)
 }
 
@@ -107,21 +106,13 @@ color: var(--text-color);
   padding: 0px 5px;
 }
 
-.admin-product-card, .admin-dog-card h4 {
-  text-align: center;
-    font-size: 19px;
-    font-weight: 300;
-    color: var(--accent-color);
-}
-
 .admin-product-card p {
  font-size: 14px;
 }
 
-.admin-card-buttons {
+.admin-product-buttons {
   position: absolute;
   bottom: 15px;
-  right: 55px;
   display: flex;
   gap: 10px;
 }
@@ -210,7 +201,7 @@ color: var(--text-color);
 
 
 .delete-modal-content {
-  width: 90%;
+  width: 350px;
   height: 280px;
   display: flex;
   flex-direction: column;
@@ -260,6 +251,7 @@ color: var(--text-color);
 .admin-tab{
       background: var(--background-color);
       width: 120px;
+      height :30px;
     border: 1px solid #8f44ad;
     border-radius: 6px;
     cursor: pointer;
@@ -277,65 +269,125 @@ color: var(--text-color);
 
 
 @media (max-width: 952px) {
+  admin-products h1 {
+    margin-top: 11svh;
+  }
   .admin-add-btn {
     display: none;
   }
 }
 
 
-@media (max-width: 740px) {
-  
-  .admin-product-card-info h4 {
-    font-size: 15px;
-  }
-  .admin-card-buttons {
-    right: 25px;
-  }
-}
+@media (max-width: 765px) {
 
-@media (max-width: 615px) {
- 
-  .admin-card-buttons {
-    position: absolute;
-    bottom: 15px;
-    right: 55px;
+  .filter{
+    scale: 0.9;
+  }
+  
+      .admin-product-card {
+        position: relative;
+        border-radius: 12px;
+        text-align: center;
+        border: 1px solid var(--button-border-color);
+        transition: transform 0.2s;
+        display: flex;
+        height: 240px;
+        width: 90%;
+        gap: 0px;
+        align-items: flex-start;
+        margin-bottom: 15px;
+        flex-direction: row;
+    }
+
+    .admin-product-card img{
+height:238px;
+      width:40%;
+    }
+
+    .admin-product-card-info {
     display: flex;
     gap: 10px;
-  }
+    width: 60%;
+    padding: 10px;
+    border-radius: 14px;
+    font-size: 14px;
+    color: var(--text-color);
+    flex-direction: column;
+    align-items: center;
 }
 
+  .admin-product-card-info h4 {
+    font-size: 17px;
+  }
+  
+}
+
+@media (max-width: 560px){
+.test-link-btn {
+    position: absolute;
+    right: 33px;
+    top: 199px;
+    width: 48px;
+    height: 35px;
+    font-size: 12px;
+    display: inline-block;
+    padding: 4px 12px;
+    background-color: var(--fill-background-color);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.modal-buttons button:first-child, .modal-buttons button:last-child
+
+ {
+    padding: var(--button-padding);
+    border-radius: var(--button-border-radius);
+    cursor: pointer;
+    height: 30px;
+    border-radius: 8px;
+    width: 140px;
+}
+.admin-product-card{
+  height: 520px;
+  width: 320px;
+        display: flex;
+        height: 520px;
+        width: 320px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .admin-product-card img {
+  height: 240px;
+  width:318px;
+  background: #fff;
+  object-fit: contain;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.admin-product-card-info{
+  width: 100%;
+}
+@media (max-width: 470px){
+  .admin-products h1{
+    font-size: 26px;
+  }
+}
+}
+
+
 @media (max-height: 520px){
-  .edit-form {
-    border: 2px solid var(--button-border-color);
-    width: 350px;
-    scale: 0.6;
-    border-radius: 12px;
-    background: var(--background-color);
+
+  
+.search-bar input {
+  margin-bottom: 0px;
+}
+.admin-products {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.admin-product-card{
-  width: 280px;
 }
-}
-@media (max-width: 508px){
-
-  .edit-form {
-    display: flex;
-    flex-direction: column;
-        height: 80svh;
-        border-radius: 12px;
-        background: var(--background-color);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        border: 2px solid var(--button-border-color);
-    }
-}
-  .admin-product-card {
-    height: 80svh;
-    width: 320px;
-  }
-
-

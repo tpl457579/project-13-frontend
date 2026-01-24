@@ -205,7 +205,7 @@ const AdminProducts = () => {
                   <a href={p.url} target='_blank' rel='noopener noreferrer'><h4>{p.name}</h4></a>
                   <p>€{Number(p.price || 0).toFixed(2)}</p>
                   {p.rating && <p>Rating: {p.rating} ⭐</p>}
-                  <div className='admin-card-buttons'>
+                  <div className='admin-product-buttons'>
                     <Button onClick={() => openModal(p)}>Edit</Button>
                     <Button onClick={() => openDeleteModal(p)}>Delete</Button>
                   </div>

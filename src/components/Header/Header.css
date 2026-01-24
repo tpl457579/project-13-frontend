@@ -7,7 +7,7 @@ header {
   background: var(--header-color);
   border-bottom: 1px solid var(--button-border-color);
   box-shadow:
-  -3px 2px 25px 10px rgba(24, 23, 26, 1);
+  -3px 4px 17px 14px rgba(24, 23, 26, 1);
 }
 
 .navbar {

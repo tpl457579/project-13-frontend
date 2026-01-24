@@ -24,11 +24,12 @@
 }
 
 .site-button-secondary {
-  background: var(--fill-background-color);
-  color: var(--fill-button-text);
-  border: none;
-  cursor: pointer;
-  transition: all 0.1s ease;
+    background: var(--fill-background-color);
+    color: var(--fill-button-text);
+    border: none;
+    height: 36px;
+    cursor: pointer;
+    transition: all 0.1s ease;
 }
 
 .site-button-secondary:hover {

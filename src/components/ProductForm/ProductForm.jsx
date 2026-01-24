@@ -78,9 +78,8 @@ export default function ProductForm({
     const fetchMetadata = async () => {
       setFetchingMetadata(true)
       try {
-        if (!productUrl || !productUrl.trim()) {
-          return
-        }
+        if (!productUrl || !productUrl.trim()) return
+        
         const data = await apiFetch('/products/fetch-metadata', {
           method: 'POST',
           data: { url: productUrl.trim() }
@@ -133,6 +132,8 @@ export default function ProductForm({
         setPublicId(data.public_id)
         setPreview(data.secure_url)
       }
+    } catch (err) {
+      console.error('Upload failed:', err)
     } finally {
       setUploading(false)
     }
@@ -146,7 +147,7 @@ export default function ProductForm({
       imageUrl,
       publicId,
       url: productUrl,
-      rating
+      rating: Number(rating) || 0
     })
   }
 
@@ -172,8 +173,9 @@ export default function ProductForm({
           onChange={(e) => setPrice(e.target.value)}
           required
         />
-
-          <input
+        <div className='url-container'>
+          <input 
+            className='url-input'
             type='url'
             placeholder='Product URL'
             value={productUrl}
@@ -190,7 +192,7 @@ export default function ProductForm({
               Test Link
             </a>
           )}
-        
+        </div>
 
         {fetchingMetadata && (
           <div className='metadata-spinner'>
@@ -205,7 +207,7 @@ export default function ProductForm({
           <img
             src={previewSrc}
             alt='Preview'
-            onError={(e) => (e.target.src = PLACEHOLDER)}
+            onError={(e) => { e.target.src = PLACEHOLDER }}
           />
         </div>
 

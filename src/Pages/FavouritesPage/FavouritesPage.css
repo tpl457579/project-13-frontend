@@ -5,10 +5,10 @@
 
 
 .favourites-page h1 {
-  color: var(--text-color);
-  font-size: 30px;
-  margin-top: 10svh;
-  text-align: center;
+    color: var(--accent-color);
+    font-size: 30px;
+    margin-top: 12svh;
+    text-align: center;
 }
 
 .favourites-products {

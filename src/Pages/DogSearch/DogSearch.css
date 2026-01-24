@@ -282,11 +282,44 @@ h3 {
       flex-wrap:wrap ;
     }
     .search-dog-card{
-      width:300px
+      width:300px;
+      height:260px;
+    }
+    .dog-search-img{
+      height: 180px;
     }
    }
 
      @media (max-height: 520px){
+
+      .hamburger-menu.open {
+        height: 93svh;
+      }
+.dog-search-main{
+  margin-bottom: 0px;
+}
+     .dog-search-h3{
+font-size: 16px;
+      margin:0px;
+     }
+     
+      .search-dog-card {
+        width: 240px;
+        height: 260px;
+    }
+
+    .dog-search-h1{
+      margin-bottom: 0px;
+    }
+    .dog-search-img{
+      height: 180px;
+    }
+
+    .search-bar {
+    display: flex;
+    margin: 10px 40px;
+    justify-content: center;
+}
 
       .alphabet-container{
         top: 65px;

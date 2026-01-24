@@ -57,7 +57,7 @@
         right: 0;
         border: 2px solid var(--button-border-color);
         height: 520px;
-        margin-top: 52px;
+        margin-top: 12px;
     }
       
   .hamburger-menu.open a {

@@ -3,7 +3,6 @@
   margin: 70px auto;
   margin-top: 10%;
   padding: 20px;
-  background: var(--alt-card-color);
   border: 1px solid var(--button-border-color);
   border-radius: 12px;
 }
@@ -55,7 +54,7 @@
   .profile-container {
     padding: 15px;
     width: 90%;
-    margin-top: 9svh;
+    margin-top: 12svh;
   }
   .profile-form input {
     .profile-container h1 {
@@ -68,8 +67,8 @@
     }
   }
 }
-@media screen and (max-width: 941px) and (orientation: landscape) {
-  .profile-container {
-    width: 80%;
+@media (max-height: 520px){
+  .profile-container{
+    margin-top: 15svh;
   }
 }

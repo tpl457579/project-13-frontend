@@ -172,49 +172,54 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
 
   return (
     <div className='modal-content' onClick={(e) => e.stopPropagation()}>
-      <form className='dog-edit-form' onSubmit={handleSubmit}>
-        <h3>{initialData._id ? 'Edit Dog' : 'Add Dog'}</h3>
-        <div className='dog-layout'>
-          <div className='add-dog-image'>
-            <img 
-              src={preview || PLACEHOLDER} 
-              alt='Dog' 
-              onError={(e) => { e.target.src = PLACEHOLDER }}
-            />
-          </div>
-        <div className='dog-fields'>
-  <input 
-    value={name} 
-    onChange={(e) => setName(e.target.value)} 
-    placeholder='Name' 
-    required 
-  />
-  <input 
-    value={imageUrl} 
-    onChange={(e) => {
-      setImageUrl(e.target.value)
-      setPreview(e.target.value)
-    }} 
-    placeholder='Image URL' 
-  />
-</div>
-</div>
+  <form className='dog-edit-form' onSubmit={handleSubmit}>
+    <h3 className="form-title">{initialData._id ? 'Edit Dog' : 'Add Dog'}</h3>
 
-<DropZone handleFileChange={handleFileChange} />
-{uploading && <Spinner />}
+    <div className='dog-layout-wrapper'>
+      {/* LEFT SECTION: Visuals Only */}
+      <div className='form-section-visuals'>
+        <div className='add-dog-image'>
+          <img 
+            src={preview || PLACEHOLDER} 
+            alt='Dog' 
+            onError={(e) => { e.target.src = PLACEHOLDER }}
+          />
+        </div>
+        <DropZone handleFileChange={handleFileChange} />
+        {uploading && <Spinner />}
+      </div>
 
-<input 
-  className='dog-info-input'
-  key={currentField.key}
-  ref={inputRef}
-  type={currentField.type}
-  value={formData[currentField.key] || ''}
-  onChange={(e) => handleFieldChange(e.target.value)}
-  placeholder={currentField.label}
-/>
+      {/* RIGHT SECTION: All Inputs and Buttons */}
+      <div className='form-section-inputs'>
+        <div className='identity-inputs'>
+          <input 
+            value={name} 
+            onChange={(e) => setName(e.target.value)} 
+            placeholder='Name' 
+            required 
+          />
+          <input 
+            value={imageUrl} 
+            onChange={(e) => {
+              setImageUrl(e.target.value)
+              setPreview(e.target.value)
+            }} 
+            placeholder='Image URL' 
+          />
+        </div>
 
-{error && <div className='field-error'>{error}</div>}
-        
+        <div className='characteristics-step'>
+          <input 
+            className='dog-info-input'
+            key={currentField.key}
+            ref={inputRef}
+            type={currentField.type}
+            value={formData[currentField.key] || ''}
+            onChange={(e) => handleFieldChange(e.target.value)}
+            placeholder={currentField.label}
+          />
+          {error && <div className='field-error'>{error}</div>}
+        </div>
 
         <div className="step-navigation">
           <button type="button" className="nav-arrow" disabled={step === 0} onClick={() => handleManualStep(step - 1)}>&larr;</button>
@@ -230,7 +235,9 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
           <Button type='submit' loading={isSubmitting || uploading} showSpinner>Save Dog</Button>
           <button type='button' className="cancel-btn" onClick={onCancel}>Cancel</button>
         </div>
-      </form>
+      </div>
     </div>
+  </form>
+</div>
   )
 }
