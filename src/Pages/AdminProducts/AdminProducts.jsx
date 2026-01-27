@@ -11,6 +11,7 @@ import DogLoader from '../../components/DogLoader/DogLoader'
 import { showPopup } from '../../components/ShowPopup/ShowPopup.js'
 import Button from '../../components/Buttons/Button.jsx'
 import Modal from '../../components/Modal/Modal.jsx'
+import DeleteModal from '../../components/DeleteModal/DeleteModal.jsx'
 import { apiFetch } from '../../components/apiFetch.js'
 import { Footer } from '../../components/Footer/Footer.jsx'
 
@@ -238,18 +239,13 @@ const AdminProducts = () => {
         </Modal>
       )}
 
-      {deleteModal && (
-        <Modal isOpen={deleteModal} onClose={closeDeleteModal}>
-          <div className='delete-modal-content'>
-            <h3>Confirm Delete</h3>
-            <p>Are you sure you want to delete <strong>{selectedProduct?.name}</strong>?</p>
-            <div className='modal-buttons'>
-              <Button onClick={handleDelete} loading={isDeleting} showSpinner>Delete</Button>
-              <Button onClick={closeDeleteModal}>Cancel</Button>
-            </div>
-          </div>
-        </Modal>
-      )}
+      <DeleteModal 
+        isOpen={deleteModal}
+        onClose={closeDeleteModal}
+        onConfirm={handleDelete}
+        isDeleting={isDeleting}
+        itemName={selectedProduct?.name}
+      />
 
       <Footer openModal={() => openModal(null)} />
     </div>

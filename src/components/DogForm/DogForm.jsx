@@ -176,7 +176,6 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
     <h3 className="form-title">{initialData._id ? 'Edit Dog' : 'Add Dog'}</h3>
 
     <div className='dog-layout-wrapper'>
-      {/* LEFT SECTION: Visuals Only */}
       <div className='form-section-visuals'>
         <div className='add-dog-image'>
           <img 
@@ -189,7 +188,7 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
         {uploading && <Spinner />}
       </div>
 
-      {/* RIGHT SECTION: All Inputs and Buttons */}
+      
       <div className='form-section-inputs'>
         <div className='identity-inputs'>
           <input 
@@ -209,15 +208,24 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
         </div>
 
         <div className='characteristics-step'>
-          <input 
-            className='dog-info-input'
-            key={currentField.key}
-            ref={inputRef}
-            type={currentField.type}
-            value={formData[currentField.key] || ''}
-            onChange={(e) => handleFieldChange(e.target.value)}
-            placeholder={currentField.label}
-          />
+     
+  <div className="input-wrapper">
+  <input
+    className="dog-info-input"
+    key={currentField.key}
+    ref={inputRef}
+    type={currentField.type}
+    value={formData[currentField.key] || ''}
+    onChange={(e) => handleFieldChange(e.target.value)}
+  />
+
+  <span className="floating-placeholder">
+    {currentField.label}
+  </span>
+</div>
+
+
+
           {error && <div className='field-error'>{error}</div>}
         </div>
 
@@ -231,9 +239,9 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
           <button type="button" className="nav-arrow" disabled={step === fields.length - 1} onClick={() => handleManualStep(step + 1)}>&rarr;</button>
         </div>
 
-        <div className='modal-buttons'>
+        <div className='dog-modal-buttons'>
           <Button type='submit' loading={isSubmitting || uploading} showSpinner>Save Dog</Button>
-          <button type='button' className="cancel-btn" onClick={onCancel}>Cancel</button>
+          <button type='button' onClick={onCancel}>Cancel</button>
         </div>
       </div>
     </div>

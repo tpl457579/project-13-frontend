@@ -57,7 +57,7 @@ left: 50%;
 
 @media (max-height: 520px){
   .dog-fact-container{
-    height: 48svh;
+    height: 54svh;
   }
 .fact-text{
   font-size: 16px;

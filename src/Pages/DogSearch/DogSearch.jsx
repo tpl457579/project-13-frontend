@@ -150,7 +150,7 @@ export default function DogSearchPaginated() {
                     className='dog-search-img'
                   />
                 )}
-                <h3>{dog.name}</h3>
+                <h3 style={{ fontSize: dog.name.length > 22 ? "15px" : "18px" }}>{dog.name}</h3>
               </div>
             ))}
           </div>

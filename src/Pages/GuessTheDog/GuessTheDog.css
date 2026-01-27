@@ -219,6 +219,7 @@
     font-size: 20px;
   }
   .game h2 {
+    margin-top: 80px;
     margin-bottom: 20px;
   }
 
@@ -231,8 +232,8 @@
   }
 
   .dog-image {
-    width: 160px;
-    height: 160px;
+    width: 180px;
+    height: 180px;
   }
   .score-lives {
     position: absolute;
@@ -267,6 +268,14 @@
   }
 }
 
+@media (max-width: 550px){
+
+  .dog-image{
+    width:160px;
+    height: 160px;
+  }
+}
+
 @media (max-height: 520px) {
 
 .score-lives {
@@ -293,8 +302,11 @@
 
 .game h1 {
   margin-top: 9svh;
-
 }
 
+.dog-image{
+    width:160px;
+    height: 160px;
+  }
 
 }

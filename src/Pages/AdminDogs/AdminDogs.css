@@ -1,10 +1,13 @@
-.edit-form
 
+
+.admin-dogs {
+  margin-top: 12svh;
+}
 .admin-products {
   position: relative;
 }
 
-.admin-products h1 {
+.admin-dogs h1 {
   color: var(--accent-color);
   margin-top: 13svh;
   font-size: 30px;
@@ -14,8 +17,6 @@
 
 .admin-dog-card-info {
     display: flex;
-    gap: 15px;
-    padding: 10px;
     font-size: 14px;
     flex-direction: column;
 }
@@ -25,12 +26,14 @@ color: var(--text-color);
 }
 
 .admin-dog-card-info h4 {
-  font-size: 18px;
   color: var(--accent-color);
 }
 
- .admin-card-buttons {
+ .admin-dog-buttons {
     display: flex;
+        position: absolute;
+    bottom: 15px;
+    right: 20px;
     gap: 10px;
     margin-top: 15px;
   }

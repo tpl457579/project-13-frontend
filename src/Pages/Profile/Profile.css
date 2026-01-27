@@ -1,7 +1,6 @@
 .profile-container {
   max-width: 600px;
   margin: 70px auto;
-  margin-top: 10%;
   padding: 20px;
   border: 1px solid var(--button-border-color);
   border-radius: 12px;
@@ -50,13 +49,19 @@
   color: var(--text-color);
 }
 
+@media (max-width: 952px){
+.profile-container{
+  margin-top: 15svh;
+}
+}
+
 @media (max-width: 704px) {
   .profile-container {
     padding: 15px;
     width: 90%;
-    margin-top: 12svh;
   }
-  .profile-form input {
+
+ 
     .profile-container h1 {
       font-size: 28px;
     }
@@ -65,10 +70,34 @@
     .delete-btn {
       font-size: 16px;
     }
-  }
+  
 }
+
+
+
 @media (max-height: 520px){
   .profile-container{
-    margin-top: 15svh;
+    margin-top: 13svh;
+            width: 500px;
+        height: 270px;
+    }
+  
+  .profile-container h1{
+    font-size: 28px;
+    margin-bottom: 5px;
   }
+
+  .profile-form{
+    scale: 0.6;
+    margin-top: -19svh;
+    gap: 10px;
+  }
+
+  .profile-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 5px;
+    width: 100%;
+}
 }

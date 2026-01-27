@@ -52,6 +52,7 @@
 .home-btn {
   font-size: 25px;
   width: 140px;
+  height:40px;
   transition: transform 0.2s;
 }
 
@@ -173,6 +174,7 @@
   .fun-options {
     flex-direction: column;
     margin: 0;
+    gap:10px;
   }
 
   .home-img {
@@ -181,10 +183,11 @@
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
+
   .home-img {
-    width: 280px;
-    height: 280px;
+    width: 240px;
+    height: 220px;
   }
 }
 .fun-options > .home-btn {
@@ -195,7 +198,7 @@
 }
 @media screen and (max-width: 742px) and (orientation: landscape) {
   .home {
-    margin-top: 15px;
+    margin-top: 10px;
     display: flex;
     flex-direction: row;
     align-content: center;
@@ -203,15 +206,16 @@
     align-items: center;
   }
 
-  .dog-grid {
-    margin-top: 15px;
+  .home h1 {
+    margin-top:13svh;
   }
+
   .home h2 {
     margin-top: -8svh;
   }
   .home-img {
-    width: 55%;
-    height: 60svh;
+    width: 50%;
+    height: 55svh;
     margin: 0px;
   }
 
@@ -234,6 +238,7 @@
   }
 
   .fun-options {
+    gap:10px;
     display: flex;
     flex-direction: column;
     margin: 0;

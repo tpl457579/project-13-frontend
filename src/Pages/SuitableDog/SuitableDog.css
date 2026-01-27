@@ -212,8 +212,12 @@
 
 @media (max-width: 952px){
 
-.top-dogs h1{ 
-  margin-top: 10svh;
+.top-dogs h1, .questionnaire h1 {
+    color: var(--text-color);
+    font-size: 26px;
+    margin-top: 13svh;
+    padding: 20px;
+    text-align: center;
 }
 }
 
@@ -283,10 +287,11 @@
 .questionnaire{
   gap:10px;
 }
-.questionnaire h1 {
+.questionnaire h1, .top-dogs h1 {
   font-size: 24px;
-  padding: 0px;
-  margin-top: 12svh;
+  margin-top: 14svh;
+  padding-bottom: 0px;
+  padding-top: 10px;
 }
 .questionnaire h2 {
   font-size: 18px;

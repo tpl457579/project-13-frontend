@@ -161,6 +161,11 @@
 }
 
 @media (max-height: 520px){
+  .shop{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   .shop-product-info{
     border-radius: 12px;
   }

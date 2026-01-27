@@ -153,12 +153,35 @@ export default function ProductForm({
 
   const previewSrc = useMemo(() => preview || PLACEHOLDER, [preview])
 
-  return (
-    <div className='modal-content' onClick={(e) => e.stopPropagation()}>
-      <form className='edit-form' onSubmit={handleSubmit}>
-        <h3>{initialData._id ? 'Edit' : 'Add'} Product</h3>
+ return (
+  <div className='modal-content' onClick={(e) => e.stopPropagation()}>
+    <form className='product-edit-form' onSubmit={handleSubmit}>
+      <h3>{initialData._id ? 'Edit' : 'Add'} Product</h3>
 
-        <input
+      {fetchingMetadata && (
+        <div className='metadata-spinner'>
+          <Spinner />
+          <p>Fetching metadata</p>
+        </div>
+      )}
+
+      <div className='product-layout'>
+        <div className='product-visual'>
+          <DropZone handleFileChange={handleFileChange} />
+
+          <div className='preview-image'>
+            <img
+              src={previewSrc}
+              alt='Preview'
+              onError={(e) => { e.target.src = PLACEHOLDER }}
+            />
+          </div>
+        </div>
+
+       
+        <div className='product-inputs'>
+          <div className='add-product-inputs'>
+              <input
           type='text'
           placeholder='Name'
           value={name}
@@ -167,7 +190,7 @@ export default function ProductForm({
         />
         <input
           type='number'
-          step='0.01'
+
           placeholder='Price'
           value={price}
           onChange={(e) => setPrice(e.target.value)}
@@ -175,7 +198,6 @@ export default function ProductForm({
         />
         <div className='url-container'>
           <input 
-            className='url-input'
             type='url'
             placeholder='Product URL'
             value={productUrl}
@@ -193,39 +215,27 @@ export default function ProductForm({
             </a>
           )}
         </div>
-
-        {fetchingMetadata && (
-          <div className='metadata-spinner'>
-            <Spinner />
-            <p>Fetching metadata</p>
+        
           </div>
-        )}
-
-        <DropZone handleFileChange={handleFileChange} />
-
-        <div className='preview-image'>
-          <img
-            src={previewSrc}
-            alt='Preview'
-            onError={(e) => { e.target.src = PLACEHOLDER }}
-          />
         </div>
+      </div>
 
-        <div className='modal-buttons'>
-          <Button
-            type='submit'
-            variant='primary'
-            loading={isSubmitting || uploading}
-            showSpinner
-            loadingText={uploading ? 'Uploading' : 'Saving'}
-          >
-            {initialData._id ? 'Save' : 'Add'}
-          </Button>
-          <button type='button' onClick={onCancel}>
-            Cancel
-          </button>
-        </div>
-      </form>
-    </div>
-  )
+      <div className='add-product-modal-buttons'>
+        <Button
+          type='submit'
+          variant='primary'
+          loading={isSubmitting || uploading}
+          showSpinner
+          loadingText={uploading ? 'Uploading' : 'Saving'}
+        >
+          {initialData._id ? 'Save' : 'Add'}
+        </Button>
+
+        <button type='button' onClick={onCancel}>
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+)
 }

@@ -14,7 +14,7 @@
     "weight": "3 - 6",
     "height": "23 - 29",
     "temperament": "Stubborn, Curious, Playful, Adventurous, Active, Fun-loving",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": 2,
@@ -31,7 +31,7 @@
     "weight": "23 - 27",
     "height": "64 - 69",
     "temperament": "Aloof, Clownish, Dignified, Independent, Happy",
-    "life_span": "10 - 13 years"
+    "life_span": "10 - 13 "
   },
   {
     "id": 4,
@@ -48,7 +48,7 @@
     "weight": "18 - 29",
     "height": "53 - 58",
     "temperament": "Outgoing, Friendly, Alert, Confident, Intelligent, Courageous",
-    "life_span": "10 - 13 years"
+    "life_span": "10 - 13 "
   },
   {
     "id": 6,
@@ -65,7 +65,7 @@
     "weight": "29 - 52",
     "height": "61 - 71",
     "temperament": "Docile, Alert, Responsive, Dignified, Composed, Friendly, Receptive, Faithful, Courageous",
-    "life_span": "10 - 14 years"
+    "life_span": "10 - 14 "
   },
   {
     "id": null,
@@ -95,7 +95,7 @@
     "weight": "29 - 45",
     "height": "58 - 64",
     "temperament": "Friendly, Affectionate, Devoted, Loyal, Dignified, Playful",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": 10,
@@ -112,7 +112,7 @@
     "weight": "27 - 54",
     "height": "56 - 69",
     "temperament": "Friendly, Assertive, Energetic, Loyal, Gentle, Confident, Dominant",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": null,
@@ -142,7 +142,7 @@
     "weight": "9 - 18",
     "height": "38 - 48",
     "temperament": "Friendly, Alert, Reserved, Intelligent, Protective",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": 14,
@@ -159,7 +159,7 @@
     "weight": "29 - 34",
     "height": "53 - 71",
     "temperament": "Kind, Sweet-Tempered, Loyal, Independent, Intelligent, Loving",
-    "life_span": "8 - 15 years"
+    "life_span": "8 - 15 "
   },
   {
     "id": 15,
@@ -202,7 +202,7 @@
     "weight": "23 - 27",
     "height": "43 - 48",
     "temperament": "Tenacious, Friendly, Devoted, Loyal, Attentive, Courageous",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": 17,
@@ -219,7 +219,7 @@
     "weight": "11 - 20",
     "height": "38 - 46",
     "temperament": "Friendly, Energetic, Obedient, Intelligent, Protective, Trainable",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": 18,
@@ -236,7 +236,7 @@
     "weight": "36 - 68",
     "height": "69 - 74",
     "temperament": "Steady, Bold, Independent, Confident, Intelligent, Proud",
-    "life_span": "11 - 13 years"
+    "life_span": "11 - 13 "
   },
   {
     "id": 19,
@@ -253,7 +253,7 @@
     "weight": "22 - 25",
     "height": "51 - 56",
     "temperament": "Reliable, Fearless, Energetic, Lively, Self-assured",
-    "life_span": "12 – 14 years"
+    "life_span": "12 – 14 "
   },
   {
     "id": 21,
@@ -270,7 +270,7 @@
     "weight": "20 - 28",
     "height": "43 - 51",
     "temperament": "Cautious, Energetic, Loyal, Obedient, Protective, Brave",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": 22,
@@ -287,7 +287,7 @@
     "weight": "14 - 21",
     "height": "43 - 51",
     "temperament": "Friendly, Energetic, Alert, Loyal, Intelligent, Eager",
-    "life_span": "10 - 13 years"
+    "life_span": "10 - 13 "
   },
   {
     "id": 23,
@@ -304,7 +304,7 @@
     "weight": "16 - 29",
     "height": "46 - 58",
     "temperament": "Good-natured, Affectionate, Intelligent, Active, Protective",
-    "life_span": "12 - 16 years"
+    "life_span": "12 - 16 "
   },
   {
     "id": 21,
@@ -334,7 +334,7 @@
     "weight": "6 - 7",
     "height": "25 - 28",
     "temperament": "Spirited, Alert, Loyal, Companionable, Even Tempered, Courageous",
-    "life_span": "15 years"
+    "life_span": "15 "
   },
   {
     "id": 25,
@@ -351,7 +351,7 @@
     "weight": "15 - 25",
     "height": "58 - 74",
     "temperament": "Aloof, Affectionate, Attentive, Rugged, Fierce, Refined",
-    "life_span": "10 - 13 years"
+    "life_span": "10 - 13 "
   },
   {
     "id": null,
@@ -381,7 +381,7 @@
     "weight": "18 - 29",
     "height": "51 - 66",
     "temperament": "Obedient, Companionable, Intelligent, Joyful",
-    "life_span": "13 – 15 years"
+    "life_span": "13 – 15 "
   },
   {
     "id": 28,
@@ -398,7 +398,7 @@
     "weight": "10 - 11",
     "height": "41 - 43",
     "temperament": "Affectionate, Energetic, Alert, Curious, Playful, Intelligent",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": null,
@@ -428,7 +428,7 @@
     "weight": "23 - 29",
     "height": "36",
     "temperament": "Tenacious, Friendly, Affectionate, Devoted, Sweet-Tempered, Gentle",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": null,
@@ -458,7 +458,7 @@
     "weight": "9 - 16",
     "height": "33 - 38",
     "temperament": "Amiable, Even Tempered, Excitable, Determined, Gentle, Intelligent",
-    "life_span": "13 - 16 years"
+    "life_span": "13 - 16 "
   },
   {
     "id": 32,
@@ -475,7 +475,7 @@
     "weight": "20 - 25",
     "height": "51 - 56",
     "temperament": "Self-confidence, Hardy, Lively, Alert, Intelligent, Active",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": 33,
@@ -492,7 +492,7 @@
     "weight": "36 - 50",
     "height": "61 - 70",
     "temperament": "Fearless, Friendly, Intelligent, Protective, Calm",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": 36,
@@ -509,7 +509,7 @@
     "weight": "20 - 29",
     "height": "56 - 66",
     "temperament": "Energetic, Lively, Alert, Active, Protective, Watchful",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": 36,
@@ -526,7 +526,7 @@
     "weight": "18 - 36",
     "height": "56 - 66",
     "temperament": "Watchful, Alert, Stubborn, Friendly, Confident, Hard-working, Active, Protective",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": null,
@@ -556,7 +556,7 @@
     "weight": "18 - 29",
     "height": "56 - 66",
     "temperament": "Energetic, Alert, Loyal, Intelligent, Attentive, Protective",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": null,
@@ -599,7 +599,7 @@
     "weight": "29 - 54",
     "height": "58 - 70",
     "temperament": "Affectionate, Loyal, Intelligent, Faithful",
-    "life_span": "7 - 10 years"
+    "life_span": "7 - 10 "
   },
   {
     "id": 43,
@@ -616,7 +616,7 @@
     "weight": "29 - 45",
     "height": "58 - 69",
     "temperament": "Easygoing, Gentle, Adaptable, Trusting, Even Tempered, Lovable",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": null,
@@ -659,7 +659,7 @@
     "weight": "32 - 50",
     "height": "60 - 70",
     "temperament": "Protective, Loyal, Gentle, Intelligent, Familial, Rational",
-    "life_span": "10 - 15 years"
+    "life_span": "10 - 15 "
   },
   {
     "id": 56,
@@ -676,7 +676,7 @@
     "weight": "11 - 18",
     "height": "36 - 46",
     "temperament": "Friendly, Energetic, Companionable, Intelligent, Eager, Trainable",
-    "life_span": "10 - 14 years"
+    "life_span": "10 - 14 "
   },
   {
     "id": 57,
@@ -693,7 +693,7 @@
     "weight": "25 - 40",
     "height": "55 - 67",
     "temperament": "Stubborn, Affectionate, Loyal, Playful, Companionable, Trainable",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": null,
@@ -736,7 +736,7 @@
     "weight": "32 - 41",
     "height": "56 - 69",
     "temperament": "Fearless, Loyal, Obedient, Intelligent, Faithful, Protective",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": 59,
@@ -753,7 +753,7 @@
     "weight": "14 - 20",
     "height": "44 - 52",
     "temperament": "Agile, Adaptable, Quick, Intelligent, Attentive, Happy",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": 64,
@@ -770,7 +770,7 @@
     "weight": "45 - 59",
     "height": "61 - 69",
     "temperament": "Docile, Reliable, Devoted, Alert, Loyal, Reserved, Loving, Protective, Powerful, Calm, Courageous",
-    "life_span": "8 - 12 years"
+    "life_span": "8 - 12 "
   },
   {
     "id": 65,
@@ -787,7 +787,7 @@
     "weight": "6 - 6",
     "height": "23 - 25",
     "temperament": "Hardy, Fearless, Assertive, Gay, Intelligent, Active",
-    "life_span": "14 - 15 years"
+    "life_span": "14 - 15 "
   },
   {
     "id": null,
@@ -804,7 +804,7 @@
     "weight": "16 - 25",
     "height": "48 - 61",
     "temperament": "Cautious, Devoted, Alert, Quick, Intelligent, Vigilant",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": 67,
@@ -821,7 +821,7 @@
     "weight": "40 - 54",
     "height": "60 - 70",
     "temperament": "Trainable, Reserved, Stable, Quiet, Even Tempered, Calm",
-    "life_span": "10 - 11 years"
+    "life_span": "10 - 11 "
   },
   {
     "id": 68,
@@ -838,7 +838,7 @@
     "weight": "11 - 17",
     "height": "27 - 32",
     "temperament": "Affectionate, Devoted, Alert, Companionable, Intelligent, Active",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": null,
@@ -868,7 +868,7 @@
     "weight": "23 - 43",
     "height": "51 - 66",
     "temperament": "Energetic, Inquisitive, Independent, Gentle, Intelligent, Loving",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": 70,
@@ -898,7 +898,7 @@
     "weight": "6 - 8",
     "height": "30 - 33",
     "temperament": "Fearless, Affectionate, Sociable, Patient, Playful, Adaptable",
-    "life_span": "10 - 14 years"
+    "life_span": "10 - 14 "
   },
   {
     "id": 23,
@@ -928,7 +928,7 @@
     "weight": "25 - 36",
     "height": "53 - 66",
     "temperament": "Affectionate, Intelligent, Quiet, Dominant, Happy, Protective",
-    "life_span": "10 - 13 years"
+    "life_span": "10 - 13 "
   },
   {
     "id": null,
@@ -958,7 +958,7 @@
     "weight": "20 - 27",
     "height": "46 - 51",
     "temperament": "Suspicious, Affectionate, Devoted, Reserved, Independent, Loving",
-    "life_span": "10 years"
+    "life_span": "10 "
   },
   {
     "id": null,
@@ -988,7 +988,7 @@
     "weight": "25 - 39",
     "height": "43 - 51",
     "temperament": "Affectionate, Loyal, Dignified, Gentle, Calm, Great-hearted",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": 86,
@@ -1005,7 +1005,7 @@
     "weight": "9 - 14",
     "height": "36 - 38",
     "temperament": "Trainable, Friendly, Affectionate, Playful, Quiet, Faithful",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": 89,
@@ -1022,7 +1022,7 @@
     "weight": "4 - 7",
     "height": "23 - 28",
     "temperament": "Affectionate, Lively, Playful, Intelligent, Trainable, Vocal",
-    "life_span": "13 - 16 years"
+    "life_span": "13 - 16 "
   },
   {
     "id": null,
@@ -1091,7 +1091,7 @@
     "weight": "23 - 25",
     "height": "48 - 58",
     "temperament": "Outgoing, Friendly, Energetic, Playful, Sensitive, Intelligent, Active",
-    "life_span": "10 - 13 years"
+    "life_span": "10 - 13 "
   },
   {
     "id": null,
@@ -1147,7 +1147,7 @@
     "weight": "30 - 40",
     "height": "61 - 71",
     "temperament": "Fearless, Energetic, Alert, Loyal, Obedient, Confident, Intelligent",
-    "life_span": "10 years"
+    "life_span": "10 "
   },
   {
     "id": 95,
@@ -1164,7 +1164,7 @@
     "weight": "36 - 45",
     "height": "60 - 69",
     "temperament": "Friendly, Affectionate, Cheerful, Loyal, Tolerant, Protective",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": null,
@@ -1220,7 +1220,7 @@
     "weight": "16 - 23",
     "height": "48 - 51",
     "temperament": "Affectionate, Cheerful, Alert, Intelligent, Attentive, Active",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": 104,
@@ -1237,7 +1237,7 @@
     "weight": "4 - 6",
     "height": "25",
     "temperament": "Affectionate, Reserved, Playful, Gentle, Happy, Loving",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": null,
@@ -1280,7 +1280,7 @@
     "weight": "18 - 32",
     "height": "52 - 60",
     "temperament": "Alert, Reserved, Intelligent, Even Tempered, Watchful, Calm",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": 108,
@@ -1297,7 +1297,7 @@
     "weight": "16 - 23",
     "height": "43 - 46",
     "temperament": "Docile, Cautious, Sociable, Sensitive, Adaptable, Familial",
-    "life_span": "11 - 15 years"
+    "life_span": "11 - 15 "
   },
   {
     "id": 110,
@@ -1314,7 +1314,7 @@
     "weight": "15 - 24",
     "height": "41 - 53",
     "temperament": "Friendly, Keen, Faithful, Calm, Courageous",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": null,
@@ -1370,7 +1370,7 @@
     "weight": "11 - 20",
     "height": "43 - 51",
     "temperament": "Spirited, Lively, Intelligent, Loving, Even Tempered, Familial",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": 115,
@@ -1387,7 +1387,7 @@
     "weight": "23 - 41",
     "height": "56 - 66",
     "temperament": "Alert, Loyal, Obedient, Curious, Confident, Intelligent, Watchful, Courageous",
-    "life_span": "10 - 13 years"
+    "life_span": "10 - 13 "
   },
   {
     "id": 116,
@@ -1404,7 +1404,7 @@
     "weight": "20 - 32",
     "height": "53 - 64",
     "temperament": "Boisterous, Bold, Affectionate, Intelligent, Cooperative, Trainable",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": null,
@@ -1447,7 +1447,7 @@
     "weight": "29 - 41",
     "height": "60 - 70",
     "temperament": "Strong Willed, Kind, Loyal, Intelligent, Dominant, Powerful",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": 120,
@@ -1464,7 +1464,7 @@
     "weight": "15 - 18",
     "height": "32 - 36",
     "temperament": "Spirited, Agile, Loyal, Gentle, Active, Courageous",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": null,
@@ -1494,7 +1494,7 @@
     "weight": "50 - 86",
     "height": "71 - 81",
     "temperament": "Friendly, Devoted, Reserved, Gentle, Confident, Loving",
-    "life_span": "7 - 10 years"
+    "life_span": "7 - 10 "
   },
   {
     "id": 125,
@@ -1511,7 +1511,7 @@
     "weight": "39 - 52",
     "height": "64 - 81",
     "temperament": "Strong Willed, Fearless, Affectionate, Patient, Gentle, Confident",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": null,
@@ -1567,7 +1567,7 @@
     "weight": "18 - 27",
     "height": "46 - 56",
     "temperament": "Outgoing, Friendly, Cheerful, Sweet-Tempered, Tolerant, Active",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": 130,
@@ -1584,7 +1584,7 @@
     "weight": "3 - 6",
     "height": "22 - 29",
     "temperament": "Affectionate, Responsive, Playful, Companionable, Gentle, Intelligent",
-    "life_span": "14 - 15 years"
+    "life_span": "14 - 15 "
   },
   {
     "id": null,
@@ -1679,7 +1679,7 @@
     "weight": "3 - 7",
     "height": "33 - 38",
     "temperament": "Mischievous, Affectionate, Agile, Athletic, Companionable, Intelligent",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": null,
@@ -1722,7 +1722,7 @@
     "weight": "2 - 4",
     "height": "20 - 28",
     "temperament": "Alert, Loyal, Independent, Intelligent, Loving, Cat-like",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": 141,
@@ -1739,7 +1739,7 @@
     "weight": "7 - 9",
     "height": "30 - 38",
     "temperament": "Affectionate, Obedient, Playful, Companionable, Intelligent, Proud",
-    "life_span": "10 – 16 years"
+    "life_span": "10 – 16 "
   },
   {
     "id": null,
@@ -1808,7 +1808,7 @@
     "weight": "32 - 52",
     "height": "66 - 76",
     "temperament": "Clownish, Loyal, Patient, Independent, Intelligent, Protective",
-    "life_span": "8 - 10 years"
+    "life_span": "8 - 10 "
   },
   {
     "id": 149,
@@ -1841,7 +1841,7 @@
     "weight": "11 - 16",
     "height": "41 - 48",
     "temperament": "Keen, Loyal, Companionable, Loving, Active, Trainable",
-    "life_span": "14 - 16 years"
+    "life_span": "14 - 16 "
   },
   {
     "id": null,
@@ -1871,7 +1871,7 @@
     "weight": "3 - 6",
     "height": "25 - 30",
     "temperament": "Clever, Friendly, Alert, Intelligent",
-    "life_span": "12 – 15 years"
+    "life_span": "12 – 15 "
   },
   {
     "id": null,
@@ -1901,7 +1901,7 @@
     "weight": "5 - 8",
     "height": "25 - 28",
     "temperament": "Steady, Fearless, Friendly, Devoted, Assertive, Spirited, Energetic, Lively, Alert, Obedient, Playful, Intelligent",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": 161,
@@ -1918,7 +1918,7 @@
     "weight": "2 - 3",
     "height": "20 - 25",
     "temperament": "Playful, Docile, Fearless, Affectionate, Sweet-Tempered, Lively, Responsive, Easygoing, Gentle, Intelligent, Active",
-    "life_span": "15 - 18 years"
+    "life_span": "15 - 18 "
   },
   {
     "id": null,
@@ -1961,7 +1961,7 @@
     "weight": "39 - 64",
     "height": "61 - 66",
     "temperament": "Strong Willed, Tenacious, Aloof, Stubborn, Intelligent, Protective",
-    "life_span": "10 - 14 years"
+    "life_span": "10 - 14 "
   },
   {
     "id": 165,
@@ -1978,7 +1978,7 @@
     "weight": "9 - 18",
     "height": "33 - 46",
     "temperament": "Energetic, Loyal, Intelligent, Trainable",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": 62,
@@ -2008,7 +2008,7 @@
     "weight": "4 - 5",
     "height": "25 - 32",
     "temperament": "Clever, Outgoing, Friendly, Energetic, Responsive, Playful",
-    "life_span": "15 years"
+    "life_span": "15 "
   },
   {
     "id": 168,
@@ -2025,7 +2025,7 @@
     "weight": "5 - 9",
     "height": "30 - 36",
     "temperament": "Fearless, Friendly, Spirited, Alert, Obedient, Intelligent",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": null,
@@ -2081,7 +2081,7 @@
     "weight": "45 - 68",
     "height": "66 - 71",
     "temperament": "Sweet-Tempered, Gentle, Trainable",
-    "life_span": "8 - 10 years"
+    "life_span": "8 - 10 "
   },
   {
     "id": null,
@@ -2137,7 +2137,7 @@
     "weight": "16 - 23",
     "height": "43 - 53",
     "temperament": "Outgoing, Alert, Patient, Intelligent, Loving",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": 181,
@@ -2154,7 +2154,7 @@
     "weight": "1 - 5",
     "height": "20 - 28",
     "temperament": "Hardy, Friendly, Energetic, Alert, Intelligent, Happy",
-    "life_span": "13 - 17 years"
+    "life_span": "13 - 17 "
   },
   {
     "id": null,
@@ -2184,7 +2184,7 @@
     "weight": "40 - 50",
     "height": "56 - 65",
     "temperament": "Strong Willed, Suspicious, Gentle, Dominant, Calm",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": null,
@@ -2227,7 +2227,7 @@
     "weight": "18 - 27",
     "height": "53 - 64",
     "temperament": "Affectionate, Sociable, Playful, Intelligent, Active, Trainable",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": 221,
@@ -2257,7 +2257,7 @@
     "weight": "1 - 3",
     "height": "20 - 30",
     "temperament": "Extroverted, Friendly, Sociable, Playful, Intelligent, Active",
-    "life_span": "15 years"
+    "life_span": "15 "
   },
   {
     "id": 196,
@@ -2274,7 +2274,7 @@
     "weight": "7 - 8",
     "height": "28 - 38",
     "temperament": null,
-    "life_span": "12 – 15 years"
+    "life_span": "12 – 15 "
   },
   {
     "id": null,
@@ -2369,7 +2369,7 @@
     "weight": "4 - 11",
     "height": "25 - 33",
     "temperament": "Affectionate, Lively, Inquisitive, Alert, Intelligent, Loving",
-    "life_span": "12 - 18 years"
+    "life_span": "12 - 18 "
   },
   {
     "id": 209,
@@ -2386,7 +2386,7 @@
     "weight": "34 - 36",
     "height": "61 - 69",
     "temperament": "Strong Willed, Mischievous, Loyal, Dignified, Sensitive, Intelligent",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": null,
@@ -2416,7 +2416,7 @@
     "weight": "1 - 3",
     "height": "19 - 27",
     "temperament": null,
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": null,
@@ -2446,7 +2446,7 @@
     "weight": "59 - 82",
     "height": "65 - 70",
     "temperament": "Friendly, Lively, Gentle, Watchful, Calm",
-    "life_span": "7 - 10 years"
+    "life_span": "7 - 10 "
   },
   {
     "id": 213,
@@ -2463,7 +2463,7 @@
     "weight": "16 - 29",
     "height": "58 - 71",
     "temperament": "Aloof, Reserved, Intelligent, Quiet",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": 214,
@@ -2480,7 +2480,7 @@
     "weight": "23 - 27",
     "height": "48 - 60",
     "temperament": "Stubborn, Friendly, Sociable, Lively, Alert, Playful",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": null,
@@ -2536,7 +2536,7 @@
     "weight": "14",
     "height": "33 - 41",
     "temperament": "Affectionate, Lively, Responsive, Alert, Loyal, Reserved, Playful, Gentle, Intelligent, Active, Trainable, Strong",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": 222,
@@ -2553,7 +2553,7 @@
     "weight": "8 - 10",
     "height": "34 - 42",
     "temperament": "Charming, Fearless, Keen, Alert, Confident, Faithful",
-    "life_span": "12 - 16 years"
+    "life_span": "12 - 16 "
   },
   {
     "id": 226,
@@ -2570,7 +2570,7 @@
     "weight": "16 - 27",
     "height": "51 - 60",
     "temperament": "Outgoing, Friendly, Alert, Gentle, Intelligent",
-    "life_span": "12 years"
+    "life_span": "12 "
   },
   {
     "id": null,
@@ -2626,7 +2626,7 @@
     "weight": "14 - 18",
     "height": "41 - 46",
     "temperament": "Affectionate, Spirited, Energetic, Playful, Intelligent, Faithful",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": null,
@@ -2656,7 +2656,7 @@
     "weight": "14 - 23",
     "height": "41 - 51",
     "temperament": "Trainable, Diligent, Affectionate, Loyal, Athletic, Intelligent",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": 236,
@@ -2673,7 +2673,7 @@
     "weight": "28 - 39",
     "height": "57 - 70",
     "temperament": "Docile, Friendly, Affectionate, Loyal, Patient, Gentle",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": null,
@@ -2703,7 +2703,7 @@
     "weight": "11 - 17",
     "height": "36 - 41",
     "temperament": "Reliable, Fearless, Bold, Affectionate, Loyal, Intelligent, Courageous",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": 239,
@@ -2720,7 +2720,7 @@
     "weight": "14 - 23",
     "height": "44 - 50",
     "temperament": "Trainable, Good-natured, Devoted, Lively, Playful, Intelligent",
-    "life_span": "13 - 15 years"
+    "life_span": "13 - 15 "
   },
   {
     "id": null,
@@ -2763,7 +2763,7 @@
     "weight": "9 - 14",
     "height": "29 - 34",
     "temperament": "Fearless, Friendly, Energetic, Alert, Intelligent, Watchful",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": null,
@@ -2793,7 +2793,7 @@
     "weight": "16 - 25",
     "height": "51 - 61",
     "temperament": "Protective, Loyal, Independent, Intelligent, Loving, Familial",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": 244,
@@ -2810,7 +2810,7 @@
     "weight": "39 - 64",
     "height": "61 - 66",
     "temperament": "Strong Willed, Tenacious, Aloof, Stubborn, Intelligent, Protective",
-    "life_span": "10 - 14 years"
+    "life_span": "10 - 14 "
   },
   {
     "id": 245,
@@ -2827,7 +2827,7 @@
     "weight": "4 - 7",
     "height": "25",
     "temperament": "Willful, Aloof, Assertive, Independent, Playful, Intelligent, Happy",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": 246,
@@ -2844,7 +2844,7 @@
     "weight": "9 - 11",
     "height": "36 - 43",
     "temperament": "Affectionate, Energetic, Amiable, Reserved, Gentle, Sensitive",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": null,
@@ -2900,7 +2900,7 @@
     "weight": "20 - 36",
     "height": "51 - 69",
     "temperament": "Clever, Affectionate, Confident, Intelligent, Loving, Trainable",
-    "life_span": "10 - 13 years"
+    "life_span": "10 - 13 "
   },
   {
     "id": 251,
@@ -2917,7 +2917,7 @@
     "weight": "23 - 29",
     "height": "53 - 61",
     "temperament": "Affectionate, Energetic, Loyal, Gentle, Quiet",
-    "life_span": "10 - 14 years"
+    "life_span": "10 - 14 "
   },
   {
     "id": 236,
@@ -2947,7 +2947,7 @@
     "weight": "25 - 41",
     "height": "58 - 69",
     "temperament": "Steady, Aloof, Stubborn, Energetic, Alert, Intelligent, Powerful, Fast",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": 254,
@@ -2964,7 +2964,7 @@
     "weight": "16 - 25",
     "height": "43 - 48",
     "temperament": "Stubborn, Friendly, Affectionate, Loyal, Playful, Active",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": 256,
@@ -2981,7 +2981,7 @@
     "weight": "7 - 10",
     "height": "25 - 28",
     "temperament": "Hardy, Friendly, Alert, Independent, Gay, Active, Courageous",
-    "life_span": "15 - 20 years"
+    "life_span": "15 - 20 "
   },
   {
     "id": 260,
@@ -2998,7 +2998,7 @@
     "weight": "20 - 32",
     "height": "51 - 61",
     "temperament": "Loyal, Gentle, Vigilant, Trainable, Proud",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": 261,
@@ -3015,7 +3015,7 @@
     "weight": "20 - 29",
     "height": "55 - 64",
     "temperament": null,
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": null,
@@ -3045,7 +3045,7 @@
     "weight": "8 - 10",
     "height": "38 - 41",
     "temperament": "Affectionate, Spirited, Intelligent, Good-tempered",
-    "life_span": "14 - 16 years"
+    "life_span": "14 - 16 "
   },
   {
     "id": 42,
@@ -3062,7 +3062,7 @@
     "weight": "5 - 8",
     "height": "24 - 29",
     "temperament": "Feisty, Affectionate, Cheerful, Playful, Gentle, Sensitive",
-    "life_span": "15 years"
+    "life_span": "15 "
   },
   {
     "id": 51,
@@ -3092,7 +3092,7 @@
     "weight": "36 - 50",
     "height": "58 - 69",
     "temperament": "Stubborn, Affectionate, Gentle, Even Tempered",
-    "life_span": "8 - 10 years"
+    "life_span": "8 - 10 "
   },
   {
     "id": 47,
@@ -3109,7 +3109,7 @@
     "weight": "20 - 36",
     "height": "53 - 69",
     "temperament": "Friendly, Intelligent, Active",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": 48,
@@ -3126,7 +3126,7 @@
     "weight": "50 - 91",
     "height": "56 - 69",
     "temperament": "Obedient, Confident, Intelligent, Dominant, Territorial",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": null,
@@ -3156,7 +3156,7 @@
     "weight": "14 - 20",
     "height": "46 - 56",
     "temperament": "Tenacious, Keen, Energetic, Responsive, Alert, Intelligent",
-    "life_span": "12 - 16 years"
+    "life_span": "12 - 16 "
   },
   {
     "id": 51,
@@ -3173,7 +3173,7 @@
     "weight": "5 - 7",
     "height": "28 - 41",
     "temperament": "Fearless, Affectionate, Alert, Obedient, Intelligent, Even Tempered",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": null,
@@ -3203,7 +3203,7 @@
     "weight": "5 - 11",
     "height": "41 - 43",
     "temperament": "Friendly, Lively, Intelligent",
-    "life_span": "11 - 13 years"
+    "life_span": "11 - 13 "
   },
   {
     "id": 55,
@@ -3220,7 +3220,7 @@
     "weight": "23 - 32",
     "height": "55 - 64",
     "temperament": "Devoted, Fearless, Friendly, Cheerful, Energetic, Loyal, Playful, Confident, Intelligent, Bright, Brave, Calm",
-    "life_span": "8 - 10 years"
+    "life_span": "8 - 10 "
   },
   {
     "id": null,
@@ -3263,7 +3263,7 @@
     "weight": "23 - 32",
     "height": "53 - 56",
     "temperament": "Trainable, Protective, Sweet-Tempered, Keen, Active",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": 113,
@@ -3280,7 +3280,7 @@
     "weight": "13",
     "height": "28 - 30",
     "temperament": "Playful, Affectionate, Keen, Sociable, Lively, Alert, Easygoing, Patient, Athletic, Bright",
-    "life_span": "9 - 11 years"
+    "life_span": "9 - 11 "
   },
   {
     "id": 113,
@@ -3297,7 +3297,7 @@
     "weight": "13",
     "height": "28 - 30",
     "temperament": "Playful, Affectionate, Keen, Sociable, Lively, Alert, Easygoing, Patient, Athletic, Bright",
-    "life_span": "9 - 11 years"
+    "life_span": "9 - 11 "
   },
   {
     "id": null,
@@ -3327,7 +3327,7 @@
     "weight": "54 - 77",
     "height": "65 - 80",
     "temperament": "Obedient, Fearless, Loyal, Companionable, Adaptable, Loving",
-    "life_span": "6 - 8 years"
+    "life_span": "6 - 8 "
   },
   {
     "id": null,
@@ -3357,7 +3357,7 @@
     "weight": "11 - 14",
     "height": "25 - 30",
     "temperament": "Tenacious, Outgoing, Friendly, Bold, Playful, Protective",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": 208,
@@ -3374,7 +3374,7 @@
     "weight": "20 - 36",
     "height": "53 - 69",
     "temperament": "Affectionate, Energetic, Independent, Companionable, Familial, Unflappable",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": null,
@@ -3417,7 +3417,7 @@
     "weight": "5 - 6",
     "height": "28 - 33",
     "temperament": "Affectionate, Sweet-Tempered, Lively, Alert, Playful, Happy",
-    "life_span": "10 - 14 years"
+    "life_span": "10 - 14 "
   },
   {
     "id": 80,
@@ -3434,7 +3434,7 @@
     "weight": "23 - 41",
     "height": "56 - 66",
     "temperament": "Friendly, Alert, Dignified, Intelligent, Calm",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": 81,
@@ -3451,7 +3451,7 @@
     "weight": "18 - 32",
     "height": "43 - 51",
     "temperament": "Aloof, Loyal, Independent, Quiet",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": 50,
@@ -3468,7 +3468,7 @@
     "weight": "14 - 20",
     "height": "46 - 56",
     "temperament": "Tenacious, Keen, Energetic, Responsive, Alert, Intelligent",
-    "life_span": "12 - 16 years"
+    "life_span": "12 - 16 "
   },
   {
     "id": 98,
@@ -3485,7 +3485,7 @@
     "weight": "23 - 32",
     "height": "56 - 62",
     "temperament": "Reliable, Affectionate, Alert, Loyal, Obedient, Trainable",
-    "life_span": "15 years"
+    "life_span": "15 "
   },
   {
     "id": null,
@@ -3515,7 +3515,7 @@
     "weight": "5 - 5",
     "height": "25",
     "temperament": "Hardy, Affectionate, Energetic, Sensitive, Intelligent",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": 216,
@@ -3532,7 +3532,7 @@
     "weight": "5 - 7",
     "height": "25 - 33",
     "temperament": "Fearless, Agile, Curious, Independent, Confident, Faithful",
-    "life_span": "13 - 15 years"
+    "life_span": "13 - 15 "
   },
   {
     "id": 218,
@@ -3549,7 +3549,7 @@
     "weight": "32 - 59",
     "height": "71 - 81",
     "temperament": "Docile, Friendly, Dignified, Gentle",
-    "life_span": "8 - 10 years"
+    "life_span": "8 - 10 "
   },
   {
     "id": 219,
@@ -3566,7 +3566,7 @@
     "weight": "8 - 10",
     "height": "25",
     "temperament": "Feisty, Alert, Independent, Playful, Quick, Self-assured",
-    "life_span": "11 - 13 years"
+    "life_span": "11 - 13 "
   },
   {
     "id": 262,
@@ -3583,7 +3583,7 @@
     "weight": "4 - 14",
     "height": "25 - 58",
     "temperament": "Cheerful, Alert, Companionable, Intelligent, Protective, Calm",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": null,
@@ -3626,7 +3626,7 @@
     "weight": "25 - 34",
     "height": "55 - 61",
     "temperament": "Intelligent, Kind, Reliable, Friendly, Trustworthy, Confident",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": 123,
@@ -3643,7 +3643,7 @@
     "weight": "20 - 36",
     "height": "58 - 69",
     "temperament": "Fearless, Alert, Loyal, Confident, Gay, Eager",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": 127,
@@ -3660,7 +3660,7 @@
     "weight": "23 - 32",
     "height": "69 - 76",
     "temperament": "Affectionate, Athletic, Gentle, Intelligent, Quiet, Even Tempered",
-    "life_span": "10 - 13 years"
+    "life_span": "10 - 13 "
   },
   {
     "id": 137,
@@ -3677,7 +3677,7 @@
     "weight": "48 - 82",
     "height": "76 - 89",
     "temperament": "Sweet-Tempered, Loyal, Dignified, Patient, Thoughtful, Generous",
-    "life_span": "6 - 8 years"
+    "life_span": "6 - 8 "
   },
   {
     "id": null,
@@ -3707,7 +3707,7 @@
     "weight": "16 - 20",
     "height": "43 - 46",
     "temperament": "Agile, Obedient, Playful, Quick, Sturdy, Bright",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": 144,
@@ -3724,7 +3724,7 @@
     "weight": "36 - 45",
     "height": "65 - 70",
     "temperament": "Steady, Fearless, Affectionate, Independent, Gentle, Calm",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": null,
@@ -3754,7 +3754,7 @@
     "weight": "27 - 45",
     "height": "53",
     "temperament": "Sociable, Bubbly, Playful, Adaptable, Intelligent, Loving",
-    "life_span": "10 - 12 years"
+    "life_span": "10 - 12 "
   },
   {
     "id": null,
@@ -3797,7 +3797,7 @@
     "weight": "3 - 4",
     "height": "23 - 28",
     "temperament": null,
-    "life_span": "18 years"
+    "life_span": "18 "
   },
   {
     "id": null,
@@ -3879,7 +3879,7 @@
     "weight": "20 - 36",
     "height": "61 - 64",
     "temperament": "Strong Willed, Mischievous, Affectionate, Energetic, Playful, Companionable, Gentle, Hard-working, Intelligent, Eager, People-Oriented",
-    "life_span": "12 years"
+    "life_span": "12 "
   },
   {
     "id": 134,
@@ -3896,7 +3896,7 @@
     "weight": "16 - 32",
     "height": "61 - 69",
     "temperament": "Affectionate, Energetic, Lively, Independent, Playful, Companionable",
-    "life_span": "10 - 11 years"
+    "life_span": "10 - 11 "
   },
   {
     "id": 135,
@@ -3913,7 +3913,7 @@
     "weight": "11 - 12",
     "height": "46",
     "temperament": "Respectful, Lively, Intelligent, Dominant, Protective, Trainable",
-    "life_span": "12 - 16 years"
+    "life_span": "12 - 16 "
   },
   {
     "id": null,
@@ -3943,7 +3943,7 @@
     "weight": "5 - 5",
     "height": "23 - 25",
     "temperament": "Self-confidence, Fearless, Spirited, Companionable, Happy, Lovable",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": 183,
@@ -3960,7 +3960,7 @@
     "weight": "6",
     "height": "15 - 23",
     "temperament": "Opinionated, Good-natured, Stubborn, Affectionate, Aggressive, Intelligent",
-    "life_span": "14 - 18 years"
+    "life_span": "14 - 18 "
   },
   {
     "id": null,
@@ -3977,7 +3977,7 @@
     "weight": "20 - 32",
     "height": "53 - 64",
     "temperament": "Boisterous, Bold, Affectionate, Intelligent, Cooperative, Trainable",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": null,
@@ -4007,7 +4007,7 @@
     "weight": "34 - 50",
     "height": "56 - 69",
     "temperament": "Steady, Good-natured, Fearless, Devoted, Alert, Obedient, Confident, Self-assured, Calm, Courageous",
-    "life_span": "8 - 10 years"
+    "life_span": "8 - 10 "
   },
   {
     "id": 61,
@@ -4037,7 +4037,7 @@
     "weight": "4 - 5",
     "height": "23 - 25",
     "temperament": "Friendly, Responsive, Inquisitive, Alert, Quick, Joyful",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": 228,
@@ -4080,7 +4080,7 @@
     "weight": "NaN - 8",
     "height": "39",
     "temperament": "Fearless, Affectionate, Alert, Playful, Intelligent, Active",
-    "life_span": "12 - 14 years"
+    "life_span": "12 - 14 "
   },
   {
     "id": 135,
@@ -4123,7 +4123,7 @@
     "weight": "11 - 16",
     "height": "46 - 56",
     "temperament": "Friendly, Affectionate, Lively, Gentle, Intelligent, Quiet",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": 259,
@@ -4140,7 +4140,7 @@
     "weight": "7 - 9",
     "height": "33 - 41",
     "temperament": "Fearless, Friendly, Bold, Keen, Alert, Quick",
-    "life_span": "13 – 14 years"
+    "life_span": "13 – 14 "
   },
   {
     "id": null,
@@ -4170,7 +4170,7 @@
     "weight": "2 - 3",
     "height": "20 - 23",
     "temperament": "Bold, Independent, Confident, Intelligent, Courageous",
-    "life_span": "12 - 16 years"
+    "life_span": "12 - 16 "
   },
   {
     "id": 111,
@@ -4187,7 +4187,7 @@
     "weight": "10 - 13",
     "height": "39 - 51",
     "temperament": "Playful, Loyal, Independent, Intelligent, Happy, Vocal",
-    "life_span": "12 - 15 years"
+    "life_span": "12 - 15 "
   },
   {
     "id": 201,
@@ -4233,7 +4233,7 @@
     "weight": "4 - 7",
     "height": "20 - 28",
     "temperament": "Clever, Spunky, Outgoing, Friendly, Affectionate, Lively, Alert, Loyal, Independent, Playful, Gentle, Intelligent, Happy, Active, Courageous",
-    "life_span": "10 - 18 years"
+    "life_span": "10 - 18 "
   },
   {
     "id": null,
@@ -4263,7 +4263,7 @@
     "weight": "11 - 16",
     "height": "41 - 43",
     "temperament": "Energetic, Agile, Loyal, Obedient, Intelligent, Faithful",
-    "life_span": "12 - 16 Years years"
+    "life_span": "12 - 16  "
   },
   {
     "id": 205,
@@ -4280,6 +4280,6 @@
     "weight": "8 - 15",
     "height": "38 - 47",
     "temperament": "Lively, Reserved, Intelligent, Active, Protective, Vocal",
-    "life_span": "13 - 15 years"
+    "life_span": "13 - 15 "
   }
 ]
