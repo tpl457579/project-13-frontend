@@ -9,15 +9,17 @@
   flex-direction: column;
   gap:0px
 }
+.form-title-vertical{
+  visibility: visible;
+  color: var(--accent-color);
+  margin-top: 5px;
+}
 
 
-
-h3 {
-    text-align: center;
-    color: var(--accent-color);
-    font-weight: 400;
-    font-size: 20px;
-    margin-bottom: 10px;
+.form-title {
+   
+    font-size: 0px;
+    
 }
 
 .form-section-visuals{
@@ -29,6 +31,7 @@ h3 {
 .form-section-inputs{
       display: flex;
     flex-direction: column;
+    margin-top: 10px;
     align-items: center;
 }
 
@@ -81,6 +84,7 @@ input[type="number"] {
   width: 290px;
     height: 36px;
     color: var(--text-color);
+    background: var(--background-color);
     border: 1px solid var(--button-border-color);
     border-radius: 8px;
 }
@@ -138,20 +142,21 @@ input[type="number"] {
 
 
 .add-dog-image {
-    margin-bottom: 15px;
+    height: 170px;
     object-fit: cover;
-    margin-bottom: 10px;
-    cursor: pointer;
-    border-radius: 10px;
-    transition: transform 0.2s;
-    box-shadow: 10px 10px 42px -9px rgba(0, 0, 0, 0.75);
+    border-radius: 8px;
+    background: #f2f2f2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .add-dog-image img {
-border-radius: 10px;
-width: 280px;
-    height: 200px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; 
 }
+
 
 .dog-info-input {
   border: 1px solid var(--button-border-color);
@@ -171,7 +176,7 @@ width: 280px;
     border: 1px dashed var(--button-border-color);
     border-radius: 10px;
     color: var(--button-text-color);
-    margin-bottom: 10px;
+    margin: 10px 0px;
     align-items: center;
 }
 
@@ -304,39 +309,41 @@ width: 280px;
 }
 
 
-.dog-modal-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  height: 30px;
+.admin-dog-form-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 240px;
+    margin-top: 30px;
 }
 
-.dog-modal-buttons button:first-child,
-.dog-modal-buttons button:last-child {
+.admin-dog-form-buttons button:first-child,
+.admin-dog-form-buttons button:last-child {
   padding: var(--button-padding);
   border-radius: var(--button-border-radius);
   cursor: pointer;
+  height: 30px;
   border-radius: 8px;
   width: 140px;
 }
 
-.dog-modal-buttons button:first-child {
+.admin-dog-form-buttons button:first-child {
   color: var(--text-color);
   border: 0.5px solid var(--button-border-color);
   background: var(--background-color);
 }
 
-.dog-modal-buttons button:first-child:hover {
+.admin-dog-form-buttons button:first-child:hover {
   border: 2px solid var(--button-hover-border-color);
 }
 
-.dog-modal-buttons button:last-child {
+.admin-dog-form-buttons button:last-child {
   background: var(--fill-background-color);
   color: var(--fill-button-text);
   border: none;
 }
 
-.dog-modal-buttons button:last-child:hover {
+.admin-dog-form-buttons button:last-child:hover {
   background: var(--fill-button-hover-color);
 }
 
@@ -396,11 +403,85 @@ width: 280px;
   position: relative;
 }
 
+.visual-toggle {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 12px;
+}
+
+.visual-toggle button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--accent-color);
+  background: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.visual-toggle button.active {
+  background: var(--accent-color);
+  color: var(--text-color);
+}
+
+
+
+.temperament-selector button {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  background: #f7f7f7;
+  text-align: left;
+}
+
+.temperament-selector button.selected {
+  background: var(--accent-color);
+  color: white;
+}
+.form-section-visuals {
+  width: 100%;
+}
+
+
+.visual-content {
+  height: 280px;
+ 
+}
+
+.image-mode {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.temperament-mode {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.temperament-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 8px;
+    height: 270px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    width: 100%;
+}
+
+
+
+
 .step-navigation {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 7px;
   gap: 15px;
 }
 
@@ -447,22 +528,60 @@ width: 280px;
 
 
 
+
+
 @media (max-width: 740px) {
   
  
   .product-card-info h4 {
     font-size: 15px;
   }
-  .card-buttons {
-    right: 25px;
-  }
+  
   
 }
 
+@media (max-width: 540px){
+
+  .form-title{
+    font-size: 0px;
+  }
+  .form-title-vertical{
+    color: var(--accent-color);
+  }
+.step-navigation{
+  margin-bottom: 10px;
+}
+.visual-toggle {
+  margin-bottom: 0px;
+}
+.visual-content{
+  height: 230px;
+}
+.admin-dog-form-buttons{
+  margin-top: 0px;
+}
+.image-mode{
+  margin-top: 15px;
+}
+.add-dog-image{
+  height: 160px;
+}
+.dog-layout-wrapper{
+  display: flex;
+    flex-direction: column;
+}
+}
 
 @media (max-height: 520px) and (orientation: landscape) {
 
+  .form-title{
+    font-size: 18px;
+    color: var(--accent-color);
+  }
 
+.form-title-vertical{
+  visibility: hidden;
+}
   .dog-edit-form {
     width: 80svw;
         height: 80svh;
@@ -477,17 +596,18 @@ width: 280px;
 }
   
 
-  .dog-layout-wrapper {
-    display: grid;
-    background: transparent;
-    grid-template-columns: 0.8fr 1.2fr;
-    align-items: start;
-  }
+      .dog-layout-wrapper
+ {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: row-reverse;
+    }
 
   .form-section-visuals {
     
         display: flex;
         width: 220px;
+        height: 86%;
         flex-direction: column;
         background: transparent;
         align-items: center;
@@ -496,42 +616,62 @@ width: 280px;
   }
 
 
-  .add-dog-image{
-    margin:0px;
-  }
-  .add-dog-image img {
-    height: 170px;
-    width: 200px;
-    object-fit: cover;
+ .add-dog-image {
+  width: 200px;
+  height: 165px;
+  border-radius: 8px;
+  background: #f2f2f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-dog-image img {
+    width: 100%;
+    height: 100%;
     border-radius: 8px;
-  }
+    object-fit: cover;
+}
 
   .drop-zone {
     border-color: var(--button-border-color);
     height: 60px;
     width: 200px;
   }
-  .form-section-inputs {
-          
+      .form-section-inputs {
         width: 300px;
         background: transparent;
-        height: 270px;
         display: flex;
         flex-direction: column;
-        gap: 12px;
-
         align-items: center;
+        justify-content: center;
     }
 
     .dog-edit-form input[type='text'], .dog-edit-form input[type='number'], .dog-edit-form input[type='file'], .dog-edit-form input[type='url'] {
     padding: 8px 10px;
     border-radius: 6px;
+    font-size: 14px;
     height: 36px;
-    width: 240px;
+    width: 260px;
     border: 1px solid var(--button-border-color);
  color: var(--text-color);
    
 }
+
+.temperament-selector {
+  
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 8px;
+    scale: 0.65;
+    margin-top: -45px;
+    height: 320px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    width: 100%;
+}
+
 
   .identity-inputs {
         display: flex;
@@ -541,7 +681,7 @@ width: 280px;
 
 .identity-inputs input {
    
-    width: 240px;
+    width: 260px;
     border: 1px solid var(--button-border-color);
     height: 36px;
     padding: 8px;
@@ -549,11 +689,12 @@ width: 280px;
     min-width: 0;
 }
 
-.modal-buttons button:first-child, .modal-buttons button:last-child {
+.admin-dog-form-buttons button:first-child, .admin-dog-form-buttons button:last-child {
   
     cursor: pointer;
     height: 30px;
     border-radius: 6px;
+    margin-top: 0px;
     width: 140px;
 }
 
@@ -562,10 +703,10 @@ width: 280px;
         scale: 0.8;
     }
 
-      .modal-buttons {
+      .admin-dog-form-buttons {
         gap: 10px;
 width: 200px;
-  
+  margin-top: 0px;
     display: flex;
 
       }

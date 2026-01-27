@@ -156,7 +156,7 @@ export default function ProductForm({
  return (
   <div className='modal-content' onClick={(e) => e.stopPropagation()}>
     <form className='product-edit-form' onSubmit={handleSubmit}>
-      <h3>{initialData._id ? 'Edit' : 'Add'} Product</h3>
+      <h3 className='product-edit-title'>{initialData._id ? 'Edit' : 'Add'} Product</h3>
 
       {fetchingMetadata && (
         <div className='metadata-spinner'>

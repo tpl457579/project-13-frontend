@@ -187,21 +187,27 @@ const AdminDogs = () => {
           <div className='dog-list'>
             {visibleDogs.length ? visibleDogs.map(d => (
               <div key={d._id} className='admin-dog-card'>
-                <img src={d.imageUrl || d.image_link || PLACEHOLDER} alt={d.name} />
-                <div className='admin-dog-card-info'>
-                  <h4
-  className="admin-dog-card-info"
-  style={{
-    fontSize: d.name.length > 22 ? "15px" : "18px"
-  }}
->
-  {d.name}</h4>
-                  <div className='admin-dog-buttons'>
-                    <Button onClick={() => openModal(d)}>Edit</Button>
-                    <Button onClick={() => openDeleteModal(d)}>Delete</Button>
-                  </div>
-                </div>
-              </div>
+  <img
+    src={d.imageUrl || d.image_link || PLACEHOLDER}
+    alt={d.name}
+    className="dog-card-image"
+  />
+
+  <div className='admin-dog-card-content'>
+    <h4
+      className="dog-card-title"
+      style={{ fontSize: d.name.length > 22 ? "15px" : "18px" }}
+    >
+      {d.name}
+    </h4>
+
+    <div className='admin-dog-card-buttons'>
+      <button  onClick={() => openModal(d)}>Edit</button>
+      <button  onClick={() => openDeleteModal(d)}>Delete</button>
+    </div>
+  </div>
+</div>
+
             )) : <p>No dogs found.</p>}
           </div>
 

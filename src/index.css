@@ -5,10 +5,14 @@
   padding: 0;
   box-sizing: border-box;
   list-style: none;
-  background: var(--background-color);
+ /*  background: var(--background-color); */
   text-decoration: none;
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
+}
+
+body {
+  background: var(--background-color);
 }
 
 body.light-theme {

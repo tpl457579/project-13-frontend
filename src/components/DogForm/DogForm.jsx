@@ -23,6 +23,32 @@ function DropZone({ handleFileChange }) {
   )
 }
 
+function TemperamentSelector({ options, selected, onChange }) {
+  const toggle = (t) => {
+    if (selected.includes(t)) {
+      onChange(selected.filter(x => x !== t))
+    } else {
+      onChange([...selected, t])
+    }
+  }
+
+  return (
+    <div className="temperament-selector">
+      {options.map(t => (
+        <button
+          key={t}
+          type="button"
+          className={selected.includes(t) ? "selected" : ""}
+          onClick={() => toggle(t)}
+        >
+          {t}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+
 export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmitting }) {
   const [name, setName] = useState(initialData.name || '')
   const [preview, setPreview] = useState(initialData.imageUrl || initialData.image_link || '')
@@ -35,6 +61,8 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
   const previewUrlRef = useRef(null)
   const inputRef = useRef(null)
   const autoTimer = useRef(null)
+  const [showTemperaments, setShowTemperaments] = useState(false)
+
 
   useEffect(() => {
     setName(initialData.name || '')
@@ -44,6 +72,14 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
     setPublicId(initialData.imagePublicId || '')
     setIsAutoNavEnabled(!initialData._id)
   }, [initialData])
+  const temperamentOptions = useMemo(() => [
+    'Stubborn','Curious','Playful','Adventurous','Active','Fun-loving','Aloof','Clownish',
+    'Dignified','Independent','Happy','Outgoing','Friendly','Alert','Confident','Intelligent',
+    'Courageous','Docile','Responsive','Composed','Receptive','Faithful','Affectionate',
+    'Devoted','Loyal','Assertive','Energetic','Gentle','Dominant','Reserved','Protective',
+    'Kind','Sweet-Tempered','Loving','Tenacious','Attentive','Obedient','Trainable','Steady',
+    'Bold','Proud'
+  ], [])
 
   const fields = useMemo(() => [
     { key: 'weight', label: 'Weight (e.g. 10 - 20 kg)', type: 'text' },
@@ -60,7 +96,11 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
   ], [])
 
   const [formData, setFormData] = useState({
-    temperament: Array.isArray(initialData.temperament) ? initialData.temperament : [],
+  temperament: Array.isArray(initialData.temperament)
+      ? initialData.temperament
+      : initialData.temperament
+        ? String(initialData.temperament).split(',').map(s => s.trim()).filter(Boolean)
+        : [],
     weight: initialData.weight || '',
     height: initialData.height || '',
     life_span: initialData.life_span || '',
@@ -173,23 +213,60 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
   return (
     <div className='modal-content' onClick={(e) => e.stopPropagation()}>
   <form className='dog-edit-form' onSubmit={handleSubmit}>
-    <h3 className="form-title">{initialData._id ? 'Edit Dog' : 'Add Dog'}</h3>
+    <h2 className="form-title-vertical">{initialData._id ? 'Edit Dog' : 'Add Dog'}</h2>
+   
 
     <div className='dog-layout-wrapper'>
-      <div className='form-section-visuals'>
-        <div className='add-dog-image'>
-          <img 
-            src={preview || PLACEHOLDER} 
-            alt='Dog' 
-            onError={(e) => { e.target.src = PLACEHOLDER }}
-          />
+      
+      <div className="form-section-visuals">
+
+  <div className="visual-toggle">
+    <button
+      type="button"
+      className={!showTemperaments ? "active" : ""}
+      onClick={() => setShowTemperaments(false)}
+    >
+      Image
+    </button>
+
+    <button
+      type="button"
+      className={showTemperaments ? "active" : ""}
+      onClick={() => setShowTemperaments(true)}
+    >
+      Temperaments
+    </button>
+  </div>
+
+  <div className="visual-content">
+    {!showTemperaments ? (
+      <div className="image-mode">
+        <div className="add-dog-image">
+          <img src={preview || PLACEHOLDER} alt="Dog" />
         </div>
         <DropZone handleFileChange={handleFileChange} />
         {uploading && <Spinner />}
       </div>
+    ) : (
+      <div className="temperament-mode">
+        <TemperamentSelector
+          options={temperamentOptions}
+          selected={formData.temperament}
+          onChange={(newTemps) =>
+            setFormData(prev => ({ ...prev, temperament: newTemps }))
+          }
+        />
+      </div>
+    )}
+  </div>
+
+</div>
+
+
 
       
       <div className='form-section-inputs'>
+        <h3 className="form-title">{initialData._id ? 'Edit Dog' : 'Add Dog'}</h3>
         <div className='identity-inputs'>
           <input 
             value={name} 
@@ -239,7 +316,7 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
           <button type="button" className="nav-arrow" disabled={step === fields.length - 1} onClick={() => handleManualStep(step + 1)}>&rarr;</button>
         </div>
 
-        <div className='dog-modal-buttons'>
+        <div className='admin-dog-form-buttons'>
           <Button type='submit' loading={isSubmitting || uploading} showSpinner>Save Dog</Button>
           <button type='button' onClick={onCancel}>Cancel</button>
         </div>
