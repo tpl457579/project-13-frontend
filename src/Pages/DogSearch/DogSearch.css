@@ -15,6 +15,7 @@
      width: 320px;
     border-radius: 12px;
     height: 350px;
+    cursor: pointer;
     border: 1px solid var(--button-border-color);
 }
 
@@ -127,7 +128,7 @@ h3 {
 }
 
 .alphabet-toggle-btn:hover {
-  background: var(--accent-color);
+  transform:scale3(1.1)
 }
 
 .alphabet-letters {

@@ -1,4 +1,4 @@
-import './SuitableDog.css'
+import '../SuitableDog/SuitableDog.css'
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import DogLoader from '../../components/DogLoader/DogLoader'
 import Button from '../../components/Buttons/Button'
@@ -123,33 +123,59 @@ export default function SuitableDog() {
     fetchDogs()
   }, [])
 
-  const matchDogs = useCallback(
-    (answers) => {
-      if (!dogs) return []
-      return dogs
-        .map((dog) => {
-          let totalScore = 0
-          let count = 0
-          let breakdown = []
-          for (let q of questions) {
-            const userVal = answers[q.id]
-            const dogVal = dog[q.id]
-            if (userVal !== undefined && dogVal != null) {
-              count += 1
-              const diff = Math.abs(userVal - dogVal)
-              const match = Math.max(0, 100 - diff * 20)
-              totalScore += match
-              breakdown.push({ trait: q.text, match })
-            }
+  // replace existing enrichDog with this
+const enrichDog = useCallback(
+  (dog, answersForCalc = answers) => {
+    if (!dog) return dog;
+    let totalScore = 0;
+    let count = 0;
+    let breakdown = [];
+    for (let q of questions) {
+      const userVal = answersForCalc[q.id];
+      const dogVal = dog[q.id];
+      if (userVal !== undefined && dogVal != null) {
+        count += 1;
+        const diff = Math.abs(userVal - dogVal);
+        const match = Math.max(0, 100 - diff * 20);
+        totalScore += match;
+        breakdown.push({ id: q.id, trait: q.text, match });
+      }
+    }
+    const computedPercent = count > 0 ? Math.round(totalScore / count) : 0;
+    return { ...dog, score: computedPercent, breakdown };
+  },
+  [questions, answers]
+);
+
+
+  // replace existing matchDogs with this
+const matchDogs = useCallback(
+  (answers) => {
+    if (!dogs) return [];
+    return dogs
+      .map((dog) => {
+        let totalScore = 0;
+        let count = 0;
+        let breakdown = [];
+        for (let q of questions) {
+          const userVal = answers[q.id];
+          const dogVal = dog[q.id];
+          if (userVal !== undefined && dogVal != null) {
+            count += 1;
+            const diff = Math.abs(userVal - dogVal);
+            const match = Math.max(0, 100 - diff * 20);
+            totalScore += match;
+            breakdown.push({ id: q.id, trait: q.text, match });
           }
-          const percent = count > 0 ? Math.round(totalScore / count) : 0
-          return { ...dog, score: percent, breakdown }
-        })
-        .sort((a, b) => b.score - a.score)
-        .slice(0, 10)
-    },
-    [dogs, questions]
-  )
+        }
+        const computedPercent = count > 0 ? Math.round(totalScore / count) : 0;
+        return { ...dog, score: computedPercent, breakdown };
+      })
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 10);
+  },
+  [dogs, questions]
+);
 
   const handleAnswer = useCallback(
     (qId, value) => {
@@ -178,10 +204,16 @@ export default function SuitableDog() {
     localStorage.removeItem(STORAGE_KEY)
   }, [])
 
-  const openPopup = (dog) => {
-    setSelectedDog(dog)
-    openModal()
-  }
+// replace openPopup with this to ensure popup receives the computed/enriched dog
+const openPopup = (dog) => {
+  // if dog came from results it should already be enriched; otherwise compute
+  const enriched = results.find((r) => String(r.id) === String(dog.id)) || enrichDog(dog);
+  setSelectedDog(enriched);
+  openModal();
+}
+
+
+
 
   const closePopup = () => {
     setSelectedDog(null)
@@ -213,10 +245,7 @@ export default function SuitableDog() {
                     className='suitable-dog-img'
                   />
                 )}
-                <h3>
-  {dog?.name}
-</h3>
-
+                <h3>{dog?.name}</h3>
                 <p>
                   <strong>Total Match:</strong> {dog.score}%
                 </p>
@@ -233,7 +262,7 @@ export default function SuitableDog() {
             Repeat
           </Button>
         </div>
-        <DogPopup isOpen={isOpen} closePopup={closePopup} dog={selectedDog} />
+        <DogPopup isOpen={isOpen} closePopup={closeModal} dog={selectedDog} />
       </div>
     )
   }
@@ -267,7 +296,7 @@ export default function SuitableDog() {
       >
         Back
       </Button>
-      <DogPopup isOpen={isOpen} closePopup={closePopup} dog={selectedDog} />
+      <DogPopup isOpen={isOpen} closePopup={closeModal} dog={selectedDog} />
     </div>
   )
 }

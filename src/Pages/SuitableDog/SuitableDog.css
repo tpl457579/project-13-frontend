@@ -57,6 +57,11 @@
   border-radius: 12px;
 }
 
+    .popup-wrapper{
+      display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .resultsText {
   color: var(--text-color);
@@ -88,7 +93,7 @@
         animation: popupFadeIn 0.3s forwards;
         display: flex;
         flex-direction: column;
-        width: 70svw;
+        width: 450px;
         margin-top: 0px;
         border: 1px solid var(--button-border-color);
         height: 90svh;
@@ -115,9 +120,8 @@
 
 .dogImgLarge {
   width: 50%;
-  height: 250px;
+    height: 180px;
   object-fit: cover;
-  margin: 15px 0;
   border-radius: 10px;
   box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.42);
   border-bottom: 2px solid rgb(6, 5, 5);
@@ -210,6 +214,118 @@
     margin-bottom: 40px;
 }
 
+.trait-meter {
+    margin: 6px 0;
+    height: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.trait-label {
+  margin-right: 5px;
+    margin-bottom: 4px;
+    color: var(--text-color);
+}
+.trait-icons {
+  display: flex;
+  gap: 4px;
+}
+
+
+
+.trait-icon {
+  width: 80px;
+  height: 80px;
+  opacity: 0.25;
+  transform: translateX(-8px) scale(0.8);
+  filter: brightness(0) saturate(100%);
+}
+
+.trait-icon.filled {
+  opacity: 1;
+}
+
+.traits-toggle-btn{
+      background: var(--background-color);
+    border: 1px solid var(--accent-color);
+    border-radius: 6px;
+    margin-top: 15px;
+    cursor: pointer;
+    color: var(--text-color);
+    padding: 8px 12px;
+}
+
+
+
+.trait-icon.animate {
+  animation: slideGlow 0.45s ease forwards;
+}
+
+@keyframes slideGlow {
+  0% {
+    opacity: 0;
+    transform: translateX(-12px) scale(0.6);
+    filter: brightness(0) saturate(100%) drop-shadow(0 0 0px rgba(255,255,255,0));
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(0) scale(1.15);
+    filter: brightness(1) saturate(150%) drop-shadow(0 0 6px rgba(255,255,255,0.7));
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    filter: brightness(1) saturate(150%) drop-shadow(0 0 2px rgba(255,255,255,0.4));
+  }
+}
+
+.paw-icon { display: inline-block; vertical-align: middle; width: 40px; height: 40px; }
+
+.score-row, .paw-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.trait-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.trait-row p {
+  margin: 0;
+  flex: 1;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+
+
 @media (max-width: 952px){
 
 .top-dogs h1, .questionnaire h1 {
@@ -247,35 +363,42 @@
         border-radius: 12px;
   }
 
-  .suitable-dog-popup-content{
-    width:320px;
-    height: 80svh;
-  }
+  .suitable-dog-popup-content {
+        width: 340px;
+        height: 85svh;
+    }
   
+ 
+        .trait-label {
+        width: 150px;
+        display: flex;
+        font-size: 12px;
+        align-items: flex-end;
+        flex-direction: column;
+    }
+
+    .trait-icons {
+    display: flex;
+    width: 170px;
+   
+}
+
+.suitable-dog-popup-content h2{
+  font-size: 22px;
+}
   .suitable-dog-popup-content p {
     padding: 0px;
-    margin-bottom: 10px;
+    font-size: 18px;
+        margin-bottom: 20px;
   }
 .dogImgLarge{
-  width:70%
+  width:70%;
+  margin-bottom: 10px;
 }
 }
 
 @media (max-height: 520px) {
 
-.suitable-dog-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: var(--text-color);
-    cursor: pointer;
-    justify-content: flex-start;
-    width: 240px;
-    height: 310px;
-    border-radius: 10px;
-    box-shadow: 0px 1px 3px 0px var(--box-shadow);
-    border-bottom: 1.5px solid rgb(6, 5, 5);
-}
 
   .suitable-dog-img {
     height:180px;
@@ -305,11 +428,49 @@
 .popup-wrapper {
   height: 270px;
   display: flex;
+  width: 100%;
     align-items: center;
 }
 
+
+.popup-text{
+    overflow-y: scroll;
+    display: flex;
+    margin-top: 7px;
+    margin-bottom: 5px;
+    flex-direction: column;
+    scrollbar-width: none;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
 .optionInput{
   height:26px
+}
+
+.suitable-dog-popup-content {
+    background: var(--background-color);
+    padding: 15px;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    animation: popupFadeIn 0.3s forwards;
+    display: flex;
+    flex-direction: row;
+    width: 85svw;
+    margin-top: 0px;
+    border: 1px solid var(--button-border-color);
+    height: 85svh;
+    position: relative;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transform: scale(0.8);
+    opacity: 0;
+    animation: popupFadeIn 0.3s forwards;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
 }
 
 
@@ -321,6 +482,9 @@
   height:190px;
   overflow-y: hidden;
 }
-
+.dogImgLarge{
+width: 50%;
+    height: 150px;
+margin-top: 4px;
 }
-
+}

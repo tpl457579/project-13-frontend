@@ -53,6 +53,7 @@
 .hamburger-menu.open {
         right: 0;
         border: 2px solid var(--button-border-color);
+        background: var(--background-color);
         height: 520px;
         margin-top: 12px;
     }
