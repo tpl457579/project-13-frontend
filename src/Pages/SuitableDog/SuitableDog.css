@@ -412,7 +412,6 @@
     display: block;
     animation: slideUp 0.3s ease-in-out;
   }
-}
 
 @keyframes slideUp {
   from { transform: translateY(100%); }
@@ -487,4 +486,5 @@
 
 .trait-icons{
   width:220px;
+}
 }

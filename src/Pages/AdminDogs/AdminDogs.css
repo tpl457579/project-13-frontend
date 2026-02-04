@@ -74,6 +74,7 @@
 .dog-pagination-container {
   display: flex;
   justify-content: center;
+  margin-bottom: 50px;
   align-items: center;
   width: 100%;
   position: relative;
