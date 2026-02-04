@@ -277,7 +277,9 @@
 }
 
 @media (max-height: 520px) {
-
+.footer-container{
+  visibility: hidden;
+}
 .score-lives {
     position: absolute;
     top: 10svh;
