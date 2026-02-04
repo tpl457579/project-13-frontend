@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react'
 import DogLoader from '../../components/DogLoader/DogLoader'
 import Button from '../../components/Buttons/Button'
 import { useModal } from '../../Hooks/useModal.js'
-import DogPopup from '../../components/DogPopup'
+import DogPopup from '../../components/DogPopup/DogPopup.jsx'
 import SmallDogCard from '../../components/SmallDogCard/SmallDogCard.jsx'
 
 const STORAGE_KEY = 'suitableDogState'

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import Modal from '../../src/components/Modal/Modal'
-import '../../src/Pages/SuitableDog/SuitableDog.css'
-import PawIcon from '../../src/components/PawIcon'
+import Modal from '../Modal/Modal'
+/* import '../../src/Pages/SuitableDog/SuitableDog.css' */
+import PawIcon from '../PawIcon'
 
 const TraitMeter = ({ label, value, className }) => {
   if (value == null) return null
@@ -38,7 +38,6 @@ const TraitMeter = ({ label, value, className }) => {
 const DogPopup = ({ isOpen, closePopup, dog }) => {
   const [showTraits, setShowTraits] = useState(false)
 
-  // Fullscreen Helpers
   const toggleFullscreen = () => {
     const element = document.documentElement
     if (!document.fullscreenElement) {
@@ -60,13 +59,11 @@ const DogPopup = ({ isOpen, closePopup, dog }) => {
     }
   }
 
-  // Handle Close and Exit Fullscreen
   const handleClose = () => {
     exitFullscreen()
     closePopup()
   }
 
-  // Reset traits view when dog changes or modal closes
   useEffect(() => {
     if (!isOpen) {
       setShowTraits(false)
@@ -85,7 +82,7 @@ const DogPopup = ({ isOpen, closePopup, dog }) => {
         className="suitable-dog-popup-content" 
         onClick={(e) => {
           e.stopPropagation();
-          toggleFullscreen(); // Trigger fullscreen on first interaction inside modal
+          toggleFullscreen(); 
         }}
       >
         <button className="modal-close" onClick={handleClose}>

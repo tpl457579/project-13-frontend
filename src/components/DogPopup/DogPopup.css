@@ -1,3 +1,33 @@
+
+    .suitable-dog-popup-content {
+        background: var(--background-color);
+        padding:15px;
+        border-radius: 12px;
+        position: relative;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        animation: popupFadeIn 0.3s forwards;
+        display: flex;
+        flex-direction: column;
+        width: 450px;
+        margin-top: 0px;
+        border: 1px solid var(--button-border-color);
+        height: 85svh;
+        position: relative;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        transform: scale(0.8);
+        opacity: 0;
+        animation: popupFadeIn 0.3s forwards;
+    }
+
+.suitable-dog-popup-content h2 {
+  color: var(--accent-color);
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+
 .trait-meter {
     margin: 6px 0;
     height: 24px;
@@ -83,6 +113,51 @@
 
 @media (max-width: 570px){
 
+     .suitable-dog-popup-content {
+        width: 340px;
+        height: 85svh;
+    }
+     .suitable-dog-popup-content p {
+    padding: 0px;
+    font-size: 18px;
+        margin-bottom: 20px;
+  }
+
+  
+.suitable-dog-popup-content {
+    background: var(--background-color);
+    padding: 15px;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    animation: popupFadeIn 0.3s forwards;
+    display: flex;
+    flex-direction: row;
+    width: 85svw;
+    margin-top: 0px;
+    border: 1px solid var(--button-border-color);
+    height: 85svh;
+    position: relative;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transform: scale(0.8);
+    opacity: 0;
+    animation: popupFadeIn 0.3s forwards;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+
+.suitable-dog-popup-content h2 {
+  margin-bottom: 0px;
+}
+
+.dogImgLarge{
+  margin-bottom: 10px;
+  height: 170px;
+  object-fit: cover;
+}
 .trait-meter{
  margin: 6px 0;
 }
@@ -107,5 +182,41 @@
 @media (max-height: 520px){
     .trait-icons{
         width: 220px;
+    }
+    
+.suitable-dog-popup-content {
+    background: var(--background-color);
+    padding: 15px;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    animation: popupFadeIn 0.3s forwards;
+    display: flex;
+    flex-direction: row;
+    width: 85svw;
+    margin-top: 0px;
+    border: 1px solid var(--button-border-color);
+    height: 85svh;
+    position: relative;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transform: scale(0.8);
+    opacity: 0;
+    animation: popupFadeIn 0.3s forwards;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+
+.suitable-dog-popup-content h2 {
+  margin-bottom: 0px;
+}
+
+    .dogImgLarge {
+        width: 30%;
+        height: 120px;
+        margin-top: 4px;
+        object-fit: cover;
     }
 }

@@ -315,9 +315,7 @@
 }
 
 @media (max-width: 570px) {
-
-
-  .suitable-dog-popup-content {
+ .suitable-dog-popup-content {
         width: 340px;
         height: 85svh;
     }
@@ -398,7 +396,7 @@
   }
 
   .popup-footer {
-    display: none; /* Hidden until clicked */
+    display: none; 
     position: fixed;
     bottom: 0;
     left: 0;

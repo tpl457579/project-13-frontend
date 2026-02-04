@@ -169,7 +169,9 @@
 
 @media (max-width: 580px) {
   
-
+.admin-products{
+  padding:6px
+}
     .admin-product-card {
         height: 520px;
         width: 320px;
