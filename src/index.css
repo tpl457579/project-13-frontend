@@ -19,7 +19,7 @@ body.light-theme {
   --text-color: rgb(12, 11, 11);
   --header-color: #f3ebf3;
   --accent-color: #8e44ad;
-  --input-color: #ffffff;
+  --input-color: #fff2fe;
   --input-border-color: #cfc1c1;
   --background-color:#f3ebf3;
   --button-border-color: #827777;
@@ -32,7 +32,7 @@ body.light-theme {
   --alt-card-color: #e3dee4;
   --box-shadow: #c7c3ca;
   --popup-color: #ffffff;
-  --card-color: #ffffff;
+  --card-color: #fff2fe;
   --placeholder-colr: #bdb8bd;
   
 }
@@ -43,7 +43,7 @@ body.dark-theme {
   --alt-text-color: #18171a;
   --header-color: #18171a;
   --accent-color: #8e44ad;
-  --input-color: #2b2b2b
+  --input-color: #2b2b2b;
   --input-border-color: #555;
   --button-border-color: #555;
   --button-hover-border-color: #8e44ad;

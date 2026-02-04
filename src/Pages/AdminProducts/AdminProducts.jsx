@@ -1,23 +1,21 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useProducts } from '../../Hooks/useProducts'
+import { useFilters } from '../../Hooks/useFilters.js'
+import { usePagination } from '../../Hooks/usePagination.js'
+import { apiFetch } from '../../components/apiFetch.js'
+import ShowPopup from '../../components/ShowPopup/ShowPopup.js'
 import SearchBar from '../../components/SearchBar/SearchBar'
 import FilterControls from '../../FilterControls/FilterControls.jsx'
-import { useFilters } from '../../Hooks/useFilters.js'
 import PaginationControls from '../../components/PaginationControls/PaginationControls'
-import { usePagination } from '../../Hooks/usePagination.js'
 import ProductForm from '../../components/ProductForm/ProductForm'
 import DogLoader from '../../components/DogLoader/DogLoader'
-import { showPopup } from '../../components/ShowPopup/ShowPopup.js'
-import Button from '../../components/Buttons/Button.jsx'
+import ProductCard from '../../components/ProductCard/ProductCard' // Import the unified card
 import Modal from '../../components/Modal/Modal.jsx'
 import DeleteModal from '../../components/DeleteModal/DeleteModal.jsx'
-import { apiFetch } from '../../components/apiFetch.js'
 import { Footer } from '../../components/Footer/Footer.jsx'
 
 import './AdminProducts.css'
-
-const PLACEHOLDER = './assets/images/placeholder.png'
 
 const AdminProducts = () => {
   const navigate = useNavigate()
@@ -29,43 +27,27 @@ const AdminProducts = () => {
   const [showModal, setShowModal] = useState(false)
   const [deleteModal, setDeleteModal] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState(null)
-
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
 
   const activeTab = location.pathname.includes('/admin-dogs') ? 'dogs' : 'products'
 
   const {
-    searchTerm,
-    setSearchTerm,
-    size,
-    setSize,
-    maxPrice,
-    setMaxPrice,
-    minRating,
-    setMinRating,
-    filteredProducts,
-    clearFilters
+    searchTerm, setSearchTerm,
+    size, setSize,
+    maxPrice, setMaxPrice,
+    minRating, setMinRating,
+    filteredProducts, clearFilters
   } = useFilters(products)
 
   const {
     paginatedData: visibleProducts,
-    totalPages: totalProductPages,
-    currentPage: currentProductPage,
-    setPage: setProductPage
+    totalPages,
+    currentPage,
+    nextPage,
+    prevPage,
+    setPage
   } = usePagination(filteredProducts, 8)
-
-  useEffect(() => {
-    setProductPage(1)
-  }, [searchTerm, size, maxPrice, minRating, setProductPage])
-
-  const handleTabChange = (tab) => {
-    if (tab === 'products') {
-      navigate('/admin-products')
-    } else {
-      navigate('/admin-dogs')
-    }
-  }
 
   const openModal = useCallback((item = null) => {
     setEditingProduct(item)
@@ -83,77 +65,59 @@ const AdminProducts = () => {
     setDeleteModal(true)
   }, [])
 
-  const closeDeleteModal = useCallback(() => {
-    setSelectedProduct(null)
-    setDeleteModal(false)
-  }, [])
+  const handleSaveProduct = async (formData) => {
+    setIsSubmitting(true)
+    try {
+      const token = localStorage.getItem('token')
+      const payload = editingProduct ? { ...formData, _id: editingProduct._id } : formData
+      
+      const res = await apiFetch('/products/save', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+        data: payload
+      })
+      
+      const savedProduct = res?.product || res?.data || res
+      if (!savedProduct?._id) throw new Error()
 
-  const handleSaveProduct = useCallback(
-    async ({ name, price, rating, description = '', imageUrl, publicId, url }) => {
-      const payload = {
-        ...(editingProduct ? { _id: editingProduct._id } : {}),
-        name,
-        rating,
-        price,
-        description,
-        imageUrl,
-        publicId,
-        url
-      }
-      try {
-        const token = localStorage.getItem('token')
-        const res = await apiFetch('/products/save', {
-          method: 'POST',
-          headers: { Authorization: `Bearer ${token}` },
-          data: payload
-        })
-        const product = res?.product || res?.data || res
-        setIsSubmitting(true)
-        if (!product?._id) {
-          showPopup('Failed to save product', 'error')
-          return
-        }
-        if (editingProduct && editingProduct._id) {
-          setProducts((prev) => prev.map((p) => (p._id === product._id ? product : p)))
-          showPopup('Product edited successfully')
-        } else {
-          setProducts((prev) => [...prev, product])
-          showPopup('Product added successfully')
-        }
-        closeModal()
-      } catch {
-        showPopup('Failed to save product', 'error')
-      } finally {
-        setIsSubmitting(false)
-      }
-    },
-    [editingProduct, closeModal, setProducts]
-  )
+      setProducts(prev => 
+        editingProduct 
+          ? prev.map(p => p._id === savedProduct._id ? savedProduct : p)
+          : [...prev, savedProduct]
+      )
 
-  const handleDelete = useCallback(async () => {
+      ShowPopup(`Product ${editingProduct ? 'updated' : 'added'} successfully`)
+      closeModal()
+    } catch {
+      ShowPopup('Failed to save product', 'error')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const handleDelete = async () => {
+    if (!selectedProduct?._id) return
     setIsDeleting(true)
     try {
       const token = localStorage.getItem('token')
-      if (selectedProduct?._id) {
-        await apiFetch(`/products/${selectedProduct._id}`, {
-          method: 'DELETE',
-          headers: { Authorization: `Bearer ${token}` }
-        })
-        setProducts((prev) => prev.filter((p) => p._id !== selectedProduct._id))
-        showPopup('Product deleted successfully')
-      }
-      closeDeleteModal()
+      await apiFetch(`/products/${selectedProduct._id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      setProducts(prev => prev.filter(p => p._id !== selectedProduct._id))
+      ShowPopup('Product deleted successfully')
+      setDeleteModal(false)
     } catch {
-      showPopup('Failed to delete', 'error')
+      ShowPopup('Failed to delete', 'error')
     } finally {
       setIsDeleting(false)
     }
-  }, [selectedProduct, setProducts, closeDeleteModal])
+  }
 
   const handleClearFilters = useCallback(() => {
     clearFilters()
-    setProductPage(1)
-  }, [clearFilters, setProductPage])
+    setPage(1)
+  }, [clearFilters, setPage])
 
   return (
     <div className='admin-products'>
@@ -162,69 +126,54 @@ const AdminProducts = () => {
       <div className='admin-tabs'>
         <button 
           className={`admin-tab ${activeTab === 'products' ? 'active' : ''}`} 
-          onClick={() => handleTabChange('products')}
-        >
-          Products
-        </button>
+          onClick={() => navigate('/admin-products')}
+        >Products</button>
         <button 
           className={`admin-tab ${activeTab === 'dogs' ? 'active' : ''}`} 
-          onClick={() => handleTabChange('dogs')}
-        >
-          Dogs
-        </button>
+          onClick={() => navigate('/admin-dogs')}
+        >Dogs</button>
       </div>
 
       <SearchBar 
         value={searchTerm} 
-        onChange={(e) => setSearchTerm(e.target.value)} 
+        onChange={(e) => { setSearchTerm(e.target.value); setPage(1); }} 
         placeholder='Search products...' 
       />
       
       <FilterControls 
-        size={size} 
-        setSize={setSize} 
-        maxPrice={maxPrice} 
-        setMaxPrice={setMaxPrice} 
-        minRating={minRating} 
-        setMinRating={setMinRating} 
+        size={size} setSize={(val) => { setSize(val); setPage(1); }}
+        maxPrice={maxPrice} setMaxPrice={(val) => { setMaxPrice(val); setPage(1); }}
+        minRating={minRating} setMinRating={(val) => { setMinRating(val); setPage(1); }}
         clearFilters={handleClearFilters} 
       />
 
-      <button className='admin-add-btn' onClick={() => openModal(null)}>+</button>
+      <button className='admin-add-btn' onClick={() => openModal()}>+</button>
 
-      {loading ? (
-        <DogLoader />
-      ) : error ? (
-        <p>{error}</p>
-      ) : (
+      {loading ? <DogLoader /> : error ? <p className="error">{error}</p> : (
         <>
           <div className='product-list'>
             {visibleProducts.length ? visibleProducts.map(p => (
-              <div key={p._id} className='admin-product-card'>
-                <img src={p.imageUrl || PLACEHOLDER} alt={p.name} />
-                <div className='admin-product-card-info'>
-                  <a href={p.url} target='_blank' rel='noopener noreferrer'><h4>{p.name}</h4></a>
-                  <p>€{Number(p.price || 0).toFixed(2)}</p>
-                  {p.rating && <p>Rating: {p.rating} ⭐</p>}
-                  <div className='admin-product-buttons'>
-                    <Button onClick={() => openModal(p)}>Edit</Button>
-                    <Button onClick={() => openDeleteModal(p)}>Delete</Button>
-                  </div>
-                </div>
-              </div>
+              <ProductCard 
+                key={p._id}
+                product={p}
+                showAdminActions={true}
+                showHeart={false} // No heart needed on Admin dashboard
+                onEdit={openModal}
+                onDelete={openDeleteModal}
+              />
             )) : <p>No products found.</p>}
           </div>
 
-          <div className='pagination-container'>
-            <div className='pagination-wrapper'>
+          {totalPages > 1 && (
+            <div className='pagination-container'>
               <PaginationControls
-                currentPage={currentProductPage}
-                totalPages={totalProductPages}
-                goPrev={() => setProductPage(prev => Math.max(prev - 1, 1))}
-                goNext={() => setProductPage(prev => Math.min(prev + 1, totalProductPages))}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                goPrev={prevPage}
+                goNext={nextPage}
               />
             </div>
-          </div>
+          )}
         </>
       )}
 
@@ -241,13 +190,13 @@ const AdminProducts = () => {
 
       <DeleteModal 
         isOpen={deleteModal}
-        onClose={closeDeleteModal}
+        onClose={() => setDeleteModal(false)}
         onConfirm={handleDelete}
         isDeleting={isDeleting}
         itemName={selectedProduct?.name}
       />
 
-      <Footer openModal={() => openModal(null)} />
+      <Footer openModal={() => openModal()} />
     </div>
   )
 }

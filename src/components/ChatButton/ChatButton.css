@@ -1,7 +1,7 @@
 .chat-widget-root {
   position: fixed;
-  right: -4px;
-  bottom: 70px;
+  right: -15px;
+  bottom: 50px;
   z-index: 0;
   font-family: 'Montserrat', sans-serif;
 }
@@ -138,6 +138,10 @@
 
 
 @media(max-width:520px){
+
+  .chat-widget-root{
+    right:-5px;
+  }
   .chat-image {
     
     right: 16px;
@@ -175,7 +179,7 @@
 }
 .chat-widget-root {
     position: fixed;
-    right: -6px;
+    right: -16px;
     bottom: 50px;
     z-index: 0;
     font-family: 'Montserrat', sans-serif;

@@ -10,8 +10,8 @@ const PasswordInput = ({ value, onChange, placeholder = 'Password', name }) => {
 
   const toggleIconSrc = useMemo(() => {
     return showPassword
-      ? './assets/images/hide.png'
-      : './assets/images/visible.png'
+      ? '../hide.png'
+      : '../visible.png'
   }, [showPassword])
 
   const toggleAltText = useMemo(() => {

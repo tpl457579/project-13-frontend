@@ -30,7 +30,7 @@ const DogIntro = ({ onFinished }) => {
       <div className="dog-container">
         {!isBreaking ? (
           <img
-            src='./assets/images/dog1.png'
+            src='../dog1.png'
             className='dog-intro-icon'
             alt='Loading...'
           />

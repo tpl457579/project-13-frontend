@@ -3,7 +3,7 @@ import { AuthContext } from '../../components/AuthContext'
 import { useFavourites } from '../../Hooks/useFavourites'
 import { usePagination } from '../../Hooks/usePagination'
 import PaginationControls from '../../components/PaginationControls/PaginationControls'
-import FavouriteCard from '../../components/FavouriteCard/FavouriteCard'
+import ShopProductCard from '../../components/ShopProductCard/ShopProductCard'
 import DogLoader from '../../components/DogLoader/DogLoader'
 import './FavouritesPage.css'
 
@@ -70,10 +70,10 @@ const FavouritesPage = () => {
         <>
           <div className='favourites-products'>
             {currentFavourites.map(({ _id, ...rest }) => (
-              <FavouriteCard className='favourite-card'
+              <ShopProductCard className='favourites-card'
                 key={_id}
                 product={{ _id, ...rest }}
-                isFavourite
+                isFavourite={true}
                 onToggleFavourite={toggleFavourite}
                 disabled={loadingIds.includes(_id)}
               />

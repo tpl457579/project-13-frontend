@@ -2,7 +2,7 @@ import './Home.css'
 import { useEffect, useState, useCallback, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../../components/Buttons/Button'
-import { showPopup } from '../../components/ShowPopup/ShowPopup'
+import ShowPopup from '../../components/ShowPopup/ShowPopup'
 
 const Home = () => {
   const [showButtons, setShowButtons] = useState(false)
@@ -24,7 +24,7 @@ const Home = () => {
     if (user || token) {
       navigate(path);
     } else {
-      showPopup('You must register or log in to access this page!');
+      ShowPopup('You must register or log in to access this page!');
       navigate('/login');
     }
   },
@@ -77,7 +77,7 @@ const Home = () => {
       <div className='home'>
         <img
           className='home-img'
-          src='/assets/images/home-dog-image.jpg' 
+          src='../home-dog-image.jpg' 
           alt='Cute Dog'
         />
         {showButtons && (

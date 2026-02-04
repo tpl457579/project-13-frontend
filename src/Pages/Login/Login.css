@@ -1,7 +1,7 @@
 .login-container {
   max-width: 300px;
   height: 400px;
-  margin: 50px auto;
+  margin: 60px auto;
   padding: 20px;
   margin-top: 15svh;
   background: var(--alt-card-color);
@@ -14,10 +14,6 @@
   background: none;
   font-size: 36px;
   color: var(--accent-color);
-}
-
-h1 {
-  margin-bottom: 0px;
 }
 
 .loginForm {
@@ -54,17 +50,13 @@ border: 1px solid var(--accent-color);
   background: transparent !important;
 } 
 
-h3 {
-  text-align: center;
-  font-size: 16px;
-}
 .login-register-link {
   font-weight: bold;
   color: var(--accent-color);
   cursor: pointer;
   background: none;
 }
-@media screen and (max-width: 941px) and (orientation: landscape) {
+@media (max-width: 941px) {
   .loginForm {
     padding-top: 20px;
   }

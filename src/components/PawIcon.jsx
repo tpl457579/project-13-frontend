@@ -1,4 +1,3 @@
-// src/components/Icons/PawIcon.jsx
 import React from "react";
 
 const PawIcon = ({
@@ -8,7 +7,7 @@ const PawIcon = ({
   height = 28,
   filled = false,
   fillColor = "#8e4aad",
-  outline = "#222",
+  outline = "#8e4aad",
   strokeWidth = 10,
   style = {}
 }) => {

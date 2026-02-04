@@ -18,7 +18,7 @@ const DeleteModal = ({
         <h3>Confirm Delete</h3>
         <p>Are you sure you want to delete <strong>{itemName}</strong>?</p>
         <div className='delete-modal-buttons'>
-          <Button onClick={onConfirm} loading={isDeleting} showSpinner>Delete</Button>
+          <Button onClick={onConfirm} loading={isDeleting} loadingText="Deleting..." showSpinner>Delete</Button>
           <Button onClick={onClose}>Cancel</Button>
         </div>
       </div>

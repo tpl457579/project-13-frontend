@@ -1,5 +1,5 @@
 import './Shop.css'
-import { useContext, useCallback } from 'react'
+import { useContext, useCallback, useMemo } from 'react'
 import { AuthContext } from '../../components/AuthContext.jsx'
 import { useProducts } from '../../Hooks/useProducts.js'
 import { useFilters } from '../../Hooks/useFilters.js'
@@ -7,7 +7,7 @@ import FilterControls from '../../FilterControls/FilterControls.jsx'
 import { useFavourites } from '../../Hooks/useFavourites.js'
 import { usePagination } from '../../Hooks/usePagination.js'
 import PaginationControls from '../../components/PaginationControls/PaginationControls.jsx'
-import ShopProductCard from '../../components/ShopProductCard/ShopProductCard.jsx'
+import ProductCard from '../../components/ProductCard/ProductCard.jsx'
 import SearchBar from '../../components/SearchBar/SearchBar'
 import DogLoader from '../../components/DogLoader/DogLoader.jsx'
 
@@ -17,16 +17,11 @@ const Shop = () => {
   const { favourites, toggleFavourite, loadingIds } = useFavourites(user)
 
   const {
-    searchTerm,
-    setSearchTerm,
-    size,
-    setSize,
-    maxPrice,
-    setMaxPrice,
-    minRating,
-    setMinRating,
-    filteredProducts,
-    clearFilters
+    searchTerm, setSearchTerm,
+    size, setSize,
+    maxPrice, setMaxPrice,
+    minRating, setMinRating,
+    filteredProducts, clearFilters
   } = useFilters(products)
 
   const {
@@ -36,23 +31,14 @@ const Shop = () => {
     setPage
   } = usePagination(filteredProducts, 8)
 
-  const handleSearchChange = useCallback(
-    (e) => setSearchTerm(e.target.value),
-    [setSearchTerm]
-  )
-
   const handleClearFilters = useCallback(() => {
     clearFilters()
     setPage(1)
   }, [clearFilters, setPage])
 
-  const handlePrevPage = useCallback(() => {
-    setPage((prev) => Math.max(prev - 1, 1))
-  }, [setPage])
-
-  const handleNextPage = useCallback(() => {
-    setPage((prev) => Math.min(prev + 1, totalPages))
-  }, [setPage, totalPages])
+  const favouriteIds = useMemo(() => 
+    new Set(favourites.map(f => f._id)), 
+  [favourites])
 
   return (
     <div className='shop'>
@@ -60,7 +46,7 @@ const Shop = () => {
 
       <SearchBar
         value={searchTerm}
-        onChange={handleSearchChange}
+        onChange={(e) => setSearchTerm(e.target.value)}
         placeholder='Search products...'
       />
 
@@ -75,34 +61,30 @@ const Shop = () => {
       />
 
       {loadingInitial && <DogLoader />}
-      {error && <p>Error: {error}</p>}
+      {error && <p className="error-message">Error: {error}</p>}
 
       <div className='shop-products'>
-        {currentItems
-          .filter((product) => product && product._id)
-          .map((product) => {
-            const isFavourite = favourites.some((f) => f._id === product._id)
-            const isDisabled = loadingIds.includes(product._id)
-
-            return (
-              <ShopProductCard
-                className='shop-product-card'
-                key={product._id}
-                product={product}
-                isFavourite={isFavourite}
-                onToggleFavourite={() => toggleFavourite(product)}
-                disabled={isDisabled}
-              />
-            )
-          })}
+        {currentItems.map((product) => (
+          <ProductCard
+            key={product?._id}
+            product={product}
+            isFavourite={favouriteIds.has(product?._id)}
+            onToggleFavourite={() => toggleFavourite(product)}
+            showHeart={true}
+            showAdminActions={false}
+            className='shop-product-card'
+          />
+        ))}
       </div>
 
-      <PaginationControls
-        currentPage={currentPage}
-        totalPages={totalPages}
-        goPrev={handlePrevPage}
-        goNext={handleNextPage}
-      />
+      {totalPages > 1 && (
+        <PaginationControls
+          currentPage={currentPage}
+          totalPages={totalPages}
+          goPrev={() => setPage(p => Math.max(p - 1, 1))}
+          goNext={() => setPage(p => Math.min(p + 1, totalPages))}
+        />
+      )}
     </div>
   )
 }

@@ -5,7 +5,7 @@ const DogLoader = () => {
   return (
     <div className='dog-loader-overlay'>
       <img
-        src='./assets/images/dog1.png'
+        src='../dog1.png'
         className='dog-loader-icon'
         alt='Loading...'
       />

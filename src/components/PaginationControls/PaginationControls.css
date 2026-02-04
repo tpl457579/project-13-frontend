@@ -1,9 +1,9 @@
 .pagination {
   display: flex;
   justify-content: center;
-  margin-bottom: 60px;
   align-items: center;
 }
+
 .pagination span {
   color: var(--text-color);
   margin-bottom: 80px;

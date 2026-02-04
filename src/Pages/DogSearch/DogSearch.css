@@ -1,320 +1,184 @@
+.dog-search-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dog-search-h1 {
+  text-align: center;
+  color: var(--accent-color);
+  margin-top: 12svh;
+}
+
 .dog-search-grid {
-  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
+  padding: 10px;
   margin-top: 20px;
-  margin-bottom: 35px;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-  padding: 0px 60px;
-}
-   .search-dog-card{
-     width: 320px;
-    border-radius: 12px;
-    height: 350px;
-    cursor: pointer;
-    border: 1px solid var(--button-border-color);
-}
-
-
-.dog-search-img {
-    width: 100%;
-    height: 210px; 
-    border-radius: 10px;
-    margin-bottom: 21px;
-}
-
-.dog-search-h1 {
-    margin-top: 6svh;
-    margin-bottom: 25px;
-  text-align: center;
-  font-size: 30px;
-  color: var(--accent-color);
-}
-
-h3 {
-  color: var(--text-color);
-}
-
-.dog-search-container {
-  padding: 20px;
 }
 
 .filters {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
   flex-wrap: wrap;
-  margin-bottom: 10px;
 }
 
 .filter-select-dog-search {
-  width: 140px;
-  height: 38px;
-  border-radius: 5px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1.5px solid var(--button-border-color);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-size: 16px;
   cursor: pointer;
-  background: var(--background-color);
-  color: var(--text-color);
-  border: 1px solid var(--button-border-color);
+  min-width: 150px;
+  transition: border-color 0.2s;
 }
 
-.clear-filters-btn {
-      background: var(--accent-color);
-    border: 1px solid var(--button-border-color);
-    border-radius: 6px;
-    color: var(--text-color);
-    cursor: pointer;
-    padding: var(--button-padding);
-}
-
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-
-
-.popup-text p {
-  color: var(--text-color);
-}
-
-.dog-search-layout {
-  display: flex;
-  min-height: 100vh;
-  position: relative;
-}
-
-.dog-search-main {
-    display: flex;
-    width:350px;
-    flex: 1;
-    margin-bottom: 40px;
-    flex-direction: column;
-    align-items: center;
-}
-
-.az-img {
-  filter: invert(0.5);
-    width: 30px;
-    background: none;
-}
-.alphabet-container {
-  position: fixed;
-  right: 10px;
-  top: 125px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.alphabet-toggle-btn {
-  width: 28px;
-  height: 36px;
-  margin-bottom: 6px;
-  border: 1px solid var(--accent-color);
-  border-radius: 6px;
-  background: transparent;
-  color: var(--text-color);
-  font-weight: 200;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.alphabet-toggle-btn:hover {
-  transform:scale3(1.1)
-}
-
-.alphabet-letters {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  opacity: 0;
-  max-height: 0;
-  overflow-y: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  transition: opacity 0.3s ease, max-height 0.3s ease;
-}
-
-.alphabet-letters::-webkit-scrollbar {
-  display: none;
-}
-
-.alphabet-letters.open {
-    position: absolute;
-    top: 40px;
-    right: 1px;
-    opacity: 1;
-    max-height: 140px;
-}
-
-.alphabet-btn {
-  width: 24px;
-  height: 24px;
-  margin: 2px 0;
-  border: 1px solid var(--button-border-color);
-  border-radius: 6px;
-  background: transparent;
-  color: var(--text-color);
-  cursor: pointer;
-  font-weight: 200;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s, color 0.2s;
-}
-
-.alphabet-btn:hover {
+.filter-select-dog-search:focus {
   border-color: var(--accent-color);
-}
-
-.alphabet-btn.active {
-  background: var(--accent-color);
-}
-
-
-
-.load-more-btn {
-  margin: 30px auto 80px;
-  display: block;
-  padding: 10px 14px;
-  font-size: 14px;
-  font-weight: 300;
-  color: var(--text-color);
-  background: transparent;
-  border: 1px solid var(--accent-color) ;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
-}
-
-.load-more-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
-}
-
-.load-more-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
-}
-
-.load-more-btn:focus {
   outline: none;
 }
 
-
-@keyframes popupFadeIn {
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
 }
 
-@media (max-width: 952px){
-  .dog-search-h1{
-    margin-top: 12svh;
-  }
+.dropdown-menu {
+  position: absolute;
+  top: 105%;
+  left: 0;
+  width: 100%;
+  scrollbar-width: none;
+  background: var(--background-color);
+  border: 1.5px solid var(--input-border-color);
+  border-radius: 8px;
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-@media (max-width: 800px) {
-  .search-dog-card {
-    width:280px;
-    height:320px;
-  }
+.dropdown-item {
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  color: var(--text-color);
+  font-size: 14px;
 }
-  
-     @media (max-width: 715px){
-     .search-dog-card {
-      width:250px;
-     }
-    }
 
-  @media (max-width: 656px) {
-    
-   .search-dog-card{
-    width: 320px;
-    height:300px;
-   }
-
-   .dog-search-h1 {
-
-    margin-bottom: 0px;
-   }
-  
-    .dog-search-h3{
-
-      font-size: 14px;
-      margin: 0px;
-    }
-    .alphabet-toggle-btn{
-      top:-25px
-    }
-    .alphabet-container {
-      align-items: flex-end;
-      right: 5px;
-    }
-  }
-
-  .load-more-btn {
-    width: 160px;
-    font-size: 0.95rem;
-  }
-  
-  .search-bar {
-    margin: 10px auto;
-  }
-    
-   @media (max-width: 520px) {
-
-    .filters{
-      display: flex;
-      flex-wrap:wrap ;
-    }
-  
-   }
-
-     @media (max-height: 520px){
-
-      .hamburger-menu.open {
-        height: 93svh;
-      }
-.dog-search-main{
-  margin-bottom: 0px;
+.dropdown-item:hover {
+  background-color: var(--accent-color);
+  color: white;
 }
-     .dog-search-h3{
-font-size: 16px;
-      margin:0px;
-     }
-     
-      .search-dog-card {
-        width: 240px;
-        height: 260px;
-    }
 
-    .dog-search-h1{
-      margin-bottom: 0px;
-    }
-    .dog-search-img{
-      height: 180px;
-    }
+.tick {
+  font-weight: bold;
+  color: var(--accent-color);
+}
 
-    .search-bar {
+.dropdown-item:hover .tick {
+  color: white;
+}
+
+.clear-filters-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: var(--accent-color);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: opacity 0.2s;
+}
+
+.clear-filters-btn:hover {
+  opacity: 0.9;
+}
+
+.resultsText {
+    color: var(--text-color);
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.back-to-top {
+    background: var(--background-color);
+    border-radius: 50%;
+    font-size: 25px;
     display: flex;
+    width: 30px;
+    cursor: pointer;
+    color: var(--text-color);
+    height: 30px;
+    border: 1px solid var(--accent-color);
+    align-items: center;
     justify-content: center;
 }
 
-      .alphabet-container{
-        top: 65px;
-      }
-     
-    }
+.back-to-top:hover{
+  background: var(--accent-color);
+  transform: scale(1.05);
+}
+.load-more-btn {
+  color: var(--text-color);
+  border: 1px solid var(--accent-color);
+  border-radius: 16px;
+  font-size: 16px;
+  height: 40px;
+  width: 160px;
+  margin-top: 20px;
+  cursor: pointer;
+  background: none;
+  margin-bottom: 50px;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.load-more-btn:hover {
+  transform: scale(1.05);
+  background: var(--fill-button-hover-color);
+}
+
+@media (max-width: 952px){
+
+.load-more-btn{
+  margin-bottom: 80px;
+}
+}
+
+@media (max-width: 750px) {
+  .suitable-dog-card {
+    width: 240px;
+    height: 280px;
+  }
+  .suitable-dog-img {
+    height: 180px;
+  }
+}
+
+@media (max-width: 570px) {
+  .suitable-dog-card {
+    width: 90%;
+    max-width: 340px;
+    height: auto;
+    padding-bottom: 15px;
+  }
+  .suitable-dog-img {
+    height: 200px;
+  }
+}
+
+@media (max-height: 520px) {
+  .dropdown-menu {
+    max-height: 150px;
+  }
+}

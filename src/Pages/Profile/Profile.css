@@ -41,14 +41,6 @@
   width: 150px;
 }
 
-.delete-modal-text {
-  color: var(--alt-text-color);
-}
-
-.modal-buttons:first-child {
-  color: var(--text-color);
-}
-
 @media (max-width: 952px){
 .profile-container{
   margin-top: 15svh;

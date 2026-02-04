@@ -2,7 +2,7 @@ import './Login.css'
 import { useState, useContext, useCallback, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../components/AuthContext'
-import { showPopup } from '../../components/ShowPopup/ShowPopup'
+import ShowPopup from '../../components/ShowPopup/ShowPopup'
 import PasswordInput from '../../components/PasswordInput/PasswordInput'
 import { apiFetch } from '../../components/apiFetch'
 import Button from '../../components/Buttons/Button'
@@ -27,7 +27,7 @@ const LoginPage = () => {
     async (ev) => {
       ev.preventDefault()
       if (!userName || !password) {
-        showPopup('Username and password are required', 'error')
+        ShowPopup('Username and password are required', 'error')
         return
       }
 
@@ -58,7 +58,7 @@ const LoginPage = () => {
         setIsLoggingIn(true) 
         
       } catch (err) {
-        showPopup(err.message || 'Login failed. Please try again.', 'error')
+        ShowPopup(err.message || 'Login failed. Please try again.', 'error')
       } finally {
         setLoading(false)
       }
@@ -72,7 +72,7 @@ const LoginPage = () => {
         onFinished={() => {
           navigate('/')
           setTimeout(() => {
-            showPopup('Logged in successfully', 'success')
+            ShowPopup('Logged in successfully', 'success')
           }, 500)
         }} 
       />

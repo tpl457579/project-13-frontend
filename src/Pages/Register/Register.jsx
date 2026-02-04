@@ -5,7 +5,7 @@ import Button from '../../components/Buttons/Button'
 import { AuthContext } from '../../components/AuthContext'
 import PasswordInput from '../../components/PasswordInput/PasswordInput'
 import FormInput from '../../components/FormInput/FormInput'
-import { showPopup } from '../../components/ShowPopup/ShowPopup'
+import ShowPopup from '../../components/ShowPopup/ShowPopup'
 import { apiFetch } from '../../components/apiFetch'
 
 const RegisterPage = () => {
@@ -35,7 +35,7 @@ const RegisterPage = () => {
     async (ev) => {
       ev.preventDefault()
       if (!userName || !email || !password) {
-        showPopup('All fields are required', 'error')
+        ShowPopup('All fields are required', 'error')
         return
       }
 
@@ -57,11 +57,11 @@ const RegisterPage = () => {
         setUser(loggedInUser)
         localStorage.setItem('user', JSON.stringify(loggedInUser))
 
-        showPopup('Registration successful', 'success')
+        ShowPopup('Registration successful', 'success')
         navigate('/', { replace: true })
       } catch (err) {
         console.error('Register error:', err)
-        showPopup(
+        ShowPopup(
           err.message || 'Registration failed. Please try again.',
           'error'
         )

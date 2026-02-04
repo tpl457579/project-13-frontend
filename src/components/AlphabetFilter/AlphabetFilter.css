@@ -1,0 +1,99 @@
+.az-img {
+  filter: invert(0.5);
+    width: 30px;
+    background: none;
+}
+.alphabet-container {
+  position: fixed;
+  right: 17px;
+  top: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.alphabet-toggle-btn {
+  width: 28px;
+  height: 36px;
+  margin-bottom: 6px;
+  border: 1px solid var(--accent-color);
+  border-radius: 6px;
+  background: var(--background-color);
+  color: var(--text-color);
+  font-weight: 200;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.alphabet-toggle-btn:hover {
+  transform:scale3(1.1)
+}
+
+.alphabet-letters {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  opacity: 0;
+  max-height: 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  transition: opacity 0.3s ease, max-height 0.3s ease;
+}
+
+.alphabet-letters::-webkit-scrollbar {
+  display: none;
+}
+
+.alphabet-letters.open {
+    position: absolute;
+    top: 40px;
+    right: 1px;
+    opacity: 1;
+    max-height: 140px;
+}
+
+.alphabet-btn {
+  width: 24px;
+  height: 24px;
+  margin: 2px 0;
+  border: 1px solid var(--button-border-color);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+  font-weight: 200;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+
+.alphabet-btn:hover {
+  border-color: var(--accent-color);
+}
+
+.alphabet-btn.active {
+  background: var(--accent-color);
+}
+
+@media (max-width: 952px){
+
+.alphabet-container{
+    right: 7px;
+}
+}
+
+@media (max-width: 560px){
+  .alphabet-container{
+    right:6px;
+  }
+}
+
+@media (max-height: 520px){
+    .alphabet-container{
+    top:80px;
+}
+}

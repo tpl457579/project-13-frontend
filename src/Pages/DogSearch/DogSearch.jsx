@@ -1,16 +1,19 @@
 import './DogSearch.css'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import DogLoader from '../../components/DogLoader/DogLoader'
 import SearchBar from '../../components/SearchBar/SearchBar.jsx'
 import DogPopup from '../../components/DogPopup.jsx'
 import { useDogFilters } from '../../Hooks/useDogFilters.js'
-import { apiFetch } from '../../components/apiFetch.js' // Import your helper
+import { apiFetch } from '../../components/apiFetch.js' 
+import AlphabetFilter from '../../components/AlphabetFilter/AlphabetFilter.jsx'
+import SmallDogCard from '../../components/SmallDogCard/SmallDogCard.jsx'
 
 const ITEMS_PER_PAGE = 8
 
 const getSize = (dog) => {
   if (!dog.weight) return null
-  const w = String(dog.weight).split('-')[0].trim()
+  const weightStr = typeof dog.weight === 'object' ? dog.weight.metric : String(dog.weight)
+  const w = weightStr.split('-')[0].trim()
   const weightNum = Number(w)
   if (isNaN(weightNum)) return null
   if (weightNum <= 10) return 'small'
@@ -25,14 +28,15 @@ export default function DogSearchPaginated() {
   const [lettersOpen, setLettersOpen] = useState(false)
   const [selectedDog, setSelectedDog] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isTempOpen, setIsTempOpen] = useState(false)
+  const [showTopBtn, setShowTopBtn] = useState(false)
+  const dropdownRef = useRef(null)
 
   useEffect(() => {
     async function fetchDogs() {
       try {
         setLoading(true)
-    
         const res = await apiFetch('/dogs') 
-        
         const data = res?.dogs || res?.data || res
         const validDogs = (Array.isArray(data) ? data : [])
           .map((d) => ({ ...d, dogSize: getSize(d) }))
@@ -50,13 +54,34 @@ export default function DogSearchPaginated() {
           .map(([temp]) => temp)
         setTemperaments(topTen)
       } catch (err) {
-        console.error("Error fetching dogs from MongoDB:", err)
         setDogs([])
       } finally {
         setLoading(false)
       }
     }
     fetchDogs()
+  }, [])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowTopBtn(window.scrollY > 400)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const goToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsTempOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
   const {
@@ -70,6 +95,20 @@ export default function DogSearchPaginated() {
     setLoadedCount,
     clearFilters
   } = useDogFilters(dogs)
+
+  const handleTempClick = (t) => {
+    const newTemps = temperament.includes(t)
+      ? temperament.filter((item) => item !== t)
+      : [...temperament, t]
+    setTemperament(newTemps)
+    setLoadedCount(ITEMS_PER_PAGE)
+  }
+
+  const handleClearAll = () => {
+    clearFilters()
+    setIsTempOpen(false)
+    setLettersOpen(false)
+  }
 
   const openModal = (dog) => {
     setSelectedDog(dog)
@@ -112,46 +151,57 @@ export default function DogSearchPaginated() {
             <option value='large'>Large</option>
           </select>
 
-          <select
-            className='filter-select-dog-search'
-            value={temperament}
-            onChange={(e) => {
-              setTemperament(e.target.value)
-              setLoadedCount(ITEMS_PER_PAGE)
-            }}
-          >
-            <option value='All'>Temperaments</option>
-            {temperaments.map((t) => (
-              <option key={t} value={t}>{t}</option>
-            ))}
-          </select>
+          <div className="custom-dropdown" ref={dropdownRef}>
+            <button 
+              type="button"
+              className="filter-select-dog-search dropdown-trigger"
+              onClick={() => setIsTempOpen(!isTempOpen)}
+            >
+              {temperament.length > 0 ? `Selected (${temperament.length})` : "Temperaments"}
+            </button>
 
-          <button className='clear-filters-btn' onClick={clearFilters}>
+            {isTempOpen && (
+              <div className="dropdown-menu">
+                {temperaments.map((t) => (
+                  <div 
+                    key={t} 
+                    className="dropdown-item" 
+                    onClick={() => handleTempClick(t)}
+                  >
+                    <span>{t}</span>
+                    {temperament.includes(t) && <span className="tick">✓</span>}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <button className='clear-filters-btn' onClick={handleClearAll}>
             Clear Filters
           </button>
         </div>
 
-        <h3 className='dog-search-h3'>Click on the dogs to learn more</h3>
+        <AlphabetFilter 
+          lettersOpen={lettersOpen} 
+          setLettersOpen={setLettersOpen}
+          letter={letter}
+          setLetter={setLetter}
+          setLoadedCount={setLoadedCount}
+          ITEMS_PER_PAGE={ITEMS_PER_PAGE} 
+        />
+
+        <h4 className='dog-search-h4'>Click on the dogs to learn more</h4>
 
         {visibleDogs.length === 0 ? (
           <p className='resultsText'>No dog breeds match your search.</p>
         ) : (
           <div className='dog-search-grid'>
             {visibleDogs.map((dog) => (
-              <div
+              <SmallDogCard 
                 key={dog._id || dog.id} 
-                className='search-dog-card'
-                onClick={() => openModal(dog)}
-              >
-                {dog.image_link && (
-                  <img
-                    src={dog.image_link}
-                    alt={dog.name}
-                    className='dog-search-img'
-                  />
-                )}
-                <h3 style={{ fontSize: dog.name.length > 22 ? "15px" : "18px" }}>{dog.name}</h3>
-              </div>
+                dog={dog} 
+                onClick={() => openModal(dog)} 
+              />
             ))}
           </div>
         )}
@@ -159,6 +209,12 @@ export default function DogSearchPaginated() {
         <p className='resultsText' style={{ margin: '15px 0' }}>
           Showing {visibleDogs.length} of {filteredDogs.length} dogs
         </p>
+
+        {showTopBtn && (
+          <button className="back-to-top" onClick={goToTop}>
+            ↑
+          </button>
+        )}
 
         {loadedCount < filteredDogs.length && (
            <button
@@ -175,34 +231,6 @@ export default function DogSearchPaginated() {
           dog={selectedDog}
         />
       </main>
-
-      <div className='alphabet-container'>
-        <button
-          className='alphabet-toggle-btn'
-          onClick={() => setLettersOpen(!lettersOpen)}
-        >
-          <img
-            className='az-img'
-            src='https://cdn-icons-png.flaticon.com/128/11449/11449637.png'
-            alt="A-Z"
-          />
-        </button>
-
-        <div className={`alphabet-letters ${lettersOpen ? 'open' : ''}`}>
-          {[...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'].map((l) => (
-            <button
-              key={l}
-              className={`alphabet-btn ${letter === l ? 'active' : ''}`}
-              onClick={() => {
-                setLetter(l)
-                setLoadedCount(ITEMS_PER_PAGE)
-              }}
-            >
-              {l}
-            </button>
-          ))}
-        </div>
-      </div>
     </div>
   )
 }

@@ -5,7 +5,7 @@
 @media (max-width: 952px) {
   .footer-container {
     position: fixed;
-    bottom: 0;
+    bottom: -1px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;

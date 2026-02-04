@@ -3,8 +3,10 @@ import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import Button from '../Buttons/Button'
 import Spinner from '../Spinner/Spinner'
 import { apiFetch } from '../apiFetch'
+import DropZone from '../DropZone/DropZone' 
+import { AiOutlineClose } from 'react-icons/ai'
 
-const PLACEHOLDER = './assets/images/placeholder.png'
+const PLACEHOLDER = '../placeholder.png'
 
 const isValidProductUrl = (url) => {
   try {
@@ -13,34 +15,6 @@ const isValidProductUrl = (url) => {
   } catch {
     return false
   }
-}
-
-function DropZone({ handleFileChange }) {
-  const fileInputRef = useRef(null)
-
-  return (
-    <div
-      className='drop-zone'
-      onDragOver={(e) => e.preventDefault()}
-      onDrop={(e) => {
-        e.preventDefault()
-        handleFileChange({ target: { files: e.dataTransfer.files } })
-      }}
-      onClick={() => fileInputRef.current.click()}
-    >
-      <p>
-        Drag & drop an image here, or{' '}
-        <span className='browse-link'>browse</span>
-      </p>
-      <input
-        type='file'
-        accept='image/*'
-        ref={fileInputRef}
-        onChange={handleFileChange}
-        hidden
-      />
-    </div>
-  )
 }
 
 export default function ProductForm({
@@ -153,89 +127,96 @@ export default function ProductForm({
 
   const previewSrc = useMemo(() => preview || PLACEHOLDER, [preview])
 
- return (
-  <div className='modal-content' onClick={(e) => e.stopPropagation()}>
-    <form className='product-edit-form' onSubmit={handleSubmit}>
-      <h3 className='product-edit-title'>{initialData._id ? 'Edit' : 'Add'} Product</h3>
-
-      {fetchingMetadata && (
-        <div className='metadata-spinner'>
-          <Spinner />
-          <p>Fetching metadata</p>
-        </div>
-      )}
-
-      <div className='product-layout'>
-        <div className='product-visual'>
-          <DropZone handleFileChange={handleFileChange} />
-
-          <div className='preview-image'>
-            <img
-              src={previewSrc}
-              alt='Preview'
-              onError={(e) => { e.target.src = PLACEHOLDER }}
-            />
-          </div>
-        </div>
-
-       
-        <div className='product-inputs'>
-          <div className='add-product-inputs'>
-              <input
-          type='text'
-          placeholder='Name'
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <input
-          type='number'
-
-          placeholder='Price'
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          required
-        />
-        <div className='url-container'>
-          <input 
-            type='url'
-            placeholder='Product URL'
-            value={productUrl}
-            onChange={(e) => setProductUrl(e.target.value)}
-            required
-          />
-          {productUrl && (
-            <a
-              href={productUrl}
-              target='_blank'
-              rel='noopener noreferrer'
-              className='test-link-btn'
-            >
-              Test Link
-            </a>
-          )}
+  return (
+    <div className='modal-content' onClick={(e) => e.stopPropagation()}>
+      <form className='product-edit-form' onSubmit={handleSubmit}>
+        <div className='modal-close' onClick={onCancel}>
+          <AiOutlineClose size={24} />
         </div>
         
+        <h3 className='product-edit-title'>{initialData._id ? 'Edit' : 'Add'} Product</h3>
+
+        {fetchingMetadata && (
+          <div className='metadata-spinner'>
+            <Spinner />
+            <p>Fetching metadata</p>
+          </div>
+        )}
+
+        <div className='product-layout'>
+          <div className='product-visual'>
+            <DropZone 
+              handleFileChange={handleFileChange} 
+              width="210px"
+              height="60px"
+              fontSize="14px"
+              marginTop="0px"
+            />
+
+            <div className='product-preview-image'>
+              <img
+                src={previewSrc}
+                alt='Preview'
+                onError={(e) => { e.target.src = PLACEHOLDER }}
+              />
+            </div>
+          </div>
+
+          <div className='product-inputs'>
+            <div className='add-product-inputs'>
+              <textarea className='product-name'
+                placeholder='Name'
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+          
+              <input
+                type='text'
+                placeholder='Price'
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                required
+              />
+              <div className='url-container'>
+                <input 
+                  type='url'
+                  placeholder='Product URL'
+                  value={productUrl}
+                  onChange={(e) => setProductUrl(e.target.value)}
+                  required
+                />
+                {productUrl && (
+                  <a
+                    href={productUrl}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='product-test-link-btn'
+                  >
+                    Test Link
+                  </a>
+                )}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className='add-product-modal-buttons'>
-        <Button
-          type='submit'
-          variant='primary'
-          loading={isSubmitting || uploading}
-          showSpinner
-          loadingText={uploading ? 'Uploading' : 'Saving'}
-        >
-          {initialData._id ? 'Save' : 'Add'}
-        </Button>
+        <div className='add-product-modal-buttons'>
+          <Button
+            type='submit'
+            variant='primary'
+            loading={isSubmitting || uploading}
+            showSpinner
+            loadingText={uploading ? 'Uploading' : 'Saving'}
+          >
+            {initialData._id ? 'Save' : 'Add'}
+          </Button>
 
-        <button type='button' onClick={onCancel}>
-          Cancel
-        </button>
-      </div>
-    </form>
-  </div>
-)
+          <button type='button' onClick={onCancel}>
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  )
 }

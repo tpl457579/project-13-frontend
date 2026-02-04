@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useContext } from 'react'
-import { showPopup } from '../components/ShowPopup/ShowPopup'
+import ShowPopup from '../components/ShowPopup/ShowPopup'
 import { AuthContext } from '../components/AuthContext'
 import { apiFetch } from '../components/apiFetch'
 
@@ -27,7 +27,7 @@ export const useFavourites = () => {
   const toggleFavourite = useCallback(
     async (product) => {
       if (!user || !user._id || !user.token) {
-        showPopup('You must be logged in', 'error')
+        ShowPopup('You must be logged in', 'error')
         return
       }
 
@@ -54,10 +54,10 @@ export const useFavourites = () => {
           updateUserFavourites(data.favourites)
         }
 
-        showPopup(exists ? 'Removed from favourites' : 'Added to favourites')
+        ShowPopup(exists ? 'Removed from favourites' : 'Added to favourites')
       } catch (err) {
         console.error('toggleFavourite error:', err)
-        showPopup('Something went wrong')
+        ShowPopup('Something went wrong')
         fetchFavourites()
       } finally {
         setLoadingIds((prev) => prev.filter((id) => id !== product._id))

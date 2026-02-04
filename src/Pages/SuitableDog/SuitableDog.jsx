@@ -4,6 +4,7 @@ import DogLoader from '../../components/DogLoader/DogLoader'
 import Button from '../../components/Buttons/Button'
 import { useModal } from '../../Hooks/useModal.js'
 import DogPopup from '../../components/DogPopup'
+import SmallDogCard from '../../components/SmallDogCard/SmallDogCard.jsx'
 
 const STORAGE_KEY = 'suitableDogState'
 
@@ -14,210 +15,75 @@ export default function SuitableDog() {
   const [finished, setFinished] = useState(false)
   const [results, setResults] = useState([])
   const [selectedDog, setSelectedDog] = useState(null)
-  const { isOpen, openModal, closeModal } = useModal()
   const [error, setError] = useState(null)
+  const { isOpen, openModal, closeModal } = useModal()
 
-  const questions = useMemo(
-    () => [
-      {
-        id: 'good_with_children',
-        text: 'Do you have children at home?',
-        options: [
-          { value: 5, label: 'Yes, young kids' },
-          { value: 3, label: 'Yes, older kids' },
-          { value: 1, label: 'No children' }
-        ]
-      },
-      {
-        id: 'good_with_other_dogs',
-        text: 'Do you already have other dogs or pets?',
-        options: [
-          { value: 5, label: 'Yes, very social' },
-          { value: 3, label: 'Sometimes territorial' },
-          { value: 1, label: 'No other pets' }
-        ]
-      },
-      {
-        id: 'grooming',
-        text: 'How much grooming are you okay with?',
-        options: [
-          { value: 1, label: 'Minimal grooming' },
-          { value: 3, label: 'Occasional grooming' },
-          { value: 5, label: 'Regular grooming is fine' }
-        ]
-      },
-      {
-        id: 'energy',
-        text: 'How active should your dog be?',
-        options: [
-          { value: 5, label: 'Very energetic (over 1 hr exercise)' },
-          { value: 3, label: 'Moderately active (30–60 mins)' },
-          { value: 1, label: 'Low energy (less than 30 mins)' }
-        ]
-      },
-      {
-        id: 'good_with_strangers',
-        text: 'Do you prefer a protective or friendly dog?',
-        options: [
-          { value: 1, label: 'Very friendly with strangers' },
-          { value: 3, label: 'Balanced' },
-          { value: 5, label: 'Highly protective' }
-        ]
-      },
-      {
-        id: 'playfulness',
-        text: 'How playful should your dog be?',
-        options: [
-          { value: 5, label: 'Very playful' },
-          { value: 3, label: 'Moderately playful' },
-          { value: 1, label: 'Calm/relaxed' }
-        ]
-      },
-      {
-        id: 'shedding',
-        text: 'How fussy are you about shedding hair?',
-        options: [
-          { value: 1, label: "I don't like dog hairs" },
-          { value: 3, label: "I don't mind some shedding" },
-          { value: 5, label: "I don't mind at all about shedding" }
-        ]
+  const questions = useMemo(() => [
+    { id: 'good_with_children', text: 'Do you have children at home?', options: [{ value: 5, label: 'Yes, young kids' }, { value: 3, label: 'Yes, older kids' }, { value: 1, label: 'No children' }] },
+    { id: 'good_with_other_dogs', text: 'Do you already have other dogs or pets?', options: [{ value: 5, label: 'Yes, very social' }, { value: 3, label: 'Sometimes territorial' }, { value: 1, label: 'No other pets' }] },
+    { id: 'grooming', text: 'How much grooming are you okay with?', options: [{ value: 1, label: 'Minimal grooming' }, { value: 3, label: 'Occasional grooming' }, { value: 5, label: 'Regular grooming is fine' }] },
+    { id: 'energy', text: 'How active should your dog be?', options: [{ value: 5, label: 'Very energetic (over 1 hr exercise)' }, { value: 3, label: 'Moderately active (30–60 mins)' }, { value: 1, label: 'Low energy (less than 30 mins)' }] },
+    { id: 'good_with_strangers', text: 'Do you prefer a protective or friendly dog?', options: [{ value: 1, label: 'Very friendly with strangers' }, { value: 3, label: 'Balanced' }, { value: 5, label: 'Highly protective' }] },
+    { id: 'playfulness', text: 'How playful should your dog be?', options: [{ value: 5, label: 'Very playful' }, { value: 3, label: 'Moderately playful' }, { value: 1, label: 'Calm/relaxed' }] },
+    { id: 'shedding', text: 'How fussy are you about shedding hair?', options: [{ value: 1, label: "I don't like dog hairs" }, { value: 3, label: "I don't mind some shedding" }, { value: 5, label: "I don't mind at all about shedding" }] }
+  ], [])
+
+  const calculateScore = useCallback((dog, currentAnswers) => {
+    let totalScore = 0, count = 0, breakdown = []
+    questions.forEach(q => {
+      const uVal = currentAnswers[q.id], dVal = dog[q.id]
+      if (uVal !== undefined && dVal != null) {
+        count++
+        const match = Math.max(0, 100 - Math.abs(uVal - dVal) * 20)
+        totalScore += match
+        breakdown.push({ id: q.id, trait: q.text, match })
       }
-    ],
-    []
-  )
+    })
+    return { ...dog, score: count > 0 ? Math.round(totalScore / count) : 0, breakdown }
+  }, [questions])
 
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY)
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY))
     if (saved) {
-      try {
-        const { answers, current, finished, results } = JSON.parse(saved)
-        setAnswers(answers || {})
-        setCurrent(current || 0)
-        setFinished(finished || false)
-        setResults(results || [])
-      } catch {
-        localStorage.removeItem(STORAGE_KEY)
-      }
+      setAnswers(saved.answers || {})
+      setCurrent(saved.current || 0)
+      setFinished(saved.finished || false)
+      setResults(saved.results || [])
     }
+    
+    fetch('https://dog-character-api.onrender.com/api/dogs')
+      .then(res => res.ok ? res.json() : Promise.reject(res.status))
+      .then(data => setDogs(data.filter(d => d.id !== null)))
+      .catch(err => setError(err.message))
   }, [])
 
   useEffect(() => {
-    const data = { answers, current, finished, results }
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ answers, current, finished, results }))
   }, [answers, current, finished, results])
 
-  useEffect(() => {
-    async function fetchDogs() {
-      try {
-        const res = await fetch(
-          'https://dog-character-api.onrender.com/api/dogs'
-        )
-        if (!res.ok) throw new Error(`Error: ${res.status}`)
-        const data = await res.json()
-        const filteredDogs = data.filter((dog) => dog.id !== null)
-        setDogs(filteredDogs)
-      } catch (err) {
-        setError(err.message)
-      }
+  const handleAnswer = (qId, value) => {
+    const newAnswers = { ...answers, [qId]: value }
+    setAnswers(newAnswers)
+    if (current < questions.length - 1) {
+      setCurrent(prev => prev + 1)
+    } else {
+      const topMatches = dogs
+        .map(dog => calculateScore(dog, newAnswers))
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 10)
+      setResults(topMatches)
+      setFinished(true)
     }
-    fetchDogs()
-  }, [])
+  }
 
-  // replace existing enrichDog with this
-const enrichDog = useCallback(
-  (dog, answersForCalc = answers) => {
-    if (!dog) return dog;
-    let totalScore = 0;
-    let count = 0;
-    let breakdown = [];
-    for (let q of questions) {
-      const userVal = answersForCalc[q.id];
-      const dogVal = dog[q.id];
-      if (userVal !== undefined && dogVal != null) {
-        count += 1;
-        const diff = Math.abs(userVal - dogVal);
-        const match = Math.max(0, 100 - diff * 20);
-        totalScore += match;
-        breakdown.push({ id: q.id, trait: q.text, match });
-      }
-    }
-    const computedPercent = count > 0 ? Math.round(totalScore / count) : 0;
-    return { ...dog, score: computedPercent, breakdown };
-  },
-  [questions, answers]
-);
-
-
-  // replace existing matchDogs with this
-const matchDogs = useCallback(
-  (answers) => {
-    if (!dogs) return [];
-    return dogs
-      .map((dog) => {
-        let totalScore = 0;
-        let count = 0;
-        let breakdown = [];
-        for (let q of questions) {
-          const userVal = answers[q.id];
-          const dogVal = dog[q.id];
-          if (userVal !== undefined && dogVal != null) {
-            count += 1;
-            const diff = Math.abs(userVal - dogVal);
-            const match = Math.max(0, 100 - diff * 20);
-            totalScore += match;
-            breakdown.push({ id: q.id, trait: q.text, match });
-          }
-        }
-        const computedPercent = count > 0 ? Math.round(totalScore / count) : 0;
-        return { ...dog, score: computedPercent, breakdown };
-      })
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 10);
-  },
-  [dogs, questions]
-);
-
-  const handleAnswer = useCallback(
-    (qId, value) => {
-      const newAnswers = { ...answers, [qId]: value }
-      setAnswers(newAnswers)
-      if (current < questions.length - 1) {
-        setCurrent(current + 1)
-      } else {
-        setResults(matchDogs(newAnswers))
-        setFinished(true)
-      }
-    },
-    [answers, current, questions.length, matchDogs]
-  )
-
-  const handleBack = useCallback(() => {
-    if (current > 0) setCurrent(current - 1)
-  }, [current])
-
-  const resetQuiz = useCallback(() => {
-    setAnswers({})
-    setCurrent(0)
-    setFinished(false)
-    setResults([])
-    setSelectedDog(null)
+  const resetQuiz = () => {
+    setAnswers({}); setCurrent(0); setFinished(false); setResults([]); setSelectedDog(null)
     localStorage.removeItem(STORAGE_KEY)
-  }, [])
+  }
 
-// replace openPopup with this to ensure popup receives the computed/enriched dog
-const openPopup = (dog) => {
-  // if dog came from results it should already be enriched; otherwise compute
-  const enriched = results.find((r) => String(r.id) === String(dog.id)) || enrichDog(dog);
-  setSelectedDog(enriched);
-  openModal();
-}
-
-
-
-
-  const closePopup = () => {
-    setSelectedDog(null)
-    closeModal()
+  const handleDogClick = (dog) => {
+    setSelectedDog(dog)
+    openModal()
   }
 
   if (error) return <p>Error loading dogs: {error}</p>
@@ -227,40 +93,20 @@ const openPopup = (dog) => {
     return (
       <div className='top-dogs'>
         <h1>Top 10 Matching Dogs</h1>
-        <p className='resultsText'>
-          Click on the cards to learn more about each dog!
-        </p>
+        <p className='resultsText'>Click on the cards to learn more!</p>
         <div className='cardDiv'>
-          {results.map((dog, index) => (
-            <div
-              key={`${dog.name}-${index}`}
-              className='suitable-dog-card'
-              onClick={() => openPopup(dog)}
+          {results.map((dog) => (
+            <SmallDogCard 
+              key={dog.id} 
+              dog={dog} 
+              onClick={() => handleDogClick(dog)}
             >
-              <div className='dogCardInner'>
-                {dog.image_link && (
-                  <img
-                    src={dog.image_link}
-                    alt={dog.name}
-                    className='suitable-dog-img'
-                  />
-                )}
-                <h3>{dog?.name}</h3>
-                <p>
-                  <strong>Total Match:</strong> {dog.score}%
-                </p>
-              </div>
-            </div>
+              <p><strong>Total Match:</strong> {dog.score || 0}%</p>
+            </SmallDogCard>
           ))}
         </div>
         <div className='repeat'>
-          <Button
-            variant='primary'
-            className='repeat-button'
-            onClick={resetQuiz}
-          >
-            Repeat
-          </Button>
+          <Button variant='primary' onClick={resetQuiz}>Repeat</Button>
         </div>
         <DogPopup isOpen={isOpen} closePopup={closeModal} dog={selectedDog} />
       </div>
@@ -272,28 +118,16 @@ const openPopup = (dog) => {
   return (
     <div className='questionnaire'>
       <h1>Which dog is going to be your new best friend?</h1>
-      <h2>
-        Question {current + 1} of {questions.length}
-      </h2>
+      <h2>Question {current + 1} of {questions.length}</h2>
       <p>{question.text}</p>
       <div className='options'>
         {question.options.map((opt) => (
-          <Button
-            variant='primary'
-            key={`${question.id}-${opt.value}`}
-            className='optionInput'
-            onClick={() => handleAnswer(question.id, opt.value)}
-          >
+          <Button variant='primary' key={opt.value} className='optionInput' onClick={() => handleAnswer(question.id, opt.value)}>
             {opt.label}
           </Button>
         ))}
       </div>
-      <Button
-        variant='primary'
-        className='questionnaire-back-btn'
-        onClick={handleBack}
-        disabled={current === 0}
-      >
+      <Button variant='primary' className='questionnaire-back-btn' onClick={() => setCurrent(c => c - 1)} disabled={current === 0}>
         Back
       </Button>
       <DogPopup isOpen={isOpen} closePopup={closeModal} dog={selectedDog} />

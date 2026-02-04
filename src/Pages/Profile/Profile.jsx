@@ -7,18 +7,21 @@ import {
   useCallback
 } from 'react'
 import { AuthContext } from '../../components/AuthContext.jsx'
-import { showPopup } from '../../components/ShowPopup/ShowPopup.js'
+import ShowPopup from '../../components/ShowPopup/ShowPopup.js'
 import Button from '../../components/Buttons/Button.jsx'
 import PasswordInput from '../../components/PasswordInput/PasswordInput.jsx'
 import FormInput from '../../components/FormInput/FormInput.jsx'
 import { useNavigate } from 'react-router-dom'
 import { apiFetch } from '../../components/apiFetch'
+import Spinner from '../../components/Spinner/Spinner.jsx'
+import DeleteModal from '../../components/DeleteModal/DeleteModal.jsx'
 
 const Profile = () => {
   const { user, setUser } = useContext(AuthContext)
   const usernameRef = useRef(null)
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [emailError, setEmailError] = useState('')
   const [formData, setFormData] = useState({
@@ -57,7 +60,7 @@ const Profile = () => {
   const handleUpdate = async () => {
     if (!validateEmail()) return
     if (formData.password && formData.password !== formData.confirmPassword) {
-      showPopup('Passwords do not match', 'error')
+      ShowPopup('Passwords do not match', 'error')
       return
     }
 
@@ -83,10 +86,10 @@ const Profile = () => {
         confirmPassword: ''
       })
 
-      showPopup('Profile updated successfully!', 'success')
+      ShowPopup('Profile updated successfully!', 'success')
     } catch (err) {
       console.error(err)
-      showPopup('Failed to update profile', 'error')
+      ShowPopup('Failed to update profile', 'error')
     } finally {
       setLoading(false)
     }
@@ -94,6 +97,7 @@ const Profile = () => {
 
   const handleDelete = async () => {
     try {
+      setIsDeleting(true)
       await apiFetch(`/users/${user._id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${user.token}` }
@@ -101,12 +105,13 @@ const Profile = () => {
       setUser(null)
       localStorage.removeItem('user')
       sessionStorage.clear()
-      showPopup('Account deleted successfully', 'success')
+      ShowPopup('Account deleted successfully', 'success')
       navigate('/', { replace: true })
     } catch (err) {
       console.error(err)
-      showPopup('Failed to delete account', 'error')
+      ShowPopup('Failed to delete account', 'error')
     } finally {
+      setIsDeleting(false)
       setConfirmDelete(false)
     }
   }
@@ -119,6 +124,7 @@ const Profile = () => {
           Username
           <FormInput
             name='userName'
+            value={formData.userName}
             onChange={handleChange}
             placeholder='Name'
             ref={usernameRef}
@@ -129,10 +135,12 @@ const Profile = () => {
           Email
           <FormInput
             name='email'
+            value={formData.email}
             onChange={handleChange}
             type='email'
             placeholder='Email'
           />
+          {emailError && <span className="error-text">{emailError}</span>}
         </label>
 
         <label>
@@ -161,7 +169,8 @@ const Profile = () => {
             className='profile-update-button'
             onClick={handleUpdate}
             loading={loading}
-            loadingText='Updating'
+            showSpinner={loading}
+            loadingText='Updating...'
           >
             Update Account
           </Button>
@@ -170,27 +179,19 @@ const Profile = () => {
             className='profile-delete-button'
             onClick={() => setConfirmDelete(true)}
             disabled={loading}
-            loading={loading}
-            loadingText='Deleting...'
           >
             Delete Account
           </Button>
         </div>
       </div>
 
-      {confirmDelete && (
-        <div className='modal-overlay' onClick={() => setConfirmDelete(false)}>
-          <div className='modal-content' onClick={(e) => e.stopPropagation()}>
-            <p className='delete-modal-text'>
-              Are you sure you want to delete your account?
-            </p>
-            <div className='modal-buttons'>
-              <button onClick={() => setConfirmDelete(false)}>No</button>
-              <button onClick={handleDelete}>Yes</button>
-            </div>
-          </div>
-        </div>
-      )}
+      <DeleteModal
+        isOpen={confirmDelete}
+        onClose={() => setConfirmDelete(false)}
+        onConfirm={handleDelete}
+        isDeleting={isDeleting}
+        itemName="your account"
+      />
     </div>
   )
 }

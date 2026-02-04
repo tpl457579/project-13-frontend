@@ -1,16 +1,16 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 
 export const usePagination = (data = [], itemsPerPage = 10) => {
   const [currentPage, setCurrentPage] = useState(1)
 
   const totalPages = useMemo(() => {
-    if (!Array.isArray(data)) return 1
-    return Math.max(1, Math.ceil(data.length / itemsPerPage))
+    const length = Array.isArray(data) ? data.length : 0
+    return Math.max(1, Math.ceil(length / itemsPerPage))
   }, [data, itemsPerPage])
 
   useEffect(() => {
-    if (currentPage > totalPages) setCurrentPage(1)
-  }, [currentPage, totalPages])
+    setCurrentPage(1)
+  }, [data.length, itemsPerPage])
 
   const paginatedData = useMemo(() => {
     if (!Array.isArray(data)) return []
@@ -18,10 +18,22 @@ export const usePagination = (data = [], itemsPerPage = 10) => {
     return data.slice(start, start + itemsPerPage)
   }, [data, currentPage, itemsPerPage])
 
+  const nextPage = useCallback(() => {
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+  }, [totalPages])
+
+  const prevPage = useCallback(() => {
+    setCurrentPage((prev) => Math.max(prev - 1, 1))
+  }, [])
+
   return {
     currentPage,
     totalPages,
     paginatedData,
-    setPage: setCurrentPage
+    setPage: setCurrentPage,
+    nextPage,
+    prevPage,
+    isFirstPage: currentPage === 1,
+    isLastPage: currentPage === totalPages
   }
 }

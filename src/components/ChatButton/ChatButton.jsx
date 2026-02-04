@@ -48,7 +48,7 @@ export default function ChatWidget() {
           <div className='message-circle-wrapper'>
             <MessageCircle size={48} className='message-circle-icon' />
             <img
-              src='./assets/images/dog-2.svg'
+              src='../dog-2.svg'
               alt='Chat icon'
               className='chat-image'
             />

@@ -5,7 +5,7 @@ const ITEMS_PER_PAGE = 8
 export const useDogFilters = (dogs) => {
   const [search, setSearch] = useState('')
   const [size, setSize] = useState('All')
-  const [temperament, setTemperament] = useState('All')
+  const [temperament, setTemperament] = useState([]) 
   const [letter, setLetter] = useState('All')
   const [loadedCount, setLoadedCount] = useState(ITEMS_PER_PAGE)
 
@@ -17,23 +17,22 @@ export const useDogFilters = (dogs) => {
 
       const matchesSize = size === 'All' || dog.dogSize === size
 
-      const matchesTemperament =
-        temperament === 'All' ||
-        (dog.temperament &&
-          dog.temperament
-            .toLowerCase()
-            .includes(temperament.toLowerCase()))
+     const matchesTemperament =
+  temperament.length === 0 ||
+  temperament.every((t) => {
+    const dogTemp = Array.isArray(dog.temperament)
+      ? dog.temperament.join(', ')
+      : dog.temperament;
+
+    return dogTemp?.toLowerCase().includes(t.toLowerCase());
+  });
 
       const matchesLetter =
         letter === 'All' ||
-        dog.name[0].toLowerCase() === letter.toLowerCase()
+        letter === '' ||
+        dog.name.toUpperCase().startsWith(letter.toUpperCase())
 
-      return (
-        matchesSearch &&
-        matchesSize &&
-        matchesTemperament &&
-        matchesLetter
-      )
+      return matchesSearch && matchesSize && matchesTemperament && matchesLetter
     })
   }, [dogs, search, size, temperament, letter])
 
@@ -45,7 +44,7 @@ export const useDogFilters = (dogs) => {
   const clearFilters = useCallback(() => {
     setSearch('')
     setSize('All')
-    setTemperament('All')
+    setTemperament([])
     setLetter('All')
     setLoadedCount(ITEMS_PER_PAGE)
   }, [])
