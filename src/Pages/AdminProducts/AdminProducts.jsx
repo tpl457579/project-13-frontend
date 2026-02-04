@@ -56,9 +56,9 @@ const AdminProducts = () => {
         element.requestFullscreen().catch(() => {})
       } else if (element.webkitRequestFullscreen) {
         element.webkitRequestFullscreen()
-      }
-      if (dashboardRef.current) {
-        dashboardRef.current.focus()
+      }if (popupRef.current) {
+        popupRef.current.focus();
+      
       }
     }
   }

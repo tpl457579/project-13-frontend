@@ -290,26 +290,6 @@ font-size: 16px;
     width: 100%;
 }
 
-.admin-tab {
-    background: var(--background-color);
-    width: 100px;
-    height: 35px;
-    border: 1px solid #8f44ad;
-    border-radius: 16px;
-    cursor: pointer;
-    color: var(--text-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    transition: all 0.2s;
-}
-
-.admin-tab:hover {
-    background: var(--accent-color);
-    color: white;
-}
-
 .heart-btn.active {
     transform: scale(1.1);
 }

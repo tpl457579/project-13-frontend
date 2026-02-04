@@ -794,7 +794,7 @@ color: var(--text-color);
 @media (max-height: 520px)  {
   .dog-edit-form {
     width: 80svw;
-    height: 100svh;
+    height: 85svh;
     flex-direction: column;
     justify-content: flex-end;
   }

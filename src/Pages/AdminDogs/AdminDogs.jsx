@@ -173,7 +173,7 @@ const AdminDogs = () => {
                   className="dog-card-image" 
                 />
                 <div className='admin-dog-card-content'>
-                  <h4 className="dog-card-title" style={{ fontSize: d.name.length > 22 ? "15px" : "18px" }}>
+                  <h4 className="dog-card-title" style={{ fontSize: d.name.length > 21 ? "15px" : "18px" }}>
                     {d.name}
                   </h4>
                   <div className='admin-dog-card-buttons'>
