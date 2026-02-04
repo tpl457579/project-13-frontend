@@ -14,6 +14,23 @@
 }
 
 .admin-tabs {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.admin-tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  background: #f0f0f0;
+  border: none;
+}
+
+.admin-tab.active {
+  background: #8e4aed;
+  color: white;
+}
+
+.admin-tabs {
     display: flex;
     width: 225px;
     padding: 10px;

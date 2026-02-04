@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useProducts } from '../../Hooks/useProducts'
 import { useFilters } from '../../Hooks/useFilters.js'
@@ -10,16 +10,16 @@ import FilterControls from '../../FilterControls/FilterControls.jsx'
 import PaginationControls from '../../components/PaginationControls/PaginationControls'
 import ProductForm from '../../components/ProductForm/ProductForm'
 import DogLoader from '../../components/DogLoader/DogLoader'
-import ProductCard from '../../components/ProductCard/ProductCard' // Import the unified card
+import ProductCard from '../../components/ProductCard/ProductCard'
 import Modal from '../../components/Modal/Modal.jsx'
 import DeleteModal from '../../components/DeleteModal/DeleteModal.jsx'
 import { Footer } from '../../components/Footer/Footer.jsx'
-
 import './AdminProducts.css'
 
 const AdminProducts = () => {
   const navigate = useNavigate()
   const location = useLocation()
+  const dashboardRef = useRef(null)
   
   const { products, setProducts, loading, error } = useProducts()
   
@@ -49,6 +49,28 @@ const AdminProducts = () => {
     setPage
   } = usePagination(filteredProducts, 8)
 
+  const toggleFullscreen = () => {
+    const element = document.documentElement
+    if (!document.fullscreenElement) {
+      if (element.requestFullscreen) {
+        element.requestFullscreen().catch(() => {})
+      } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen()
+      }
+      if (dashboardRef.current) {
+        dashboardRef.current.focus()
+      }
+    }
+  }
+
+  useEffect(() => {
+    return () => {
+      if (document.fullscreenElement) {
+        if (document.exitFullscreen) document.exitFullscreen()
+      }
+    }
+  }, [])
+
   const openModal = useCallback((item = null) => {
     setEditingProduct(item)
     setIsSubmitting(false)
@@ -70,22 +92,18 @@ const AdminProducts = () => {
     try {
       const token = localStorage.getItem('token')
       const payload = editingProduct ? { ...formData, _id: editingProduct._id } : formData
-      
       const res = await apiFetch('/products/save', {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
         data: payload
       })
-      
       const savedProduct = res?.product || res?.data || res
       if (!savedProduct?._id) throw new Error()
-
       setProducts(prev => 
         editingProduct 
           ? prev.map(p => p._id === savedProduct._id ? savedProduct : p)
           : [...prev, savedProduct]
       )
-
       ShowPopup(`Product ${editingProduct ? 'updated' : 'added'} successfully`)
       closeModal()
     } catch {
@@ -120,17 +138,23 @@ const AdminProducts = () => {
   }, [clearFilters, setPage])
 
   return (
-    <div className='admin-products'>
+    <div 
+      className='admin-products' 
+      ref={dashboardRef} 
+      tabIndex="-1"
+      onClick={toggleFullscreen}
+      style={{ outline: 'none' }}
+    >
       <h1>Admin Product Dashboard</h1>
 
       <div className='admin-tabs'>
         <button 
           className={`admin-tab ${activeTab === 'products' ? 'active' : ''}`} 
-          onClick={() => navigate('/admin-products')}
+          onClick={(e) => { e.stopPropagation(); navigate('/admin-products'); }}
         >Products</button>
         <button 
           className={`admin-tab ${activeTab === 'dogs' ? 'active' : ''}`} 
-          onClick={() => navigate('/admin-dogs')}
+          onClick={(e) => { e.stopPropagation(); navigate('/admin-dogs'); }}
         >Dogs</button>
       </div>
 
@@ -147,7 +171,7 @@ const AdminProducts = () => {
         clearFilters={handleClearFilters} 
       />
 
-      <button className='admin-add-btn' onClick={() => openModal()}>+</button>
+      <button className='admin-add-btn' onClick={(e) => { e.stopPropagation(); openModal(); }}>+</button>
 
       {loading ? <DogLoader /> : error ? <p className="error">{error}</p> : (
         <>
@@ -157,7 +181,7 @@ const AdminProducts = () => {
                 key={p._id}
                 product={p}
                 showAdminActions={true}
-                showHeart={false} // No heart needed on Admin dashboard
+                showHeart={false}
                 onEdit={openModal}
                 onDelete={openDeleteModal}
               />

@@ -84,7 +84,7 @@ const ProductCard = ({
             ref={buttonRef}
             onClick={handleFavouriteClick}
             disabled={disabled}
-            className={`heart-btn-absolute-br ${isFavourite ? 'active' : ''}`}
+            className={`heart-btn ${isFavourite ? 'active' : ''}`}
           >
             {isFavourite ? <AiFillHeart size={28} color="red" /> : <AiOutlineHeart size={28} />}
           </button>
