@@ -64,7 +64,6 @@ const AdminDogs = () => {
   const closeModal = useCallback(() => {
     setEditingDog(null)
     setShowModal(false)
-    toggleFullscreen()
   }, [])
 
   const openDeleteModal = useCallback((item) => {

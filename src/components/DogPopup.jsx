@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Modal from '../../src/components/Modal/Modal'
 import '../../src/Pages/SuitableDog/SuitableDog.css'
 import PawIcon from '../../src/components/PawIcon'
@@ -36,21 +36,63 @@ const TraitMeter = ({ label, value, className }) => {
 }
 
 const DogPopup = ({ isOpen, closePopup, dog }) => {
-  if (!dog) return null
   const [showTraits, setShowTraits] = useState(false)
+
+  // Fullscreen Helpers
+  const toggleFullscreen = () => {
+    const element = document.documentElement
+    if (!document.fullscreenElement) {
+      if (element.requestFullscreen) {
+        element.requestFullscreen().catch(err => console.error(err))
+      } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen()
+      }
+    }
+  }
+
+  const exitFullscreen = () => {
+    if (document.fullscreenElement) {
+      if (document.exitFullscreen) {
+        document.exitFullscreen()
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen()
+      }
+    }
+  }
+
+  // Handle Close and Exit Fullscreen
+  const handleClose = () => {
+    exitFullscreen()
+    closePopup()
+  }
+
+  // Reset traits view when dog changes or modal closes
+  useEffect(() => {
+    if (!isOpen) {
+      setShowTraits(false)
+    }
+  }, [isOpen])
+
+  if (!dog) return null
 
   const formattedTemperament = Array.isArray(dog.temperament)
     ? dog.temperament.join(', ')
-    : dog.temperament;
+    : dog.temperament
 
   return (
-    <Modal isOpen={isOpen} onClose={closePopup}>
-      <div className="suitable-dog-popup-content" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={closePopup}>
+    <Modal isOpen={isOpen} onClose={handleClose}>
+      <div 
+        className="suitable-dog-popup-content" 
+        onClick={(e) => {
+          e.stopPropagation();
+          toggleFullscreen(); // Trigger fullscreen on first interaction inside modal
+        }}
+      >
+        <button className="modal-close" onClick={handleClose}>
           &times;
         </button>
 
-        <h2 className="popup-heading" style={{ fontSize: dog.name.length > 21 ? "20px" : "24px" }} >
+        <h2 className="popup-heading" style={{ fontSize: dog.name.length > 21 ? "20px" : "24px" }}>
           {dog.name}
         </h2>
 
@@ -59,22 +101,20 @@ const DogPopup = ({ isOpen, closePopup, dog }) => {
 
           <div className="popup-text">
             {!showTraits ? (
-              <>
+              <div className="info-section">
                 {dog.weight && <p><strong>Weight:</strong> {dog.weight}</p>}
                 {dog.height && <p><strong>Height:</strong> {dog.height}</p>}
-                
                 {formattedTemperament && (
                   <p><strong>Temperament:</strong> {formattedTemperament}</p>
                 )}
-
                 {dog.life_span && <p><strong>Life Span:</strong> {dog.life_span}</p>}
 
                 <button className="traits-toggle-btn" onClick={() => setShowTraits(true)}>
                   Show Traits
                 </button>
-              </>
+              </div>
             ) : (
-              <>
+              <div className="traits-section">
                 <TraitMeter className="trait-playfulness" label="Playfulness" value={dog.playfulness} />
                 <TraitMeter className="trait-energy" label="Energy" value={dog.energy} />
                 <TraitMeter className="trait-shedding" label="Shedding" value={dog.shedding} />
@@ -87,7 +127,7 @@ const DogPopup = ({ isOpen, closePopup, dog }) => {
                 <button className="traits-toggle-btn" onClick={() => setShowTraits(false)}>
                   Back to Info
                 </button>
-              </>
+              </div>
             )}
           </div>
         </div>

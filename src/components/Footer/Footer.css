@@ -68,3 +68,24 @@
   }
 }
 
+@media (max-height: 520px) {
+  .popup-footer {
+    display: none; 
+    position: sticky;
+    bottom: 0;
+    background: white;
+    width: 100%;
+    z-index: 10;
+  }
+
+  /* Class to show it when clicked */
+  .popup-footer.is-visible {
+    display: block;
+    animation: slideUp 0.3s ease-out;
+  }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
