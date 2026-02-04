@@ -91,7 +91,7 @@
 .line-heart {
   font-size: 30px;
 }
-.heart-btn {
+/* .heart-btn {
   position: absolute;
   bottom: 10px;
   right: 10px;
@@ -128,7 +128,7 @@
 .heart-btn.active#heart:before,
 .heart-btn.active#heart:after {
   background: red !important;
-}
+} */
 
 .site-button-primary{
     border: 1px solid var(--accent-color);

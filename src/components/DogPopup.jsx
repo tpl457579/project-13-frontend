@@ -3,9 +3,45 @@ import Modal from '../../src/components/Modal/Modal'
 import '../../src/Pages/SuitableDog/SuitableDog.css'
 import PawIcon from '../../src/components/PawIcon'
 
+const TraitMeter = ({ label, value, className }) => {
+  if (value == null) return null
+  const filledCount = Math.max(0, Math.min(5, Math.round(value)))
+
+  return (
+    <div className={`trait-container ${className}`}>
+      <div className="trait-meter">
+        <span className="trait-label">{label}</span>
+        <div className="trait-icons">
+          {[1, 2, 3, 4, 5].map((i) => {
+            const filled = i <= filledCount
+            return (
+              <PawIcon
+                key={i}
+                id={`${label}-${i}`}
+                width={40}
+                height={40}
+                fillColor="#8e4aed"
+                strokeColor="#cccccc"
+                strokeWidth={6}
+                percent={filled ? 100 : 0} 
+                className={`trait-icon ${filled ? 'filled animate' : ''}`}
+                style={{ animationDelay: `${i * 0.12}s` }}
+              />
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 const DogPopup = ({ isOpen, closePopup, dog }) => {
   if (!dog) return null
   const [showTraits, setShowTraits] = useState(false)
+
+  const formattedTemperament = Array.isArray(dog.temperament)
+    ? dog.temperament.join(', ')
+    : dog.temperament;
 
   return (
     <Modal isOpen={isOpen} onClose={closePopup}>
@@ -14,7 +50,9 @@ const DogPopup = ({ isOpen, closePopup, dog }) => {
           &times;
         </button>
 
-        <h2 className="popup-heading" style={{ fontSize: dog.name.length > 21 ? "20px" : "24px" }} >{dog.name}</h2>
+        <h2 className="popup-heading" style={{ fontSize: dog.name.length > 21 ? "20px" : "24px" }} >
+          {dog.name}
+        </h2>
 
         <div className="popup-wrapper">
           {dog.image_link && <img src={dog.image_link} alt={dog.name} className="dogImgLarge" />}
@@ -25,14 +63,8 @@ const DogPopup = ({ isOpen, closePopup, dog }) => {
                 {dog.weight && <p><strong>Weight:</strong> {dog.weight}</p>}
                 {dog.height && <p><strong>Height:</strong> {dog.height}</p>}
                 
-                {dog.temperament && (
-                  <p>
-                    <strong>Temperament:</strong> {
-                      Array.isArray(dog.temperament) 
-                        ? dog.temperament.join(', ') 
-                        : dog.temperament
-                    }
-                  </p>
+                {formattedTemperament && (
+                  <p><strong>Temperament:</strong> {formattedTemperament}</p>
                 )}
 
                 {dog.life_span && <p><strong>Life Span:</strong> {dog.life_span}</p>}
