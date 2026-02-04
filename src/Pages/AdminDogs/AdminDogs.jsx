@@ -17,6 +17,7 @@ import DeleteModal from '../../components/DeleteModal/DeleteModal.jsx'
 import { Footer } from '../../components/Footer/Footer.jsx'
 
 import './AdminDogs.css'
+import toggleFullscreen from '../../components/FullScreenToggle.jsx'
 
 const PLACEHOLDER = '../placeholder.png'
 
@@ -57,11 +58,13 @@ const AdminDogs = () => {
     setEditingDog(item)
     setIsSubmitting(false)
     setShowModal(true)
+    toggleFullscreen()
   }, [])
 
   const closeModal = useCallback(() => {
     setEditingDog(null)
     setShowModal(false)
+    toggleFullscreen()
   }, [])
 
   const openDeleteModal = useCallback((item) => {

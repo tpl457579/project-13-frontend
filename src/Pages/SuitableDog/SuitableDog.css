@@ -385,7 +385,7 @@
     overflow-y: scroll;
     display: flex;
     margin-top: 7px;
-    margin-bottom: 7.5px;
+    margin-bottom: 2px;
     flex-direction: column;
     scrollbar-width: thin;
     justify-content: flex-start;
@@ -410,7 +410,7 @@
     width: 85svw;
     margin-top: 0px;
     border: 1px solid var(--button-border-color);
-    height: 100svh;
+    height: 85svh;
     position: relative;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     transform: scale(0.8);
@@ -440,12 +440,12 @@
         overflow-y: scroll;
     }
 
-.dogImgLarge{
-width: 40%;
-    height: 150px;
-margin-top: 4px;
-object-fit: cover;
-}
+    .dogImgLarge {
+        width: 30%;
+        height: 120px;
+        margin-top: 4px;
+        object-fit: cover;
+    }
 
 .trait-icons{
   width:220px;
