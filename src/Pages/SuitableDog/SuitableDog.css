@@ -385,7 +385,7 @@
   width: 100%;
     align-items: center;
 }
-
+/* 
 .footer-trigger-btn {
     display: block;
     width: 100%;
@@ -415,7 +415,7 @@
   from { transform: translateY(100%); }
   to { transform: translateY(0); }
 }
-
+ */
 .popup-text{
     overflow-y: scroll;
     display: flex;
