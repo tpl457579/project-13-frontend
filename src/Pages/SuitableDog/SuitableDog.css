@@ -410,7 +410,7 @@
     width: 85svw;
     margin-top: 0px;
     border: 1px solid var(--button-border-color);
-    height: 95svh;
+    height: 100svh;
     position: relative;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     transform: scale(0.8);
