@@ -87,6 +87,7 @@
   width: 270px;
   height: 270px;
   object-fit: cover;
+  object-position: center;
   cursor: pointer;
   border-radius: 10px;
   transition: transform 0.2s;
@@ -270,8 +271,8 @@
 @media (max-width: 550px){
 
   .dog-image{
-    width:160px;
-    height: 160px;
+    width:150px;
+    height: 150px;
   }
 }
 
@@ -304,8 +305,8 @@
 }
 
 .dog-image{
-    width:160px;
-    height: 160px;
+    width:150px;
+    height: 150px;
   }
 
 }
