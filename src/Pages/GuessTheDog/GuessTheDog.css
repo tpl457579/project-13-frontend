@@ -270,6 +270,10 @@
 
 @media (max-width: 550px){
 
+  .game{
+    padding:5px;
+  }
+
   .dog-image{
     width:150px;
     height: 150px;
@@ -297,11 +301,12 @@
   right:40px;
 }
 .game h2 {
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 .game h1 {
   margin-top: 9svh;
+  margin-bottom: 0px;
 }
 
 .dog-image{

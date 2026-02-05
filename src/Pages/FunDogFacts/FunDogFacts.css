@@ -68,7 +68,12 @@ left: 50%;
     width: 120px;
   
   }
-   
 }
 
-
+@media (max-height: 520px){
+.new-fact-btn {
+   width:120px;
+   height:28px;
+    margin-bottom: 5px;
+}
+}

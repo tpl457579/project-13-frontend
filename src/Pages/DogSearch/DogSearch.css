@@ -184,6 +184,11 @@
 }
 
 @media (max-height: 520px) {
+
+  .suitable-dog-card{
+    width: 40%;
+    height: 260px;
+  }
   .dropdown-menu {
     max-height: 150px;
   }

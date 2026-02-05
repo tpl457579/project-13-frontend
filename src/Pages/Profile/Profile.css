@@ -70,8 +70,9 @@
 @media (max-height: 520px){
   .profile-container{
     margin-top: 13svh;
-            width: 500px;
+    width: 400px;
         height: 270px;
+        margin-bottom: 50px;
     }
   
   .profile-container h1{
