@@ -1,6 +1,6 @@
 .profile-container {
   max-width: 600px;
-  margin: 70px auto;
+  margin: 50px auto 150px;
   padding: 20px;
   border: 1px solid var(--button-border-color);
   border-radius: 12px;
