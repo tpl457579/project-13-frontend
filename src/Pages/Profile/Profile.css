@@ -68,9 +68,9 @@
   .profile-container{
     width: 400px;
         border-radius: 18px;
-        height: 270px;
+        height: 320px;
         border: 1px solid var(--button-border-color);
-        margin-bottom: 500px;
+       /*  margin-bottom: 500px; */
   }
   
   .profile-container h1{
