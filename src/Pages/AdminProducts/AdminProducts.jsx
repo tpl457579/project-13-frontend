@@ -49,39 +49,43 @@ const AdminProducts = () => {
     setPage
   } = usePagination(filteredProducts, 8)
 
-  const handleFullscreenLogic = () => {
-    const isLandscape = window.innerHeight <= 520
-    if (isLandscape && !document.fullscreenElement) {
+  const triggerFullscreen = () => {
+    const isShortScreen = window.innerHeight <= 520
+    if (isShortScreen && !document.fullscreenElement) {
       const element = document.documentElement
       if (element.requestFullscreen) {
         element.requestFullscreen().catch(() => {})
       } else if (element.webkitRequestFullscreen) {
         element.webkitRequestFullscreen()
       }
-      
-      if (dashboardRef.current) {
-        dashboardRef.current.focus()
+    }
+  }
+
+  const exitFullscreen = () => {
+    if (document.fullscreenElement) {
+      if (document.exitFullscreen) {
+        document.exitFullscreen()
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen()
       }
     }
   }
 
   useEffect(() => {
-    return () => {
-      if (document.fullscreenElement) {
-        if (document.exitFullscreen) document.exitFullscreen()
-      }
-    }
+    return () => exitFullscreen()
   }, [])
 
   const openModal = useCallback((item = null) => {
     setEditingProduct(item)
     setIsSubmitting(false)
     setShowModal(true)
+    triggerFullscreen()
   }, [])
 
   const closeModal = useCallback(() => {
     setEditingProduct(null)
     setShowModal(false)
+    exitFullscreen()
   }, [])
 
   const openDeleteModal = useCallback((item) => {
@@ -140,13 +144,7 @@ const AdminProducts = () => {
   }, [clearFilters, setPage])
 
   return (
-    <div 
-      className='admin-products' 
-      ref={dashboardRef} 
-      tabIndex="-1"
-      onClick={handleFullscreenLogic}
-      style={{ outline: 'none' }}
-    >
+    <div className='admin-products' ref={dashboardRef}>
       <h1>Admin Product Dashboard</h1>
 
       <div className='admin-tabs'>
