@@ -136,10 +136,10 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
     })
   }, [initialData])
 
-  useEffect(() => {
+ /*  useEffect(() => {
     inputRef.current?.focus()
   }, [step])
-
+ */
   const isValidValue = useCallback((value, field) => {
     if (!value && value !== 0) return false
     const val = String(value).trim()
