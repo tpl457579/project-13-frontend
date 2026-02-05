@@ -49,16 +49,18 @@ const AdminProducts = () => {
     setPage
   } = usePagination(filteredProducts, 8)
 
-  const toggleFullscreen = () => {
-    const element = document.documentElement
-    if (!document.fullscreenElement) {
+  const handleFullscreenLogic = () => {
+    const isLandscape = window.innerHeight <= 520
+    if (isLandscape && !document.fullscreenElement) {
+      const element = document.documentElement
       if (element.requestFullscreen) {
         element.requestFullscreen().catch(() => {})
       } else if (element.webkitRequestFullscreen) {
         element.webkitRequestFullscreen()
-      }if (popupRef.current) {
-        popupRef.current.focus();
+      }
       
+      if (dashboardRef.current) {
+        dashboardRef.current.focus()
       }
     }
   }
@@ -142,7 +144,7 @@ const AdminProducts = () => {
       className='admin-products' 
       ref={dashboardRef} 
       tabIndex="-1"
-      onClick={toggleFullscreen}
+      onClick={handleFullscreenLogic}
       style={{ outline: 'none' }}
     >
       <h1>Admin Product Dashboard</h1>

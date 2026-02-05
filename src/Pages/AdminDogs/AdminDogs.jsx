@@ -1,10 +1,10 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useDogs } from '../../Hooks/useDogs'
 import { useDogFilters } from '../../Hooks/useDogFilters.js'
 import { usePagination } from '../../Hooks/usePagination.js'
 import { apiFetch } from '../../components/apiFetch.js'
-import ShowPopup  from '../../components/ShowPopup/ShowPopup.js'
+import ShowPopup from '../../components/ShowPopup/ShowPopup.js'
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
 import SearchBar from '../../components/SearchBar/SearchBar'
 import FilterControls from '../../FilterControls/FilterControls.jsx'
@@ -17,13 +17,14 @@ import DeleteModal from '../../components/DeleteModal/DeleteModal.jsx'
 import { Footer } from '../../components/Footer/Footer.jsx'
 
 import './AdminDogs.css'
-import toggleFullscreen from '../../components/FullScreenToggle.jsx'
 
 const PLACEHOLDER = '../placeholder.png'
 
 const AdminDogs = () => {
   const navigate = useNavigate()
   const location = useLocation()
+  const dashboardRef = useRef(null)
+  
   const { dogs, setDogs, loading, error } = useDogs()
   
   const [editingDog, setEditingDog] = useState(null)
@@ -54,11 +55,35 @@ const AdminDogs = () => {
     setPage
   } = usePagination(filteredDogs, 8)
 
+  const handleFullscreenLogic = () => {
+    const isLandscape = window.innerHeight <= 520
+    if (isLandscape && !document.fullscreenElement) {
+      const element = document.documentElement
+      if (element.requestFullscreen) {
+        element.requestFullscreen().catch(() => {})
+      } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen()
+      }
+      
+      if (dashboardRef.current) {
+        dashboardRef.current.focus()
+      }
+    }
+  }
+
+  useEffect(() => {
+    return () => {
+      if (document.fullscreenElement) {
+        if (document.exitFullscreen) document.exitFullscreen()
+      }
+    }
+  }, [])
+
   const openModal = useCallback((item = null) => {
     setEditingDog(item)
     setIsSubmitting(false)
     setShowModal(true)
-    toggleFullscreen()
+    handleFullscreenLogic()
   }, [])
 
   const closeModal = useCallback(() => {
@@ -129,17 +154,23 @@ const AdminDogs = () => {
   }
 
   return (
-    <div className='admin-dogs'>
+    <div 
+      className='admin-dogs' 
+      ref={dashboardRef}
+      tabIndex="-1"
+      onClick={handleFullscreenLogic}
+      style={{ outline: 'none' }}
+    >
       <h1 className='admin-dogs-h1'>Admin Dog Dashboard</h1>
 
       <div className='admin-tabs'>
         <button 
           className={`admin-tab ${activeTab === 'products' ? 'active' : ''}`} 
-          onClick={() => navigate('/admin-products')}
+          onClick={(e) => { e.stopPropagation(); navigate('/admin-products'); }}
         >Products</button>
         <button 
           className={`admin-tab ${activeTab === 'dogs' ? 'active' : ''}`} 
-          onClick={() => navigate('/admin-dogs')}
+          onClick={(e) => { e.stopPropagation(); navigate('/admin-dogs'); }}
         >Dogs</button>
       </div>
 
@@ -175,12 +206,12 @@ const AdminDogs = () => {
                     {d.name}
                   </h4>
                   <div className='admin-dog-card-buttons'>
-                   <button type="button" onClick={() => openModal(d)}>
-                                   <AiOutlineEdit size={18}/> Edit
-                                 </button>
-                                 <button type="button" onClick={() => openDeleteModal(d)}>
-                                   <AiOutlineDelete size={18}/> Delete
-                                 </button>
+                    <button type="button" onClick={(e) => { e.stopPropagation(); openModal(d); }}>
+                      <AiOutlineEdit size={18}/> Edit
+                    </button>
+                    <button type="button" onClick={(e) => { e.stopPropagation(); openDeleteModal(d); }}>
+                      <AiOutlineDelete size={18}/> Delete
+                    </button>
                   </div>
                 </div>
               </div>

@@ -113,7 +113,7 @@
 .admin-dog-card {
   position: relative;
   height: 330px;
-  width: 300px;
+  width: 92%;
   background: var(--background-color);
   border-radius: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -179,13 +179,20 @@
 }
 
 @media (max-height: 520px) {
+
+  .admin-dog-card{
+    width:40%;
+  }
+
   .dog-edit-form {
     width: 80svw;
     justify-content: flex-end;
   }
+
   .dog-layout-wrapper {
     flex-direction: row-reverse;
   }
+  
   .form-section-visuals {
     width: 45%;
     height: 360px;
