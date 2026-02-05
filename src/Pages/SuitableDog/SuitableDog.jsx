@@ -82,9 +82,22 @@ export default function SuitableDog() {
   }
 
   const handleDogClick = (dog) => {
-    setSelectedDog(dog)
-    openModal()
+  setSelectedDog(dog);
+  openModal();
+
+  const isShortScreen = window.innerHeight <= 520;
+
+  if (isShortScreen && !document.fullscreenElement) {
+    const element = document.documentElement;
+    
+    if (element.requestFullscreen) {
+      element.requestFullscreen().catch(() => {
+      });
+    } else if (element.webkitRequestFullscreen) {
+      element.webkitRequestFullscreen();
+    }
   }
+};
 
   if (error) return <p>Error loading dogs: {error}</p>
   if (!dogs) return <DogLoader />
