@@ -365,7 +365,7 @@
 }
  }
  
- @media (min-height: 521px) {
+ @media (min-height: 350px) {
   .popup-text {
     padding-bottom: 60px;
     min-height: 250px;
