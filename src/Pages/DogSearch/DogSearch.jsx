@@ -111,9 +111,20 @@ export default function DogSearchPaginated() {
   }
 
   const openModal = (dog) => {
-    setSelectedDog(dog)
-    setIsModalOpen(true)
-  }
+    setSelectedDog(dog);
+    setIsModalOpen(true);
+
+    const isShortScreen = window.innerHeight <= 520;
+    if (isShortScreen && !document.fullscreenElement) {
+      const element = document.documentElement;
+      if (element.requestFullscreen) {
+        element.requestFullscreen().catch(() => {
+        });
+      } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+      }
+    }
+  };
 
   const closeModal = () => {
     setSelectedDog(null)
