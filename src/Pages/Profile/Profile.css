@@ -69,11 +69,12 @@
 
 @media (max-height: 520px){
   .profile-container{
-    margin-top: 13svh;
     width: 400px;
+        border-radius: 18px;
         height: 270px;
-        margin-bottom: 50px;
-    }
+        border: 1px solid var(--button-border-color);
+        margin-bottom: 80px;
+  }
   
   .profile-container h1{
     font-size: 28px;
