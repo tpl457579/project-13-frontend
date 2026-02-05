@@ -282,6 +282,10 @@
 
 @media (max-height: 520px) {
 
+  .game{
+    margin-bottom: 60px;
+  }
+
 .score-lives {
     position: absolute;
     top: 10svh;
