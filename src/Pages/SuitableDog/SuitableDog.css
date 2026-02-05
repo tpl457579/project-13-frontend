@@ -108,9 +108,9 @@
 
 .modal-close {
     position: absolute;
-    top: -4px;
-    left: 6px;
-    font-size: 34px;
+    top: -6px;
+    left: 10px;
+    font-size: 50px;
     cursor: pointer;
     color: var(--text-color);
     background: none;
@@ -226,18 +226,33 @@
 .trait-icon.filled {
   opacity: 1;
 }
-
-.traits-toggle-btn{
-      background: var(--background-color);
-    border: 1px solid var(--accent-color);
-    border-radius: 6px;
-    margin-top: 5px;
-    cursor: pointer;
-    color: var(--text-color);
-    padding: 8px 12px;
+.popup-text {
+  padding-bottom: 60px;
+  min-height: 250px; 
 }
 
+.toggle-btn-container {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 
+.traits-toggle-btn {
+  padding: 10px 20px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border: 1px solid var(--accent-color);
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.traits-toggle-btn:hover {
+  background-color: var(--accent-color);
+}
 
 .trait-icon.animate {
   animation: slideGlow 0.45s ease forwards;

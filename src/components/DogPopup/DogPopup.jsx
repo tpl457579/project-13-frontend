@@ -39,7 +39,6 @@ const DogPopup = ({ isOpen, closePopup, dog }) => {
 
   const toggleFullscreen = () => {
     const isShortScreen = window.innerHeight <= 520
-    
     if (isShortScreen && !document.fullscreenElement) {
       const element = document.documentElement
       if (element.requestFullscreen) {
@@ -107,9 +106,11 @@ const DogPopup = ({ isOpen, closePopup, dog }) => {
                 )}
                 {dog.life_span && <p><strong>Life Span:</strong> {dog.life_span}</p>}
 
-                <button className="traits-toggle-btn" onClick={(e) => { e.stopPropagation(); setShowTraits(true); }}>
-                  Show Traits
-                </button>
+                <div className="toggle-btn-container">
+                    <button className="traits-toggle-btn" onClick={(e) => { e.stopPropagation(); setShowTraits(true); }}>
+                    Show Traits
+                    </button>
+                </div>
               </div>
             ) : (
               <div className="traits-section">
@@ -122,9 +123,11 @@ const DogPopup = ({ isOpen, closePopup, dog }) => {
                 <TraitMeter className="trait-otherdogs" label="Good with Other Dogs" value={dog.good_with_other_dogs} />
                 <TraitMeter className="trait-strangers" label="Good with Strangers" value={dog.good_with_strangers} />
 
-                <button className="traits-toggle-btn" onClick={(e) => { e.stopPropagation(); setShowTraits(false); }}>
-                  Back to Info
-                </button>
+                <div className="toggle-btn-container">
+                    <button className="traits-toggle-btn" onClick={(e) => { e.stopPropagation(); setShowTraits(false); }}>
+                    Back to Info
+                    </button>
+                </div>
               </div>
             )}
           </div>
