@@ -12,7 +12,7 @@
 
 body {
   background: var(--background-color);
-  min-height: 120svh;
+  min-height: 140svh;
 }
 
 body.light-theme {
