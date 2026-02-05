@@ -52,7 +52,6 @@
     padding: 15px;
     width: 90%;
   }
-
  
     .profile-container h1 {
       font-size: 28px;
@@ -65,15 +64,13 @@
   
 }
 
-
-
 @media (max-height: 520px){
   .profile-container{
     width: 400px;
         border-radius: 18px;
         height: 270px;
         border: 1px solid var(--button-border-color);
-        margin-bottom: 80px;
+        margin-bottom: 140px;
   }
   
   .profile-container h1{
