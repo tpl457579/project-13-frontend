@@ -38,10 +38,12 @@ const DogPopup = ({ isOpen, closePopup, dog }) => {
   const [showTraits, setShowTraits] = useState(false)
 
   const toggleFullscreen = () => {
-    const element = document.documentElement
-    if (!document.fullscreenElement) {
+    const isShortScreen = window.innerHeight <= 520
+    
+    if (isShortScreen && !document.fullscreenElement) {
+      const element = document.documentElement
       if (element.requestFullscreen) {
-        element.requestFullscreen().catch(err => console.error(err))
+        element.requestFullscreen().catch(() => {})
       } else if (element.webkitRequestFullscreen) {
         element.webkitRequestFullscreen()
       }
@@ -80,8 +82,8 @@ const DogPopup = ({ isOpen, closePopup, dog }) => {
       <div 
         className="suitable-dog-popup-content" 
         onClick={(e) => {
-          e.stopPropagation();
-          toggleFullscreen(); 
+          e.stopPropagation()
+          toggleFullscreen()
         }}
       >
         <button className="modal-close" onClick={handleClose}>
@@ -105,7 +107,7 @@ const DogPopup = ({ isOpen, closePopup, dog }) => {
                 )}
                 {dog.life_span && <p><strong>Life Span:</strong> {dog.life_span}</p>}
 
-                <button className="traits-toggle-btn" onClick={() => setShowTraits(true)}>
+                <button className="traits-toggle-btn" onClick={(e) => { e.stopPropagation(); setShowTraits(true); }}>
                   Show Traits
                 </button>
               </div>
@@ -120,7 +122,7 @@ const DogPopup = ({ isOpen, closePopup, dog }) => {
                 <TraitMeter className="trait-otherdogs" label="Good with Other Dogs" value={dog.good_with_other_dogs} />
                 <TraitMeter className="trait-strangers" label="Good with Strangers" value={dog.good_with_strangers} />
 
-                <button className="traits-toggle-btn" onClick={() => setShowTraits(false)}>
+                <button className="traits-toggle-btn" onClick={(e) => { e.stopPropagation(); setShowTraits(false); }}>
                   Back to Info
                 </button>
               </div>

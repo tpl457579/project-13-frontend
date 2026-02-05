@@ -126,6 +126,10 @@
   transform: translateY(-5px);
 }
 
+.admin-dog-card img{
+  border-radius: 20px;
+}
+
 .admin-dog-card-buttons button{
     width: 100px;
     display: flex;

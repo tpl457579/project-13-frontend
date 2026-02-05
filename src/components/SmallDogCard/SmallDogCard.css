@@ -6,7 +6,7 @@
     cursor: pointer;
     justify-content: flex-start;
     width: 300px;
-    height: 320px;
+    height: 350px;
     border-radius: 10px;
     box-shadow: 0px 1px 3px 0px var(--box-shadow);
     border-bottom: 1.5px solid rgb(6, 5, 5);
@@ -74,7 +74,6 @@
  .small-dog-card {
         width: 295px;
         justify-content: flex-start;
-        height: 320px;
         border-radius: 12px;
   }
 
@@ -82,7 +81,9 @@
 
  @media (max-height: 520px) {
 
-
+    .small-dog-card{
+        height: 320px;
+    }
   .small-dog-card-img {
     height:180px;
   }
