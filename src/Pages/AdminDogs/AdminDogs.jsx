@@ -160,8 +160,6 @@ const AdminDogs = () => {
         ITEMS_PER_PAGE={8} 
       />
 
-      <button className='admin-add-btn' onClick={() => openModal()}>+</button>
-
       {loading ? <DogLoader /> : error ? <p className="error">{error}</p> : (
         <>
           <div className='dog-list'>

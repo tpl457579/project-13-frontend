@@ -25,7 +25,6 @@
   visibility: hidden;
 }
 
-
 .form-section-visuals {
     display: flex;
     width: 100%;
@@ -34,18 +33,14 @@
     align-items: center;
 }
 
-
 .input-wrapper {
   position: relative;
   width: 100%;
 }
 
-
-
 .dog-edit-form::-webkit-scrollbar {
   display: none;
 }
-
 
 .dog-layout-wrapper {
     display: flex;
