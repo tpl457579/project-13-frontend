@@ -1,6 +1,6 @@
 .profile-container {
   max-width: 600px;
-  margin: 50px auto 150px;
+  margin: 50px auto 25px;
   padding: 20px;
   border: 1px solid var(--button-border-color);
   border-radius: 12px;
@@ -70,7 +70,6 @@
         border-radius: 18px;
         height: 320px;
         border: 1px solid var(--button-border-color);
-        margin-bottom: 200px;
   }
   
   .profile-container h1{
