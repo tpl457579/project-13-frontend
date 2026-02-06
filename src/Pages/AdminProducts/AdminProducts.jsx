@@ -1,3 +1,4 @@
+import './AdminProducts.css'
 import { useRef } from 'react';
 import { useProducts } from '../../Hooks/useProducts';
 import { useFilters } from '../../Hooks/useFilters';

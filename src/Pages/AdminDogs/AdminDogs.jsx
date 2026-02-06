@@ -1,3 +1,4 @@
+import './AdminDogs.css'
 import { useRef } from 'react';
 import { useDogs } from '../../Hooks/useDogs';
 import { useDogFilters } from '../../Hooks/useDogFilters';

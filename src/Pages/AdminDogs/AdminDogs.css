@@ -11,10 +11,19 @@
     width: 100%;
     gap: 20px;
     justify-content: center;
-    flex-direction: row;
-    align-content: flex-end;
     flex-wrap: wrap;
 }
+
+.page-top-content{
+    display: flex;
+    justify-content: center;
+}
+
+.admin-tabs{
+    display: flex;
+    justify-content: center;
+}
+
 /* .admin-dogs {
   display: flex;
   flex-direction: column;
