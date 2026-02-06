@@ -157,8 +157,8 @@
         padding: 6px;
     }
     .admin-product-card {
-        height: 520px;
-        width: 320px;
+        height: 400px;
+        width: 85%;
         flex-direction: column;
         align-items: center;
     }
