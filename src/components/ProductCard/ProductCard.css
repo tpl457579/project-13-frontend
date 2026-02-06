@@ -45,7 +45,7 @@
 }
 
 .product-card-info h4{
-  font-size:18px;
+  font-size:17px;
 }
 
   .product-card-info {
@@ -163,7 +163,6 @@
 
      .product-card-info {
         width: 90%;
-        padding: 0px 10px;
         height: 280px;
         display: flex;
         flex-direction: column;
@@ -241,7 +240,7 @@ font-size: 16px;
 
 @media (max-width: 590px){
 .product-card-info h4 {
-    font-size: 18px;
+    font-size: 17px;
 }}
 
 @media (max-height: 520px) {
