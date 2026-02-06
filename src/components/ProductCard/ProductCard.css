@@ -246,8 +246,8 @@ font-size: 16px;
 
 @media (max-height: 520px) {
   .product-card {
-    width: 80%;
-    height: 210px;
+    width: 90%;
+    height: 230px;
     flex-direction: row;
     align-items: flex-start;
   }
