@@ -226,25 +226,13 @@
 .trait-icon.filled {
   opacity: 1;
 }
-.popup-text {
-  padding-bottom: 60px;
-  min-height: 250px; 
-}
 
-.toggle-btn-container {
-  position: absolute;
-  bottom: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
 
 .traits-toggle-btn {
   padding: 10px 20px;
   background-color: var(--background-color);
   color: var(--text-color);
+  margin-top:20px;
   border: 1px solid var(--accent-color);
   border-radius: 16px;
   cursor: pointer;
@@ -360,18 +348,12 @@
   }
 .dogImgLarge{
   margin-bottom: 10px;
-  height: 170px;
+  width: 80%;
+        height: 190px;
   object-fit: cover;
 }
  }
  
- @media (min-height: 350px) {
-  .popup-text {
-    padding-bottom: 60px;
-    min-height: 250px;
-  }
-
-}
 
 @media (max-height: 520px) {
 
@@ -414,7 +396,7 @@
     margin-top: 7px;
     margin-bottom: 2px;
     flex-direction: column;
-    scrollbar-width: thin;
+    scrollbar-width: none;
     justify-content: flex-start;
     align-items: center;
 }
@@ -447,14 +429,12 @@
     justify-content: center;
 }
 
-
 .suitable-dog-popup-content h2 {
   margin-bottom: 0px;
 }
-
     .dogImgLarge {
-        width: 30%;
-        height: 120px;
+       width: 40%;
+        height: 140px;
         margin-top: 4px;
         object-fit: cover;
     }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Modal from '../Modal/Modal'
 import PawIcon from '../PawIcon'
 
@@ -36,6 +36,7 @@ const TraitMeter = ({ label, value, className }) => {
 
 const DogPopup = ({ isOpen, closePopup, dog }) => {
   const [showTraits, setShowTraits] = useState(false)
+  const scrollRef = useRef(null)
 
   const toggleFullscreen = () => {
     const isShortScreen = window.innerHeight <= 520
@@ -70,6 +71,12 @@ const DogPopup = ({ isOpen, closePopup, dog }) => {
     }
   }, [isOpen])
 
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = 0
+    }
+  }, [showTraits])
+
   if (!dog) return null
 
   const formattedTemperament = Array.isArray(dog.temperament)
@@ -96,7 +103,7 @@ const DogPopup = ({ isOpen, closePopup, dog }) => {
         <div className="popup-wrapper">
           {dog.image_link && <img src={dog.image_link} alt={dog.name} className="dogImgLarge" />}
 
-          <div className="popup-text">
+          <div className="popup-text" ref={scrollRef}>
             {!showTraits ? (
               <div className="info-section">
                 {dog.weight && <p><strong>Weight:</strong> {dog.weight}</p>}
