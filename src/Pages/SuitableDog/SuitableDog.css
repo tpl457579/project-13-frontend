@@ -54,9 +54,9 @@
   animation: popup FadeIn 0.3s forwards;
 }
 
-.suitable-dog-popup-content p{
+/* .suitable-dog-popup-content p{
   color: var(--text-color)
-}
+} */
 
 .modal-close {
   position: absolute;
