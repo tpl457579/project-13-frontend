@@ -114,6 +114,13 @@
     justify-content: center;
 }
 
+.controls-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
 .pagination-container {
     display: flex;
     justify-content: center;
