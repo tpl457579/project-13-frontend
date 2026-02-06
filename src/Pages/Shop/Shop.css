@@ -45,7 +45,6 @@
   margin-bottom: 30px;
 }
 
-/* --- Heart / Favourite Button --- */
 .fill-heart,
 .line-heart {
   font-size: 30px;
@@ -72,7 +71,6 @@
   color: red;
 }
 
-/* --- Buttons & Inputs --- */
 .site-button-primary {
   border: 1px solid var(--accent-color);
 }
@@ -96,8 +94,6 @@
   padding: 15px;
 }
 
-/* --- Media Queries --- */
-
 @media (max-width: 952px) {
   .shop h1 {
     margin-top: 7svh;
@@ -107,7 +103,7 @@
 @media (max-width: 750px) {
   .shop-product-card {
     width: 80%;
-    height: auto; /* Changed from 280px to allow content to fit */
+    height: auto;
     flex-direction: row;
     align-items: flex-start;
   }
