@@ -240,7 +240,9 @@ color: var(--accent-color);
     width: 220px;
     height: 240px;
   } */
-  
+  .product-edit-title{
+margin-bottom: 25px;
+  }
   
   .product-img {
     width: 220px;
@@ -272,6 +274,10 @@ color: var(--accent-color);
     gap: 15px;
 
 }
+
+.product-edit-title{
+margin-bottom: 8px;
+  }
 
     .product-edit-form {
         height: 82svh;

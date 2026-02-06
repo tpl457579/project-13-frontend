@@ -1,21 +1,25 @@
+/* Container & Headings */
 .cardDiv {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
   padding: 10px;
-  margin-top: 20px;
-  margin-bottom: 25px;
+  margin: 20px 0 25px;
 }
 
-.questionnaire h1,
-    .top-dogs h1{
-        color: var(--accent-color);
-        font-size: 28px;
-        margin-top: 10svh;
-        padding: 20px;
-        text-align: center;
-    }
+.cardDiv > div:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+.questionnaire h1, .top-dogs h1 {
+  color: var(--accent-color);
+  font-size: 28px;
+  margin-top: 10svh;
+  padding: 20px;
+  text-align: center;
+}
 
 .questionnaire h2 {
   color: var(--text-color);
@@ -23,122 +27,64 @@
   font-size: 22px;
 }
 
-    .popup-wrapper{
-      display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.resultsText {
-  color: var(--text-color);
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 60px;
-  padding: 0px 20px;
-}
-
-.popup {
+/* Popups & Modals */
+.modal-overlay, .popup {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
 }
 
-.popup-heading{
-  font-size: 28px;
-}
-
-    .suitable-dog-popup-content {
-        background: var(--background-color);
-        padding:15px;
-        border-radius: 12px;
-        position: relative;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        text-align: center;
-        animation: popupFadeIn 0.3s forwards;
-        display: flex;
-        flex-direction: column;
-        width: 450px;
-        margin-top: 0px;
-        border: 1px solid var(--button-border-color);
-        height: 85svh;
-        position: relative;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        transform: scale(0.8);
-        opacity: 0;
-        animation: popupFadeIn 0.3s forwards;
-    }
-
-.suitable-dog-popup-content h2 {
-  color: var(--accent-color);
+.suitable-dog-popup-content {
+  background: var(--background-color);
+  padding: 15px;
+  border-radius: 12px;
+  position: relative;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   text-align: center;
-  font-size: 28px;
-  margin-bottom: 10px;
-}
-
-.footer-trigger-btn { display: none; }
-
-.popup-footer {
-  padding: 20px;
-  background: #f9f9f9;
-  border-top: 1px solid #eee;
-}
-
-.suitable-dog-popup-content p {
-  color: var(--text-color);
-  gap: 10px;
-  font-size: 18px;
-  padding: 10px;
-}
-
-.dogImgLarge {
-    width: 60%;
-    height: 170px;
-    object-fit: contain;
-  border-radius: 10px;
-  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.42);
-  border-bottom: 2px solid rgb(6, 5, 5);
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 450px;
+  height: 85svh;
+  border: 1px solid var(--button-border-color);
+  transform: scale(0.8);
+  opacity: 0;
+  animation: popupFadeIn 0.3s forwards;
 }
 
 .modal-close {
-    position: absolute;
-    top: -6px;
-    left: 10px;
-    font-size: 50px;
-    cursor: pointer;
-    color: var(--text-color);
-    background: none;
-    border: none;
+  position: absolute;
+  top: -6px;
+  left: 10px;
+  font-size: 50px;
+  cursor: pointer;
+  color: var(--text-color);
+  background: none;
+  border: none;
+  transition: transform 0.2s;
 }
 
-.modal-close:hover {
-  transform: scale(1.2);
-  color: var(--accent-color);
-}
+.modal-close:hover { transform: scale(1.2); color: var(--accent-color); }
 
 @keyframes popupFadeIn {
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+  to { transform: scale(1); opacity: 1; }
 }
 
-.dogName {
-  font-size: 20px;
-  font-weight: 400;
-  text-align: center;
-  padding: 10px;
-  background-color: #f5f5f5;
+/* Dog Specific Styles */
+.dogImgLarge {
+  width: 60%;
+  height: 170px;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.4);
+  margin: 0 auto;
 }
-.cardDiv > div:hover {
-  transform: scale(1.05);
-}
+
+/* Questionnaire Logic */
 .questionnaire {
   display: flex;
   flex-direction: column;
@@ -147,299 +93,74 @@
   gap: 15px;
 }
 
-.questionnaire p {
-  color: var(--text-color);
-  text-align: center;
-}
-.questionnaire > div {
-  display: flex;
-  justify-content: center;
-}
-
 .options {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
+
 .optionInput {
-    width: 280px;
-    height: 38px;
-    border-radius: 8px;
-    padding: var(--button-padding);
-    border: 0.5px solid var(--input-border-color);
-    cursor: pointer;
-}
-.optionInput:hover {
-  border: 1.5px solid #8e44ad;
+  width: 280px;
+  height: 38px;
+  border-radius: 8px;
+  padding: var(--button-padding);
+  border: 0.5px solid var(--input-border-color);
+  cursor: pointer;
+  transition: border 0.2s;
 }
 
-.questionnaire-back-btn {
-  margin-top: 20px;
-}
+.optionInput:hover { border: 1.5px solid #8e44ad; }
 
-.repeat {
-  text-align: center;
-}
-
-.repeat-button {
-    border: 1px solid var(--accent-color);
-    width: 120px;
-    color: var(--text-color);
-    margin-top: 20px;
-    background: none;
-    margin-bottom: 40px;
-}
-
+/* Trait Meters */
 .trait-meter {
-    margin: 6px 0;
-    height: 24px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  margin: 6px 0;
+  height: 24px;
+  display: flex;
+  align-items: center;
 }
 
 .trait-label {
-    width: 200px;
-    display: flex;
-    color: var(--text-color);
-    justify-content: flex-end;
+  width: 200px;
+  color: var(--text-color);
+  text-align: right;
+  padding-right: 10px;
 }
 
-.trait-icons {
-  display: flex;
-  width:210px;
-}
-
-
+.trait-icons { display: flex; width: 210px; }
 
 .trait-icon {
   width: 80px;
   height: 80px;
   opacity: 0;
-  transform: translateX(-8px) scale(0.8);
-  filter: brightness(0) saturate(100%);
+  filter: brightness(0);
 }
 
-.trait-icon.filled {
-  opacity: 1;
-}
-
-
-.traits-toggle-btn {
-  padding: 10px 20px;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  margin-top:20px;
-  border: 1px solid var(--accent-color);
-  border-radius: 16px;
-  cursor: pointer;
-}
-
-.traits-toggle-btn:hover {
-  background-color: var(--accent-color);
-}
-
-.trait-icon.animate {
-  animation: slideGlow 0.45s ease forwards;
-}
+.trait-icon.animate { animation: slideGlow 0.45s ease forwards; }
 
 @keyframes slideGlow {
-  0% {
-    opacity: 0;
-    transform: translateX(-12px) scale(0.6);
-    filter: brightness(0) saturate(100%) drop-shadow(0 0 0px rgba(255,255,255,0));
-  }
-  60% {
-    opacity: 1;
-    transform: translateX(0) scale(1.15);
-    filter: brightness(1) saturate(150%) drop-shadow(0 0 6px rgba(255,255,255,0.7));
-  }
-  100% {
+  to {
     opacity: 1;
     transform: translateX(0) scale(1);
-    filter: brightness(1) saturate(150%) drop-shadow(0 0 2px rgba(255,255,255,0.4));
+    filter: brightness(1) saturate(150%);
   }
 }
 
-.paw-icon { display: inline-block; vertical-align: middle; width: 40px; height: 40px; }
-
-.score-row, .paw-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.trait-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
-}
-
-.trait-row p {
-  margin: 0;
-  flex: 1;
-}
-
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-
-@media (max-width: 952px){
-
-    .top-dogs h1, .questionnaire h1 {
-        color: var(--accent-color);
-        font-size: 28px;
-        margin-top: 10svh;
-        padding: 20px;
-        text-align: center;
-    }
-}
-
-@media (max-width: 750px){
-.suitable-dog-card{
-  width: 240px;
-}
-
-}
-
+/* Consolidated Media Queries */
 @media (max-width: 570px) {
- .suitable-dog-popup-content {
-        width: 340px;
-        height: 85svh;
-    }
-  
- 
-        .trait-label {
-        width: 140px;
-        display: flex;
-        font-size: 12px;
-        align-items: flex-end;
-        flex-direction: column;
-    }
-
-    .trait-icons {
-    display: flex;
-    width: 170px;
+  .suitable-dog-popup-content { width: 340px; }
+  .trait-label { width: 140px; font-size: 12px; }
+  .trait-icons { width: 170px; }
+  .dogImgLarge { width: 80%; height: 190px; object-fit: cover; }
 }
-
-.trait-meter{
- margin: 6px 0;
-}
-
-  .suitable-dog-popup-content p {
-    padding: 0px;
-    font-size: 18px;
-        margin-bottom: 20px;
-  }
-.dogImgLarge{
-  margin-bottom: 10px;
-  width: 80%;
-        height: 190px;
-  object-fit: cover;
-}
- }
- 
 
 @media (max-height: 520px) {
-
-
-  .suitable-dog-img {
-    height:180px;
-  }
-.options {
-  gap: 10px;
-}
-
-.questionnaire{
-  gap:10px;
-}
-.questionnaire h1, .top-dogs h1 {
-  font-size: 24px;
-  margin-top: 14svh;
-  padding-bottom: 0px;
-  padding-top: 10px;
-}
-.questionnaire h2 {
-  font-size: 18px;
-  font-weight: 400;
-}
-
-.questionnaire-back-btn{
-  margin-top: 10px;
-}
-
-.popup-wrapper {
-  height: 270px;
-  display: flex;
-  width: 100%;
-    align-items: center;
-}
-
-.popup-text{
-    overflow-y: scroll;
-    display: flex;
-    margin-top: 7px;
-    margin-bottom: 2px;
-    flex-direction: column;
-    scrollbar-width: none;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.optionInput{
-  height:26px
-}
-
-.suitable-dog-popup-content {
-    background: var(--background-color);
-    padding: 15px;
-    border-radius: 12px;
-    position: relative;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    animation: popupFadeIn 0.3s forwards;
-    display: flex;
+  .suitable-dog-popup-content {
     flex-direction: row;
     width: 85svw;
-    margin-top: 0px;
-    border: 1px solid var(--button-border-color);
-    height: 85svh;
-    position: relative;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    transform: scale(0.8);
-    opacity: 0;
-    animation: popupFadeIn 0.3s forwards;
     flex-wrap: wrap;
-    align-content: center;
-    justify-content: center;
-}
-
-.suitable-dog-popup-content h2 {
-  margin-bottom: 0px;
-}
-    .dogImgLarge {
-       width: 40%;
-        height: 140px;
-        margin-top: 4px;
-        object-fit: cover;
-    }
-
-.trait-icons{
-  width:220px;
-}
+  }
+  .dogImgLarge { width: 40%; height: 140px; }
+  .questionnaire h1 { font-size: 24px; margin-top: 14svh; }
 }

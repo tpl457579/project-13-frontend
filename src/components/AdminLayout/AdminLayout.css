@@ -1,0 +1,71 @@
+.admin-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admin-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.admin-tabs {
+    display: flex;
+    width: 225px;
+    padding: 10px;
+    height: 50px;
+    border: 1px solid var(--button-border-color);
+    border-radius: 29px;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin-tab {
+    background: var(--background-color);
+    width: 120px;
+    height: 30px;
+    border: 1px solid #8f44ad;
+    border-radius: 16px;
+    cursor: pointer;
+    color: var(--text-color);
+    padding: var(--button-padding);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin-tab.active {
+    background: var(--accent-color);
+    color: white;
+}
+
+.card-list {
+    padding: 0px 25px;
+    display: flex;
+    width: 100%;
+    gap: 20px;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    align-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+@media (max-width: 952px) {
+    .admin-title{
+        margin-top: 11svh;
+    }
+    
+}
+

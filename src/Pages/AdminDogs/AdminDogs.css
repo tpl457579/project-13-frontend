@@ -1,4 +1,21 @@
-.admin-dogs {
+.admin-page-container dogs{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.card-list {
+    padding: 0px 25px;
+    display: flex;
+    width: 100%;
+    gap: 20px;
+    justify-content: center;
+    flex-direction: row;
+    align-content: flex-end;
+    flex-wrap: wrap;
+}
+/* .admin-dogs {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -45,12 +62,6 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-}
-
-.form-section-inputs {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .input-wrapper {
@@ -109,7 +120,7 @@
   scrollbar-width: none;
   width: 310px;
 }
-
+/* 
 .admin-dog-card {
   position: relative;
   height: 330px;
@@ -142,8 +153,8 @@
     align-items: center;
     justify-content: center;
 }
-
-
+ */
+/* 
 .admin-add-btn {
   position: fixed;
   top: 11%;
@@ -198,11 +209,11 @@
 
 @media (max-height: 520px) {
 
-  .admin-dog-card{
+  /* .admin-dog-card{
     width:40%;
   }
-
-  .dog-edit-form {
+ */
+ /*  .dog-edit-form {
     width: 80svw;
     justify-content: flex-end;
   }
@@ -216,4 +227,27 @@
     height: 360px;
     justify-content: flex-end;
   }
+} */ 
+
+@media (max-width: 740px) {
+  .dog-card-img{ 
+    height:180px;
+    margin-bottom: 0px;
+  
 }
+}
+
+@media (max-width: 561px){
+  .admin-dog-card{
+    
+  position: relative;
+  height: 320px;
+  width: 300px;
+  background: var(--background-color);
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--button-border-color);
+  transition: transform 0.2s;
+  margin-bottom: 15px;
+}
+  }

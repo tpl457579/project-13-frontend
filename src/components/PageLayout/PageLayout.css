@@ -1,0 +1,13 @@
+
+.admin-title {
+     text-align: center;
+    color: var(--accent-color);
+    margin-top: 7svh;
+    margin-bottom: 15px;
+}
+
+.page-layout-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
