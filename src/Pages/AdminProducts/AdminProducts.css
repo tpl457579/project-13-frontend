@@ -148,7 +148,7 @@
 } */
 
     .admin-product-card {
-        height: 240px;
+        height: 400px;
         width: 90%;
         flex-direction: row;
         align-items: flex-start;
