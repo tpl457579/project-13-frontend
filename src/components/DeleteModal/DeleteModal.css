@@ -24,7 +24,15 @@
 
 .delete-modal-buttons {
     height: 30px;
+    width: 250px;
     display: flex;
-    gap:10px;
+    gap: 10px;
+    justify-content: space-evenly;
 }
 
+.site-button {
+  width: 120px;
+  display: flex;
+  align-items: center;
+justify-content: center;
+}
