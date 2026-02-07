@@ -82,68 +82,82 @@ export default function SuitableDog() {
   }
 
   const handleDogClick = (dog) => {
-  setSelectedDog(dog);
-  openModal();
+    setSelectedDog(dog);
+    openModal();
 
-  const isShortScreen = window.innerHeight <= 520;
-
-  if (isShortScreen && !document.fullscreenElement) {
-    const element = document.documentElement;
-    
-    if (element.requestFullscreen) {
-      element.requestFullscreen().catch(() => {
-      });
-    } else if (element.webkitRequestFullscreen) {
-      element.webkitRequestFullscreen();
+    const isShortScreen = window.innerHeight <= 520;
+    if (isShortScreen && !document.fullscreenElement) {
+      const element = document.documentElement;
+      if (element.requestFullscreen) {
+        element.requestFullscreen().catch(() => {});
+      } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+      }
     }
-  }
-};
+  };
 
   if (error) return <p>Error loading dogs: {error}</p>
   if (!dogs) return <DogLoader />
 
-  if (finished) {
-    return (
-      <div className='top-dogs'>
-        <h1>Top 10 Matching Dogs</h1>
-        <p className='resultsText'>Click on the cards to learn more!</p>
-        <div className='cardDiv'>
-          {results.map((dog) => (
-            <SmallDogCard 
-              key={dog.id} 
-              dog={dog} 
-              onClick={() => handleDogClick(dog)}
-            >
-              <p><strong>Total Match:</strong> {dog.score || 0}%</p>
-            </SmallDogCard>
-          ))}
-        </div>
-        <div className='repeat'>
-          <Button variant='primary' onClick={resetQuiz}>Repeat</Button>
-        </div>
-        <DogPopup isOpen={isOpen} closePopup={closeModal} dog={selectedDog} />
-      </div>
-    )
-  }
-
-  const question = questions[current]
-
   return (
-    <div className='questionnaire'>
-      <h1>Which dog is going to be your new best friend?</h1>
-      <h2>Question {current + 1} of {questions.length}</h2>
-      <p>{question.text}</p>
-      <div className='options'>
-        {question.options.map((opt) => (
-          <Button variant='primary' key={opt.value} className='optionInput' onClick={() => handleAnswer(question.id, opt.value)}>
-            {opt.label}
-          </Button>
-        ))}
-      </div>
-      <Button variant='primary' className='questionnaire-back-btn' onClick={() => setCurrent(c => c - 1)} disabled={current === 0}>
-        Back
-      </Button>
-      <DogPopup isOpen={isOpen} closePopup={closeModal} dog={selectedDog} />
-    </div>
+    <>
+      {finished ? (
+        <div className='top-dogs'>
+          <h1>Top 10 Matching Dogs</h1>
+          <p className='resultsText'>Click on the cards to learn more!</p>
+          <div className='cardDiv'>
+            {results.map((dog) => (
+              <SmallDogCard 
+                key={dog.id} 
+                dog={dog} 
+                onClick={() => handleDogClick(dog)}
+              >
+                <p><strong>Total Match:</strong> {dog.score || 0}%</p>
+              </SmallDogCard>
+            ))}
+          </div>
+          <div className='repeat'>
+            <Button variant='primary' style={{ width: '120px' }} onClick={resetQuiz}>
+              Repeat
+            </Button>
+          </div>
+        </div>
+      ) : (
+        <div className='questionnaire'>
+          <h1>Which dog is going to be your new best friend?</h1>
+          <h2>Question {current + 1} of {questions.length}</h2>
+          <p>{questions[current].text}</p>
+          <div className='options'>
+            {questions[current].options.map((opt) => (
+              <Button 
+                variant='primary' 
+                key={opt.value} 
+                className='optionInput' 
+                onClick={() => handleAnswer(questions[current].id, opt.value)}
+              >
+                {opt.label}
+              </Button>
+            ))}
+          </div>
+         <Button 
+  variant='primary' 
+  width='140px'
+  height='34px'
+  fontSize='16px'
+  className='questionnaire-back-btn' 
+  onClick={() => setCurrent(c => c - 1)} 
+  disabled={current === 0}
+>
+  Back
+</Button>
+        </div>
+      )}
+
+      <DogPopup 
+        isOpen={isOpen} 
+        closePopup={closeModal} 
+        dog={selectedDog} 
+      />
+    </>
   )
 }

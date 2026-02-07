@@ -6,8 +6,9 @@
   align-items: center;
   background: var(--alt-card-color);
   padding: 15px;
-  width: 90%;
-  height:45svh;
+  max-width: 70svw;
+  height:280px;
+  max-height:60svh;
   border-radius: 10px;
   border: 1px solid var(--button-border-color);
   text-align: center;

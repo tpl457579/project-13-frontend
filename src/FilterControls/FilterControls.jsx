@@ -26,38 +26,47 @@ const FilterControls = ({
     [setMinRating]
   )
 
-  const handleClear = useCallback(() => {
-    clearFilters()
-  }, [clearFilters])
+ const handleClear = () => {
+  clearFilters();
+  setPage(1);
+  sessionStorage.removeItem('admin_products_scroll');
+  window.scrollTo(0, 0);
+};
 
   return (
     <div className='filter'>
-      <select className='select' value={size} onChange={handleSizeChange}>
-        <option value=''>Dog Size</option>
-        <option value='small'>Small</option>
-        <option value='medium'>Medium</option>
-        <option value='large'>Large</option>
-      </select>
+      {setSize && (
+        <select className='select' value={size} onChange={handleSizeChange}>
+          <option value=''>Dog Size</option>
+          <option value='small'>Small</option>
+          <option value='medium'>Medium</option>
+          <option value='large'>Large</option>
+        </select>
+      )}
 
-      <input
-        className='input'
-        type='number'
-        placeholder='Max Price'
-        value={maxPrice}
-        onChange={handlePriceChange}
-      />
+      {setMaxPrice && (
+        <input
+          className='input'
+          type='number'
+          placeholder='Max Price'
+          value={maxPrice}
+          onChange={handlePriceChange}
+        />
+      )}
 
-      <select
-        className='select'
-        value={minRating}
-        onChange={handleRatingChange}
-      >
-        <option value=''>Rating</option>
-        <option value='1'>⭐ 1+</option>
-        <option value='2'>⭐ 2+</option>
-        <option value='3'>⭐ 3+</option>
-        <option value='4'>⭐ 4+</option>
-      </select>
+      {setMinRating && (
+        <select
+          className='select'
+          value={minRating}
+          onChange={handleRatingChange}
+        >
+          <option value=''>Rating</option>
+          <option value='1'>⭐ 1+</option>
+          <option value='2'>⭐ 2+</option>
+          <option value='3'>⭐ 3+</option>
+          <option value='4'>⭐ 4+</option>
+        </select>
+      )}
 
       <Button
         variant='secondary'

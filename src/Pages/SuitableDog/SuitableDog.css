@@ -12,6 +12,12 @@
   transition: transform 0.2s ease;
 }
 
+.questionnaire{
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .questionnaire h1, .top-dogs h1 {
   color: var(--accent-color);
   font-size: 28px;
@@ -26,149 +32,54 @@
   font-size: 22px;
 }
 
-.modal-overlay, .popup {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.suitable-dog-popup-content {
-  background: var(--background-color);
-  padding: 15px;
-  border-radius: 12px;
-  position: relative;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+.questionnaire p {
+  color: var(--text-color);
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-  max-width: 450px;
-  height: 85svh;
-  border: 1px solid var(--button-border-color);
-  transform: scale(0.8);
-  opacity: 0;
-  animation: popup FadeIn 0.3s forwards;
+  font-size: 18px;
+  margin: 10px 0 20px;
 }
 
-/* .suitable-dog-popup-content p{
-  color: var(--text-color)
-} */
-
-.modal-close {
-  position: absolute;
-  top: -6px;
-  left: 10px;
-  font-size: 50px;
-  cursor: pointer;
-  color: var(--text-color);
-  background: none;
-  border: none;
-  transition: transform 0.2s;
+.options{
+display: flex;
+gap: 15px;
+    flex-direction: column;
+    margin-bottom: 20px;
 }
 
-.modal-close:hover { transform: scale(1.2); color: var(--accent-color); }
-
-@keyframes popupFadeIn {
-  to { transform: scale(1); opacity: 1; }
+.questionnaire button {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border: 1px solid var(--accent-color);
+    display: flex;
+    border-radius: 10px;
+   width: 320px;
+    padding: 10px 0px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    justify-content: center;
 }
 
-.dogImgLarge {
-  width: 60%;
-  height: 170px;
-  object-fit: contain;
-  border-radius: 10px;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.4);
-  margin: 0 auto;
+.questionnaire button:hover {
+  background-color: var(--accent-color);
 }
 
-.questionnaire {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  gap: 15px;
-}
-
-.options {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
-.optionInput {
-  width: 280px;
-  height: 38px;
-  border-radius: 8px;
-  padding: var(--button-padding);
-  border: 0.5px solid var(--input-border-color);
-  cursor: pointer;
-  transition: border 0.2s;
-}
-
-.optionInput:hover { border: 1.5px solid #8e44ad; }
-
-.trait-meter {
-  margin: 6px 0;
-  height: 24px;
-  display: flex;
-  align-items: center;
-}
-
-.trait-label {
-  width: 200px;
-  color: var(--text-color);
-  text-align: right;
-  padding-right: 10px;
-}
-
-.trait-icons { display: flex; width: 210px; }
-
-.trait-icon {
-  width: 80px;
-  height: 80px;
-  opacity: 0;
-  filter: brightness(0);
-}
-
-.trait-icon.animate { animation: slideGlow 0.45s ease forwards; }
-
-@keyframes slideGlow {
-  to {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-    filter: brightness(1) saturate(150%);
-  }
-}
-
-@media (max-width: 570px) {
-  .suitable-dog-popup-content{
-    width: 340px; 
-  }
-  .trait-label {
-     width: 140px;
-      font-size: 12px; }
-
-  .trait-icons { 
-    width: 170px; }
-
-  .dogImgLarge { 
-    width: 80%; 
-    height: 190px; 
-    object-fit: cover; }
+.repeat {
+    display: flex;
+    margin-bottom: 60px;
+    justify-content: center;
 }
 
 @media (max-height: 520px) {
-  .suitable-dog-popup-content {
-    flex-direction: row;
-    width: 85svw;
-    flex-wrap: wrap;
-  }
-  .dogImgLarge { width: 40%; height: 140px; }
-  .questionnaire h1 { font-size: 24px; margin-top: 14svh; }
+  .questionnaire p {
+    color: var(--text-color);
+    text-align: center;
+    font-size: 18px;
+    margin: 10px 0px;
+}
+
+.questionnaire button {
+  padding: 5px 0px;
+  
+}
 }

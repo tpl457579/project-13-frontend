@@ -236,10 +236,7 @@ color: var(--accent-color);
 
 
 @media (max-width: 740px) {
- /*  .product-card img {
-    width: 220px;
-    height: 240px;
-  } */
+  
   .product-edit-title{
 margin-bottom: 25px;
   }

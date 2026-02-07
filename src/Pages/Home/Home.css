@@ -171,14 +171,6 @@
 }
 
 @media (max-width: 714px) {
-/*   .home {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    justify-content: space-evenly;
-    align-items: center;
-  } */
 
   .home-h1 {
     margin-top:11svh;
@@ -291,13 +283,8 @@ padding: 0px;
      .home-img {
         width: 60%;
         display: flex;
-        height: 65svh;
+        height: 60svh;
         margin: 0px;
-        justify-content: center;
-        align-content: flex-start;
-        flex-wrap: wrap;
-        flex-direction: row;
-        align-items: stretch;
      }
 
   .home-buttons {

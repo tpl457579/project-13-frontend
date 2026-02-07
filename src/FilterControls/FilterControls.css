@@ -3,8 +3,8 @@
   justify-content: center;
   align-items: center;
   gap: 15px;
-  margin-bottom: 25px;
 }
+
 .filter select,
 .filter input {
   background: var(--background-color);
@@ -30,13 +30,17 @@
   color: var(--placeholder-color);
 }
 
-.clear-filters-btn {
+.clear-filters-button {
   width: 120px;
   height: 38px;
   border: none;
 }
 
 @media (max-width: 650px){
+
+  .filter{
+  margin-top: 15px;
+}
 
   .filter select,
   .filter input,
@@ -48,8 +52,15 @@
   }
 }
 
-@media (max-width: 520px){
+@media (max-width: 540px){
   .filters {
     scale:0.8;
   }
+}
+
+@media (max-height: 520px) {
+
+.filter{
+  margin-top: 15px;
+}
 }

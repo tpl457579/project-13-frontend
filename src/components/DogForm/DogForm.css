@@ -26,7 +26,7 @@
 .form-title-vertical {
   visibility: visible;
   color: var(--accent-color);
-  margin: 5px 0px;
+  margin: 5px 0px 0px;
 }
 
 .form-title {
@@ -35,9 +35,10 @@
 
 .form-section-visuals {
     display: flex;
+    margin-top: 10px;
     width: 100%;
     flex-direction: column;
-    align-content: center;
+    justify-content: space-evenly;
     align-items: center;
 }
 
@@ -678,17 +679,7 @@ color: var(--text-color);
     justify-content: center;
 }
 }
-/* @media (max-width: 615px) {
-  .admin-dog-card {
-    position: relative;
-    height: 260px;
-    width: 210px;
-  }
 
-  .admin-card-buttons button{
-    width: 70px;
-  }
-} */
 
 @media (max-width: 580px){
 
@@ -777,11 +768,13 @@ color: var(--text-color);
         justify-content: center;
     }
 
-     .form-section-inputs {
+    .form-section-inputs {
         display: flex;
         height: 320px;
+        margin-top: 15px;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
     }
 
   .scroll-button-container{

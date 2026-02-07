@@ -37,7 +37,6 @@
   font-size: 16px;
   cursor: pointer;
   min-width: 150px;
-  transition: border-color 0.2s;
 }
 
 .filter-select-dog-search:focus {
@@ -55,7 +54,6 @@
   top: 105%;
   left: 0;
   width: 100%;
-  scrollbar-width: none;
   background: var(--background-color);
   border: 1.5px solid var(--input-border-color);
   border-radius: 8px;
@@ -63,6 +61,7 @@
   max-height: 200px;
   overflow-y: auto;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  scrollbar-width: none;
 }
 
 .dropdown-item {
@@ -97,38 +96,8 @@
   border: none;
   cursor: pointer;
   font-size: 14px;
-  transition: opacity 0.2s;
 }
 
-.clear-filters-btn:hover {
-  opacity: 0.9;
-}
-
-.resultsText {
-    color: var(--text-color);
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-
-.back-to-top {
-    background: var(--background-color);
-    border-radius: 50%;
-    font-size: 25px;
-    display: flex;
-    width: 30px;
-    cursor: pointer;
-    color: var(--text-color);
-    height: 30px;
-    border: 1px solid var(--accent-color);
-    align-items: center;
-    justify-content: center;
-}
-
-.back-to-top:hover{
-  background: var(--accent-color);
-  transform: scale(1.05);
-}
 .load-more-btn {
   color: var(--text-color);
   border: 1px solid var(--accent-color);
@@ -136,11 +105,10 @@
   font-size: 16px;
   height: 40px;
   width: 160px;
-  margin-top: 20px;
+  margin: 20px 0 50px 0;
   cursor: pointer;
   background: none;
-  margin-bottom: 50px;
-  transition: transform 0.2s, background-color 0.2s;
+  transition: transform 0.2s;
 }
 
 .load-more-btn:hover {
@@ -148,47 +116,33 @@
   background: var(--fill-button-hover-color);
 }
 
-@media (max-width: 952px){
-
-.load-more-btn{
-  margin-bottom: 80px;
-}
-}
-
-@media (max-width: 750px) {
-
-  .search-bar{
-    margin: 10px 0px;
-  }
-
-  .suitable-dog-card {
-    width: 240px;
-    height: 280px;
-  }
-  .suitable-dog-img {
-    height: 180px;
-  }
+.back-to-top {
+  background: var(--background-color);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  color: var(--text-color);
+  border: 1px solid var(--accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
 }
 
-@media (max-width: 570px) {
-  .suitable-dog-card {
-    width: 90%;
-    max-width: 340px;
-    height: auto;
-    padding-bottom: 15px;
+.resultsText {
+  color: var(--text-color);
+  text-align: center;
+  margin: 10px 0 20px 0;
+}
+
+@media (max-width: 952px) {
+  .load-more-btn {
+    margin-bottom: 80px;
   }
-  .suitable-dog-img {
-    height: 200px;
-  }
-  
 }
 
 @media (max-height: 520px) {
-
-  .suitable-dog-card{
-    width: 40%;
-    height: 260px;
-  }
   .dropdown-menu {
     max-height: 150px;
   }

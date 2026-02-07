@@ -1,5 +1,5 @@
 import './AdminProducts.css'
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { useProducts } from '../../Hooks/useProducts';
 import { useFilters } from '../../Hooks/useFilters';
 import { usePagination } from '../../Hooks/usePagination';
@@ -46,7 +46,31 @@ const AdminProducts = () => {
     nextPage,
     prevPage,
     setPage
-  } = usePagination(filteredProducts, 8);
+  } = usePagination(filteredProducts, 8, 'admin_products_page');
+
+  const handleCloseAll = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(() => {});
+    }
+    closeModal();
+    setDeleteModal(false);
+  };
+
+  useEffect(() => {
+    const savedScroll = sessionStorage.getItem('admin_products_scroll');
+    if (savedScroll && !loading && visibleProducts.length > 0) {
+      setTimeout(() => {
+        window.scrollTo({ top: parseInt(savedScroll), behavior: 'instant' });
+      }, 100);
+    }
+
+    const handleScroll = () => {
+      sessionStorage.setItem('admin_products_scroll', window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [loading, visibleProducts.length]);
 
   const handleSaveProduct = async (formData) => {
     setIsSubmitting(true);
@@ -70,7 +94,7 @@ const AdminProducts = () => {
       );
 
       ShowPopup(`Product ${editingProduct ? 'updated' : 'added'} successfully`);
-      closeModal();
+      handleCloseAll();
     } catch {
       ShowPopup('Failed to save product', 'error');
     } finally {
@@ -89,7 +113,7 @@ const AdminProducts = () => {
       });
       setProducts(prev => prev.filter(p => p._id !== selectedProduct._id));
       ShowPopup('Product deleted successfully');
-      setDeleteModal(false);
+      handleCloseAll();
     } catch {
       ShowPopup('Failed to delete', 'error');
     } finally {
@@ -97,7 +121,15 @@ const AdminProducts = () => {
     }
   };
 
-  return (
+  const handleClearAll = () => {
+    clearFilters();
+    setPage(1);
+    sessionStorage.removeItem('admin_products_scroll');
+    sessionStorage.setItem('admin_products_page', '1');
+    window.scrollTo(0, 0);
+  };
+
+ return (
     <AdminLayout 
       title="Admin Product Dashboard"
       dashboardRef={dashboardRef}
@@ -115,25 +147,22 @@ const AdminProducts = () => {
           size={size} setSize={(val) => { setSize(val); setPage(1); }}
           maxPrice={maxPrice} setMaxPrice={(val) => { setMaxPrice(val); setPage(1); }}
           minRating={minRating} setMinRating={(val) => { setMinRating(val); setPage(1); }}
-          clearFilters={() => { clearFilters(); setPage(1); }} 
+          clearFilters={handleClearAll} 
         />
       }
     >
-     
       {loading ? <DogLoader /> : error ? <p className="error">{error}</p> : (
         <>
-          <div className='card-list'>
-            {visibleProducts.length ? visibleProducts.map(p => (
-              <ProductCard 
-                key={p._id}
-                product={p}
-                showAdminActions={true}
-                showHeart={false}
-                onEdit={openModal}
-                onDelete={openDeleteModal}
-              />
-            )) : <p>No products found.</p>}
-          </div>
+          {visibleProducts.length ? visibleProducts.map(p => (
+            <ProductCard 
+              key={p._id}
+              product={p}
+              showAdminActions={true}
+              showHeart={false}
+              onEdit={openModal}
+              onDelete={openDeleteModal}
+            />
+          )) : <p>No products found.</p>}
 
           {totalPages > 1 && (
             <PaginationControls
@@ -147,11 +176,11 @@ const AdminProducts = () => {
       )}
 
       {showModal && (
-        <Modal isOpen={showModal} onClose={closeModal}>
+        <Modal isOpen={showModal} onClose={handleCloseAll}>
           <ProductForm 
             initialData={editingProduct || {}} 
             isSubmitting={isSubmitting} 
-            onCancel={closeModal} 
+            onCancel={handleCloseAll} 
             onSubmit={handleSaveProduct} 
           />
         </Modal>
@@ -159,7 +188,7 @@ const AdminProducts = () => {
 
       <DeleteModal 
         isOpen={deleteModal}
-        onClose={() => setDeleteModal(false)}
+        onClose={handleCloseAll}
         onConfirm={handleDelete}
         isDeleting={isDeleting}
         itemName={selectedProduct?.name}

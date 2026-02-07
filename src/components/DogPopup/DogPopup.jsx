@@ -1,3 +1,4 @@
+import './DogPopup.css'
 import React, { useState, useEffect, useRef } from 'react'
 import Modal from '../Modal/Modal'
 import PawIcon from '../PawIcon'
@@ -11,23 +12,20 @@ const TraitMeter = ({ label, value, className }) => {
       <div className="trait-meter">
         <span className="trait-label">{label}</span>
         <div className="trait-icons">
-          {[1, 2, 3, 4, 5].map((i) => {
-            const filled = i <= filledCount
-            return (
-              <PawIcon
-                key={i}
-                id={`${label}-${i}`}
-                width={40}
-                height={40}
-                fillColor="#8e4aed"
-                strokeColor="#cccccc"
-                strokeWidth={6}
-                percent={filled ? 100 : 0} 
-                className={`trait-icon ${filled ? 'filled animate' : ''}`}
-                style={{ animationDelay: `${i * 0.12}s` }}
-              />
-            )
-          })}
+          {[1, 2, 3, 4, 5].map((i) => (
+            <PawIcon
+              key={i}
+              id={`${label}-${i}`}
+              width={40}
+              height={40}
+              fillColor="#8e4aed"
+              strokeColor="#cccccc"
+              strokeWidth={6}
+              percent={i <= filledCount ? 100 : 0} 
+              className={`trait-icon ${i <= filledCount ? 'filled animate' : ''}`}
+              style={{ animationDelay: `${i * 0.12}s` }}
+            />
+          ))}
         </div>
       </div>
     </div>
@@ -38,43 +36,12 @@ const DogPopup = ({ isOpen, closePopup, dog }) => {
   const [showTraits, setShowTraits] = useState(false)
   const scrollRef = useRef(null)
 
-  const toggleFullscreen = () => {
-    const isShortScreen = window.innerHeight <= 520
-    if (isShortScreen && !document.fullscreenElement) {
-      const element = document.documentElement
-      if (element.requestFullscreen) {
-        element.requestFullscreen().catch(() => {})
-      } else if (element.webkitRequestFullscreen) {
-        element.webkitRequestFullscreen()
-      }
-    }
-  }
-
-  const exitFullscreen = () => {
-    if (document.fullscreenElement) {
-      if (document.exitFullscreen) {
-        document.exitFullscreen()
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen()
-      }
-    }
-  }
-
-  const handleClose = () => {
-    exitFullscreen()
-    closePopup()
-  }
-
   useEffect(() => {
-    if (!isOpen) {
-      setShowTraits(false)
-    }
+    if (!isOpen) setShowTraits(false)
   }, [isOpen])
 
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = 0
-    }
+    if (scrollRef.current) scrollRef.current.scrollTop = 0
   }, [showTraits])
 
   if (!dog) return null
@@ -84,19 +51,11 @@ const DogPopup = ({ isOpen, closePopup, dog }) => {
     : dog.temperament
 
   return (
-    <Modal isOpen={isOpen} onClose={handleClose}>
-      <div 
-        className="suitable-dog-popup-content" 
-        onClick={(e) => {
-          e.stopPropagation()
-          toggleFullscreen()
-        }}
-      >
-        <button className="modal-close" onClick={handleClose}>
-          &times;
-        </button>
+    <Modal isOpen={isOpen} onClose={closePopup}>
+      <div className="suitable-dog-popup-content" onClick={(e) => e.stopPropagation()}>
+        <button className="modal-close" onClick={closePopup}>&times;</button>
 
-        <h2 className="popup-heading" style={{ fontSize: dog.name.length > 21 ? "20px" : "24px" }}>
+        <h2 style={{ fontSize: dog.name.length > 21 ? "20px" : "24px" }}>
           {dog.name}
         </h2>
 
@@ -108,33 +67,27 @@ const DogPopup = ({ isOpen, closePopup, dog }) => {
               <div className="info-section">
                 {dog.weight && <p><strong>Weight:</strong> {dog.weight}</p>}
                 {dog.height && <p><strong>Height:</strong> {dog.height}</p>}
-                {formattedTemperament && (
-                  <p><strong>Temperament:</strong> {formattedTemperament}</p>
-                )}
+                {formattedTemperament && <p><strong>Temperament:</strong> {formattedTemperament}</p>}
                 {dog.life_span && <p><strong>Life Span:</strong> {dog.life_span}</p>}
 
-                <div className="toggle-btn-container">
-                    <button className="traits-toggle-btn" onClick={(e) => { e.stopPropagation(); setShowTraits(true); }}>
-                    Show Traits
-                    </button>
-                </div>
+                <button className="traits-toggle-btn" onClick={() => setShowTraits(true)}>
+                  Show Traits
+                </button>
               </div>
             ) : (
               <div className="traits-section">
-                <TraitMeter className="trait-playfulness" label="Playfulness" value={dog.playfulness} />
-                <TraitMeter className="trait-energy" label="Energy" value={dog.energy} />
-                <TraitMeter className="trait-shedding" label="Shedding" value={dog.shedding} />
-                <TraitMeter className="trait-grooming" label="Grooming" value={dog.grooming} />
-                <TraitMeter className="trait-protectiveness" label="Protectiveness" value={dog.protectiveness} />
-                <TraitMeter className="trait-children" label="Good with Children" value={dog.good_with_children} />
-                <TraitMeter className="trait-otherdogs" label="Good with Other Dogs" value={dog.good_with_other_dogs} />
-                <TraitMeter className="trait-strangers" label="Good with Strangers" value={dog.good_with_strangers} />
+                <TraitMeter label="Playfulness" value={dog.playfulness} />
+                <TraitMeter label="Energy" value={dog.energy} />
+                <TraitMeter label="Shedding" value={dog.shedding} />
+                <TraitMeter label="Grooming" value={dog.grooming} />
+                <TraitMeter label="Protectiveness" value={dog.protectiveness} />
+                <TraitMeter label="Good with Children" value={dog.good_with_children} />
+                <TraitMeter label="Good with Other Dogs" value={dog.good_with_other_dogs} />
+                <TraitMeter label="Good with Strangers" value={dog.good_with_strangers} />
 
-                <div className="toggle-btn-container">
-                    <button className="traits-toggle-btn" onClick={(e) => { e.stopPropagation(); setShowTraits(false); }}>
-                    Back to Info
-                    </button>
-                </div>
+                <button className="traits-toggle-btn" onClick={() => setShowTraits(false)}>
+                  Back to Info
+                </button>
               </div>
             )}
           </div>

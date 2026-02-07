@@ -1,35 +1,49 @@
-
-    .suitable-dog-popup-content {
-        background: var(--background-color);
-        padding:15px;
-        border-radius: 12px;
-        position: relative;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        text-align: center;
-        animation: popupFadeIn 0.3s forwards;
-        display: flex;
-        flex-direction: column;
-        width: 80%;
-        margin-top: 0px;
-        border: 1px solid var(--button-border-color);
-        height: 85svh;
-        position: relative;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        transform: scale(0.8);
-        opacity: 0;
-        animation: popupFadeIn 0.3s forwards;
-    }
-
-.suitable-dog-popup-content h2 {
-  color: var(--accent-color);
-  text-align: center;
-  font-size: 28px;
-  margin-bottom: 10px;
+.suitable-dog-popup-content {
+    background: var(--background-color);
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid var(--button-border-color);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width:450px;
+    height: 85svh;
+    position: relative;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    z-index: 5;
+    opacity: 0;
+    transform: scale(0.8);
+    animation: popupFadeIn 0.3s forwards;
 }
 
+.suitable-dog-popup-content h2 {
+    color: var(--accent-color);
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.dogImgLarge {
+    width: 70%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.4);
+    margin-bottom: 10px;
+}
+
+.info-section{
+display: flex;
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info-section p{
+  color: var(--text-color);
+}
 
 .trait-meter {
-    margin: 6px 0;
+    margin: 4px 0;
     height: 24px;
     display: flex;
     flex-direction: row;
@@ -37,186 +51,124 @@
 }
 
 .trait-label {
-    width: 200px;
-    display: flex;
+    width: 220px;
     color: var(--text-color);
+    display: flex;
     justify-content: flex-end;
+    padding-right: 10px;
+    font-size: 14px;
 }
 
 .trait-icons {
-  display: flex;
-  width:210px;
+    display: flex;
+    width: 210px;
 }
-
-
 
 .trait-icon {
-  width: 80px;
-  height: 80px;
-  opacity: 0;
-  transform: translateX(-8px) scale(0.8);
-  filter: brightness(0) saturate(100%);
+    width: 80px;
+    height: 80px;
+    opacity: 0;
+    filter: brightness(0) saturate(100%);
 }
 
-.trait-icon.filled {
-  opacity: 1;
+.trait-icon.animate {
+    animation: slideGlow 0.45s ease forwards;
 }
 
-.traits-toggle-btn{
-      background: var(--background-color);
+.traits-toggle-btn {
+    background: var(--background-color);
     border: 1px solid var(--accent-color);
     border-radius: 6px;
-    margin-top: 30px;
+    margin-top: 20px;
     cursor: pointer;
     color: var(--text-color);
     padding: 8px 12px;
+    transition: all 0.2s ease;
 }
 
+.traits-toggle-btn:hover {
+    background: var(--accent-color);
+    color: white;
+}
 
+.modal-close {
+  position: absolute;
+  top: -6px;
+  left: 10px;
+  font-size: 50px;
+  cursor: pointer;
+  color: var(--text-color);
+  background: none;
+  border: none;
+  transition: transform 0.2s;
+}
 
-.trait-icon.animate {
-  animation: slideGlow 0.45s ease forwards;
+.modal-close:hover { transform: scale(1.2); color: var(--accent-color); }
+@keyframes popupFadeIn {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 @keyframes slideGlow {
-  0% {
-    opacity: 0;
-    transform: translateX(-12px) scale(0.6);
-    filter: brightness(0) saturate(100%) drop-shadow(0 0 0px rgba(255,255,255,0));
-  }
-  60% {
-    opacity: 1;
-    transform: translateX(0) scale(1.15);
-    filter: brightness(1) saturate(150%) drop-shadow(0 0 6px rgba(255,255,255,0.7));
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-    filter: brightness(1) saturate(150%) drop-shadow(0 0 2px rgba(255,255,255,0.4));
-  }
-}
-
-
-.trait-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
-}
-
-.trait-row p {
-  margin: 0;
-  flex: 1;
-}
-
-
-@media (max-width: 570px){
-
-     .suitable-dog-popup-content {
-        width: 340px;
-        height: 85svh;
+    0% {
+        opacity: 0;
+        transform: translateX(-12px) scale(0.6);
     }
-     .suitable-dog-popup-content p {
-    padding: 0px;
-    font-size: 18px;
-        margin-bottom: 20px;
-  }
-
-  
-.suitable-dog-popup-content {
-    background: var(--background-color);
-    padding: 15px;
-    border-radius: 12px;
-    position: relative;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    animation: popupFadeIn 0.3s forwards;
-    display: flex;
-    flex-direction: row;
-    width: 85svw;
-    margin-top: 0px;
-    border: 1px solid var(--button-border-color);
-    height: 85svh;
-    position: relative;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    transform: scale(0.8);
-    opacity: 0;
-    animation: popupFadeIn 0.3s forwards;
-    flex-wrap: wrap;
-    align-content: center;
-    justify-content: center;
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+        filter: brightness(1) saturate(150%);
+    }
 }
 
 
-.suitable-dog-popup-content h2 {
-  margin-bottom: 0px;
-}
-
-.dogImgLarge{
-  margin-bottom: 10px;
-  height: 170px;
-  object-fit: cover;
-}
-.trait-meter{
- margin: 6px 0;
-}
-
- 
-        .trait-label {
-        width: 140px;
-        display: flex;
-        font-size: 12px;
-        align-items: flex-end;
+@media (max-width: 570px) {
+    .suitable-dog-popup-content {
+        width: 90svw;
         flex-direction: column;
+        
+    }
+
+    .dogImgLarge {
+        width: 75%;
+        height: 190px;
+        object-fit: cover;
+        margin-bottom: 10px;
+    }
+
+    .trait-label {
+        font-size: 12px;
     }
 
     .trait-icons {
-    display: flex;
-    width: 170px;
-}
-
-
-}
-
-@media (max-height: 520px){
-    .trait-icons{
-        width: 220px;
+        width: 160px;
     }
-    
-.suitable-dog-popup-content {
-    background: var(--background-color);
-    padding: 15px;
-    border-radius: 12px;
-    position: relative;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    animation: popupFadeIn 0.3s forwards;
-    display: flex;
-    flex-direction: row;
-    width: 85svw;
-    margin-top: 0px;
-    border: 1px solid var(--button-border-color);
-    height: 85svh;
-    position: relative;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    transform: scale(0.8);
-    opacity: 0;
-    animation: popupFadeIn 0.3s forwards;
-    flex-wrap: wrap;
-    align-content: center;
-    justify-content: center;
 }
 
+@media(max-height: 520px){
+  .suitable-dog-popup-content {
+        width: 82svw;
+        justify-content: center;
+        align-content: center;
+    }
 
-.suitable-dog-popup-content h2 {
-  margin-bottom: 0px;
-}
-
-    .dogImgLarge {
-       width: 40%;
-        height: 140px;
-        margin-top: 4px;
+        .dogImgLarge {
+        width: 38%;
+        height: 125px;
         object-fit: cover;
+        margin-bottom: 10px;
+        margin-top: 0px;
     }
+
+    .info-section {
+    overflow-y: scroll;
+    height: 95px;
 }
+
+    .traits-section {
+      height: 114px;
+    overflow-y: scroll;
+}
+    }

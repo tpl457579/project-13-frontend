@@ -1,10 +1,16 @@
 .site-button {
-    width: 100px;
-    font-weight: 300;
-    padding: 6px 8px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.1s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 300;
+  border-radius: 10px ;
+  padding: 6px 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  outline: none;
+  text-decoration: none;
 }
 
 .site-button:disabled {
@@ -14,42 +20,36 @@
 
 .site-button-primary {
   background: var(--input-color);
-  border: 1px solid var(accent-color);
+  border: 1px solid var(--accent-color);
   color: var(--text-color);
 }
 
-.site-button-primary:hover {
-  border-color: var(--button-hover-border-color);
+.site-button-primary:hover:not(:disabled) {
   border: 2px solid var(--button-hover-border-color);
 }
 
 .site-button-secondary {
-    background: var(--fill-background-color);
-    color: var(--fill-button-text);
-    border: none;
-    height: 36px;
-    cursor: pointer;
-    transition: all 0.1s ease;
+  background: var(--fill-background-color);
+  color: var(--fill-button-text);
+  border: none;
 }
 
-.site-button-secondary:hover {
+.site-button-secondary:hover:not(:disabled) {
   background: var(--fill-button-hover-color);
+}
+
+.site-button:active:not(:disabled) {
+  transform: scale(0.98);
 }
 
 .button-loading {
   display: flex;
   align-items: center;
-  background: none;
   justify-content: center;
   gap: 8px;
-}
-.site-button:active,
-.site-button[disabled] {
-  background-color: transparent !important;
-  background-image: none !important;
-  border-color: var(--accent-color); 
+  background: transparent;
 }
 
-.site-button .button-loading {
-  background: transparent;
+.site-button * {
+  pointer-events: none;
 }

@@ -32,7 +32,7 @@
 
 .shop-product-card:hover {
   transform: scale(1.02);
-  transition: transform 0.2s ease; /* Added for smoothness */
+  transition: transform 0.2s ease;
 }
 
 .shop-products {
@@ -42,7 +42,7 @@
   gap: 20px;
   width: 100%;
   padding: 0 15px;
-  margin-bottom: 30px;
+      margin: 25px 0px;
 }
 
 .fill-heart,
@@ -92,6 +92,10 @@
 
 .select div select {
   padding: 15px;
+}
+
+.pagination{
+  margin-bottom: 0px;
 }
 
 @media (max-width: 952px) {
@@ -147,4 +151,10 @@
     display: flex;
     gap: 10px;
   }
+}
+
+@media (max-height: 520px) {
+  .shop h1{
+    margin-bottom: 0px;
+}
 }

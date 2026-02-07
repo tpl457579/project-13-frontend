@@ -1,39 +1,25 @@
-import { useState, useEffect, useMemo, useCallback } from 'react'
+import { useState, useEffect } from 'react';
 
-export const usePagination = (data = [], itemsPerPage = 10) => {
-  const [currentPage, setCurrentPage] = useState(1)
-
-  const totalPages = useMemo(() => {
-    const length = Array.isArray(data) ? data.length : 0
-    return Math.max(1, Math.ceil(length / itemsPerPage))
-  }, [data, itemsPerPage])
+export const usePagination = (data, itemsPerPage, key) => {
+  const [currentPage, setCurrentPage] = useState(() => {
+    const saved = sessionStorage.getItem(key);
+    return saved ? parseInt(saved) : 1;
+  });
 
   useEffect(() => {
-    setCurrentPage(1)
-  }, [data.length, itemsPerPage])
+    sessionStorage.setItem(key, currentPage);
+  }, [currentPage, key]);
 
-  const paginatedData = useMemo(() => {
-    if (!Array.isArray(data)) return []
-    const start = (currentPage - 1) * itemsPerPage
-    return data.slice(start, start + itemsPerPage)
-  }, [data, currentPage, itemsPerPage])
-
-  const nextPage = useCallback(() => {
-    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-  }, [totalPages])
-
-  const prevPage = useCallback(() => {
-    setCurrentPage((prev) => Math.max(prev - 1, 1))
-  }, [])
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedData = data.slice(startIndex, startIndex + itemsPerPage);
 
   return {
-    currentPage,
-    totalPages,
     paginatedData,
+    totalPages,
+    currentPage,
     setPage: setCurrentPage,
-    nextPage,
-    prevPage,
-    isFirstPage: currentPage === 1,
-    isLastPage: currentPage === totalPages
-  }
-}
+    nextPage: () => setCurrentPage(p => Math.min(p + 1, totalPages)),
+    prevPage: () => setCurrentPage(p => Math.max(p - 1, 1))
+  };
+};

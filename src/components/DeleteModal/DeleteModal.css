@@ -30,8 +30,8 @@
     justify-content: space-evenly;
 }
 
-.site-button {
-  width: 120px;
+.delete-button {
+  width: 140px;
   display: flex;
   align-items: center;
 justify-content: center;

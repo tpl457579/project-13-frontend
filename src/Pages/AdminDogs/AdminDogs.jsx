@@ -1,5 +1,5 @@
-import './AdminDogs.css'
-import { useRef } from 'react';
+import './AdminDogs.css';
+import { useRef, useEffect } from 'react';
 import { useDogs } from '../../Hooks/useDogs';
 import { useDogFilters } from '../../Hooks/useDogFilters';
 import { usePagination } from '../../Hooks/usePagination';
@@ -33,14 +33,42 @@ const AdminDogs = () => {
 
   const {
     search, setSearch, letter, setLetter, setLoadedCount,
-    energy, setEnergy, playfulness, setPlayfulness,
+    size, setSize, 
     filteredDogs, clearFilters
   } = useDogFilters(dogs);
 
   const {
-    paginatedData: visibleDogs, totalPages, currentPage,
-    nextPage, prevPage, setPage
-  } = usePagination(filteredDogs, 8);
+    paginatedData: visibleDogs,
+    totalPages,
+    currentPage,
+    nextPage,
+    prevPage,
+    setPage
+  } = usePagination(filteredDogs, 8, 'admin_dogs_page');
+
+  const handleCloseAll = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(() => {});
+    }
+    closeModal();
+    setDeleteModal(false);
+  };
+
+  useEffect(() => {
+    const savedScroll = sessionStorage.getItem('admin_dogs_scroll');
+    if (savedScroll && !loading && visibleDogs.length > 0) {
+      setTimeout(() => {
+        window.scrollTo({ top: parseInt(savedScroll), behavior: 'instant' });
+      }, 100);
+    }
+
+    const handleScroll = () => {
+      sessionStorage.setItem('admin_dogs_scroll', window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [loading, visibleDogs.length]);
 
   const handleSaveDog = async (payload) => {
     setIsSubmitting(true);
@@ -55,7 +83,7 @@ const AdminDogs = () => {
         ? prev.map(d => d._id === savedDog._id ? savedDog : d) 
         : [...prev, savedDog]);
       ShowPopup(`Dog ${editingDog ? 'updated' : 'added'} successfully`);
-      closeModal();
+      handleCloseAll();
     } catch {
       ShowPopup('Failed to save dog', 'error');
     } finally {
@@ -73,12 +101,20 @@ const AdminDogs = () => {
       });
       setDogs(prev => prev.filter(d => d._id !== selectedDog._id));
       ShowPopup('Dog deleted successfully');
-      setDeleteModal(false);
+      handleCloseAll();
     } catch {
       ShowPopup('Failed to delete', 'error');
     } finally {
       setIsDeleting(false);
     }
+  };
+
+  const handleClearAll = () => {
+    clearFilters();
+    setPage(1);
+    sessionStorage.removeItem('admin_dogs_scroll');
+    sessionStorage.setItem('admin_dogs_page', '1');
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -96,9 +132,9 @@ const AdminDogs = () => {
       }
       filterControls={
         <FilterControls 
-          energy={energy} setEnergy={(val) => { setEnergy(val); setPage(1); }}
-          playfulness={playfulness} setPlayfulness={(val) => { setPlayfulness(val); setPage(1); }}
-          clearFilters={() => { clearFilters(); setPage(1); }} 
+          size={size} 
+          setSize={(val) => { setSize(val); setPage(1); }} 
+          clearFilters={handleClearAll} 
         />
       }
       alphabetFilter={
@@ -108,29 +144,45 @@ const AdminDogs = () => {
         />
       }
     >
-     
       {loading ? <DogLoader /> : error ? <p className="error">{error}</p> : (
         <>
-          <div className='card-list'>
-            {visibleDogs.map(d => (
-              <AdminDogCard key={d._id} dog={d} onEdit={openModal} onDelete={openDeleteModal} />
-            ))}
-          </div>
+          {visibleDogs.map(d => (
+            <AdminDogCard 
+              key={d._id} 
+              dog={d} 
+              onEdit={openModal} 
+              onDelete={openDeleteModal} 
+            />
+          ))}
+          
           {totalPages > 1 && (
-            <PaginationControls currentPage={currentPage} totalPages={totalPages} goPrev={prevPage} goNext={nextPage} />
+            <PaginationControls 
+              currentPage={currentPage} 
+              totalPages={totalPages} 
+              goPrev={prevPage} 
+              goNext={nextPage} 
+            />
           )}
         </>
       )}
 
       {showModal && (
-        <Modal isOpen={showModal} onClose={closeModal}>
-          <DogForm initialData={editingDog || {}} isSubmitting={isSubmitting} onCancel={closeModal} onSubmit={handleSaveDog} />
+        <Modal isOpen={showModal} onClose={handleCloseAll}>
+          <DogForm 
+            initialData={editingDog || {}} 
+            isSubmitting={isSubmitting} 
+            onCancel={handleCloseAll} 
+            onSubmit={handleSaveDog} 
+          />
         </Modal>
       )}
 
       <DeleteModal 
-        isOpen={deleteModal} onClose={() => setDeleteModal(false)} 
-        onConfirm={handleDelete} isDeleting={isDeleting} itemName={selectedDog?.name} 
+        isOpen={deleteModal} 
+        onClose={handleCloseAll} 
+        onConfirm={handleDelete} 
+        isDeleting={isDeleting} 
+        itemName={selectedDog?.name} 
       />
     </AdminLayout>
   );

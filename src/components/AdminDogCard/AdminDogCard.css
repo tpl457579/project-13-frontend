@@ -68,5 +68,10 @@ width: 100%;
 
   .admin-dog-card{
     width:40%;
+    height: 360px;
+  }
+
+  .dog-card-img{
+    margin-bottom: 60px;
   }
 }

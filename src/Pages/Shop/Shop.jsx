@@ -25,11 +25,13 @@ const Shop = () => {
   } = useFilters(products)
 
   const {
-    currentPage,
+    paginatedData: visibleProducts,
     totalPages,
-    paginatedData: currentItems,
+    currentPage,
+    nextPage,
+    prevPage,
     setPage
-  } = usePagination(filteredProducts, 8)
+  } = usePagination(filteredProducts, 12, 'shop_page');
 
   const handleClearFilters = useCallback(() => {
     clearFilters()
@@ -64,7 +66,7 @@ const Shop = () => {
       {error && <p className="error-message">Error: {error}</p>}
 
       <div className='shop-products'>
-        {currentItems.map((product) => (
+        {visibleProducts.map((product) => (
           <ProductCard
             key={product?._id}
             product={product}
