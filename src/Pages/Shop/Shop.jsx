@@ -10,6 +10,7 @@ import PaginationControls from '../../components/PaginationControls/PaginationCo
 import ProductCard from '../../components/ProductCard/ProductCard.jsx'
 import SearchBar from '../../components/SearchBar/SearchBar'
 import DogLoader from '../../components/DogLoader/DogLoader.jsx'
+import IdeaBulb from '../../components/IdeaBulb/IdeaBulb.jsx'
 
 const Shop = () => {
   const { user } = useContext(AuthContext)
@@ -51,7 +52,7 @@ const Shop = () => {
         onChange={(e) => setSearchTerm(e.target.value)}
         placeholder='Search products...'
       />
-
+IdeaBulb()
       <FilterControls
         size={size}
         setSize={setSize}

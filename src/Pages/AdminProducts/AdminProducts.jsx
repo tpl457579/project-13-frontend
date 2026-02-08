@@ -31,13 +31,7 @@ const AdminProducts = () => {
     handleFullscreen
   } = useAdminActions(dashboardRef);
 
-  const {
-    searchTerm, setSearchTerm,
-    size, setSize,
-    maxPrice, setMaxPrice,
-    minRating, setMinRating,
-    filteredProducts, clearFilters
-  } = useFilters(products);
+  const { searchTerm, setSearchTerm, size, setSize, maxPrice, setMaxPrice, minRating, setMinRating, filteredProducts, clearFilters } = useFilters(products, null, "admin");
 
   const {
     paginatedData: visibleProducts,
@@ -135,7 +129,7 @@ const AdminProducts = () => {
       dashboardRef={dashboardRef}
       onLayoutClick={handleFullscreen}
       onAddClick={() => openModal()}
-      searchBar={
+            searchBar={
         <SearchBar 
           value={searchTerm} 
           onChange={(e) => { setSearchTerm(e.target.value); setPage(1); }} 
@@ -143,13 +137,18 @@ const AdminProducts = () => {
         />
       }
       filterControls={
-        <FilterControls 
-          size={size} setSize={(val) => { setSize(val); setPage(1); }}
-          maxPrice={maxPrice} setMaxPrice={(val) => { setMaxPrice(val); setPage(1); }}
-          minRating={minRating} setMinRating={(val) => { setMinRating(val); setPage(1); }}
-          clearFilters={handleClearAll} 
+        <FilterControls
+          size={size}
+          setSize={(val) => { setSize(val); setPage(1); }}
+          maxPrice={maxPrice}
+          setMaxPrice={(val) => { setMaxPrice(val); setPage(1); }}
+          minRating={minRating}
+          setMinRating={(val) => { setMinRating(val); setPage(1); }}
+          clearFilters={handleClearAll}
+          mode="admin"
         />
       }
+
     >
       {loading ? <DogLoader /> : error ? <p className="error">{error}</p> : (
         <>

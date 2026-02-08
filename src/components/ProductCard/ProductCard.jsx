@@ -2,7 +2,8 @@ import { useContext, useRef } from 'react'
 import mojs from '@mojs/core'
 import { AuthContext } from '/src/components/AuthContext'
 import ShowPopup from '../ShowPopup/ShowPopup.js'
-import { AiFillHeart, AiOutlineHeart, AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'
+import { AiFillHeart, AiOutlineHeart, AiOutlineEdit, AiOutlineDelete, } from 'react-icons/ai'
+import { GiRoundStar } from "react-icons/gi";
 import './ProductCard.css'
 
 const ProductCard = ({ 
@@ -76,7 +77,14 @@ const ProductCard = ({
 
         {showPrice && product.price && <p>Price: €{Number(product.price).toFixed(2)}</p>}
         {showRating && product.rating != null && (
-          <p>Rating: {product.rating} ⭐️</p>
+        <p className="rating-line">
+  Rating: {product.rating}
+  <span className="star">
+    <GiRoundStar />
+  </span>
+</p>
+
+
         )}
 
         {showHeart ? (

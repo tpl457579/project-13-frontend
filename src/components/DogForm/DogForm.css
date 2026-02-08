@@ -677,6 +677,7 @@ color: var(--text-color);
     height: 200px;
     display: flex;
     justify-content: center;
+    margin-bottom: 60px;
 }
 }
 

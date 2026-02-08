@@ -9,7 +9,8 @@ const FilterControls = ({
   setMaxPrice,
   minRating,
   setMinRating,
-  clearFilters
+  clearFilters,
+  mode = "default"
 }) => {
   const handleSizeChange = useCallback(
     (e) => setSize(e.target.value),
@@ -26,12 +27,11 @@ const FilterControls = ({
     [setMinRating]
   )
 
- const handleClear = () => {
-  clearFilters();
-  setPage(1);
-  sessionStorage.removeItem('admin_products_scroll');
-  window.scrollTo(0, 0);
-};
+  const handleClear = () => {
+    clearFilters()
+    sessionStorage.removeItem('admin_products_scroll')
+    window.scrollTo(0, 0)
+  }
 
   return (
     <div className='filter'>
@@ -45,26 +45,44 @@ const FilterControls = ({
       )}
 
       {setMaxPrice && (
-        <input
-          className='input'
-          type='number'
-          placeholder='Max Price'
-          value={maxPrice}
-          onChange={handlePriceChange}
-        />
+        mode === "admin" ? (
+          <select className='select' value={maxPrice} onChange={handlePriceChange}>
+            <option value=''>Price</option>
+            <option value='under10'>Under €10</option>
+            <option value='10to25'>€10 – €25</option>
+            <option value='25to50'>€25 – €50</option>
+            <option value='50plus'>€50 and more</option>
+          </select>
+        ) : (
+          <input
+            className='input'
+            type='number'
+            placeholder='Max Price'
+            value={maxPrice}
+            onChange={handlePriceChange}
+          />
+        )
       )}
 
       {setMinRating && (
-        <select
-          className='select'
-          value={minRating}
-          onChange={handleRatingChange}
-        >
-          <option value=''>Rating</option>
-          <option value='1'>⭐ 1+</option>
-          <option value='2'>⭐ 2+</option>
-          <option value='3'>⭐ 3+</option>
-          <option value='4'>⭐ 4+</option>
+        <select className='select' value={minRating} onChange={handleRatingChange}>
+          {mode === "admin" ? (
+            <>
+              <option value=''>Rating</option>
+              <option value='1'>⭐ 1 and under</option>
+              <option value='2'>⭐ 2 and under</option>
+              <option value='3'>⭐ 3 and under</option>
+              <option value='4'>⭐ 4 and under</option>
+            </>
+          ) : (
+            <>
+              <option value=''>Rating</option>
+              <option value='1'>⭐ 1+</option>
+              <option value='2'>⭐ 2+</option>
+              <option value='3'>⭐ 3+</option>
+              <option value='4'>⭐ 4+</option>
+            </>
+          )}
         </select>
       )}
 

@@ -1,0 +1,32 @@
+.bulb-icon{
+    font-size:40px;
+}
+
+.idea-bulb-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.idea-bulb-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.dont-show {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+
+ .idea-bulb-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+

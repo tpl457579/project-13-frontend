@@ -1,4 +1,4 @@
-/* import React from 'react';
+import React from 'react';
 
 const PageLayout = ({ title, topContent, searchBar, filterControls, children, className = '' }) => {
   return (
@@ -17,4 +17,4 @@ const PageLayout = ({ title, topContent, searchBar, filterControls, children, cl
   );
 };
 
-export default PageLayout; */
+export default PageLayout;

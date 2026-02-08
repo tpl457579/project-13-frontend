@@ -43,7 +43,7 @@
 }
 
 .product-card-info h4{
-  padding: 0px 5px 0px 0px;
+  padding: 3px 5px;
   font-size:17px;
 }
 
@@ -68,6 +68,14 @@
 .rating {
   font-size: 16px;
   color: var(--text-color);
+}
+
+.rating-line { 
+  display: flex;  
+  gap: 5px; }
+
+.star {
+  color:yellow;
 }
 
 .product-card:hover {
