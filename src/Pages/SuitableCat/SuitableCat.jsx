@@ -1,10 +1,10 @@
 import '../SuitableCat/SuitableCat.css'
 import { useState, useEffect, useCallback, useMemo } from 'react'
-import CatLoader from '../../components/CatLoader/CatLoader'
+import DogLoader from '../../components/DogLoader/DogLoader'
 import Button from '../../components/Buttons/Button'
 import { useModal } from '../../Hooks/useModal.js'
-import CatPopup from '../../components/CatPopup/CatPopup.jsx'
-import SmallCatCard from '../../components/SmallCatCard/SmallCatCard.jsx'
+import DogPopup from '../../components/DogPopup/DogPopup.jsx'
+import SmallAnimalCard from '../../components/SmallAnimalCard/SmallAnimalCard.jsx'
 
 const STORAGE_KEY = 'suitableCatState'
 
@@ -97,23 +97,23 @@ export default function SuitableCat() {
   };
 
   if (error) return <p>Error loading cats: {error}</p>
-  if (!cats) return <CatLoader />
+  if (!cats) return <DogLoader />
 
   return (
     <>
       {finished ? (
         <div className='top-cats'>
-          <h1>Top 10 Matching Cats</h1>
+          <h1>Top 10 Matching Dogs</h1>
           <p className='resultsText'>Click on the cards to learn more!</p>
           <div className='cardDiv'>
             {results.map((cat) => (
-              <SmallCatCard 
+              <SmallAnimalCard 
                 key={cat.id} 
                 cat={cat} 
                 onClick={() => handleCatClick(cat)}
               >
                 <p><strong>Total Match:</strong> {cat.score || 0}%</p>
-              </SmallCatCard>
+              </SmallAnimalCard>
             ))}
           </div>
           <div className='repeat'>
@@ -153,7 +153,7 @@ export default function SuitableCat() {
         </div>
       )}
 
-      <CatPopup 
+      <DogPopup 
         isOpen={isOpen} 
         closePopup={closeModal} 
         cat={selectedCat} 

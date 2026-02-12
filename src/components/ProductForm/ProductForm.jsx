@@ -181,27 +181,31 @@ export default function ProductForm({
               />
 
               <div className='url-container'>
-                <input 
-                  type='url'
-                  placeholder='Product URL'
-                  value={productUrl}
-                  onChange={(e) => setProductUrl(e.target.value)}
-                  required
-                />
+  <input 
+    type='url'
+    placeholder='Product URL'
+    value={productUrl}
+    onChange={(e) => setProductUrl(e.target.value)}
+    required 
+  /> 
+  
+  <IdeaBulb 
+    className='product-form-tip' 
+    tip="ProductForm" 
+    storageKey="has_seen_product_form_tip" 
+  />
 
-                <IdeaBulb className='product-form-tip' tip="ProductForm" storageKey="has_seen_product_form_tip" />
-
-                {productUrl && (
-                  <a
-                    href={productUrl}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='product-test-link-btn'
-                  >
-                    Test Link
-                  </a>
-                )}
-              </div>
+  {productUrl && (
+    <a
+      href={productUrl}
+      target='_blank'
+      rel='noopener noreferrer'
+      className='product-test-link-btn'
+    >
+      Test Link
+    </a>
+  )}
+</div>
             </div>
           </div>
         </div>

@@ -32,6 +32,15 @@ position: relative;
     font-weight: 400;
 }
 
+.modal-content p{
+    color: var(--text-color);
+    font-size: 14px;
+}
+
+.product-edit-form textarea::-webkit-scrollbar {
+    display: none;
+
+}
 .drop-zone-container{
   margin-bottom: 10px;
     margin-top: 5px;
@@ -58,22 +67,26 @@ position: relative;
 }
 
 .url-container {
-    position: relative;
     display: flex;
-    background: transparent;
-    width: 100%;
-    justify-content: center;
+    position: relative;
+    align-items: center;
+    gap: 8px;
+    width: 80%;
+}
+
+.url-container input {
+  flex: 1;  
 }
 
 .product-form-tip {
   position: absolute;
-    right: 4px;
+    right: 5px;
     top: -5px;
 }
 
 .product-test-link-btn {
     position: absolute;
-    right: 18px;
+    right: 0px;
     top: 0px;
     width: 48px;
     height: 36px;

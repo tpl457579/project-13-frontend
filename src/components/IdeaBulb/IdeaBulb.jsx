@@ -15,13 +15,13 @@ const TIPS = {
   DogSearch: filterTip,
   DogForm: {
     title: "Add/Edit Tip!",
-    text: "Paste the URL of the image and it inserts automatically. When adding dog info, just type (e.g., 10-20) then click the spacebar, it adds the units and moves to the next step automatically.",
+    text: "Paste the URL of the image and it inserts automatically. When adding dog info, just type (e.g., 10-20) then click the spacebar, it adds the units and moves to the next step automatically."
+  },
   ProductForm: {
     title: "Add/Edit Tip!",
-    text: "Paste the URL of the product and the form fills automatically!"
+    text: "Paste the URL of the product and the form fills automatically!",
   }
   }
-};
 
 export default function IdeaBulb({ tip, storageKey, className = "" }) {
   const [isOpen, setIsOpen] = useState(false);

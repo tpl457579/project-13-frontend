@@ -21,6 +21,7 @@ import ProtectedRoute from './components/ProtectedRoute.jsx'
 import ThemeToggle from './components/ThemeToggle/ThemeToggle.jsx'
 import { Footer } from './components/Footer/Footer.jsx'
 import AdminDogs from './Pages/AdminDogs/AdminDogs.jsx'
+import AdminCats from './Pages/AdminCats/AdminCats.jsx'
 
 const App = () => {
   const location = useLocation()
@@ -66,6 +67,14 @@ const App = () => {
     element={
       <ProtectedRoute requireAdmin={true}>
         <AdminDogs />
+      </ProtectedRoute>
+    }
+  />
+  <Route
+    path='/admin-cats'
+    element={
+      <ProtectedRoute requireAdmin={true}>
+        <AdminCats />
       </ProtectedRoute>
     }
   />
