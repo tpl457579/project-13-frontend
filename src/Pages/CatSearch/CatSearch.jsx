@@ -17,8 +17,8 @@ const getSize = (cat) => {
   const w = weightStr.split('-')[0].trim()
   const weightNum = Number(w)
   if (isNaN(weightNum)) return null
-  if (weightNum <= 10) return 'small'
-  if (weightNum <= 25) return 'medium'
+  if (weightNum <= 7) return 'small'
+  if (weightNum <= 14) return 'medium'
   return 'large'
 }
 

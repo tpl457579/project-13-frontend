@@ -2,6 +2,7 @@ import { Route, Routes, useLocation, Navigate } from 'react-router-dom'
 import Header from './components/Header/Header.jsx'
 import Home from './Pages/Home/Home.jsx'
 import GuessTheDog from './Pages/GuessTheDog/GuessTheDog.jsx'
+import GuessTheCat from './Pages/GuessTheCat/GuessTheCat.jsx'
 import FunDogFacts from './Pages/FunDogFacts/FunDogFacts.jsx'
 import ChatWidget from './components/ChatButton/ChatButton.jsx'
 import SuitableDog from './Pages/SuitableDog/SuitableDog.jsx'
@@ -33,13 +34,13 @@ const App = () => {
   <Route path='/shop-cats' element={<Shop petType="cat" />} />
   
   <Route path='/guess-the-dog' element={<GuessTheDog />} />
-  <Route path='/guess-the-cat' element={<GuessTheDog petType="cat" />} />
+  <Route path='/guess-the-cat' element={<GuessTheCat petType="cat" />} />
   
   <Route path='/fun-dog-facts' element={<FunDogFacts />} />
-  <Route path='/fun-cat-facts' element={<FunDogFacts petType="cat" />} />
+  <Route path='/fun-cat-facts' element={<FunCatFacts petType="cat" />} />
   
   <Route path='/suitable-dog' element={<SuitableDog />} />
-  <Route path='/suitable-cat' element={<SuitableDog petType="cat" />} />
+  <Route path='/suitable-cat' element={<SuitableCat petType="cat" />} />
 
   <Route path='/shop' element={<Shop />} />
   <Route path='/register' element={<RegisterPage />} />

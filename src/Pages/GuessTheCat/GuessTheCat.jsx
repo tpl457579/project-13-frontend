@@ -11,7 +11,7 @@ import Button from '../../components/Buttons/Button.jsx'
 import { Pause, Play } from 'lucide-react'
 import { gameReducer, initialState } from '../../Reducers/GameReducer.jsx'
 import { useLocalStorage } from '../../Hooks/useLocalStorage.js'
-import CatLoader from '../../components/CatLoader/CatLoader.jsx'
+import DogLoader from '../../components/DogLoader/DogLoader.jsx'
 
 const STORAGE_KEY = 'catGameState'
 const getBreedFromUrl = (url) => {
@@ -142,7 +142,7 @@ const GuessTheCat = () => {
   )
 
   const CatGrid = useMemo(() => {
-    if (firstLoad && loading) return <CatLoader />
+    if (firstLoad && loading) return <DogLoader />
     return (
       <div className='cat-grid'>
         {catImages.map((img, idx) => (
