@@ -67,7 +67,7 @@ In the the shop you can add and remove your **favourites** to your favourites pa
 A full-stack admin dashboard for managing products with image uploads, scraping, and secure access. Built with:
 
 - **Frontend**: React + React Hook Form
-- **Backend**: Node.js + Express + MongoDB
+
 - **Image Hosting**: Cloudinary
 - **Authentication**: JWT
 - **Scraping**: Cheerio + Axios

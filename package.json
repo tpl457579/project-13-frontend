@@ -9,9 +9,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-  "postinstall": "npx puppeteer browsers install chrome"
-},
-  
+    "postinstall": "npx puppeteer browsers install chrome"
+  },
   "engines": {
     "node": "20.x"
   },
@@ -25,7 +24,6 @@
     "lucide": "^0.539.0",
     "lucide-react": "^0.539.0",
     "mojs-player": "^0.43.16",
-    "mongoose": "^9.2.1",
     "multer": "^2.0.2",
     "node": "^25.6.1",
     "node-fetch": "^3.3.2",
