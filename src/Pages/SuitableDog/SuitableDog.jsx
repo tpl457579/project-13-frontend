@@ -4,7 +4,7 @@ import DogLoader from '../../components/DogLoader/DogLoader'
 import Button from '../../components/Buttons/Button'
 import { useModal } from '../../Hooks/useModal.js'
 import DogPopup from '../../components/DogPopup/DogPopup.jsx'
-import SmallDogCard from '../../components/SmallDogCard/SmallDogCard.jsx'
+import SmallAnimalCard from '../../components/SmallAnimalCard/SmallAnimalCard.jsx'
 
 const STORAGE_KEY = 'suitableDogState'
 
@@ -107,13 +107,13 @@ export default function SuitableDog() {
           <p className='resultsText'>Click on the cards to learn more!</p>
           <div className='cardDiv'>
             {results.map((dog) => (
-              <SmallDogCard 
+              <SmallAnimalCard 
                 key={dog.id} 
                 dog={dog} 
                 onClick={() => handleDogClick(dog)}
               >
                 <p><strong>Total Match:</strong> {dog.score || 0}%</p>
-              </SmallDogCard>
+              </SmallAnimalCard>
             ))}
           </div>
           <div className='repeat'>

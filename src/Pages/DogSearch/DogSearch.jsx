@@ -6,7 +6,8 @@ import DogPopup from '../../components/DogPopup/DogPopup.jsx'
 import { useDogFilters } from '../../Hooks/useDogFilters.js'
 import { apiFetch } from '../../components/apiFetch.js' 
 import AlphabetFilter from '../../components/AlphabetFilter/AlphabetFilter.jsx'
-import SmallDogCard from '../../components/SmallDogCard/SmallDogCard.jsx'
+import SmallAnimalCard from '../../components/SmallAnimalCard/SmallAnimalCard.jsx'
+import IdeaBulb from '../../components/IdeaBulb/IdeaBulb.jsx'
 
 const ITEMS_PER_PAGE = 8
 
@@ -148,50 +149,56 @@ export default function DogSearchPaginated() {
         />
 
         <div className='filters'>
-          <select
-            className='filter-select-dog-search'
-            value={size}
-            onChange={(e) => {
-              setSize(e.target.value)
-              setLoadedCount(ITEMS_PER_PAGE)
-            }}
+  <select
+    className='filter-select-dog-search'
+    value={size}
+    onChange={(e) => {
+      setSize(e.target.value)
+      setLoadedCount(ITEMS_PER_PAGE)
+    }}
+  >
+    <option value='All'>All Sizes</option>
+    <option value='small'>Small</option>
+    <option value='medium'>Medium</option>
+    <option value='large'>Large</option>
+  </select>
+
+  <div className="custom-dropdown" ref={dropdownRef}>
+    <button 
+      type="button"
+      className="filter-select-dog-search dropdown-trigger"
+      onClick={() => setIsTempOpen(!isTempOpen)}
+    >
+      {temperament.length > 0 ? `Selected (${temperament.length})` : "Temperaments"}
+    </button>
+
+    {isTempOpen && (
+      <div className="dropdown-menu">
+        {temperaments.map((t) => (
+          <div 
+            key={t} 
+            className="dropdown-item" 
+            onClick={() => handleTempClick(t)}
           >
-            <option value='All'>All Sizes</option>
-            <option value='small'>Small</option>
-            <option value='medium'>Medium</option>
-            <option value='large'>Large</option>
-          </select>
-
-          <div className="custom-dropdown" ref={dropdownRef}>
-            <button 
-              type="button"
-              className="filter-select-dog-search dropdown-trigger"
-              onClick={() => setIsTempOpen(!isTempOpen)}
-            >
-              {temperament.length > 0 ? `Selected (${temperament.length})` : "Temperaments"}
-            </button>
-
-            {isTempOpen && (
-              <div className="dropdown-menu">
-                {temperaments.map((t) => (
-                  <div 
-                    key={t} 
-                    className="dropdown-item" 
-                    onClick={() => handleTempClick(t)}
-                  >
-                    <span>{t}</span>
-                    {temperament.includes(t) && <span className="tick">✓</span>}
-                  </div>
-                ))}
-              </div>
-            )}
+            <span>{t}</span>
+            {temperament.includes(t) && <span className="tick">✓</span>}
           </div>
+        ))}
+      </div>
+    )}
+  </div>
 
-          <button className='clear-filters-btn' onClick={handleClearAll}>
-            Clear Filters
-          </button>
-        </div>
-
+  <div className='filter-tip-container'>
+    <button className='clear-filters-btn' onClick={handleClearAll}>
+      Clear Filters
+    </button>
+    <IdeaBulb 
+      tip="DogSearch" 
+      storageKey="has_seen_search_tip" 
+      className="dog-search-tip" 
+    />
+  </div>
+</div>
         <AlphabetFilter 
           lettersOpen={lettersOpen} 
           setLettersOpen={setLettersOpen}
@@ -203,12 +210,16 @@ export default function DogSearchPaginated() {
 
         <h4 className='dog-search-h4'>Click on the dogs to learn more</h4>
 
+        <p className='resultsText' style={{ margin: '15px 0' }}>
+          Showing {visibleDogs.length} of {filteredDogs.length} dogs
+        </p>
+
         {visibleDogs.length === 0 ? (
           <p className='resultsText'>No dog breeds match your search.</p>
         ) : (
           <div className='dog-search-grid'>
             {visibleDogs.map((dog) => (
-              <SmallDogCard 
+              <SmallAnimalCard 
                 key={dog._id || dog.id} 
                 dog={dog} 
                 onClick={() => openModal(dog)} 
@@ -216,10 +227,6 @@ export default function DogSearchPaginated() {
             ))}
           </div>
         )}
-
-        <p className='resultsText' style={{ margin: '15px 0' }}>
-          Showing {visibleDogs.length} of {filteredDogs.length} dogs
-        </p>
 
         {showTopBtn && (
           <button className="back-to-top" onClick={goToTop}>

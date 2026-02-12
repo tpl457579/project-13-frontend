@@ -4,6 +4,37 @@
   align-items: center;
 }
 
+.category-tabs{
+      display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.tab-btn {
+    width: 60px;
+    height: 20px;
+    background-color: var(--input-color);
+    color: var(--text-color);
+    border: 1px solid var(--accent-color);
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.tab-btn.active{
+background: var(--accent-color);
+}
+
+.tab-btn:hover{
+  background-color: var(--accent-color);
+}
+
+.shop-product {
+  display: flex;
+  flex-direction: column;
+}
+
 .shop h1 {
   color: var(--accent-color);
   font-weight: 400;
@@ -30,6 +61,11 @@
   margin-bottom: 10px;
 }
 
+.shop-tip{
+  top:5px;
+  left:-23px;
+}
+
 .shop-product-card:hover {
   transform: scale(1.02);
   transition: transform 0.2s ease;
@@ -42,7 +78,8 @@
   gap: 20px;
   width: 100%;
   padding: 0 15px;
-      margin: 25px 0px;
+  margin: 25px 0px;
+  z-index: -1;
 }
 
 .fill-heart,
@@ -126,22 +163,9 @@
 }
 
 @media (max-width: 671px) {
-  .filter input,
-  .filter select {
-    width: 100px;
-    font-size: 12px;
-  }
   
   .search-bar input {
     width: 80%;
-  }
-
-  .filter {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 0 20px;
   }
 
   .card-buttons {

@@ -1,7 +1,7 @@
 .product-edit-form {
 height: 85svh;
 position: relative;
-   max-width: 600px;
+   width: 320px;
    background: var(--background-color);
   display: flex;
   border: 2px solid var(--button-border-color);
@@ -12,7 +12,7 @@ position: relative;
 
 .product-name {
     height: 75px;
-    width: 90%;
+    width: 80%;
     border-radius: 6px;
     background: var(--background-color);
     overflow-y: auto;
@@ -51,6 +51,7 @@ position: relative;
 .add-product-inputs {
     display: flex;
     height: 240px;
+    width: 280px;
     flex-direction: column;
     gap: 5px;
     align-items: center;
@@ -60,8 +61,14 @@ position: relative;
     position: relative;
     display: flex;
     background: transparent;
-    width: 340px;
+    width: 100%;
     justify-content: center;
+}
+
+.product-form-tip {
+  position: absolute;
+    right: 4px;
+    top: -5px;
 }
 
 .product-test-link-btn {
@@ -79,7 +86,7 @@ position: relative;
 }
 
 .product-edit-form input {
-    width: 90%;
+    width: 80%;
     margin-bottom: 10px;
     color: var(--text-color);
     font-size: 0.9rem;
@@ -118,16 +125,6 @@ color: var(--accent-color);
   align-items: center;
   justify-content: center;
 }
-
-
-    .product-buttons button{
-      width:100px;
-      height:30px;
-      color: var(--text-color);
-      background: var(--background-color);
-      border: 1px solid var(--accent-color);
-      border-radius: 16px;
-    }
 
     .product-buttons button:hover{
       background: var(--accent-color);
@@ -191,7 +188,7 @@ color: var(--accent-color);
 .add-product-modal-buttons button:first-child {
   color: var(--text-color);
   border: 0.5px solid var(--button-border-color);
-  background: var(--background-color);
+  background: var(--input-color);
 }
 
 .add-product-modal-buttons button:first-child:hover {
@@ -221,10 +218,15 @@ color: var(--accent-color);
   gap: 5px;
 }
 
+.price{ 
+  width:90%
+}
+
 .add-product-form input[type='text'],
 .add-product-form input[type='number'],
 .add-product-form input[type='url'] {
   padding: 8px 10px;
+  width:80%;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;

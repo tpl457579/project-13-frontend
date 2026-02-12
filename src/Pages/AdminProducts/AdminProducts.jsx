@@ -1,5 +1,5 @@
 import './AdminProducts.css'
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState, useMemo } from 'react';
 import { useProducts } from '../../Hooks/useProducts';
 import { useFilters } from '../../Hooks/useFilters';
 import { usePagination } from '../../Hooks/usePagination';
@@ -19,6 +19,7 @@ import DeleteModal from '../../components/DeleteModal/DeleteModal';
 const AdminProducts = () => {
   const dashboardRef = useRef(null);
   const { products, setProducts, loading, error } = useProducts();
+  const [activeCategory, setActiveCategory] = useState('All');
 
   const {
     editingItem: editingProduct,
@@ -33,6 +34,12 @@ const AdminProducts = () => {
 
   const { searchTerm, setSearchTerm, size, setSize, maxPrice, setMaxPrice, minRating, setMinRating, filteredProducts, clearFilters } = useFilters(products, null, "admin");
 
+  // Filter by category before passing to pagination
+  const categoryFilteredProducts = useMemo(() => {
+    if (activeCategory === 'All') return filteredProducts;
+    return filteredProducts.filter(p => p.category?.toLowerCase() === activeCategory.toLowerCase());
+  }, [filteredProducts, activeCategory]);
+
   const {
     paginatedData: visibleProducts,
     totalPages,
@@ -40,7 +47,7 @@ const AdminProducts = () => {
     nextPage,
     prevPage,
     setPage
-  } = usePagination(filteredProducts, 8, 'admin_products_page');
+  } = usePagination(categoryFilteredProducts, 8, 'admin_products_page');
 
   const handleCloseAll = () => {
     if (document.fullscreenElement) {
@@ -48,6 +55,11 @@ const AdminProducts = () => {
     }
     closeModal();
     setDeleteModal(false);
+  };
+
+  const handleCategoryChange = (cat) => {
+    setActiveCategory(cat);
+    setPage(1);
   };
 
   useEffect(() => {
@@ -117,51 +129,71 @@ const AdminProducts = () => {
 
   const handleClearAll = () => {
     clearFilters();
+    setActiveCategory('All');
     setPage(1);
     sessionStorage.removeItem('admin_products_scroll');
     sessionStorage.setItem('admin_products_page', '1');
     window.scrollTo(0, 0);
   };
 
- return (
+  return (
     <AdminLayout 
       title="Admin Product Dashboard"
       dashboardRef={dashboardRef}
       onLayoutClick={handleFullscreen}
       onAddClick={() => openModal()}
-            searchBar={
-        <SearchBar 
-          value={searchTerm} 
-          onChange={(e) => { setSearchTerm(e.target.value); setPage(1); }} 
-          placeholder='Search products...' 
-        />
+      searchBar={
+        <>
+          <div className="category-tabs">
+            {['All', 'Toys', 'Food', 'Clothing'].map(cat => (
+              <button 
+                key={cat} 
+                className={`tab-btn ${activeCategory === cat ? 'active' : ''}`}
+                onClick={() => handleCategoryChange(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+          <SearchBar 
+            value={searchTerm} 
+            onChange={(e) => { setSearchTerm(e.target.value); setPage(1); }} 
+            placeholder='Search products...' 
+          />
+        </>
       }
       filterControls={
-        <FilterControls
-          size={size}
-          setSize={(val) => { setSize(val); setPage(1); }}
-          maxPrice={maxPrice}
-          setMaxPrice={(val) => { setMaxPrice(val); setPage(1); }}
-          minRating={minRating}
-          setMinRating={(val) => { setMinRating(val); setPage(1); }}
-          clearFilters={handleClearAll}
-          mode="admin"
-        />
+        <div className="admin-filter-wrapper">
+          <FilterControls
+            size={size}
+            setSize={(val) => { setSize(val); setPage(1); }}
+            maxPrice={maxPrice}
+            setMaxPrice={(val) => { setMaxPrice(val); setPage(1); }}
+            minRating={minRating}
+            setMinRating={(val) => { setMinRating(val); setPage(1); }}
+            clearFilters={handleClearAll}
+            mode="admin"
+          />
+          <p className="results-text">
+            Showing {visibleProducts.length} of {categoryFilteredProducts.length} items
+          </p>
+        </div>
       }
-
     >
       {loading ? <DogLoader /> : error ? <p className="error">{error}</p> : (
         <>
-          {visibleProducts.length ? visibleProducts.map(p => (
-            <ProductCard 
-              key={p._id}
-              product={p}
-              showAdminActions={true}
-              showHeart={false}
-              onEdit={openModal}
-              onDelete={openDeleteModal}
-            />
-          )) : <p>No products found.</p>}
+          <div className="admin-product-grid">
+            {visibleProducts.length ? visibleProducts.map(p => (
+              <ProductCard 
+                key={p._id}
+                product={p}
+                showAdminActions={true}
+                showHeart={false}
+                onEdit={() => openModal(p)}
+                onDelete={() => openDeleteModal(p)}
+              />
+            )) : <p>No products found in this category.</p>}
+          </div>
 
           {totalPages > 1 && (
             <PaginationControls

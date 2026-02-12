@@ -43,6 +43,25 @@
     color: white;
 }
 
+.results-text{
+        text-align: center;
+    color: var(--text-color);
+}
+
+
+.admin-product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.admin-product-grid p{
+    color: var(--text-color);
+}
+
 @media (max-width: 952px) {
     .admin-products h1 {
         margin-top: 11svh;

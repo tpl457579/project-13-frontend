@@ -1,6 +1,6 @@
-import './SmallDogCard.css'
+import './SmallAnimalCard.css'
 
-const SmallDogCard = ({ dog, onClick, children }) => {
+const SmallAnimalCard = ({ dog, onClick, children }) => {
   if (!dog) return null;
 
   return (
@@ -20,4 +20,4 @@ const SmallDogCard = ({ dog, onClick, children }) => {
   );
 };
 
-export default SmallDogCard;
+export default SmallAnimalCard;

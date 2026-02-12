@@ -1,12 +1,11 @@
 .search-bar {
-  position: relative;
   width: 80%;
+  position: relative;
   max-width: 400px;
-  margin: 20px auto 0px;
 }
 
 .search-bar input {
-  width: 80%;
+  width: 100%;
   display: flex;
   margin: auto;
   padding: 8px 30px 8px 10px;
@@ -24,7 +23,7 @@
 
 .clear-search {
   position: absolute;
-  right: 50px;
+  right: 10px;
   top: 4px;
   cursor: pointer;
   font-size: 25px;

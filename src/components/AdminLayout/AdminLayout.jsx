@@ -12,7 +12,8 @@ const AdminLayout = ({
   children, 
   onAddClick, 
   dashboardRef, 
-  onLayoutClick 
+  onLayoutClick,
+  helpIcon
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -23,11 +24,16 @@ const AdminLayout = ({
       <button 
         className={`admin-tab ${activeTab === 'products' ? 'active' : ''}`} 
         onClick={(e) => { e.stopPropagation(); navigate('/admin-products'); }}
-      >Products</button>
+      >
+        Products
+      </button>
+
       <button 
         className={`admin-tab ${activeTab === 'dogs' ? 'active' : ''}`} 
         onClick={(e) => { e.stopPropagation(); navigate('/admin-dogs'); }}
-      >Dogs</button>
+      >
+        Dogs
+      </button>
     </div>
   );
 
@@ -39,9 +45,15 @@ const AdminLayout = ({
       style={{ outline: 'none' }}
       tabIndex="-1"
     >
+
       <PageLayout 
         title={title} 
-        topContent={tabs} 
+        topContent={
+          <div className="admin-header">
+            {tabs}
+            {helpIcon && <div className="help-icon">{helpIcon}</div>}
+          </div>
+        }
         searchBar={searchBar} 
         filterControls={filterControls}
       >

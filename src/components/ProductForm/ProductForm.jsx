@@ -5,6 +5,7 @@ import Spinner from '../Spinner/Spinner'
 import { apiFetch } from '../apiFetch'
 import DropZone from '../DropZone/DropZone' 
 import { AiOutlineClose } from 'react-icons/ai'
+import IdeaBulb from '../IdeaBulb/IdeaBulb'
 
 const PLACEHOLDER = '../placeholder.png'
 
@@ -178,6 +179,7 @@ export default function ProductForm({
                 onChange={(e) => setPrice(e.target.value)}
                 required
               />
+
               <div className='url-container'>
                 <input 
                   type='url'
@@ -186,6 +188,9 @@ export default function ProductForm({
                   onChange={(e) => setProductUrl(e.target.value)}
                   required
                 />
+
+                <IdeaBulb className='product-form-tip' tip="ProductForm" storageKey="has_seen_product_form_tip" />
+
                 {productUrl && (
                   <a
                     href={productUrl}

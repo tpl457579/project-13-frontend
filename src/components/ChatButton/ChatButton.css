@@ -34,7 +34,7 @@
     background: none;
     height: 38px;
     filter: invert(100%);
-    z-index: 6000;
+    z-index: 10;
 }
 
 .chat-panel {
@@ -49,6 +49,7 @@
   justify-content: center;
   overflow: hidden;
   animation: chatOpen 220ms ease;
+  z-index: 20;
 }
 
 .chat-submit {
@@ -147,22 +148,9 @@
     right: 16px;
     
 }
-.dog-search-grid {
-    width: 350px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-    margin-bottom: 35px;
-    flex-direction: row;
-    align-content: center;
-    align-items: center;
-    padding: 0px 60px;
-}
+
 .chat-fab svg {
     right: 5px;
-   
 }
 }
 
@@ -175,7 +163,6 @@
     background: none;
     height: 38px;
     filter: invert(100%);
-    z-index: 6000;
 }
 .chat-widget-root {
     position: fixed;
@@ -192,6 +179,5 @@
         background: none;
         height: 38px;
         filter: invert(100%);
-        z-index: 6000;
     }
 }

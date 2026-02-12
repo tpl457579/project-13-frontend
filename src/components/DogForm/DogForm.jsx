@@ -4,6 +4,7 @@ import Button from '../Buttons/Button'
 import Spinner from '../Spinner/Spinner'
 import DropZone from '../DropZone/DropZone' 
 import { AiOutlineArrowDown, AiOutlineArrowUp, AiOutlineClose } from 'react-icons/ai'
+import IdeaBulb from '../IdeaBulb/IdeaBulb'
 
 const PLACEHOLDER = '../placeholder.png'
 
@@ -289,6 +290,7 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
                 />
                 <span className="floating-placeholder">{currentField.label}</span>
                 {error && <div className="error-tooltip">{error}</div>}
+                <IdeaBulb className='dog-form-tip' tip="DogForm" storageKey="has_seen_dog_form_tip" />
               </div>
             </div>
 
