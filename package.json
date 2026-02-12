@@ -9,8 +9,9 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "postinstall": "npx puppeteer browsers install chrome@143.0.7499.42"
-  },
+  "postinstall": "npx puppeteer browsers install chrome"
+},
+  
   "engines": {
     "node": "20.x"
   },
