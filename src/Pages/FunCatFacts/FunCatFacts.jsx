@@ -58,12 +58,12 @@ export default function CatFacts() {
 
   return (
     <div className='cat-fact-container'>
-      <h2 className='cat-fact-header'>Cat Trivia</h2>
+      <h2 className='cat-fact-header'>Cat Facts</h2>
 
       <div className='cat-fact'>
         {loading ? (
           <div className='loading-cat-fact'>
-            <p>Fetching feline wisdom...</p>
+            <p>Fetching cat fact...</p>
             <Spinner className='fact-spinner' size={32} />
           </div>
         ) : (

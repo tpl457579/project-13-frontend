@@ -107,22 +107,23 @@ const Shop = ({ petType }) => {
       />
 
       <div style={{ position: 'relative', display: 'inline-block' }}>
-        <FilterControls
-          size={size}
-          setSize={setSize}
-          maxPrice={maxPrice}
-          setMaxPrice={setMaxPrice}
-          minRating={minRating}
-          setMinRating={setMinRating}
-          clearFilters={handleClearFilters}
-        />
-      </div>
+  <FilterControls
+    showSize={productid !== 'cats'}
+    size={size}
+    setSize={setSize}
+    maxPrice={maxPrice}
+    setMaxPrice={setMaxPrice}
+    minRating={minRating}
+    setMinRating={setMinRating}
+    clearFilters={handleClearFilters}
+  />
+</div>
 
       {loadingInitial && <DogLoader />}
       {error && <p className="error-message">Error: {error}</p>}
 
       {!loadingInitial && finalProducts.length === 0 && (
-        <p className="no-results">No {petType} products found. Have you run the new scraper yet?</p>
+        <p className="no-results">No {petType} products found.</p>
       )}
 
       <div className='shop-products'>

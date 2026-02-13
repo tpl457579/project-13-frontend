@@ -11,7 +11,8 @@ const FilterControls = ({
   minRating,
   setMinRating,
   clearFilters,
-  mode = "default"
+  mode = "default",
+  showSize = true
 }) => {
   const handleSizeChange = useCallback(
     (e) => setSize(e.target.value),
@@ -37,7 +38,7 @@ const FilterControls = ({
   return (
     <div className="filter-wrapper">
       <div className='filter'>
-        {setSize && (
+        {showSize && setSize && (
           <select className='size-filter' value={size} onChange={handleSizeChange}>
             <option value=''>Dog Size</option>
             <option value='small'>Small</option>
@@ -97,11 +98,11 @@ const FilterControls = ({
             Clear Filters
           </Button>
 
-         <IdeaBulb 
-                     tip="Shop" 
-                     storageKey="has_seen_filter_tip" 
-                     className="filter-tip" 
-                   />
+          <IdeaBulb 
+            tip="Shop" 
+            storageKey="has_seen_filter_tip" 
+            className="filter-tip" 
+          />
         </div>
       </div>
     </div>
