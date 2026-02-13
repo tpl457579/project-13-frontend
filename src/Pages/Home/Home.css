@@ -29,6 +29,16 @@
   border-radius: 10px;
   object-fit: cover;
   margin-top: 30px;
+} 
+
+
+
+.home-dog-btn{
+  height:30px
+}
+
+.home-cat-btn{
+  height: 24px;
 }
 
 .home-buttons {
@@ -38,6 +48,10 @@
   justify-content: center;
   gap: 1rem;
   opacity: 0;
+}
+
+.second-hom-btn{
+  width: 140px;
 }
 
 .home-buttons.fade-in {
@@ -58,7 +72,7 @@
 
 .home-btn {
   font-size: 25px;
-  width: 140px;
+  width: 40px;
   height:40px;
    background: linear-gradient(200deg, #8f44ad, #7b3696, #c53dbb, #8f44ad);
   background-size: 200% 200%;
@@ -217,10 +231,10 @@
   .home h1 {
     font-size: 30px;
   }
-  .home-btn {
+  /* .home-btn {
     width: 120px;
     font-size: 20px;
-  }
+  } */
 }
 
 @media (max-width: 505px) {

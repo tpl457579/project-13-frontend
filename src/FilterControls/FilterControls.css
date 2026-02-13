@@ -27,6 +27,10 @@
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
 }
 
+.clear-filter-wrapper{
+  position: relative;
+}
+
 .filter input::placeholder {
   color: var(--placeholder-color);
 }
@@ -39,6 +43,12 @@
   border-radius: 8px;
   border: none;
 }
+
+.filter-tip{
+ top: -5px;
+    right: -23px;
+}
+
 
 @media (max-width: 671px){
   .price-filter, .rating-filter,

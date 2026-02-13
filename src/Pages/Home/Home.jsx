@@ -39,14 +39,14 @@ const Home = () => {
         className='home-btn' 
         onClick={() => setPetType('dog')}
       >
-        🐶 Dogs
+        <img className='home-dog-btn'src='./dog1.png'></img>
       </Button>
       <Button 
         variant='secondary' 
         className='home-btn' 
         onClick={() => setPetType('cat')}
       >
-        🐱 Cats
+      <img className='home-cat-btn'src='./cat.png'></img>
       </Button>
     </>
   ), []);
@@ -55,14 +55,14 @@ const Home = () => {
     <>
       <Button
         variant='secondary'
-        className='home-btn'
+        className='second-home-btn'
         onClick={() => goTo(petType === 'dog' ? '/shop-dogs' : '/shop-cats')}
       >
         Shop {petType === 'dog' ? 'Dogs' : 'Cats'}
       </Button>
       <Button
         variant='secondary'
-        className='home-btn'
+        className='second-home-btn'
         onClick={() => setShowFunOptions(true)}
       >
         Fun Stuff

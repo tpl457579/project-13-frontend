@@ -7,25 +7,32 @@ export default function FunCatFacts() {
   const [fact, setFact] = useState('')
   const [loading, setLoading] = useState(true)
 
-  const API_BASE = 'https://cat-facts-api.onrender.com'
-
-  const fetchFact = useCallback(async () => {
-    setLoading(true)
-    try {
-      const res = await fetch(`${API_BASE}/api/cat-fact`)
-      const data = await res.json()
-      setFact(data.fact || 'No fact found.')
-    } catch (error) {
-      console.error('Error fetching fact:', error)
-      setFact('Could not fetch cat fact right now.')
-    } finally {
-      setLoading(false)
-    }
-  }, [API_BASE])
-
-  useEffect(() => {
-    fetchFact()
-  }, [fetchFact])
+ 
+ const fetchFact = useCallback(async () => {
+   setLoading(true);
+   try {
+     // We call your new endpoint. 
+     // Note: The '/' at the start depends on if your API_BASE ends with /v1
+     const data = await apiFetch('/cats/facts'); 
+ 
+     if (Array.isArray(data) && data.length > 0) {
+       // Pick a random fact from the array returned by your MongoDB
+       const randomIndex = Math.floor(Math.random() * data.length);
+       setFact(data[randomIndex].fact);
+     } else {
+       setFact('No facts found.');
+     }
+   } catch (error) {
+     // apiFetch already logs errors, so we just set the UI state
+     setFact('Could not fetch cat fact right now.');
+   } finally {
+     setLoading(false);
+   }
+ }, []);
+ 
+ useEffect(() => {
+   fetchFact();
+ }, [fetchFact]);
 
   return (
     <div className='cat-fact-container'>

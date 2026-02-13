@@ -88,7 +88,7 @@ const FilterControls = ({
           </select>
         )}
 
-        <div >
+        <div className='clear-filter-wrapper'>
           <Button
             variant='secondary'
             className='clear-filters-button'
@@ -97,7 +97,11 @@ const FilterControls = ({
             Clear Filters
           </Button>
 
-          <IdeaBulb />
+         <IdeaBulb 
+                     tip="Shop" 
+                     storageKey="has_seen_filter_tip" 
+                     className="filter-tip" 
+                   />
         </div>
       </div>
     </div>
