@@ -46,14 +46,11 @@
 }
 
 .new-fact-btn {
-position: absolute;
-bottom: 1%;
-left: 50%;
-    transform: translateX(-50%);
-  width: 140px;
-  margin-bottom: 15px;
-  border: none;
-
+    position: absolute;
+    bottom: 15px;
+    left: 36%;
+    width: 140px;
+    border: none;
 }
 
 @media (max-height: 520px){

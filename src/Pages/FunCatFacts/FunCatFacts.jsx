@@ -2,13 +2,14 @@ import './FunCatFacts.css'
 import { useEffect, useState, useCallback } from 'react'
 import Button from '../../components/Buttons/Button.jsx'
 import Spinner from '../../components/Spinner/Spinner.jsx'
+import { apiFetch } from '../../components/apiFetch.js'
 
 export default function FunCatFacts() {
   const [fact, setFact] = useState('')
   const [loading, setLoading] = useState(true)
 
  
- const fetchFact = useCallback(async () => {
+ const fetchCatFacts = useCallback(async () => {
    setLoading(true);
    try {
      // We call your new endpoint. 
@@ -31,8 +32,8 @@ export default function FunCatFacts() {
  }, []);
  
  useEffect(() => {
-   fetchFact();
- }, [fetchFact]);
+   fetchCatFacts();
+ }, [fetchCatFacts]);
 
   return (
     <div className='cat-fact-container'>
@@ -49,15 +50,14 @@ export default function FunCatFacts() {
         )}
       </div>
 
-      <div className='btn-group'>
         <Button
           variant='secondary'
-          onClick={fetchFact}
+          onClick={fetchCatFacts}
           className='new-fact-btn'
         >
           New Fact
         </Button>
       </div>
-    </div>
+    
   )
 }

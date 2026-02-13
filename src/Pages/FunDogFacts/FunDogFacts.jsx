@@ -10,7 +10,7 @@ export default function FunDogFacts() {
 
  
 
-const fetchFact = useCallback(async () => {
+const fetchDogFacts = useCallback(async () => {
   setLoading(true);
   try {
     // We call your new endpoint. 
@@ -33,8 +33,8 @@ const fetchFact = useCallback(async () => {
 }, []);
 
 useEffect(() => {
-  fetchFact();
-}, [fetchFact]);
+  fetchDogFacts();
+}, [fetchDogFacts]);
 
   return (
     <div className='dog-fact-container'>
@@ -49,16 +49,15 @@ useEffect(() => {
         ) : (
           <p className='fact-text'>{fact}</p>
         )}
-      </div>
-
-      
-        <Button
+         <Button
           variant='secondary'
-          onClick={fetchFact}
+          onClick={fetchDogFacts}
           className='new-fact-btn'
         >
           New Fact
         </Button>
+      </div>
+
       </div>
     
   )
