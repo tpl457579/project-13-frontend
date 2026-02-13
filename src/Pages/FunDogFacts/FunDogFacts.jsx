@@ -51,7 +51,7 @@ useEffect(() => {
         )}
       </div>
 
-      <div className='btn-group'>
+      
         <Button
           variant='secondary'
           onClick={fetchFact}
@@ -60,6 +60,6 @@ useEffect(() => {
           New Fact
         </Button>
       </div>
-    </div>
+    
   )
 }
