@@ -10,7 +10,6 @@ import PaginationControls from '../../components/PaginationControls/PaginationCo
 import ProductCard from '../../components/ProductCard/ProductCard.jsx'
 import SearchBar from '../../components/SearchBar/SearchBar'
 import DogLoader from '../../components/DogLoader/DogLoader.jsx'
-import IdeaBulb from '../../components/IdeaBulb/IdeaBulb.jsx'
 
 const Shop = ({ petType }) => {
   const { user } = useContext(AuthContext)
@@ -117,7 +116,6 @@ const Shop = ({ petType }) => {
           setMinRating={setMinRating}
           clearFilters={handleClearFilters}
         />
-        <IdeaBulb className='shop-tip' tip="Shop" storageKey="has_seen_shop_tip" />
       </div>
 
       {loadingInitial && <DogLoader />}

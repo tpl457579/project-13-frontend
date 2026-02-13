@@ -61,11 +61,6 @@ background: var(--accent-color);
   margin-bottom: 10px;
 }
 
-.shop-tip{
-  top:5px;
-  left:-23px;
-}
-
 .shop-product-card:hover {
   transform: scale(1.02);
   transition: transform 0.2s ease;
