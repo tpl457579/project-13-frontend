@@ -249,11 +249,21 @@ color: var(--accent-color);
   background: var(--fill-button-hover-color);
 }
 
+.metadata-spinner{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:25px;
+}
+
+.metadata-spinner img{
+  width: 50px;
+}
 
 @media (max-width: 740px) {
   
   .product-edit-title{
-margin-bottom: 25px;
+margin-bottom: 5px;
   }
   
   .product-img {

@@ -34,11 +34,13 @@
 
 
 .home-dog-btn{
-  height:30px
+  height:35px;
+  filter:invert(1)
 }
 
 .home-cat-btn{
   height: 24px;
+  filter:invert(1);
 }
 
 .home-buttons {
@@ -50,8 +52,8 @@
   opacity: 0;
 }
 
-.second-hom-btn{
-  width: 140px;
+.second-home-btn{
+  width: 120px;
 }
 
 .home-buttons.fade-in {
@@ -71,8 +73,7 @@
 }
 
 .home-btn {
-  font-size: 25px;
-  width: 40px;
+  width: 80px;
   height:40px;
    background: linear-gradient(200deg, #8f44ad, #7b3696, #c53dbb, #8f44ad);
   background-size: 200% 200%;
@@ -153,8 +154,8 @@
 
 .fun-options button {
   margin-top: 10px;
-  width: 155px;
-  font-weight: 500;
+  width: 120px;
+  font-weight: 400;
   border-radius: 12px;
   border: none;
   cursor: pointer;
@@ -169,8 +170,9 @@
 .fun-options button:hover {
   transform: scale(1.05);
 }
-.fun-options > .back-link {
-    width: 100px;
+.back-link {
+    width: 120px;
+    border-radius: 8px;
     color: var(--text-color);
     background: none;
     border: 2px solid var(--accent-color);

@@ -108,7 +108,7 @@ const Shop = ({ petType }) => {
 
       <div style={{ position: 'relative', display: 'inline-block' }}>
   <FilterControls
-    showSize={productid !== 'cats'}
+    showSize={petType !== 'cat'}
     size={size}
     setSize={setSize}
     maxPrice={maxPrice}
