@@ -1,7 +1,6 @@
 import './FilterControls.css'
 import { useCallback } from 'react'
 import Button from '../components/Buttons/Button'
-import IdeaBulb from '../components/IdeaBulb/IdeaBulb'
 
 const FilterControls = ({
   size,
@@ -97,7 +96,6 @@ const FilterControls = ({
             Clear Filters
           </Button>
 
-          <IdeaBulb />
         </div>
       </div>
     </div>
