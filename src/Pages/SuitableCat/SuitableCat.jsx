@@ -54,7 +54,7 @@ export default function SuitableCat() {
   }, [])
 
   useEffect(() => {
-  apiFetch('/')
+  apiFetch('/cats')
     .then(data => {
       let list = []
 
