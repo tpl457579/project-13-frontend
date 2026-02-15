@@ -18,6 +18,7 @@
 }
 
 .fav-page-text {
+  color: var(--text-color);
   text-align: center;
   margin-top: 20px;
 }

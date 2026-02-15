@@ -2,7 +2,7 @@ import { Route, Routes, useLocation, Navigate } from 'react-router-dom'
 import Header from './components/Header/Header.jsx'
 import Home from './Pages/Home/Home.jsx'
 import GuessTheDog from './Pages/GuessTheDog/GuessTheDog.jsx'
-import GuessTheCat from './Pages/GuessTheCat/GuessTheCat.jsx'
+import MatchTheCats from './Pages/MatchTheCats/MatchTheCats.jsx'
 import FunDogFacts from './Pages/FunDogFacts/FunDogFacts.jsx'
 import FunCatFacts from './Pages/FunCatFacts/FunCatFacts.jsx'
 import ChatWidget from './components/ChatButton/ChatButton.jsx'
@@ -22,69 +22,82 @@ import ThemeToggle from './components/ThemeToggle/ThemeToggle.jsx'
 import { Footer } from './components/Footer/Footer.jsx'
 import AdminDogs from './Pages/AdminDogs/AdminDogs.jsx'
 import AdminCats from './Pages/AdminCats/AdminCats.jsx'
+import usePetType from './Hooks/usePetType'
 
 const App = () => {
   const location = useLocation()
+  const { petType } = usePetType()
 
   return (
     <div>
       <Header />
       <Hamburger />
+
       <Routes>
-  <Route path='/' element={<Home />} />
-  
-  <Route path='/shop-dogs' element={<Shop petType="dog" />} />
-  <Route path='/shop-cats' element={<Shop petType="cat" />} />
-  
-  <Route path='/guess-the-dog' element={<GuessTheDog />} />
-  <Route path='/guess-the-cat' element={<GuessTheCat petType="cat" />} />
-  
-  <Route path='/fun-dog-facts' element={<FunDogFacts />} />
-  <Route path='/fun-cat-facts' element={<FunCatFacts petType="cat" />} />
-  
-  <Route path='/suitable-dog' element={<SuitableDog />} />
-  <Route path='/suitable-cat' element={<SuitableCat petType="cat" />} />
+        <Route path='/' element={<Home />} />
 
-  <Route path='/shop' element={<Shop />} />
-  <Route path='/register' element={<RegisterPage />} />
-  <Route path='/login' element={<LoginPage />} />
+        <Route path="/shop" element={<Shop petType={petType} />} />
+        <Route
+  path="/shop"
+  element={<Navigate to={petType === 'cat' ? '/shop-cats' : '/shop-dogs'} replace />}
+/>
 
-  <Route path='/dog-search' element={<DogSearch />} />
-  <Route path='/cat-search' element={<CatSearch />} />
-  <Route path='/favourites' element={<FavouritesPage />} />
-  <Route path='/profile' element={<Profile />} />
-  
-  <Route
-    path='/admin-products'
-    element={
-      <ProtectedRoute requireAdmin={true}>
-        <AdminProducts />
-      </ProtectedRoute>
-    }
-  />
-  <Route
-    path='/admin-dogs'
-    element={
-      <ProtectedRoute requireAdmin={true}>
-        <AdminDogs />
-      </ProtectedRoute>
-    }
-  />
-  <Route
-    path='/admin-cats'
-    element={
-      <ProtectedRoute requireAdmin={true}>
-        <AdminCats />
-      </ProtectedRoute>
-    }
-  />
-  
-  <Route path='/admin' element={<Navigate to='/admin-products' replace />} />
-</Routes>
+
+
+        <Route path='/shop-dogs' element={<Shop petType="dog" />} />
+        <Route path='/shop-cats' element={<Shop petType="cat" />} />
+
+        <Route path='/guess-the-dog' element={<GuessTheDog />} />
+       <Route path="/match-the-cats" element={<MatchTheCats />} />
+
+
+        <Route path='/fun-dog-facts' element={<FunDogFacts />} />
+        <Route path='/fun-cat-facts' element={<FunCatFacts />} />
+
+        <Route path='/suitable-dog' element={<SuitableDog />} />
+        <Route path='/suitable-cat' element={<SuitableCat />} />
+
+        <Route path='/dog-search' element={<DogSearch />} />
+        <Route path='/cat-search' element={<CatSearch />} />
+
+        <Route path='/register' element={<RegisterPage />} />
+        <Route path='/login' element={<LoginPage />} />
+
+        <Route path='/favourites' element={<FavouritesPage />} />
+        <Route path='/profile' element={<Profile />} />
+
+        <Route
+          path='/admin-products'
+          element={
+            <ProtectedRoute requireAdmin={true}>
+              <AdminProducts />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path='/admin-dogs'
+          element={
+            <ProtectedRoute requireAdmin={true}>
+              <AdminDogs />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path='/admin-cats'
+          element={
+            <ProtectedRoute requireAdmin={true}>
+              <AdminCats />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path='/admin' element={<Navigate to='/admin-products' replace />} />
+      </Routes>
 
       <ThemeToggle />
       <ChatWidget />
-      
 
       {!location.pathname.startsWith('/admin') && <Footer />}
     </div>

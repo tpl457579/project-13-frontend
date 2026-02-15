@@ -1,20 +1,21 @@
 import { useContext } from 'react'
-import { AuthContext } from '/src/components/AuthContext'
+import { AuthContext } from '../AuthContext'
 import ShowPopup from '../ShowPopup/ShowPopup'
 import ProductCard from '../ProductCard/ProductCard.jsx'
 
-const ShopProductCard = ({ product, isFavourite, onToggleFavourite, disabled }) => {
+const ShopProductCard = ({ product, isFavourite, onToggleFavourite, disabled, className }) => {
   const { user } = useContext(AuthContext)
 
-  const handleFavouriteClick = () => {
+  const handleFavouriteClick = (e) => {
+    if (e && e.preventDefault) e.preventDefault()
     if (disabled) return
 
-    if (!user?._id || !user?.token) {
+    if (!user?._id) {
       ShowPopup('You must be logged in to add favourites', 'error')
       return
     }
 
-    onToggleFavourite(product)
+    onToggleFavourite(product._id)
   }
 
   return (
@@ -24,7 +25,7 @@ const ShopProductCard = ({ product, isFavourite, onToggleFavourite, disabled }) 
       onToggleFavourite={handleFavouriteClick}
       showHeart={true}
       showAdminActions={false}
-      className="shop-product-card"
+      className={className || "shop-product-card"}
       disabled={disabled}
     />
   )

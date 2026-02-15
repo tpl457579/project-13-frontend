@@ -5,6 +5,7 @@ import Button from '../../components/Buttons/Button'
 import { useModal } from '../../Hooks/useModal.js'
 import DogPopup from '../../components/DogPopup/DogPopup.jsx'
 import SmallAnimalCard from '../../components/SmallAnimalCard/SmallAnimalCard.jsx'
+import { apiFetch } from '../../components/apiFetch.js'
 
 const STORAGE_KEY = 'suitableCatState'
 
@@ -19,13 +20,13 @@ export default function SuitableCat() {
   const { isOpen, openModal, closeModal } = useModal()
 
   const questions = useMemo(() => [
-    { id: 'good_with_children', text: 'Do you have children at home?', options: [{ value: 5, label: 'Yes, young kids' }, { value: 3, label: 'Yes, older kids' }, { value: 1, label: 'No children' }] },
-    { id: 'good_with_other_cats', text: 'Do you already have other cats or pets?', options: [{ value: 5, label: 'Yes, very social' }, { value: 3, label: 'Sometimes territorial' }, { value: 1, label: 'No other pets' }] },
+    { id: 'childFriendly', text: 'Do you have children at home?', options: [{ value: 5, label: 'Yes, young kids' }, { value: 3, label: 'Yes, older kids' }, { value: 1, label: 'No children' }] },
+    { id: 'dogFriendly', text: 'Do you have dogs?', options: [{ value: 5, label: 'Yes, very social' }, { value: 3, label: 'Sometimes territorial' }, { value: 1, label: 'No dogs' }] },
     { id: 'grooming', text: 'How much grooming are you okay with?', options: [{ value: 1, label: 'Minimal grooming' }, { value: 3, label: 'Occasional grooming' }, { value: 5, label: 'Regular grooming is fine' }] },
-    { id: 'energy', text: 'How active should your cat be?', options: [{ value: 5, label: 'Very energetic (over 1 hr exercise)' }, { value: 3, label: 'Moderately active (30–60 mins)' }, { value: 1, label: 'Low energy (less than 30 mins)' }] },
-    { id: 'good_with_strangers', text: 'Do you prefer a protective or friendly cat?', options: [{ value: 1, label: 'Very friendly with strangers' }, { value: 3, label: 'Balanced' }, { value: 5, label: 'Highly protective' }] },
-    { id: 'playfulness', text: 'How playful should your cat be?', options: [{ value: 5, label: 'Very playful' }, { value: 3, label: 'Moderately playful' }, { value: 1, label: 'Calm/relaxed' }] },
-    { id: 'shedding', text: 'How fussy are you about shedding hair?', options: [{ value: 1, label: "I don't like cat hairs" }, { value: 3, label: "I don't mind some shedding" }, { value: 5, label: "I don't mind at all about shedding" }] }
+    { id: 'energyLevel', text: 'How active should your cat be?', options: [{ value: 5, label: 'Very energetic' }, { value: 3, label: 'Moderately active' }, { value: 1, label: 'Low energy' }] },
+    { id: 'strangerFriendly', text: 'Do you prefer a shy or friendly cat?', options: [{ value: 1, label: 'Very friendly with strangers' }, { value: 3, label: 'Balanced' }, { value: 5, label: 'Highly protective' }] },
+    { id: 'affectionLevel', text: 'How affectionate should your cat be?', options: [{ value: 5, label: 'Very playful' }, { value: 3, label: 'Moderately playful' }, { value: 1, label: 'Calm/relaxed' }] },
+    { id: 'sheddingLevel', text: 'How fussy are you about shedding hair?', options: [{ value: 1, label: "I don't like cat hairs" }, { value: 3, label: "I don't mind some shedding" }, { value: 5, label: "I don't mind at all about shedding" }] }
   ], [])
 
   const calculateScore = useCallback((cat, currentAnswers) => {
@@ -50,12 +51,28 @@ export default function SuitableCat() {
       setFinished(saved.finished || false)
       setResults(saved.results || [])
     }
-    
-    fetch('https://cat-character-api.onrender.com/api/cats')
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
-      .then(data => setCats(data.filter(d => d.id !== null)))
-      .catch(err => setError(err.message))
   }, [])
+
+  useEffect(() => {
+  apiFetch('/')
+    .then(data => {
+      let list = []
+
+      if (Array.isArray(data)) list = data
+      else if (Array.isArray(data?.cats)) list = data.cats
+      else if (Array.isArray(data?.data)) list = data.data
+
+      list = list.map((cat, index) => ({
+        id: cat.id ?? index, 
+        ...cat
+      }))
+
+      setCats(list)
+    })
+    .catch(err => setError(err.message || 'Failed to load cats'))
+}, [])
+
+
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ answers, current, finished, results }))
@@ -77,24 +94,24 @@ export default function SuitableCat() {
   }
 
   const resetQuiz = () => {
-    setAnswers({}); setCurrent(0); setFinished(false); setResults([]); setSelectedCat(null)
+    setAnswers({})
+    setCurrent(0)
+    setFinished(false)
+    setResults([])
+    setSelectedCat(null)
     localStorage.removeItem(STORAGE_KEY)
   }
 
   const handleCatClick = (cat) => {
-    setSelectedCat(cat);
-    openModal();
-
-    const isShortScreen = window.innerHeight <= 520;
+    setSelectedCat(cat)
+    openModal()
+    const isShortScreen = window.innerHeight <= 520
     if (isShortScreen && !document.fullscreenElement) {
-      const element = document.documentElement;
-      if (element.requestFullscreen) {
-        element.requestFullscreen().catch(() => {});
-      } else if (element.webkitRequestFullscreen) {
-        element.webkitRequestFullscreen();
-      }
+      const element = document.documentElement
+      if (element.requestFullscreen) element.requestFullscreen().catch(() => {})
+      else if (element.webkitRequestFullscreen) element.webkitRequestFullscreen()
     }
-  };
+  }
 
   if (error) return <p>Error loading cats: {error}</p>
   if (!cats) return <DogLoader />
@@ -103,13 +120,13 @@ export default function SuitableCat() {
     <>
       {finished ? (
         <div className='top-cats'>
-          <h1>Top 10 Matching Dogs</h1>
+          <h1>Top 10 Matching Cats</h1>
           <p className='resultsText'>Click on the cards to learn more!</p>
           <div className='cardDiv'>
-            {results.map((cat) => (
+            {results.map(cat => (
               <SmallAnimalCard 
-                key={cat.id} 
-                cat={cat} 
+                key={cat.id}
+                cat={cat}
                 onClick={() => handleCatClick(cat)}
               >
                 <p><strong>Total Match:</strong> {cat.score || 0}%</p>
@@ -128,35 +145,35 @@ export default function SuitableCat() {
           <h2>Question {current + 1} of {questions.length}</h2>
           <p>{questions[current].text}</p>
           <div className='options'>
-            {questions[current].options.map((opt) => (
-              <Button 
-                variant='primary' 
-                key={opt.value} 
-                className='optionInput' 
+            {questions[current].options.map(opt => (
+              <Button
+                variant='primary'
+                key={opt.value}
+                className='optionInput'
                 onClick={() => handleAnswer(questions[current].id, opt.value)}
               >
                 {opt.label}
               </Button>
             ))}
           </div>
-         <Button 
-  variant='primary' 
-  width='140px'
-  height='34px'
-  fontSize='16px'
-  className='questionnaire-back-btn' 
-  onClick={() => setCurrent(c => c - 1)} 
-  disabled={current === 0}
->
-  Back
-</Button>
+          <Button
+            variant='primary'
+            width='140px'
+            height='34px'
+            fontSize='16px'
+            className='questionnaire-back-btn'
+            onClick={() => setCurrent(c => Math.max(0, c - 1))}
+            disabled={current === 0}
+          >
+            Back
+          </Button>
         </div>
       )}
 
       <DogPopup 
-        isOpen={isOpen} 
-        closePopup={closeModal} 
-        cat={selectedCat} 
+        isOpen={isOpen}
+        closePopup={closeModal}
+        cat={selectedCat}
       />
     </>
   )

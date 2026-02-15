@@ -25,11 +25,15 @@ const ProductCard = ({
 
   const handleFavouriteClick = (e) => {
     e.preventDefault()
+    e.stopPropagation()
+    
     if (disabled) return
-    if (!user?._id || !user?.token) {
+    
+    if (!user?._id) {
       ShowPopup('You must be logged in to add favourites', 'error')
       return
     }
+    
     if (!isFavourite) animateHeart()
     onToggleFavourite(product)
   }
@@ -42,7 +46,7 @@ const ProductCard = ({
       radius: { 0: 55 },
       angle: { 0: 45 },
       count: 15,
-      children: { shape: 'circle', radius: 25, fill: ['var(--accent-color)'], duration: 500 }
+      children: { shape: 'circle', radius: 5, fill: ['#ff0000', 'var(--accent-color)'], duration: 500 }
     })
     const scaleTween = new mojs.Tween({
       duration: 1200,
@@ -77,27 +81,29 @@ const ProductCard = ({
 
         {showPrice && product.price && <p>Price: €{Number(product.price).toFixed(2)}</p>}
         {showRating && product.rating != null && (
-        <p className="rating-line">
-  Rating: {product.rating}
-  <span className="star">
-    <GiRoundStar />
-  </span>
-</p>
-
-
+          <p className="rating-line">
+            Rating: {product.rating}
+            <span className="star">
+              <GiRoundStar />
+            </span>
+          </p>
         )}
 
-        {showHeart ? (
-          <button
-            ref={buttonRef}
-            onClick={handleFavouriteClick}
-            disabled={disabled}
-            className={`heart-btn ${isFavourite ? 'active' : ''}`}
-          >
-            {isFavourite ? <AiFillHeart size={28} color="red" /> : <AiOutlineHeart size={28} />}
-          </button>
-        ) : (
-          showAdminActions && (
+        
+          {showHeart && (
+            <button
+              ref={buttonRef}
+              type="button"
+              onClick={handleFavouriteClick}
+              disabled={disabled}
+              className={`heart-btn ${isFavourite ? 'active' : ''}`}
+              
+            >
+              {isFavourite ? <AiFillHeart size={28} color="red" /> : <AiOutlineHeart size={28} />}
+            </button>
+          )}
+
+          {!showHeart && showAdminActions && (
             <div className="product-buttons">
               <button type="button" disabled={disabled} onClick={() => onEdit(product)}>
                 <AiOutlineEdit size={18}/> Edit
@@ -106,10 +112,10 @@ const ProductCard = ({
                 <AiOutlineDelete size={18}/> Delete
               </button>
             </div>
-          )
-        )}
+          )}
+        </div>
       </div>
-    </div>
+
   )
 }
 

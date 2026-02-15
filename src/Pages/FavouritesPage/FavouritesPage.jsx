@@ -1,3 +1,4 @@
+import './FavouritesPage.css'
 import { useContext, useEffect, useState, useCallback } from 'react'
 import { AuthContext } from '../../components/AuthContext'
 import { useFavourites } from '../../Hooks/useFavourites'
@@ -5,7 +6,6 @@ import { usePagination } from '../../Hooks/usePagination'
 import PaginationControls from '../../components/PaginationControls/PaginationControls'
 import ShopProductCard from '../../components/ShopProductCard/ShopProductCard'
 import DogLoader from '../../components/DogLoader/DogLoader'
-import './FavouritesPage.css'
 
 const FavouritesPage = () => {
   const { user } = useContext(AuthContext)
@@ -31,12 +31,18 @@ const FavouritesPage = () => {
 
   useEffect(() => {
     if (isReady && favourites.length === 0) {
-      const timer = setTimeout(() => setShowEmptyMessage(true), 10000)
+      const timer = setTimeout(() => setShowEmptyMessage(true), 5000)
       return () => clearTimeout(timer)
     } else {
       setShowEmptyMessage(false)
     }
   }, [isReady, favourites])
+
+  useEffect(() => {
+  console.log("Current User:", user);
+  console.log("Favourites Array:", favourites);
+  console.log("Loading Status:", { loading, isReady });
+}, [user, favourites, loading, isReady]);
 
   const handlePrevPage = useCallback(() => {
     setPage((prev) => Math.max(prev - 1, 1))
@@ -52,7 +58,7 @@ const FavouritesPage = () => {
     )
   }
 
-  if (loading || !isReady) {
+  if (loading || !isReady || (favourites.length === 0 && !showEmptyMessage)) {
     return (
       <main className='favourites-page'>
         <h2>My Favourites</h2>
@@ -64,13 +70,14 @@ const FavouritesPage = () => {
   return (
     <main className='favourites-page'>
       <h1>My Favourites</h1>
-      {favourites.length === 0 && showEmptyMessage ? (
+      {favourites.length === 0 ? (
         <p className='fav-page-text'>You have no favourites yet.</p>
       ) : (
         <>
           <div className='favourites-products'>
             {currentFavourites.map(({ _id, ...rest }) => (
-              <ShopProductCard className='favourites-card'
+              <ShopProductCard
+                className='favourites-card'
                 key={_id}
                 product={{ _id, ...rest }}
                 isFavourite={true}
@@ -87,6 +94,7 @@ const FavouritesPage = () => {
             goNext={handleNextPage}
           />
         </>
+        
       )}
     </main>
   )
