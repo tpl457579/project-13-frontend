@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import './MatchTheCats.css'
-import { initGame } from './GameLogic'
+import { initGame } from './Gamelogic.js'
 
 export default function MatchTheCats() {
   useEffect(() => {
