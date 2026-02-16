@@ -19,7 +19,7 @@
 
 .admin-tabs {
     display: flex;
-    width: 225px;
+    width: 275px;
     padding: 10px;
     height: 50px;
     border: 1px solid var(--button-border-color);

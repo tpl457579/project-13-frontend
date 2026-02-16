@@ -34,34 +34,32 @@ export default function DogSearchPaginated() {
   const dropdownRef = useRef(null)
 
   useEffect(() => {
-    async function fetchDogs() {
-      try {
-        setLoading(true)
-        const res = await apiFetch('/dogs') 
-        const data = res?.dogs || res?.data || res
-        const validDogs = (Array.isArray(data) ? data : [])
-          .map((d) => ({ ...d, dogSize: getSize(d) }))
-        
-        setDogs(validDogs)
-
-        const allTemps = validDogs.flatMap((d) =>
-          d.temperament ? (Array.isArray(d.temperament) ? d.temperament : d.temperament.split(',')).map((t) => t.trim()) : []
-        )
-        const freqMap = {}
-        allTemps.forEach((t) => (freqMap[t] = (freqMap[t] || 0) + 1))
-        const topTen = Object.entries(freqMap)
-          .sort((a, b) => b[1] - a[1])
-          .slice(0, 10)
-          .map(([temp]) => temp)
-        setTemperaments(topTen)
-      } catch (err) {
-        setDogs([])
-      } finally {
-        setLoading(false)
-      }
+  async function fetchDogs() {
+    try {
+      setLoading(true)
+      console.log('🔍 Fetching dogs...') // Add this
+      const res = await apiFetch('/dogs') 
+      console.log('📦 Response:', res) // Add this
+      
+      const data = res?.dogs || res?.data || res
+      console.log('📊 Data:', data) // Add this
+      
+      const validDogs = (Array.isArray(data) ? data : [])
+        .map((d) => ({ ...d, dogSize: getSize(d) }))
+      
+      console.log('✅ Valid dogs:', validDogs.length) // Add this
+      setDogs(validDogs)
+      
+      // ... rest of code
+    } catch (err) {
+      console.error('❌ Error fetching dogs:', err) // Add this
+      setDogs([])
+    } finally {
+      setLoading(false)
     }
-    fetchDogs()
-  }, [])
+  }
+  fetchDogs()
+}, [])
 
   useEffect(() => {
     const handleScroll = () => {
