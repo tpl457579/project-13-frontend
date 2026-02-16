@@ -118,7 +118,8 @@ export default function SuitableDog() {
           <div className='cardDiv'>
             {results.map((dog) => (
               <SmallAnimalCard 
-                key={dog._id}
+                key={dog.id ?? dog._id}
+
                 dog={dog}
                 onClick={() => handleDogClick(dog)}
               >

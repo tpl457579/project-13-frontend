@@ -193,7 +193,8 @@ const AdminCats = () => {
             
               {visibleCats.map((cat) => (
                 <AdminCatCard
-                  key={cat._id || cat.id}
+                  key={cat.id ?? cat._id}
+
                   cat={cat}
                   onEdit={() => openModal(cat)}
                   onDelete={() => openDeleteModal(cat)}

@@ -193,7 +193,7 @@ const AdminDogs = () => {
             
               {visibleDogs.map((dog) => (
                 <AdminDogCard
-                  key={dog._id || dog.id}
+                  key={dog._id ?? dog.id}
                   dog={dog}
                   onEdit={() => openModal(dog)}
                   onDelete={() => openDeleteModal(dog)}

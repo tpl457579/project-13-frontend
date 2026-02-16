@@ -220,7 +220,7 @@ export default function DogSearchPaginated() {
           <div className='dog-search-grid'>
             {visibleDogs.map((dog) => (
               <SmallAnimalCard 
-                key={dog._id || dog.id} 
+                key={dog._id ?? dog.id} 
                 dog={dog} 
                 onClick={() => openModal(dog)} 
               />
