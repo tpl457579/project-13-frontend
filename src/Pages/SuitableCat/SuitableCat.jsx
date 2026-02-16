@@ -5,7 +5,6 @@ import Button from '../../components/Buttons/Button'
 import { useModal } from '../../Hooks/useModal.js'
 import DogPopup from '../../components/DogPopup/DogPopup.jsx'
 import SmallAnimalCard from '../../components/SmallAnimalCard/SmallAnimalCard.jsx'
-import { apiFetch } from '../../components/apiFetch.js'
 
 const STORAGE_KEY = 'suitableCatState'
 
@@ -69,7 +68,7 @@ export default function SuitableCat() {
   useEffect(() => {
   console.log("FETCHING /cats ...")
 
-  apiFetch('/cats')
+  fetch('https://cat-character-api.onrender.com/api/cats')
     .then(data => {
       console.log("RAW API RESPONSE:", data)
       console.log("TYPE:", typeof data)
