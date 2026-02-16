@@ -5,6 +5,7 @@ import Button from '../../components/Buttons/Button'
 import { useModal } from '../../Hooks/useModal.js'
 import DogPopup from '../../components/DogPopup/DogPopup.jsx'
 import SmallAnimalCard from '../../components/SmallAnimalCard/SmallAnimalCard.jsx'
+import { apiFetch } from '../../components/apiFetch.js'
 
 const STORAGE_KEY = 'suitableCatState'
 
@@ -56,7 +57,7 @@ export default function SuitableCat() {
   }, [])
 
   useEffect(() => {
-    fetch('https://project-13-backend-1sra.onrender.com/api/v1/cats')
+    apiFetch('/cats')
       .then(res => res.json())
       .then(data => {
         const list = Array.isArray(data)
