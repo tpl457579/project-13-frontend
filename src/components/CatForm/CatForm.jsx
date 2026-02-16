@@ -56,7 +56,7 @@ export default function CatForm({ initialData = {}, onSubmit, onCancel, isSubmit
   const [name, setName] = useState(initialData.name || '')
   const [preview, setPreview] = useState(initialData.imageUrl || '')
   const [imageUrl, setImageUrl] = useState(initialData.imageUrl || '')
-  const [publicId, setPublicId] = useState(initialData.publicId || '')
+  const [publicId, setPublicId] = useState(initialData.imagePublicId || '')
   const [uploading, setUploading] = useState(false)
   const [step, setStep] = useState(0)
   const [error, setError] = useState('')
@@ -202,7 +202,7 @@ export default function CatForm({ initialData = {}, onSubmit, onCancel, isSubmit
       id: initialData.id || '',
       name,
       imageUrl,
-      publicId,
+      imagePublicId: publicId,
       temperament: formData.temperament.join(', '),
       childFriendly: Number(formData.childFriendly),
       dogFriendly: Number(formData.dogFriendly),
