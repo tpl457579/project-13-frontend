@@ -34,6 +34,13 @@ const AdminLayout = ({
       >
         Dogs
       </button>
+
+      <button 
+        className={`admin-tab ${activeTab === 'cats' ? 'active' : ''}`} 
+        onClick={(e) => { e.stopPropagation(); navigate('/admin-cats'); }}
+      >
+        Cats
+      </button>
     </div>
   );
 

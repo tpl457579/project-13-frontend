@@ -65,6 +65,17 @@ export default function CatForm({ initialData = {}, onSubmit, onCancel, isSubmit
   const inputRef = useRef(null)
   const autoTimer = useRef(null)
 
+/*   const isValidImageUrl = (url) => {
+  if (!url) return true
+  try {
+    new URL(url)
+    return /\.(jpg|jpeg|png|webp|gif)$/i.test(url)
+  } catch {
+    return false
+  }
+} */
+
+
   const temperamentOptions = useMemo(() => [
   "Affectionate",
   "Active",
@@ -193,28 +204,46 @@ export default function CatForm({ initialData = {}, onSubmit, onCancel, isSubmit
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    const currentField = fields[step]
-    if (!isValidValue(formData[currentField.key])) return
+  e.preventDefault()
 
-    const payload = {
-      _id: initialData._id || '',
-      id: initialData.id || '',
-      name,
-      imageUrl,
-      imagePublicId: publicId,
-      temperament: formData.temperament.join(', '),
-      childFriendly: Number(formData.childFriendly),
-      dogFriendly: Number(formData.dogFriendly),
-      grooming: Number(formData.grooming),
-      energyLevel: Number(formData.energyLevel),
-      strangerFriendly: Number(formData.strangerFriendly),
-      affectionLevel: Number(formData.affectionLevel),
-      sheddingLevel: Number(formData.sheddingLevel)
-    }
-
-    await onSubmit(payload)
+  const currentField = fields[step]
+  if (!isValidValue(formData[currentField.key])) {
+    return
   }
+
+ /*  if (!isValidImageUrl(imageUrl)) {
+    setError("Invalid image URL")
+    return
+  } */
+
+  if (formData.temperament.length === 0) {
+    setError("Select at least one temperament")
+    return
+  }
+
+  if (initialData._id && !initialData._id.trim()) {
+    setError("Invalid cat ID")
+    return
+  }
+
+  const payload = {
+    _id: initialData._id || '',
+    id: initialData.id || '',
+    name,
+    imageUrl,
+    imagePublicId: publicId,
+    temperament: formData.temperament.join(', '),
+    childFriendly: Number(formData.childFriendly),
+    dogFriendly: Number(formData.dogFriendly),
+    grooming: Number(formData.grooming),
+    energyLevel: Number(formData.energyLevel),
+    strangerFriendly: Number(formData.strangerFriendly),
+    affectionLevel: Number(formData.affectionLevel),
+    sheddingLevel: Number(formData.sheddingLevel)
+  }
+
+  await onSubmit(payload)
+}
 
   const currentField = fields[step]
 
