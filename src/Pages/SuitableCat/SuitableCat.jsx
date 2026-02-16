@@ -10,6 +10,8 @@ import { apiFetch } from '../../components/apiFetch.js'
 const STORAGE_KEY = 'suitableCatState'
 
 export default function SuitableCat() {
+  console.log("RENDER START")
+
   const [cats, setCats] = useState(null)
   const [current, setCurrent] = useState(0)
   const [answers, setAnswers] = useState({})
@@ -18,6 +20,8 @@ export default function SuitableCat() {
   const [selectedCat, setSelectedCat] = useState(null)
   const [error, setError] = useState(null)
   const { isOpen, openModal, closeModal } = useModal()
+
+  console.log("STATE:", { cats, current, answers, finished, results, selectedCat })
 
   const questions = useMemo(() => [
     { id: 'childFriendly', text: 'Do you have children at home?', options: [{ value: 5, label: 'Yes, young kids' }, { value: 3, label: 'Yes, older kids' }, { value: 1, label: 'No children' }] },
@@ -30,6 +34,8 @@ export default function SuitableCat() {
   ], [])
 
   const calculateScore = useCallback((cat, currentAnswers) => {
+    console.log("CALCULATE SCORE FOR:", cat.name || cat.id, currentAnswers)
+
     let totalScore = 0, count = 0, breakdown = []
     questions.forEach(q => {
       const uVal = currentAnswers[q.id], dVal = cat[q.id]
@@ -40,11 +46,18 @@ export default function SuitableCat() {
         breakdown.push({ id: q.id, trait: q.text, match })
       }
     })
-    return { ...cat, score: count > 0 ? Math.round(totalScore / count) : 0, breakdown }
+
+    const finalScore = count > 0 ? Math.round(totalScore / count) : 0
+    console.log("FINAL SCORE:", finalScore)
+
+    return { ...cat, score: finalScore, breakdown }
   }, [questions])
 
   useEffect(() => {
+    console.log("RESTORING STATE FROM LOCALSTORAGE")
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY))
+    console.log("SAVED STATE:", saved)
+
     if (saved) {
       setAnswers(saved.answers || {})
       setCurrent(saved.current || 0)
@@ -54,46 +67,66 @@ export default function SuitableCat() {
   }, [])
 
   useEffect(() => {
-  apiFetch('/cats')
-    .then(data => {
-      let list = []
+    console.log("FETCHING CATS FROM API")
 
-      if (Array.isArray(data)) list = data
-      else if (Array.isArray(data?.cats)) list = data.cats
-      else if (Array.isArray(data?.data)) list = data.data
+    apiFetch('/cats')
+      .then(data => {
+        console.log("RAW API RESPONSE:", data)
 
-      list = list.map((cat, index) => ({
-        id: cat.id ?? index, 
-        ...cat
-      }))
+        let list = []
 
-      setCats(list)
-    })
-    .catch(err => setError(err.message || 'Failed to load cats'))
-}, [])
+        if (Array.isArray(data)) list = data
+        else if (Array.isArray(data?.cats)) list = data.cats
+        else if (Array.isArray(data?.data)) list = data.data
+        else console.log("API DID NOT RETURN AN ARRAY")
 
+        list = list.map((cat, index) => ({
+          id: cat.id ?? index,
+          ...cat
+        }))
 
+        console.log("FINAL CAT LIST:", list)
+        setCats(list)
+      })
+      .catch(err => {
+        console.log("API ERROR:", err)
+        setError(err.message || 'Failed to load cats')
+      })
+  }, [])
 
   useEffect(() => {
+    console.log("SAVING STATE TO LOCALSTORAGE:", { answers, current, finished, results })
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ answers, current, finished, results }))
   }, [answers, current, finished, results])
 
   const handleAnswer = (qId, value) => {
+    console.log("ANSWER CLICKED:", qId, value)
+
     const newAnswers = { ...answers, [qId]: value }
+    console.log("NEW ANSWERS:", newAnswers)
+
     setAnswers(newAnswers)
+
     if (current < questions.length - 1) {
+      console.log("MOVING TO NEXT QUESTION")
       setCurrent(prev => prev + 1)
     } else {
+      console.log("QUIZ FINISHED — CALCULATING RESULTS")
+
       const topMatches = cats
         .map(cat => calculateScore(cat, newAnswers))
         .sort((a, b) => b.score - a.score)
         .slice(0, 10)
+
+      console.log("TOP MATCHES:", topMatches)
+
       setResults(topMatches)
       setFinished(true)
     }
   }
 
   const resetQuiz = () => {
+    console.log("RESET QUIZ")
     setAnswers({})
     setCurrent(0)
     setFinished(false)
@@ -103,18 +136,22 @@ export default function SuitableCat() {
   }
 
   const handleCatClick = (cat) => {
+    console.log("CAT CLICKED:", cat)
     setSelectedCat(cat)
     openModal()
-    const isShortScreen = window.innerHeight <= 520
-    if (isShortScreen && !document.fullscreenElement) {
-      const element = document.documentElement
-      if (element.requestFullscreen) element.requestFullscreen().catch(() => {})
-      else if (element.webkitRequestFullscreen) element.webkitRequestFullscreen()
-    }
   }
 
-  if (error) return <p>Error loading cats: {error}</p>
-  if (!cats) return <DogLoader />
+  if (error) {
+    console.log("ERROR:", error)
+    return <p>Error loading cats: {error}</p>
+  }
+
+  if (!cats) {
+    console.log("CATS STILL LOADING")
+    return <DogLoader />
+  }
+
+  console.log("RENDERING UI — FINISHED?", finished)
 
   return (
     <>
@@ -122,17 +159,23 @@ export default function SuitableCat() {
         <div className='top-cats'>
           <h1>Top 10 Matching Cats</h1>
           <p className='resultsText'>Click on the cards to learn more!</p>
+
           <div className='cardDiv'>
-            {results.map(cat => (
-              <SmallAnimalCard 
-                key={cat.id}
-                cat={cat}
-                onClick={() => handleCatClick(cat)}
-              >
-                <p><strong>Total Match:</strong> {cat.score || 0}%</p>
-              </SmallAnimalCard>
-            ))}
+            {results.length === 0 && <p>No results found</p>}
+            {results.map(cat => {
+              console.log("RENDERING RESULT CARD:", cat)
+              return (
+                <SmallAnimalCard 
+                  key={cat.id}
+                  cat={cat}
+                  onClick={() => handleCatClick(cat)}
+                >
+                  <p><strong>Total Match:</strong> {cat.score || 0}%</p>
+                </SmallAnimalCard>
+              )
+            })}
           </div>
+
           <div className='repeat'>
             <Button variant='primary' style={{ width: '120px' }} onClick={resetQuiz}>
               Repeat
@@ -144,6 +187,7 @@ export default function SuitableCat() {
           <h1>Which cat is going to be your new best friend?</h1>
           <h2>Question {current + 1} of {questions.length}</h2>
           <p>{questions[current].text}</p>
+
           <div className='options'>
             {questions[current].options.map(opt => (
               <Button
@@ -156,6 +200,7 @@ export default function SuitableCat() {
               </Button>
             ))}
           </div>
+
           <Button
             variant='primary'
             width='140px'
