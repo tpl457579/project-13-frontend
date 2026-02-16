@@ -121,8 +121,8 @@ const AdminCats = () => {
 
   const handleClearAll = () => {
     clearFilters();
-    setPage(1);  
-    setLettersOpen(false); 
+    setPage(1);
+    setLettersOpen(false);
     sessionStorage.removeItem('admin_cats_scroll');
     sessionStorage.setItem('admin_cats_page', '1');
     window.scrollTo(0, 0);
@@ -134,7 +134,6 @@ const AdminCats = () => {
       dashboardRef={dashboardRef}
       onLayoutClick={handleFullscreen}
       onAddClick={() => openModal()}
-      
       searchBar={
         <SearchBar
           value={search}
@@ -161,8 +160,8 @@ const AdminCats = () => {
             className="bulb-admin-filters" 
           />
           <p className="resultsText" style={{ margin: '15px 0' }}>
-              Showing {visibleCats.length} of {filteredCats.length} cats
-            </p>
+            Showing {visibleCats.length} of {filteredCats.length} cats
+          </p>
         </div>
       }
       alphabetFilter={
@@ -171,8 +170,8 @@ const AdminCats = () => {
           setLettersOpen={setLettersOpen}
           letter={letter}
           setLetter={(val) => {
-              setLetter(val);
-              setPage(1); 
+            setLetter(val);
+            setPage(1);
           }}
           setLoadedCount={setLoadedCount}
           ITEMS_PER_PAGE={ITEMS_PER_PAGE}
@@ -188,13 +187,10 @@ const AdminCats = () => {
           {visibleCats.length === 0 ? (
             <p className="resultsText">No cat breeds match your search.</p>
           ) : (
-            
             <div className="admin-cat-grid">
-            
               {visibleCats.map((cat) => (
                 <AdminCatCard
                   key={cat.id ?? cat._id}
-
                   cat={cat}
                   onEdit={() => openModal(cat)}
                   onDelete={() => openDeleteModal(cat)}

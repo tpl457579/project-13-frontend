@@ -2,7 +2,7 @@ import './CatForm.css'
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import Button from '../Buttons/Button'
 import Spinner from '../Spinner/Spinner'
-import DropZone from '../DropZone/DropZone' 
+import DropZone from '../DropZone/DropZone'
 import { AiOutlineArrowDown, AiOutlineArrowUp, AiOutlineClose } from 'react-icons/ai'
 import IdeaBulb from '../IdeaBulb/IdeaBulb'
 
@@ -13,20 +13,14 @@ function TemperamentSelector({ options, selected, onChange }) {
   const [isAtBottom, setIsAtBottom] = useState(false)
 
   const toggle = (t) => {
-    if (selected.includes(t)) {
-      onChange(selected.filter(x => x !== t))
-    } else {
-      onChange([...selected, t])
-    }
+    if (selected.includes(t)) onChange(selected.filter(x => x !== t))
+    else onChange([...selected, t])
   }
 
   const handleScrollLogic = () => {
     if (!scrollRef.current) return
-    if (isAtBottom) {
-      scrollRef.current.scrollTo({ top: 0, behavior: 'smooth' })
-    } else {
-      scrollRef.current.scrollBy({ top: 120, behavior: 'smooth' })
-    }
+    if (isAtBottom) scrollRef.current.scrollTo({ top: 0, behavior: 'smooth' })
+    else scrollRef.current.scrollBy({ top: 120, behavior: 'smooth' })
   }
 
   const onScroll = () => {
@@ -37,11 +31,7 @@ function TemperamentSelector({ options, selected, onChange }) {
 
   return (
     <div className="temperament-mode-container">
-      <div 
-        className="temperament-selector" 
-        ref={scrollRef}
-        onScroll={onScroll}
-      >
+      <div className="temperament-selector" ref={scrollRef} onScroll={onScroll}>
         {options.map(t => (
           <button
             key={t}
@@ -53,13 +43,8 @@ function TemperamentSelector({ options, selected, onChange }) {
           </button>
         ))}
       </div>
-      
       <div className="scroll-button-container">
-        <button 
-          type="button" 
-          className="scroll-toggle-btn" 
-          onClick={handleScrollLogic}
-        >
+        <button type="button" className="scroll-toggle-btn" onClick={handleScrollLogic}>
           {isAtBottom ? <AiOutlineArrowUp size={20} /> : <AiOutlineArrowDown size={20} />}
         </button>
       </div>
@@ -69,99 +54,106 @@ function TemperamentSelector({ options, selected, onChange }) {
 
 export default function CatForm({ initialData = {}, onSubmit, onCancel, isSubmitting }) {
   const [name, setName] = useState(initialData.name || '')
-  const [preview, setPreview] = useState(initialData.imageUrl || initialData.image_link || '')
-  const [imageUrl, setImageUrl] = useState(initialData.imageUrl || initialData.image_link || '')
-  const [publicId, setPublicId] = useState(initialData.imagePublicId || '')
+  const [preview, setPreview] = useState(initialData.imageUrl || '')
+  const [imageUrl, setImageUrl] = useState(initialData.imageUrl || '')
+  const [publicId, setPublicId] = useState(initialData.publicId || '')
   const [uploading, setUploading] = useState(false)
   const [step, setStep] = useState(0)
   const [error, setError] = useState('')
   const [showTemperaments, setShowTemperaments] = useState(false)
-  
+
   const inputRef = useRef(null)
   const autoTimer = useRef(null)
 
   const temperamentOptions = useMemo(() => [
-    'Stubborn','Curious','Playful','Adventurous','Active','Fun-loving','Aloof','Clownish',
-    'Dignified','Independent','Happy','Outgoing','Friendly','Alert','Confident','Intelligent',
-    'Courageous','Docile','Responsive','Composed','Receptive','Faithful','Affectionate',
-    'Devoted','Loyal','Assertive','Energetic','Gentle','Dominant','Reserved','Protective',
-    'Kind','Sweet-Tempered','Loving','Tenacious','Attentive','Obedient','Trainable','Steady',
-    'Bold','Proud'
-  ], [])
+  "Affectionate",
+  "Active",
+  "Energetic",
+  "Intelligent",
+  "Playful",
+  "Curious",
+  "Gentle",
+  "Independent",
+  "Loyal",
+  "Social",
+  "Friendly",
+  "Calm",
+  "Quiet",
+  "Sweet",
+  "Bold",
+  "Easy Going",
+  "Lively",
+  "Interactive",
+  "Agile",
+  "Confident",
+  "Courageous",
+  "Docile",
+  "Reserved",
+  "Protective",
+  "Loving",
+  "Trainable",
+  "Mischievous",
+  "Shy",
+  "Talkative",
+  "Adaptable"
+]
+, [])
 
   const fields = useMemo(() => [
-    { key: 'weight', label: '(e.g. 10 - 20 Kg)', type: 'text' },
-    { key: 'height', label: '(e.g. 10 - 20 Cm)', type: 'text' },
-    { key: 'life_span', label: '(e.g. 10 - 14 Years)', type: 'text' },
-    { key: 'good_with_children', label: 'Good with children (1-5)', type: 'text' },
-    { key: 'good_with_other_cats', label: 'Good with other cats (1-5)', type: 'text' },
-    { key: 'shedding', label: 'Shedding (1-5)', type: 'text' },
+    { key: 'childFriendly', label: 'Child Friendly (1-5)', type: 'text' },
+    { key: 'dogFriendly', label: 'Dog Friendly (1-5)', type: 'text' },
     { key: 'grooming', label: 'Grooming (1-5)', type: 'text' },
-    { key: 'good_with_strangers', label: 'Good with strangers (1-5)', type: 'text' },
-    { key: 'playfulness', label: 'Playfulness (1-5)', type: 'text' },
-    { key: 'protectiveness', label: 'Protectiveness (1-5)', type: 'text' },
-    { key: 'energy', label: 'Energy (1-5)', type: 'text' }
+    { key: 'energyLevel', label: 'Energy Level (1-5)', type: 'text' },
+    { key: 'strangerFriendly', label: 'Stranger Friendly (1-5)', type: 'text' },
+    { key: 'affectionLevel', label: 'Affection Level (1-5)', type: 'text' },
+    { key: 'sheddingLevel', label: 'Shedding Level (1-5)', type: 'text' }
   ], [])
 
   const [formData, setFormData] = useState({
-    temperament: [], weight: '', height: '', life_span: '',
-    good_with_children: '', good_with_other_cats: '', shedding: '',
-    grooming: '', good_with_strangers: '', playfulness: '',
-    protectiveness: '', energy: ''
+    temperament: [],
+    childFriendly: '',
+    dogFriendly: '',
+    grooming: '',
+    energyLevel: '',
+    strangerFriendly: '',
+    affectionLevel: '',
+    sheddingLevel: ''
   })
 
   useEffect(() => {
     setName(initialData.name || '')
-    const url = initialData.imageUrl || initialData.image_link || ''
+    const url = initialData.imageUrl || ''
     setPreview(url)
     setImageUrl(url)
-    setPublicId(initialData.imagePublicId || '')
-    
+    setPublicId(initialData.publicId || '')
+
     setFormData({
       temperament: Array.isArray(initialData.temperament)
         ? initialData.temperament
         : typeof initialData.temperament === 'string'
           ? initialData.temperament.split(',').map(s => s.trim()).filter(Boolean)
           : [],
-      weight: initialData.weight || '',
-      height: initialData.height || '',
-      life_span: initialData.life_span || '',
-      good_with_children: initialData.good_with_children || '',
-      good_with_other_cats: initialData.good_with_other_cats || '',
-      shedding: initialData.shedding || '',
+      childFriendly: initialData.childFriendly || '',
+      dogFriendly: initialData.dogFriendly || '',
       grooming: initialData.grooming || '',
-      good_with_strangers: initialData.good_with_strangers || '',
-      playfulness: initialData.playfulness || '',
-      protectiveness: initialData.protectiveness || '',
-      energy: initialData.energy || ''
+      energyLevel: initialData.energyLevel || '',
+      strangerFriendly: initialData.strangerFriendly || '',
+      affectionLevel: initialData.affectionLevel || '',
+      sheddingLevel: initialData.sheddingLevel || ''
     })
   }, [initialData])
 
-  const isValidValue = useCallback((value, field) => {
+  const isValidValue = useCallback((value) => {
     if (!value && value !== 0) return false
-    const val = String(value).trim()
-    if (field.key === 'weight') return /^\d+\s*-\s*\d+\s*Kg$/i.test(val)
-    if (field.key === 'height') return /^\d+\s*-\s*\d+\s*Cm$/i.test(val)
-    if (field.key === 'life_span') return /^\d+\s*-\s*\d+\s*Years$/i.test(val)
-    const n = Number(val)
+    const n = Number(String(value).trim())
     return !isNaN(n) && n >= 1 && n <= 5
   }, [])
 
   const handleFieldChange = (value) => {
     const field = fields[step]
-    let newValue = value
-    const rangeRegex = /^\d+\s*-\s*\d+$/
-    const hasTrailingSpace = value.endsWith(' ')
+    setFormData(prev => ({ ...prev, [field.key]: value }))
 
-    if (hasTrailingSpace && rangeRegex.test(value.trim())) {
-      if (field.key === 'weight') newValue = `${value.trim()} Kg`
-      else if (field.key === 'height') newValue = `${value.trim()} Cm`
-      else if (field.key === 'life_span') newValue = `${value.trim()} Years`
-    }
-
-    setFormData(prev => ({ ...prev, [field.key]: newValue }))
-
-    if (isValidValue(newValue, field)) {
+    if (isValidValue(value)) {
       setError('')
       if (step < fields.length - 1) {
         if (autoTimer.current) clearTimeout(autoTimer.current)
@@ -169,12 +161,7 @@ export default function CatForm({ initialData = {}, onSubmit, onCancel, isSubmit
       }
     } else {
       if (autoTimer.current) clearTimeout(autoTimer.current)
-      let errorMsg = ''
-      if (field.key === 'weight') errorMsg = 'Format: "10 - 20 Kg"'
-      else if (field.key === 'height') errorMsg = 'Format: "20 - 30 Cm"'
-      else if (field.key === 'life_span') errorMsg = 'Format: "10 - 15 Years"'
-      else errorMsg = 'Use a number 1-5'
-      setError(errorMsg)
+      setError('Use a number 1-5')
     }
   }
 
@@ -200,8 +187,6 @@ export default function CatForm({ initialData = {}, onSubmit, onCancel, isSubmit
         setPublicId(data.public_id)
         setPreview(data.secure_url)
       }
-    } catch (err) {
-      setError("Upload failed.")
     } finally {
       setUploading(false)
     }
@@ -210,24 +195,23 @@ export default function CatForm({ initialData = {}, onSubmit, onCancel, isSubmit
   const handleSubmit = async (e) => {
     e.preventDefault()
     const currentField = fields[step]
-    if (!isValidValue(formData[currentField.key], currentField)) return
+    if (!isValidValue(formData[currentField.key])) return
 
     const payload = {
-      ...initialData,
+      _id: initialData._id || '',
+      id: initialData.id || '',
       name,
-      image_link: imageUrl,
       imageUrl,
       publicId,
-      ...formData,
-      temperament: formData.temperament.join(', ')
+      temperament: formData.temperament.join(', '),
+      childFriendly: Number(formData.childFriendly),
+      dogFriendly: Number(formData.dogFriendly),
+      grooming: Number(formData.grooming),
+      energyLevel: Number(formData.energyLevel),
+      strangerFriendly: Number(formData.strangerFriendly),
+      affectionLevel: Number(formData.affectionLevel),
+      sheddingLevel: Number(formData.sheddingLevel)
     }
-
-    Object.keys(payload).forEach((k) => {
-      const field = fields.find(f => f.key === k)
-      if (field && !['weight', 'height', 'life_span'].includes(field.key)) {
-        payload[k] = payload[k] === '' ? 0 : Number(payload[k])
-      }
-    })
 
     await onSubmit(payload)
   }
@@ -240,24 +224,23 @@ export default function CatForm({ initialData = {}, onSubmit, onCancel, isSubmit
         <div className='modal-close' onClick={onCancel}>
           <AiOutlineClose size={24} />
         </div>
+
         <h2 className="form-title-vertical">{initialData._id ? 'Edit Cat' : 'Add Cat'}</h2>
+
         <div className='cat-layout-wrapper'>
           <div className="form-section-visuals">
             <div className="visual-toggle">
               <button type="button" className={!showTemperaments ? "active" : ""} onClick={() => setShowTemperaments(false)}>Image</button>
               <button type="button" className={showTemperaments ? "active" : ""} onClick={() => setShowTemperaments(true)}>Temperaments</button>
             </div>
+
             <div className="visual-content">
               {!showTemperaments ? (
                 <div className="image-mode">
                   <div className="add-cat-image">
                     <img src={preview || PLACEHOLDER} alt="Cat" />
                   </div>
-                  <DropZone 
-                    handleFileChange={handleFileChange} 
-                    height="120px"
-                    fontSize="14px"
-                  />
+                  <DropZone handleFileChange={handleFileChange} height="120px" fontSize="14px" />
                   {uploading && <Spinner />}
                 </div>
               ) : (
@@ -271,13 +254,15 @@ export default function CatForm({ initialData = {}, onSubmit, onCancel, isSubmit
               )}
             </div>
           </div>
+
           <div className='form-section-inputs'>
             <h3 className="form-title">{initialData._id ? 'Edit Cat' : 'Add Cat'}</h3>
+
             <div className='identity-inputs'>
               <input value={name} onChange={(e) => setName(e.target.value)} placeholder='Name' required />
               <input value={imageUrl} onChange={(e) => { setImageUrl(e.target.value); setPreview(e.target.value); }} placeholder='Image URL' />
             </div>
-            
+
             <div className='characteristics-step'>
               <div className="input-wrapper">
                 <input
@@ -305,11 +290,11 @@ export default function CatForm({ initialData = {}, onSubmit, onCancel, isSubmit
             </div>
 
             <div className='admin-cat-form-buttons'>
-              <Button 
-                type='submit' 
-                loading={isSubmitting || uploading} 
+              <Button
+                type='submit'
+                loading={isSubmitting || uploading}
                 loadingText="Saving..."
-                showSpinner 
+                showSpinner
                 disabled={!!error || !name}
               >
                 Save Cat
