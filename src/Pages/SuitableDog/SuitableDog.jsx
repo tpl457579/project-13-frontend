@@ -29,9 +29,12 @@ export default function SuitableDog() {
   ], [])
 
   const calculateScore = useCallback((dog, currentAnswers) => {
-    let totalScore = 0, count = 0, breakdown = []
+    let totalScore = 0
+    let count = 0
+    let breakdown = []
     questions.forEach(q => {
-      const uVal = currentAnswers[q.id], dVal = dog[q.id]
+      const uVal = currentAnswers[q.id]
+      const dVal = dog[q.id]
       if (uVal !== undefined && dVal != null) {
         count++
         const match = Math.max(0, 100 - Math.abs(uVal - dVal) * 20)
@@ -50,15 +53,21 @@ export default function SuitableDog() {
       setFinished(saved.finished || false)
       setResults(saved.results || [])
     }
-    
-    fetch('https://dog-character-api.onrender.com/api/dogs')
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
-      .then(data => setDogs(data.filter(d => d.id !== null)))
-      .catch(err => setError(err.message))
+
+    fetch('https://project-13-backend-1sra.onrender.com/api/v1/dogs')
+      .then(res => res.json())
+      .then(data => {
+        console.log("DOG API RESPONSE:", data)
+        setDogs(Array.isArray(data) ? data : data.data || [])
+      })
+      .catch(err => setError(err?.message || String(err)))
   }, [])
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ answers, current, finished, results }))
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ answers, current, finished, results })
+    )
   }, [answers, current, finished, results])
 
   const handleAnswer = (qId, value) => {
@@ -77,24 +86,24 @@ export default function SuitableDog() {
   }
 
   const resetQuiz = () => {
-    setAnswers({}); setCurrent(0); setFinished(false); setResults([]); setSelectedDog(null)
+    setAnswers({})
+    setCurrent(0)
+    setFinished(false)
+    setResults([])
+    setSelectedDog(null)
     localStorage.removeItem(STORAGE_KEY)
   }
 
   const handleDogClick = (dog) => {
-    setSelectedDog(dog);
-    openModal();
-
-    const isShortScreen = window.innerHeight <= 520;
+    setSelectedDog(dog)
+    openModal()
+    const isShortScreen = window.innerHeight <= 520
     if (isShortScreen && !document.fullscreenElement) {
-      const element = document.documentElement;
-      if (element.requestFullscreen) {
-        element.requestFullscreen().catch(() => {});
-      } else if (element.webkitRequestFullscreen) {
-        element.webkitRequestFullscreen();
-      }
+      const element = document.documentElement
+      if (element.requestFullscreen) element.requestFullscreen().catch(() => {})
+      else if (element.webkitRequestFullscreen) element.webkitRequestFullscreen()
     }
-  };
+  }
 
   if (error) return <p>Error loading dogs: {error}</p>
   if (!dogs) return <DogLoader />
@@ -108,8 +117,8 @@ export default function SuitableDog() {
           <div className='cardDiv'>
             {results.map((dog) => (
               <SmallAnimalCard 
-                key={dog.id} 
-                dog={dog} 
+                key={dog._id}
+                dog={dog}
                 onClick={() => handleDogClick(dog)}
               >
                 <p><strong>Total Match:</strong> {dog.score || 0}%</p>
@@ -130,33 +139,33 @@ export default function SuitableDog() {
           <div className='options'>
             {questions[current].options.map((opt) => (
               <Button 
-                variant='primary' 
-                key={opt.value} 
-                className='optionInput' 
+                variant='primary'
+                key={opt.value}
+                className='optionInput'
                 onClick={() => handleAnswer(questions[current].id, opt.value)}
               >
                 {opt.label}
               </Button>
             ))}
           </div>
-         <Button 
-  variant='primary' 
-  width='140px'
-  height='34px'
-  fontSize='16px'
-  className='questionnaire-back-btn' 
-  onClick={() => setCurrent(c => c - 1)} 
-  disabled={current === 0}
->
-  Back
-</Button>
+          <Button 
+            variant='primary'
+            width='140px'
+            height='34px'
+            fontSize='16px'
+            className='questionnaire-back-btn'
+            onClick={() => setCurrent(c => c - 1)}
+            disabled={current === 0}
+          >
+            Back
+          </Button>
         </div>
       )}
 
       <DogPopup 
-        isOpen={isOpen} 
-        closePopup={closeModal} 
-        dog={selectedDog} 
+        isOpen={isOpen}
+        closePopup={closeModal}
+        dog={selectedDog}
       />
     </>
   )
