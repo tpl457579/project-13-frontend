@@ -67,32 +67,40 @@ export default function SuitableCat() {
   }, [])
 
   useEffect(() => {
-    console.log("FETCHING CATS FROM API")
+  console.log("FETCHING /cats ...")
 
-    apiFetch('/cats')
-      .then(data => {
-        console.log("RAW API RESPONSE:", data)
+  apiFetch('/cats')
+    .then(data => {
+      console.log("RAW API RESPONSE:", data)
+      console.log("TYPE:", typeof data)
+      console.log("IS ARRAY:", Array.isArray(data))
 
-        let list = []
+      let list = []
 
-        if (Array.isArray(data)) list = data
-        else if (Array.isArray(data?.cats)) list = data.cats
-        else if (Array.isArray(data?.data)) list = data.data
-        else console.log("API DID NOT RETURN AN ARRAY")
+      if (Array.isArray(data)) {
+        console.log("USING ROOT ARRAY")
+        list = data
+      } 
+      else if (Array.isArray(data?.cats)) {
+        console.log("USING data.cats ARRAY")
+        list = data.cats
+      } 
+      else if (Array.isArray(data?.data)) {
+        console.log("USING data.data ARRAY")
+        list = data.data
+      } 
+      else {
+        console.log("❌ NO VALID ARRAY FOUND IN API RESPONSE")
+      }
 
-        list = list.map((cat, index) => ({
-          id: cat.id ?? index,
-          ...cat
-        }))
-
-        console.log("FINAL CAT LIST:", list)
-        setCats(list)
-      })
-      .catch(err => {
-        console.log("API ERROR:", err)
-        setError(err.message || 'Failed to load cats')
-      })
-  }, [])
+      console.log("FINAL LIST BEFORE SET:", list)
+      setCats(list)
+    })
+    .catch(err => {
+      console.log("FETCH ERROR:", err)
+      setError(err.message || "Failed to load cats")
+    })
+}, [])
 
   useEffect(() => {
     console.log("SAVING STATE TO LOCALSTORAGE:", { answers, current, finished, results })
