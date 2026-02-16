@@ -56,13 +56,13 @@ export default function SuitableDog() {
     }
 
     apiFetch('/dogs')
-      .then(res => res.json())
-      .then(data => {
-        console.log("DOG API RESPONSE:", data)
-        setDogs(Array.isArray(data) ? data : data.data || [])
-      })
-      .catch(err => setError(err?.message || String(err)))
+  .then(data => {
+    console.log("DOG API RESPONSE:", data)
+    setDogs(Array.isArray(data) ? data : data.data || [])
+  })
+  .catch(err => setError(err?.message || String(err)))
   }, [])
+
 
   useEffect(() => {
     localStorage.setItem(
