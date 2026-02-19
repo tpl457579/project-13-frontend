@@ -12,7 +12,7 @@ import FilterControls from '../../FilterControls/FilterControls';
 import AlphabetFilter from '../../components/AlphabetFilter/AlphabetFilter';
 import PaginationControls from '../../components/PaginationControls/PaginationControls';
 import AdminCatCard from '../../components/AdminCatCard/AdminCatCard';
-import DogLoader from '../../components/DogLoader/DogLoader';
+import Loader from '../../components/Loader/Loader';
 import Modal from '../../components/Modal/Modal';
 import CatForm from '../../components/CatForm/CatForm';
 import DeleteModal from '../../components/DeleteModal/DeleteModal';
@@ -179,7 +179,7 @@ const AdminCats = () => {
       }
     >
       {loading ? (
-        <DogLoader />
+        <Loader />
       ) : error ? (
         <p className="error">{error}</p>
       ) : (

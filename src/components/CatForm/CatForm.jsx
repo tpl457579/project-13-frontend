@@ -65,52 +65,41 @@ export default function CatForm({ initialData = {}, onSubmit, onCancel, isSubmit
   const inputRef = useRef(null)
   const autoTimer = useRef(null)
 
-/*   const isValidImageUrl = (url) => {
-  if (!url) return true
-  try {
-    new URL(url)
-    return /\.(jpg|jpeg|png|webp|gif)$/i.test(url)
-  } catch {
-    return false
-  }
-} */
-
-
   const temperamentOptions = useMemo(() => [
-  "Affectionate",
-  "Active",
-  "Energetic",
-  "Intelligent",
-  "Playful",
-  "Curious",
-  "Gentle",
-  "Independent",
-  "Loyal",
-  "Social",
-  "Friendly",
-  "Calm",
-  "Quiet",
-  "Sweet",
-  "Bold",
-  "Easy Going",
-  "Lively",
-  "Interactive",
-  "Agile",
-  "Confident",
-  "Courageous",
-  "Docile",
-  "Reserved",
-  "Protective",
-  "Loving",
-  "Trainable",
-  "Mischievous",
-  "Shy",
-  "Talkative",
-  "Adaptable"
-]
-, [])
+    "Affectionate",
+    "Active",
+    "Energetic",
+    "Intelligent",
+    "Playful",
+    "Curious",
+    "Gentle",
+    "Independent",
+    "Loyal",
+    "Social",
+    "Friendly",
+    "Calm",
+    "Quiet",
+    "Sweet",
+    "Bold",
+    "Easy Going",
+    "Lively",
+    "Interactive",
+    "Agile",
+    "Confident",
+    "Courageous",
+    "Docile",
+    "Reserved",
+    "Protective",
+    "Loving",
+    "Trainable",
+    "Mischievous",
+    "Shy",
+    "Talkative",
+    "Adaptable"
+  ], [])
 
   const fields = useMemo(() => [
+    { key: 'lifeSpan', label: 'Life Span (e.g., 12-15 years)', type: 'text' },
     { key: 'childFriendly', label: 'Child Friendly (1-5)', type: 'text' },
     { key: 'dogFriendly', label: 'Dog Friendly (1-5)', type: 'text' },
     { key: 'grooming', label: 'Grooming (1-5)', type: 'text' },
@@ -122,6 +111,7 @@ export default function CatForm({ initialData = {}, onSubmit, onCancel, isSubmit
 
   const [formData, setFormData] = useState({
     temperament: [],
+    lifeSpan: '',
     childFriendly: '',
     dogFriendly: '',
     grooming: '',
@@ -144,6 +134,7 @@ export default function CatForm({ initialData = {}, onSubmit, onCancel, isSubmit
         : typeof initialData.temperament === 'string'
           ? initialData.temperament.split(',').map(s => s.trim()).filter(Boolean)
           : [],
+      lifeSpan: initialData.lifeSpan || '',
       childFriendly: initialData.childFriendly || '',
       dogFriendly: initialData.dogFriendly || '',
       grooming: initialData.grooming || '',
@@ -160,13 +151,43 @@ export default function CatForm({ initialData = {}, onSubmit, onCancel, isSubmit
     return !isNaN(n) && n >= 1 && n <= 5
   }, [])
 
-  const handleFieldChange = (value) => {
-    const field = fields[step]
-    setFormData(prev => ({ ...prev, [field.key]: value }))
+ const handleFieldChange = (value) => {
+  const field = fields[step]
+  let newValue = value
+  const rangeRegex = /^\d+\s*-\s*\d+$/
+  const hasTrailingSpace = value.endsWith(' ')
 
+  // Check if user just deleted a character (value is shorter than before)
+  const previousValue = formData[field.key] || ''
+  const isDeleting = value.length < previousValue.length
+
+  // Auto-add "years" for lifeSpan when user types range and hits space
+  if (field.key === 'lifeSpan' && hasTrailingSpace && rangeRegex.test(value.trim())) {
+    newValue = `${value.trim()} years`
+  }
+
+  setFormData(prev => ({ ...prev, [field.key]: newValue }))
+
+  // Special handling for lifeSpan - allow text like "12-15 years"
+  if (field.key === 'lifeSpan') {
+    const lifeSpanRegex = /^\d+\s*-\s*\d+\s*years$/i
+    if (lifeSpanRegex.test(newValue.trim()) || newValue.trim()) {
+      setError('')
+      // Only auto-advance if NOT deleting and NOT on last step
+      if (!isDeleting && step < fields.length - 1) {
+        if (autoTimer.current) clearTimeout(autoTimer.current)
+        autoTimer.current = setTimeout(() => setStep(s => s + 1), 800)
+      }
+    } else {
+      if (autoTimer.current) clearTimeout(autoTimer.current)
+      setError('Format: "10 - 15 years"')
+    }
+  } else {
+    // Original validation for numeric fields (1-5)
     if (isValidValue(value)) {
       setError('')
-      if (step < fields.length - 1) {
+      // Only auto-advance if NOT deleting and NOT on last step
+      if (!isDeleting && step < fields.length - 1) {
         if (autoTimer.current) clearTimeout(autoTimer.current)
         autoTimer.current = setTimeout(() => setStep(s => s + 1), 800)
       }
@@ -175,6 +196,7 @@ export default function CatForm({ initialData = {}, onSubmit, onCancel, isSubmit
       setError('Use a number 1-5')
     }
   }
+}
 
   const handleManualStep = (index) => {
     setStep(index)
@@ -204,46 +226,51 @@ export default function CatForm({ initialData = {}, onSubmit, onCancel, isSubmit
   }
 
   const handleSubmit = async (e) => {
-  e.preventDefault()
+    e.preventDefault()
 
-  const currentField = fields[step]
-  if (!isValidValue(formData[currentField.key])) {
-    return
+    const currentField = fields[step]
+    
+    // Validate current field
+    if (currentField.key === 'lifeSpan') {
+      if (!formData.lifeSpan.trim()) {
+        setError('Life span is required')
+        return
+      }
+    } else {
+      if (!isValidValue(formData[currentField.key])) {
+        return
+      }
+    }
+
+    if (formData.temperament.length === 0) {
+      setError("Select at least one temperament")
+      return
+    }
+
+    if (initialData._id && !initialData._id.trim()) {
+      setError("Invalid cat ID")
+      return
+    }
+
+    const payload = {
+      _id: initialData._id || '',
+      id: initialData.id || '',
+      name,
+      imageUrl,
+      imagePublicId: publicId,
+      temperament: formData.temperament.join(', '),
+      lifeSpan: formData.lifeSpan,
+      childFriendly: Number(formData.childFriendly),
+      dogFriendly: Number(formData.dogFriendly),
+      grooming: Number(formData.grooming),
+      energyLevel: Number(formData.energyLevel),
+      strangerFriendly: Number(formData.strangerFriendly),
+      affectionLevel: Number(formData.affectionLevel),
+      sheddingLevel: Number(formData.sheddingLevel)
+    }
+
+    await onSubmit(payload)
   }
-
- /*  if (!isValidImageUrl(imageUrl)) {
-    setError("Invalid image URL")
-    return
-  } */
-
-  if (formData.temperament.length === 0) {
-    setError("Select at least one temperament")
-    return
-  }
-
-  if (initialData._id && !initialData._id.trim()) {
-    setError("Invalid cat ID")
-    return
-  }
-
-  const payload = {
-    _id: initialData._id || '',
-    id: initialData.id || '',
-    name,
-    imageUrl,
-    imagePublicId: publicId,
-    temperament: formData.temperament.join(', '),
-    childFriendly: Number(formData.childFriendly),
-    dogFriendly: Number(formData.dogFriendly),
-    grooming: Number(formData.grooming),
-    energyLevel: Number(formData.energyLevel),
-    strangerFriendly: Number(formData.strangerFriendly),
-    affectionLevel: Number(formData.affectionLevel),
-    sheddingLevel: Number(formData.sheddingLevel)
-  }
-
-  await onSubmit(payload)
-}
 
   const currentField = fields[step]
 

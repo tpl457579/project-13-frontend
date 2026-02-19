@@ -147,37 +147,41 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
     return !isNaN(n) && n >= 1 && n <= 5
   }, [])
 
-  const handleFieldChange = (value) => {
-    const field = fields[step]
-    let newValue = value
-    const rangeRegex = /^\d+\s*-\s*\d+$/
-    const hasTrailingSpace = value.endsWith(' ')
+ const handleFieldChange = (value) => {
+  const field = fields[step]
+  let newValue = value
+  const rangeRegex = /^\d+\s*-\s*\d+$/
+  const hasTrailingSpace = value.endsWith(' ')
 
-    if (hasTrailingSpace && rangeRegex.test(value.trim())) {
-      if (field.key === 'weight') newValue = `${value.trim()} Kg`
-      else if (field.key === 'height') newValue = `${value.trim()} Cm`
-      else if (field.key === 'life_span') newValue = `${value.trim()} Years`
-    }
+  // Check if user just deleted a character (value is shorter than before)
+  const previousValue = formData[field.key] || ''
+  const isDeleting = value.length < previousValue.length
 
-    setFormData(prev => ({ ...prev, [field.key]: newValue }))
-
-    if (isValidValue(newValue, field)) {
-      setError('')
-      if (step < fields.length - 1) {
-        if (autoTimer.current) clearTimeout(autoTimer.current)
-        autoTimer.current = setTimeout(() => setStep(s => s + 1), 800)
-      }
-    } else {
-      if (autoTimer.current) clearTimeout(autoTimer.current)
-      let errorMsg = ''
-      if (field.key === 'weight') errorMsg = 'Format: "10 - 20 Kg"'
-      else if (field.key === 'height') errorMsg = 'Format: "20 - 30 Cm"'
-      else if (field.key === 'life_span') errorMsg = 'Format: "10 - 15 Years"'
-      else errorMsg = 'Use a number 1-5'
-      setError(errorMsg)
-    }
+  if (hasTrailingSpace && rangeRegex.test(value.trim())) {
+    if (field.key === 'weight') newValue = `${value.trim()} Kg`
+    else if (field.key === 'height') newValue = `${value.trim()} Cm`
+    else if (field.key === 'life_span') newValue = `${value.trim()} Years`
   }
 
+  setFormData(prev => ({ ...prev, [field.key]: newValue }))
+
+  if (isValidValue(newValue, field)) {
+    setError('')
+    // Only auto-advance if NOT deleting and NOT on last step
+    if (!isDeleting && step < fields.length - 1) {
+      if (autoTimer.current) clearTimeout(autoTimer.current)
+      autoTimer.current = setTimeout(() => setStep(s => s + 1), 800)
+    }
+  } else {
+    if (autoTimer.current) clearTimeout(autoTimer.current)
+    let errorMsg = ''
+    if (field.key === 'weight') errorMsg = 'Format: "10 - 20 Kg"'
+    else if (field.key === 'height') errorMsg = 'Format: "20 - 30 Cm"'
+    else if (field.key === 'life_span') errorMsg = 'Format: "10 - 15 Years"'
+    else errorMsg = 'Use a number 1-5'
+    setError(errorMsg)
+  }
+}
   const handleManualStep = (index) => {
     setStep(index)
     setError('')

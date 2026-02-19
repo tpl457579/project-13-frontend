@@ -12,7 +12,7 @@ import FilterControls from '../../FilterControls/FilterControls';
 import AlphabetFilter from '../../components/AlphabetFilter/AlphabetFilter';
 import PaginationControls from '../../components/PaginationControls/PaginationControls';
 import AdminDogCard from '../../components/AdminDogCard/AdminDogCard';
-import DogLoader from '../../components/DogLoader/DogLoader';
+import Loader from '../../components/Loader/Loader';
 import Modal from '../../components/Modal/Modal';
 import DogForm from '../../components/DogForm/DogForm';
 import DeleteModal from '../../components/DeleteModal/DeleteModal';
@@ -180,7 +180,7 @@ const AdminDogs = () => {
       }
     >
       {loading ? (
-        <DogLoader />
+        <Loader />
       ) : error ? (
         <p className="error">{error}</p>
       ) : (

@@ -1,9 +1,9 @@
 import '../SuitableCat/SuitableCat.css'
 import { useState, useEffect, useCallback, useMemo } from 'react'
-import DogLoader from '../../components/DogLoader/DogLoader'
+import Loader from '../../components/Loader/Loader'
 import Button from '../../components/Buttons/Button'
 import { useModal } from '../../Hooks/useModal.js'
-import DogPopup from '../../components/DogPopup/DogPopup.jsx'
+import AnimalPopup from '../../components/AnimalPopup/AnimalPopup.jsx'
 import SmallAnimalCard from '../../components/SmallAnimalCard/SmallAnimalCard.jsx'
 
 const STORAGE_KEY = 'suitableCatState'
@@ -166,7 +166,7 @@ export default function SuitableCat() {
 
   if (!cats) {
     console.log("⏳ Showing loader — cats not loaded yet")
-    return <DogLoader />
+    return <Loader />
   }
 
   console.log("🎨 Rendering UI — finished:", finished)
@@ -229,7 +229,7 @@ export default function SuitableCat() {
         </div>
       )}
 
-      <DogPopup 
+      <AnimalPopup 
         isOpen={isOpen}
         closePopup={() => {
           console.log("❌ Closing popup")

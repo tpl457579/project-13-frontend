@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import './DogIntro.css'
+import './Intro.css'
 
-const DogIntro = ({ onFinished }) => {
+const Intro = ({ onFinished }) => {
   const [isBreaking, setIsBreaking] = useState(false)
   const colors = ['#FFD700', '#FF4500', '#00BFFF', '#ADFF2F', '#FF69B4', '#FFFFFF', '#8e44ad']
 
@@ -57,4 +57,4 @@ const DogIntro = ({ onFinished }) => {
   )
 }
 
-export default DogIntro
+export default Intro

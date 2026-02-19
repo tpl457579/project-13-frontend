@@ -50,6 +50,11 @@
   background: transparent;
 }
 
-.site-button * {
-  pointer-events: none;
+.button-spinner {
+  border: 2px solid var(--button-border-color);
+  border-top: 2px solid var(--accent-color);
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spin 1s linear infinite;
 }

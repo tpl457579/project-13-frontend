@@ -7,7 +7,7 @@ import PasswordInput from '../../components/PasswordInput/PasswordInput'
 import { apiFetch } from '../../components/apiFetch'
 import Button from '../../components/Buttons/Button'
 import FormInput from '../../components/FormInput/FormInput'
-import DogIntro from '../../components/DogIntro/DogIntro'
+import Intro from '../../components/Intro/Intro'
 
 const LoginPage = () => {
   const [userName, setUserName] = useState('')
@@ -68,7 +68,7 @@ const LoginPage = () => {
 
   if (isLoggingIn) {
     return (
-      <DogIntro 
+      <Intro 
         onFinished={() => {
           navigate('/')
           setTimeout(() => {

@@ -2,8 +2,8 @@ import { useContext, useRef } from 'react'
 import mojs from '@mojs/core'
 import { AuthContext } from '/src/components/AuthContext'
 import ShowPopup from '../ShowPopup/ShowPopup.js'
-import { AiFillHeart, AiOutlineHeart, AiOutlineEdit, AiOutlineDelete, } from 'react-icons/ai'
-import { GiRoundStar } from "react-icons/gi";
+import { AiFillHeart, AiOutlineHeart, AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'
+import { GiRoundStar } from "react-icons/gi"
 import './ProductCard.css'
 
 const ProductCard = ({ 
@@ -20,23 +20,40 @@ const ProductCard = ({
   disabled = false
 }) => {
   if (!product || !product._id) return null
+  
   const { user } = useContext(AuthContext)
   const buttonRef = useRef(null)
 
-  const handleFavouriteClick = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
-    
-    if (disabled) return
-    
-    if (!user?._id) {
-      ShowPopup('You must be logged in to add favourites', 'error')
-      return
-    }
-    
-    if (!isFavourite) animateHeart()
-    onToggleFavourite(product)
+const handleFavouriteClick = (e) => {
+  e.preventDefault()
+  e.stopPropagation()
+  
+  console.log('❤️ Heart clicked!')
+  console.log('🎁 Full product object:', product) // Add this
+  console.log('🆔 Product ID:', product._id) // Add this
+  console.log('📞 Calling onToggleFavourite with:', product) // Add this
+  
+  if (disabled) {
+    console.log('❌ Button disabled')
+    return
   }
+  
+  if (!user?._id) {
+    ShowPopup('You must be logged in to add favourites', 'error')
+    return
+  }
+  
+  if (!onToggleFavourite) {
+    console.error('❌ onToggleFavourite is not defined!')
+    return
+  }
+  
+  if (!isFavourite) animateHeart()
+  
+  console.log('🚀 RIGHT BEFORE calling onToggleFavourite') // Add this
+  onToggleFavourite(product)
+  console.log('✅ AFTER calling onToggleFavourite') // Add this
+}
 
   const animateHeart = () => {
     if (!buttonRef.current) return
@@ -89,33 +106,31 @@ const ProductCard = ({
           </p>
         )}
 
-        
-          {showHeart && (
-            <button
-              ref={buttonRef}
-              type="button"
-              onClick={handleFavouriteClick}
-              disabled={disabled}
-              className={`heart-btn ${isFavourite ? 'active' : ''}`}
-              
-            >
-              {isFavourite ? <AiFillHeart size={28} color="red" /> : <AiOutlineHeart size={28} />}
+        {showHeart && (
+          <button
+            ref={buttonRef}
+            type="button"
+            onClick={handleFavouriteClick}
+            disabled={disabled}
+            className={`heart-btn ${isFavourite ? 'active' : ''}`}
+            aria-label={isFavourite ? 'Remove from favourites' : 'Add to favourites'}
+          >
+            {isFavourite ? <AiFillHeart size={28} color="red" /> : <AiOutlineHeart size={28} />}
+          </button>
+        )}
+
+        {!showHeart && showAdminActions && (
+          <div className="product-buttons">
+            <button type="button" disabled={disabled} onClick={() => onEdit(product)}>
+              <AiOutlineEdit size={18}/> Edit
             </button>
-          )}
-
-          {!showHeart && showAdminActions && (
-            <div className="product-buttons">
-              <button type="button" disabled={disabled} onClick={() => onEdit(product)}>
-                <AiOutlineEdit size={18}/> Edit
-              </button>
-              <button type="button" disabled={disabled} onClick={() => onDelete(product)}>
-                <AiOutlineDelete size={18}/> Delete
-              </button>
-            </div>
-          )}
-        </div>
+            <button type="button" disabled={disabled} onClick={() => onDelete(product)}>
+              <AiOutlineDelete size={18}/> Delete
+            </button>
+          </div>
+        )}
       </div>
-
+    </div>
   )
 }
 

@@ -1,9 +1,9 @@
 import '../SuitableDog/SuitableDog.css'
 import { useState, useEffect, useCallback, useMemo } from 'react'
-import DogLoader from '../../components/DogLoader/DogLoader'
+import Loader from '../../components/Loader/Loader'
 import Button from '../../components/Buttons/Button'
 import { useModal } from '../../Hooks/useModal.js'
-import DogPopup from '../../components/DogPopup/DogPopup.jsx'
+import AnimalPopup from '../../components/AnimalPopup/AnimalPopup.jsx'
 import SmallAnimalCard from '../../components/SmallAnimalCard/SmallAnimalCard.jsx'
 import { apiFetch } from '../../components/apiFetch.js'
 
@@ -107,7 +107,7 @@ export default function SuitableDog() {
   }
 
   if (error) return <p>Error loading dogs: {error}</p>
-  if (!dogs) return <DogLoader />
+  if (!dogs) return <Loader />
 
   return (
     <>
@@ -164,7 +164,7 @@ export default function SuitableDog() {
         </div>
       )}
 
-      <DogPopup 
+      <AnimalPopup 
         isOpen={isOpen}
         closePopup={closeModal}
         dog={selectedDog}

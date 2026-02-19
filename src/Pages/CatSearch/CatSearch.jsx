@@ -1,8 +1,8 @@
 import './CatSearch.css'
 import { useState, useEffect, useRef } from 'react'
-import DogLoader from '../../components/DogLoader/DogLoader.jsx'
+import Loader from '../../components/Loader/Loader.jsx'
 import SearchBar from '../../components/SearchBar/SearchBar.jsx'
-import DogPopup from '../../components/DogPopup/DogPopup.jsx'
+import AnimalPopup from '../../components/AnimalPopup/AnimalPopup.jsx'
 import { useCatFilters } from '../../Hooks/useCatFilters.js'
 import { apiFetch } from '../../components/apiFetch.js' 
 import AlphabetFilter from '../../components/AlphabetFilter/AlphabetFilter.jsx'
@@ -11,7 +11,7 @@ import IdeaBulb from '../../components/IdeaBulb/IdeaBulb.jsx'
 
 const ITEMS_PER_PAGE = 8
 
-const getSize = (cat) => {
+/* const getSize = (cat) => {
   if (!cat.weight) return null
   const weightStr = typeof cat.weight === 'object' ? cat.weight.metric : String(cat.weight)
   const w = weightStr.split('-')[0].trim()
@@ -20,7 +20,7 @@ const getSize = (cat) => {
   if (weightNum <= 7) return 'small'
   if (weightNum <= 14) return 'medium'
   return 'large'
-}
+} */
 
 export default function CatSearch() {
   const [cats, setCats] = useState([])
@@ -40,7 +40,7 @@ export default function CatSearch() {
         const res = await apiFetch('/cats') 
         const data = res?.cats || res?.data || res
         const validCats = (Array.isArray(data) ? data : [])
-          .map((d) => ({ ...d, catSize: getSize(d) }))
+          /* .map((d) => ({ ...d, catSize: getSize(d) })) */
         
         setCats(validCats)
 
@@ -87,7 +87,7 @@ export default function CatSearch() {
 
   const {
     search, setSearch,
-    size, setSize,
+    /* size, setSize, */
     temperament, setTemperament,
     letter, setLetter,
     filteredCats,
@@ -132,7 +132,7 @@ export default function CatSearch() {
     setIsModalOpen(false)
   }
 
-  if (loading) return <DogLoader />
+  if (loading) return <Loader />
 
   return (
     <div className='cat-search-layout'>
@@ -149,7 +149,7 @@ export default function CatSearch() {
         />
 
         <div className='filters'>
-  <select
+  {/* <select
     className='filter-select-cat-search'
     value={size}
     onChange={(e) => {
@@ -162,7 +162,7 @@ export default function CatSearch() {
     <option value='medium'>Medium</option>
     <option value='large'>Large</option>
   </select>
-
+ */}
   <div className="custom-dropdown" ref={dropdownRef}>
     <button 
       type="button"
@@ -243,7 +243,7 @@ export default function CatSearch() {
            </button>
         )}
 
-        <DogPopup
+        <AnimalPopup
           isOpen={isModalOpen}
           closePopup={closeModal}
           cat={selectedCat}

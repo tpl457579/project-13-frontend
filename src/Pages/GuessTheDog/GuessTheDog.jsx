@@ -11,7 +11,7 @@ import Button from '../../components/Buttons/Button.jsx'
 import { Pause, Play } from 'lucide-react'
 import { gameReducer, initialState } from '../../Reducers/GameReducer.jsx'
 import { useLocalStorage } from '../../Hooks/useLocalStorage.js'
-import DogLoader from '../../components/DogLoader/DogLoader.jsx'
+import Loader from '../../components/Loader/Loader.jsx'
 
 const STORAGE_KEY = 'dogGameState'
 const getBreedFromUrl = (url) => {
@@ -142,7 +142,7 @@ const GuessTheDog = () => {
   )
 
   const DogGrid = useMemo(() => {
-    if (firstLoad && loading) return <DogLoader />
+    if (firstLoad && loading) return <Loader />
     return (
       <div className='dog-grid'>
         {dogImages.map((img, idx) => (

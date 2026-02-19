@@ -15,7 +15,7 @@ const ShopProductCard = ({ product, isFavourite, onToggleFavourite, disabled, cl
       return
     }
 
-    onToggleFavourite(product._id)
+    onToggleFavourite(product)  // ✅ Pass the full product, not just the ID
   }
 
   return (

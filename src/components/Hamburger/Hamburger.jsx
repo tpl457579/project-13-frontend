@@ -1,5 +1,5 @@
 import './Hamburger.css'
-import  {
+import {
   useContext,
   useState,
   useEffect,
@@ -10,14 +10,18 @@ import { NavLink } from 'react-router-dom'
 import { AuthContext } from '../AuthContext.jsx'
 import { FaBars } from 'react-icons/fa'
 import Button from '../Buttons/Button.jsx'
+import { AnimalToggle } from '../AnimalToggle/AnimalToggle.jsx'
+import { AnimalContext } from '../AnimalContext.jsx'
 
 const Hamburger = () => {
   const { user, logout } = useContext(AuthContext)
+  const { animalType, toggleAnimalType } = useContext(AnimalContext)
   const [menuOpen, setMenuOpen] = useState(false)
   const menuRef = useRef(null)
   const buttonRef = useRef(null)
   const isLoggedIn = Boolean(user)
   const isAdmin = user?.role === 'admin'
+  const isDog = animalType === 'dog'
 
   useEffect(() => {
     document.body.classList.toggle('menu-open', menuOpen)
@@ -47,7 +51,7 @@ const Hamburger = () => {
     handleLinkClick()
   }, [logout, handleLinkClick])
 
-  const StaticLinks = ({ onClick }) => (
+  const StaticLinks = ({ onClick, isDog }) => (
     <>
       <li>
         <NavLink to='/' onClick={onClick}>
@@ -55,13 +59,13 @@ const Hamburger = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to='/guess-the-dog' onClick={onClick}>
-          Dog Game
+        <NavLink to={isDog ? '/guess-the-dog' : '/match-the-cats'} onClick={onClick}>
+          {isDog ? 'Dog' : 'Cat'} Game
         </NavLink>
       </li>
       <li>
-        <NavLink to='/fun-dog-facts' onClick={onClick}>
-          Fun Dog Facts
+        <NavLink to={isDog ? '/fun-dog-facts' : '/fun-cat-facts'} onClick={onClick}>
+          Fun {isDog ? 'Dog' : 'Cat'} Facts
         </NavLink>
       </li>
       <li>
@@ -72,16 +76,16 @@ const Hamburger = () => {
     </>
   )
 
-  const UserLinks = ({ isAdmin, onClick, onLogout }) => (
+  const UserLinks = ({ isAdmin, onClick, onLogout, isDog }) => (
     <>
       <li>
-        <NavLink to='/suitable-dog' onClick={onClick}>
-          My Perfect Dog
+        <NavLink to={isDog ? '/suitable-dog' : '/suitable-cat'} onClick={onClick}>
+          My Perfect {isDog ? 'Dog' : 'Cat'}
         </NavLink>
       </li>
       <li>
-        <NavLink to='/dog-search' onClick={onClick}>
-          Dog Search
+        <NavLink to={isDog ? '/dog-search' : '/cat-search'} onClick={onClick}>
+          {isDog ? 'Dog' : 'Cat'} Search
         </NavLink>
       </li>
       <li>
@@ -153,13 +157,22 @@ const Hamburger = () => {
           </button>
         </li>
 
-        <StaticLinks onClick={handleLinkClick} />
+        {/* Animal Toggle in Menu */}
+        <li className='hamburger-animal-toggle'>
+          <AnimalToggle 
+            animalType={animalType} 
+            onToggle={toggleAnimalType}
+          />
+        </li>
+
+        <StaticLinks onClick={handleLinkClick} isDog={isDog} />
 
         {isLoggedIn ? (
           <UserLinks
             isAdmin={isAdmin}
             onClick={handleLinkClick}
             onLogout={handleLogout}
+            isDog={isDog}
           />
         ) : (
           <AuthLinks onClick={handleLinkClick} />

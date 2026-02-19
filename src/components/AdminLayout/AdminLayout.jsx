@@ -17,7 +17,11 @@ const AdminLayout = ({
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const activeTab = location.pathname.includes('/admin-dogs') ? 'dogs' : 'products';
+ const activeTab = location.pathname.includes('/admin-cats') 
+  ? 'cats' 
+  : location.pathname.includes('/admin-dogs') 
+    ? 'dogs' 
+    : 'products';
 
   const tabs = (
     <div className="admin-tabs">

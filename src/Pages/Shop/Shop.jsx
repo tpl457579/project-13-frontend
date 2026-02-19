@@ -1,20 +1,24 @@
 import './Shop.css'
 import { useContext, useCallback, useMemo, useState, useEffect } from 'react'
 import { AuthContext } from '../../components/AuthContext.jsx'
+import { AnimalContext } from '../../components/AnimalContext.jsx'
 import { useProducts } from '../../Hooks/useProducts.js'
 import { useFilters } from '../../Hooks/useFilters.js'
 import FilterControls from '../../FilterControls/FilterControls.jsx'
 import { useFavourites } from '../../Hooks/useFavourites.js'
 import { usePagination } from '../../Hooks/usePagination.js'
 import PaginationControls from '../../components/PaginationControls/PaginationControls.jsx'
-import ProductCard from '../../components/ProductCard/ProductCard.jsx'
+import ShopProductCard from '../../components/ShopProductCard/ShopProductCard.jsx'
 import SearchBar from '../../components/SearchBar/SearchBar'
-import DogLoader from '../../components/DogLoader/DogLoader.jsx'
+import Loader from '../../components/Loader/Loader.jsx'
 
-const Shop = ({ petType }) => {
+const Shop = () => {
   const { user } = useContext(AuthContext)
+  const { animalType } = useContext(AnimalContext) // Get from context
+  const petType = animalType // 'dog' or 'cat'
+  
   const { products, loadingInitial, error } = useProducts()
-  const { favourites, toggleFavourite } = useFavourites(user)
+  const { favourites, toggleFavourite } = useFavourites()
   
   const [activeCategory, setActiveCategory] = useState('All')
 
@@ -111,7 +115,7 @@ const Shop = ({ petType }) => {
         />
       </div>
 
-      {loadingInitial && <DogLoader />}
+      {loadingInitial && <Loader />}
       {error && <p className="error-message">Error: {error}</p>}
 
       {!loadingInitial && finalProducts.length === 0 && (
@@ -120,11 +124,11 @@ const Shop = ({ petType }) => {
 
       <div className='shop-products'>
         {visibleProducts.map((product) => (
-          <ProductCard
+          <ShopProductCard
             key={product?._id}
             product={product}
             isFavourite={favouriteIds.has(product?._id)}
-            onToggleFavourite={() => toggleFavourite(product)}
+            onToggleFavourite={toggleFavourite}
             showHeart={true}
             showAdminActions={false}
             className='shop-product-card'

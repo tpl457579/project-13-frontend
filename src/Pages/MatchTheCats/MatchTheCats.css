@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
 .cat-game-container {
   display: flex;
   flex-direction: column;
@@ -8,6 +6,14 @@
   background-color:var(--background-color);
   padding: 20px;
   min-height: 100vh;
+}
+
+.game-info {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    flex-direction: row;
+   align-items: flex-start;
 }
 
 .cat-game-container h1 {
@@ -100,7 +106,6 @@
   display: grid;
   grid-template-columns: repeat(6, 120px);
   gap: 20px;
-  margin-top: 25px;
 }
 
 .cat-game-container .score,
@@ -296,55 +301,25 @@ audio {
   }
 
   .cat-game-container .card {
-    width: 100px;
-    height: 180px;
+    width: 70px;
+    height: 120px;
   }
 }
 
-@media (max-width: 525px) {
-  .cat-game-container .card-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
 
-  .cat-game-container .card {
-    width: 120px;
-    height: 200px;
-  }
 
-  .cat-game-container .card.flipped::after {
-    font-size: 70px;
-  }
-
-  .cat-game-container #home-btn {
-    top: 5px;
-    left: 5px;
-    font-size: 30px;
-  }
+@media (max-height: 520px) {
+.cat-game-container .score, .cat-game-container .attempts{
+  font-size: 16px;
 }
-
-@media (max-width: 470px) {
+.cat-game-container .card {
+    width: 80px;
+    height: 120px;
+  }
+  .game-info{
+    margin-bottom: 5px;
+  }
   .cat-game-container .card-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .cat-game-container .card {
-    width: 100px;
-    height: 180px;
-  }
-
-  .cat-game-container h1 {
-    font-size: 30px;
-  }
-
-  .cat-game-container .popup {
-    width: 60%;
-    height: auto;
-    max-height: 80%;
-  }
-
-  .cat-game-container #home-btn {
-    top: 5px;
-    left: 5px;
-    font-size: 25px;
-  }
+        grid-template-columns: repeat(6, 1fr);
+    }
 }

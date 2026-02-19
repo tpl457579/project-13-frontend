@@ -1,8 +1,8 @@
 import './DogSearch.css'
 import { useState, useEffect, useRef } from 'react'
-import DogLoader from '../../components/DogLoader/DogLoader'
+import Loader from '../../components/Loader/Loader'
 import SearchBar from '../../components/SearchBar/SearchBar.jsx'
-import DogPopup from '../../components/DogPopup/DogPopup.jsx'
+import AnimalPopup from '../../components/AnimalPopup/AnimalPopup.jsx'
 import { useDogFilters } from '../../Hooks/useDogFilters.js'
 import { apiFetch } from '../../components/apiFetch.js' 
 import AlphabetFilter from '../../components/AlphabetFilter/AlphabetFilter.jsx'
@@ -130,7 +130,7 @@ export default function DogSearchPaginated() {
     setIsModalOpen(false)
   }
 
-  if (loading) return <DogLoader />
+  if (loading) return <Loader />
 
   return (
     <div className='dog-search-layout'>
@@ -241,7 +241,7 @@ export default function DogSearchPaginated() {
            </button>
         )}
 
-        <DogPopup
+        <AnimalPopup
           isOpen={isModalOpen}
           closePopup={closeModal}
           dog={selectedDog}

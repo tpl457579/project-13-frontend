@@ -1,22 +1,20 @@
 .cat-fact-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: var(--alt-card-color);
-  padding: 15px;
-  max-width: 70svw;
-  height:280px;
-  max-height:60svh;
-  border-radius: 10px;
-  border: 1px solid var(--button-border-color);
-  text-align: center;
-  margin: auto;
-  margin-top: 15svh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--alt-card-color);
+    padding: 15px;
+    height: 280px;
+    border-radius: 10px;
+    border: 1px solid var(--button-border-color);
+    text-align: center;
+    margin: auto;
+    margin-top: 15svh;
+    justify-content: center;
 }
+
 .cat-fact-header {
-  color: var(--text-color);
+  color: var(--accent-color);
   background: none;
 }
 .cat-fact {
@@ -40,20 +38,15 @@
 }
 
 .fact-text {
-  color: var(--text-color);
-  background: none;
-  margin-bottom: 25px;
+    color: var(--text-color);
+    background: none;
+    margin-top: 20px;
+    margin-bottom: 80px;
 }
 
 .new-fact-btn {
-position: absolute;
-bottom: 1%;
-left: 50%;
-    transform: translateX(-50%);
-  width: 140px;
-  margin-bottom: 15px;
-  border: none;
-
+    width: 140px;
+    border: none;
 }
 
 @media (max-height: 520px){

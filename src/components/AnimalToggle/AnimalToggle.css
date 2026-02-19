@@ -1,0 +1,37 @@
+.animal-toggle-container {
+  display: flex;
+  align-items: center;
+}
+
+.animal-toggle {
+  display: flex;
+  background: var(--background-color);
+  border-radius: 25px;
+  padding: 4px;
+  border: 1px solid var(--button-border-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  gap: 4px;
+}
+
+.toggle-option {
+    width: 40px;
+    height: 36px;
+    display: flex;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-option.active {
+  background: #8e4aed;
+  color: white;
+  box-shadow: 0 2px 8px rgba(142, 74, 237, 0.3);
+}
+.dark-theme .toggle-option img {
+  filter: invert(1);
+}

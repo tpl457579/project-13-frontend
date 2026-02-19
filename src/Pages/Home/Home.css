@@ -39,8 +39,8 @@
 }
 
 .home-cat-btn{
-  height: 24px;
-  filter:invert(1);
+     height: 48px;
+    filter: invert(1);
 }
 
 .home-buttons {
@@ -159,7 +159,6 @@
   border-radius: 12px;
   border: none;
   cursor: pointer;
-  padding: 10px 20px;
   color: #fff;
   background: linear-gradient(200deg, #8f44ad, #7b3696, #c53dbb, #8f44ad);
   background-size: 200% 200%;
@@ -173,6 +172,7 @@
 .back-link {
     width: 120px;
     border-radius: 8px;
+    padding:6px 4px;
     color: var(--text-color);
     background: none;
     border: 2px solid var(--accent-color);

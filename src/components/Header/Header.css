@@ -52,6 +52,7 @@ box-shadow:  4px 17px 14px var(--background-color);
   margin: 0px 5px;
 }
 
+
 @media (max-width: 1068px) {
   .nav-list li a {
     font-size: 14.5px;
@@ -75,6 +76,7 @@ box-shadow:  4px 17px 14px var(--background-color);
     border-bottom: none;
     background: var(--background-color);
   }
+ 
   .navbar {
     display: none;
   }
@@ -90,4 +92,5 @@ box-shadow:  4px 17px 14px var(--background-color);
   .mobile-icons a {
     margin: 0px 10px;
   }
+ 
 }

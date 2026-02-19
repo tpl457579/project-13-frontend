@@ -1,21 +1,37 @@
-import React, { useContext, useCallback } from 'react'
+import React, { useContext, useCallback, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import './Header.css'
 import { AuthContext } from '../../components/AuthContext.jsx'
 import Button from '../Buttons/Button.jsx'
 import Hamburger from '../Hamburger/Hamburger.jsx'
+import { AnimalToggle } from '../AnimalToggle/AnimalToggle.jsx'
+import { AnimalContext } from '../../components/AnimalContext.jsx'
 
 const Header = React.memo(() => {
   const { user, logout } = useContext(AuthContext)
+  const { animalType, toggleAnimalType } = useContext(AnimalContext)
   const navigate = useNavigate()
+  
+  /* // Add animal preference state - default to 'dog'
+  const [animalType, setAnimalType] = useState(
+    localStorage.getItem('animalPreference') || 'dog'
+  ) */
 
   const handleLogout = useCallback(() => {
     logout()
     navigate('/')
   }, [logout, navigate])
 
+ /*  // Toggle between cat and dog
+  const toggleAnimalType = () => {
+    const newType = animalType === 'dog' ? 'cat' : 'dog'
+    setAnimalType(newType)
+    localStorage.setItem('animalPreference', newType)
+  } */
+
   const isAdmin = user?.role === 'admin'
   const isLoggedIn = Boolean(user)
+  const isDog = animalType === 'dog'
 
   return (
     <>
@@ -30,11 +46,23 @@ const Header = React.memo(() => {
                 Home
               </NavLink>
             </li>
+            
+            <li className='animal-toggle-container'>
+              <AnimalToggle 
+                animalType={animalType} 
+                onToggle={toggleAnimalType}
+              />
+            </li>
+            
             <li>
-              <NavLink to='/guess-the-dog'>Guess the Dog</NavLink>
+              <NavLink to={isDog ? '/guess-the-dog' : '/match-the-cats'}>
+                {isDog ? 'Dog' : 'Cat'} Game
+              </NavLink>
             </li>
             <li>
-              <NavLink to='/fun-dog-facts'>Fun Dog Facts</NavLink>
+              <NavLink to={isDog ? '/fun-dog-facts' : '/fun-cat-facts'}>
+                Fun {isDog ? 'Dog' : 'Cat'} Facts
+              </NavLink>
             </li>
             <li>
               <NavLink to='/shop'>Shop</NavLink>
@@ -43,10 +71,14 @@ const Header = React.memo(() => {
             {isLoggedIn && (
               <>
                 <li>
-                  <NavLink to='/dog-search'>Dog Search</NavLink>
+                  <NavLink to={isDog ? '/dog-search' : '/cat-search'}>
+                    {isDog ? 'Dog' : 'Cat'} Search
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to='/suitable-dog'>My Perfect Dog</NavLink>
+                  <NavLink to={isDog ? '/suitable-dog' : '/suitable-cat'}>
+                    My Perfect {isDog ? 'Dog' : 'Cat'}
+                  </NavLink>
                 </li>
                 <li>
                   <NavLink to='/favourites'>Favourites</NavLink>
@@ -97,7 +129,7 @@ const Header = React.memo(() => {
         </nav>
       </header>
 
-      <Hamburger />
+      <Hamburger animalType={animalType} onToggleAnimal={toggleAnimalType} />
     </>
   )
 })

@@ -15,6 +15,7 @@
   margin: auto;
   margin-top: 15svh;
 }
+
 .dog-fact-header {
   color: var(--text-color);
   background: none;
@@ -39,7 +40,7 @@
   background: none;
 }
 
-.fact-text {
+/* .fact-text {
   color: var(--text-color);
   background: none;
   margin-bottom: 25px;
@@ -51,7 +52,7 @@
     left: 36%;
     width: 140px;
     border: none;
-}
+} */
 
 @media (max-height: 520px){
   .dog-fact-container{

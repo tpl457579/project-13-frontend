@@ -5,7 +5,7 @@ import { useFavourites } from '../../Hooks/useFavourites'
 import { usePagination } from '../../Hooks/usePagination'
 import PaginationControls from '../../components/PaginationControls/PaginationControls'
 import ShopProductCard from '../../components/ShopProductCard/ShopProductCard'
-import DogLoader from '../../components/DogLoader/DogLoader'
+import Loader from '../../components/Loader/Loader'
 
 const FavouritesPage = () => {
   const { user } = useContext(AuthContext)
@@ -62,7 +62,7 @@ const FavouritesPage = () => {
     return (
       <main className='favourites-page'>
         <h2>My Favourites</h2>
-        <DogLoader />
+        <Loader />
       </main>
     )
   }

@@ -12,7 +12,7 @@ import FilterControls from '../../FilterControls/FilterControls';
 import PaginationControls from '../../components/PaginationControls/PaginationControls';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import ProductForm from '../../components/ProductForm/ProductForm';
-import DogLoader from '../../components/DogLoader/DogLoader';
+import Loader from '../../components/Loader/Loader';
 import Modal from '../../components/Modal/Modal';
 import DeleteModal from '../../components/DeleteModal/DeleteModal';
 
@@ -180,7 +180,7 @@ const AdminProducts = () => {
         </div>
       }
     >
-      {loading ? <DogLoader /> : error ? <p className="error">{error}</p> : (
+      {loading ? <Loader /> : error ? <p className="error">{error}</p> : (
         <>
           <div className="admin-product-grid">
             {visibleProducts.length ? visibleProducts.map(p => (

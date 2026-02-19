@@ -21,12 +21,13 @@ const TIPS = {
     title: "Add/Edit Tip!",
     text: "Paste the URL of the product and the form fills automatically!",
   }
-  }
+}
 
 export default function IdeaBulb({ tip, storageKey, className = "" }) {
   const [isOpen, setIsOpen] = useState(false);
   const [dontShow, setDontShow] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const [isPulsing, setIsPulsing] = useState(false);
 
   useEffect(() => {
     const savedStatus = localStorage.getItem(storageKey);
@@ -34,6 +35,18 @@ export default function IdeaBulb({ tip, storageKey, className = "" }) {
       setIsHidden(true);
     }
   }, [storageKey]);
+
+  // Pulse animation every 10 seconds
+  useEffect(() => {
+    if (isHidden) return;
+
+    const pulseInterval = setInterval(() => {
+      setIsPulsing(true);
+      setTimeout(() => setIsPulsing(false), 2000); // Animation lasts 2 seconds
+    }, 10000); // Changed to 10 seconds
+
+    return () => clearInterval(pulseInterval);
+  }, [isHidden]);
 
   const { title, text } = TIPS[tip] || {
     title: "Help",
@@ -64,10 +77,10 @@ export default function IdeaBulb({ tip, storageKey, className = "" }) {
     <>
       <button 
         type="button" 
-        className={`idea-bulb-btn-filter ${className}`} 
+        className={`idea-bulb-btn-filter ${className}`}
         onClick={openHelp}
       >
-        <GoLightBulb />
+        <GoLightBulb className={isPulsing ? 'pulsing-icon' : ''} />
       </button>
 
       {isOpen && (
@@ -84,7 +97,7 @@ export default function IdeaBulb({ tip, storageKey, className = "" }) {
                   checked={dontShow}
                   onChange={(e) => setDontShow(e.target.checked)}
                 />
-                Don’t show again
+                Don't show again
               </label>
 
               <Button onClick={closeHelp}>Close</Button>
