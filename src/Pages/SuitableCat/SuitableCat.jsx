@@ -74,7 +74,7 @@ export default function SuitableCat() {
 
   useEffect(() => {
     console.log("🌐 Fetching cats…")
-    fetch('https://project-13-backend-1sra.onrender.com/api/v1/cats')
+    fetch('https://project-13-backend-1.onrender.com/api/v1/cats')
       .then(res => {
         console.log("🌐 Response received:", res)
         return res.json()
