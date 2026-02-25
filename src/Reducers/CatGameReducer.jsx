@@ -52,6 +52,7 @@ export function catGameReducer(state, action) {
     case 'RESET_ROUND':
       return {
         ...initialState,
+        score: state.score,
         cards: action.cards
       }
 

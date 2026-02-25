@@ -11,7 +11,7 @@ export default function MatchTheCats() {
 
   useEffect(() => {
     const isShortScreen = window.innerHeight <= 520
-    
+
     if (isShortScreen && !document.fullscreenElement) {
       const element = document.documentElement
       if (element.requestFullscreen) {
@@ -63,17 +63,13 @@ export default function MatchTheCats() {
     const savedState = localStorage.getItem('catGameState')
     if (savedState) {
       const parsed = JSON.parse(savedState)
-      dispatch({ type: 'RESTORE_STATE', state: parsed })
+      dispatch({ type: 'RESTORE_STATE', state: { ...parsed, popup: null, popupMessage: '' } })
     } else {
       const baseCards = rounds[round]
       const shuffled = [...baseCards, ...baseCards].sort(() => Math.random() - 0.5)
       dispatch({ type: 'SET_CARDS', cards: shuffled })
 
-      const roundNames = {
-        1: "Cute Kittens",
-        2: "Funny Cats",
-        3: "Exotic Cats"
-      }
+      const roundNames = { 1: "Cute Kittens", 2: "Funny Cats", 3: "Exotic Cats" }
 
       dispatch({
         type: 'SHOW_POPUP',
@@ -92,7 +88,8 @@ export default function MatchTheCats() {
   }, [round])
 
   useEffect(() => {
-    localStorage.setItem('catGameState', JSON.stringify(state))
+    const { popup, popupMessage, ...persistableState } = state
+    localStorage.setItem('catGameState', JSON.stringify(persistableState))
   }, [state])
 
   useEffect(() => {
@@ -112,8 +109,23 @@ export default function MatchTheCats() {
   useEffect(() => {
     if (state.matched === state.cards.length && state.cards.length > 0) {
       if (round < 3) {
-        setRound(r => r + 1)
-        dispatch({ type: 'RESET_ROUND', cards: rounds[round + 1] })
+        const nextRound = round + 1
+        const baseCards = rounds[nextRound]
+        const shuffled = [...baseCards, ...baseCards].sort(() => Math.random() - 0.5)
+        setRound(nextRound)
+        dispatch({ type: 'RESET_ROUND', cards: shuffled })
+
+        const roundNames = { 1: "Cute Kittens", 2: "Funny Cats", 3: "Exotic Cats" }
+
+        dispatch({
+          type: 'SHOW_POPUP',
+          popup: 'intro',
+          message: `Round ${nextRound}: ${roundNames[nextRound]}`
+        })
+
+        setTimeout(() => {
+          dispatch({ type: 'HIDE_POPUP' })
+        }, 1500)
       } else {
         dispatch({
           type: 'SHOW_POPUP',
@@ -137,13 +149,13 @@ export default function MatchTheCats() {
   const handleReset = () => {
     dispatch({ type: 'RESET' })
     setRound(1)
-    
+
     const baseCards = rounds[1]
     const shuffled = [...baseCards, ...baseCards].sort(() => Math.random() - 0.5)
     dispatch({ type: 'SET_CARDS', cards: shuffled })
-    
+
     dispatch({ type: 'HIDE_POPUP' })
-    
+
     localStorage.removeItem('catGameState')
     localStorage.removeItem('catGameRound')
   }
@@ -164,7 +176,7 @@ export default function MatchTheCats() {
           const isFlipped =
             state.flipped.includes(index) ||
             state.matchedCards.includes(card.id)
-          
+
           const isMatched = state.matchedCards.includes(card.id)
 
           return (
@@ -173,9 +185,8 @@ export default function MatchTheCats() {
               className={`card ${isFlipped ? 'flipped' : ''} ${isMatched ? 'matched' : ''}`}
               onClick={() => handleFlip(index)}
             >
-                  <img src={card.img} alt="cat" />
-                </div>
-
+              <img src={card.img} alt="cat" />
+            </div>
           )
         })}
       </div>
