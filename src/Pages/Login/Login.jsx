@@ -59,7 +59,6 @@ const LoginPage = () => {
         
       } catch (err) {
         ShowPopup(err.message || 'Login failed. Please try again.', 'error')
-      } finally {
         setLoading(false)
       }
     },
@@ -107,7 +106,7 @@ const LoginPage = () => {
           type='submit'
           disabled={loading} 
           loading={loading}
-          loadingText='Logging in'
+          loadingText='Logging in..'
           showSpinner={true}
         >
           Login

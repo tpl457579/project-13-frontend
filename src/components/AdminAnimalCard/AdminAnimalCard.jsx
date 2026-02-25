@@ -1,50 +1,51 @@
-import './AdminCatCard.css'
+import './AdminAnimalCard.css'
 import { memo } from 'react'
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'
 
 const PLACEHOLDER = '../placeholder.png'
 
-const AdminCatCard = memo(({ 
-  cat, 
+const AdminAnimalCard = memo(({ 
+  animal,
+  type = 'dog',
   onEdit, 
   onDelete, 
   className = '', 
   disabled = false 
 }) => {
-  if (!cat || !cat._id) return null
+  if (!animal || !animal._id) return null
 
-  const { name, imageUrl, image_link } = cat
+  const { name, imageUrl, image_link } = animal
 
   return (
-    <div className={`admin-cat-card ${className} ${disabled ? 'cat-card-disabled' : ''}`}>
-      <div className="cat-card-img">
+    <div className={`admin-animal-card ${className} ${disabled ? 'animal-card-disabled' : ''}`}>
+      <div className="animal-card-img">
         <img 
           src={imageUrl || image_link || PLACEHOLDER} 
-          alt={name || 'Cat'} 
-          className="cat-card-img" 
+          alt={name || type} 
+          className="animal-card-img" 
         />
       </div>
 
-      <div className="admin-cat-card-content">
+      <div className="admin-animal-card-content">
         <h4 
-          className="cat-card-title" 
+          className="animal-card-title" 
           style={{ fontSize: name && name.length > 21 ? "15px" : "18px" }}
         >
-          {name || 'Unnamed Cat'}
+          {name || `Unnamed ${type.charAt(0).toUpperCase() + type.slice(1)}`}
         </h4>
 
-        <div className="admin-cat-card-buttons">
+        <div className="admin-animal-card-buttons">
           <button 
             type="button" 
             disabled={disabled} 
-            onClick={(e) => { e.stopPropagation(); onEdit(cat); }}
+            onClick={(e) => { e.stopPropagation(); onEdit(animal); }}
           >
             <AiOutlineEdit size={18}/> Edit
           </button>
           <button 
             type="button" 
             disabled={disabled} 
-            onClick={(e) => { e.stopPropagation(); onDelete(cat); }}
+            onClick={(e) => { e.stopPropagation(); onDelete(animal); }}
           >
             <AiOutlineDelete size={18}/> Delete
           </button>
@@ -54,5 +55,4 @@ const AdminCatCard = memo(({
   )
 })
 
-
-export default AdminCatCard
+export default AdminAnimalCard

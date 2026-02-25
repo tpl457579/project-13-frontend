@@ -34,7 +34,6 @@ const AdminProducts = () => {
 
   const { searchTerm, setSearchTerm, size, setSize, maxPrice, setMaxPrice, minRating, setMinRating, filteredProducts, clearFilters } = useFilters(products, null, "admin");
 
-  // Filter by category before passing to pagination
   const categoryFilteredProducts = useMemo(() => {
     if (activeCategory === 'All') return filteredProducts;
     return filteredProducts.filter(p => p.category?.toLowerCase() === activeCategory.toLowerCase());

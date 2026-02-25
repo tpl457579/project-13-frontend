@@ -28,13 +28,7 @@ const handleFavouriteClick = (e) => {
   e.preventDefault()
   e.stopPropagation()
   
-  console.log('❤️ Heart clicked!')
-  console.log('🎁 Full product object:', product) // Add this
-  console.log('🆔 Product ID:', product._id) // Add this
-  console.log('📞 Calling onToggleFavourite with:', product) // Add this
-  
   if (disabled) {
-    console.log('❌ Button disabled')
     return
   }
   
@@ -44,15 +38,12 @@ const handleFavouriteClick = (e) => {
   }
   
   if (!onToggleFavourite) {
-    console.error('❌ onToggleFavourite is not defined!')
     return
   }
   
   if (!isFavourite) animateHeart()
   
-  console.log('🚀 RIGHT BEFORE calling onToggleFavourite') // Add this
   onToggleFavourite(product)
-  console.log('✅ AFTER calling onToggleFavourite') // Add this
 }
 
   const animateHeart = () => {

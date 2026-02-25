@@ -12,7 +12,6 @@ export const useFavourites = () => {
   const fetchFavourites = useCallback(async () => {
     if (!user || !user._id) return
     try {
-      // apiFetch already includes token from localStorage
       const data = await apiFetch(`/users/${user._id}/favourites`, {
         method: 'GET'
       })
@@ -26,25 +25,16 @@ export const useFavourites = () => {
 
   const toggleFavourite = useCallback(
   async (product) => {
-    console.log('🔄 toggleFavourite called with:', product)
-    console.log('👤 User:', user)
-    console.log('📦 Product._id:', product?._id)
-    
     if (!user || !user._id) {
-      console.log('❌ No user!')
       ShowPopup('You must be logged in', 'error')
       return
     }
 
     if (!product || !product._id) {
-      console.log('❌ No product or product._id!')
       return
     }
 
-    console.log('✅ Checks passed, updating favourites...')
-
     const exists = favourites.some((f) => f._id === product._id)
-    console.log('💭 Already favourite?', exists)
 
     const updatedFavourites = exists
       ? favourites.filter((f) => f._id !== product._id)
@@ -54,14 +44,10 @@ export const useFavourites = () => {
     updateUserFavourites(updatedFavourites)
     setLoadingIds((prev) => [...prev, product._id])
 
-    console.log('🌐 Making API call to:', `/users/favourites/${product._id}`)
-
     try {
       const data = await apiFetch(`/users/favourites/${product._id}`, {
         method: 'PUT'
       })
-
-      console.log('✅ API response:', data)
 
       if (Array.isArray(data.favourites)) {
         setFavourites(data.favourites)
@@ -70,7 +56,7 @@ export const useFavourites = () => {
 
       ShowPopup(exists ? 'Removed from favourites' : 'Added to favourites')
     } catch (err) {
-      console.error('❌ toggleFavourite error:', err)
+      console.error('toggleFavourite error:', err)
       ShowPopup('Something went wrong')
       setFavourites(favourites)
       updateUserFavourites(favourites)

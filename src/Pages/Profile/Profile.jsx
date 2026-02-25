@@ -170,7 +170,7 @@ const Profile = () => {
             onClick={handleUpdate}
             loading={loading}
             showSpinner={loading}
-            loadingText='Updating...'
+            loadingText='Updating..'
           >
             Update Account
           </Button>

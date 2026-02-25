@@ -1,6 +1,8 @@
-import './AdminCats.css';
+import './AdminAnimals.css';
 import { useRef, useEffect, useState } from 'react';
+import { useDogs } from '../../Hooks/useDogs';
 import { useCats } from '../../Hooks/useCats';
+import { useDogFilters } from '../../Hooks/useDogFilters';
 import { useCatFilters } from '../../Hooks/useCatFilters';
 import { usePagination } from '../../Hooks/usePagination';
 import { useAdminActions } from '../../Hooks/useAdminActions';
@@ -11,26 +13,35 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import FilterControls from '../../FilterControls/FilterControls';
 import AlphabetFilter from '../../components/AlphabetFilter/AlphabetFilter';
 import PaginationControls from '../../components/PaginationControls/PaginationControls';
-import AdminCatCard from '../../components/AdminCatCard/AdminCatCard';
+import AdminAnimalCard from '../../components/AdminAnimalCard/AdminAnimalCard';
 import Loader from '../../components/Loader/Loader';
 import Modal from '../../components/Modal/Modal';
-import CatForm from '../../components/CatForm/CatForm';
+import AnimalForm from '../../components/AnimalForm/AnimalForm';
 import DeleteModal from '../../components/DeleteModal/DeleteModal';
-import IdeaBulb from '../../components/IdeaBulb/IdeaBulb';
 
 const ITEMS_PER_PAGE = 8;
 
-const AdminCats = () => {
+const AdminAnimals = ({ type = 'dog' }) => {
+  const isDog = type === 'dog';
+  const label = isDog ? 'dog' : 'cat';
+
   const dashboardRef = useRef(null);
-  const { cats, setCats, loading, error } = useCats();
   const [lettersOpen, setLettersOpen] = useState(false);
 
+  const { dogs, setDogs, loading: dogsLoading, error: dogsError } = useDogs();
+  const { cats, setCats, loading: catsLoading, error: catsError } = useCats();
+
+  const animals = isDog ? dogs : cats;
+  const setAnimals = isDog ? setDogs : setCats;
+  const loading = isDog ? dogsLoading : catsLoading;
+  const error = isDog ? dogsError : catsError;
+
   const {
-    editingItem: editingCat,
+    editingItem,
     showModal,
     deleteModal,
     setDeleteModal,
-    selectedItem: selectedCat,
+    selectedItem,
     isSubmitting,
     setIsSubmitting,
     isDeleting,
@@ -41,20 +52,24 @@ const AdminCats = () => {
     handleFullscreen
   } = useAdminActions(dashboardRef);
 
-  const {
-    search, setSearch, letter, setLetter, setLoadedCount,
-    size, setSize,
-    filteredCats, clearFilters
-  } = useCatFilters(cats);
+  const dogFilters = useDogFilters(isDog ? animals : []);
+  const catFilters = useCatFilters(!isDog ? animals : []);
+
+  const { search, setSearch, letter, setLetter, setLoadedCount, clearFilters } = isDog ? dogFilters : catFilters;
+  const size = isDog ? dogFilters.size : null;
+  const setSize = isDog ? dogFilters.setSize : null;
+  const filteredAnimals = isDog ? dogFilters.filteredDogs : catFilters.filteredCats;
+
+  const storageKey = `admin_${label}s`;
 
   const {
-    paginatedData: visibleCats,
+    paginatedData: visibleAnimals,
     totalPages,
     currentPage,
     nextPage,
     prevPage,
     setPage
-  } = usePagination(filteredCats, ITEMS_PER_PAGE, 'admin_cats_page');
+  } = usePagination(filteredAnimals, ITEMS_PER_PAGE, `${storageKey}_page`);
 
   const handleCloseAll = () => {
     if (document.fullscreenElement) {
@@ -65,52 +80,52 @@ const AdminCats = () => {
   };
 
   useEffect(() => {
-    const savedScroll = sessionStorage.getItem('admin_cats_scroll');
-    if (savedScroll && !loading && visibleCats.length > 0) {
+    const savedScroll = sessionStorage.getItem(`${storageKey}_scroll`);
+    if (savedScroll && !loading && visibleAnimals.length > 0) {
       setTimeout(() => {
         window.scrollTo({ top: parseInt(savedScroll), behavior: 'instant' });
       }, 100);
     }
 
     const handleScroll = () => {
-      sessionStorage.setItem('admin_cats_scroll', window.scrollY);
+      sessionStorage.setItem(`${storageKey}_scroll`, window.scrollY);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [loading, visibleCats.length]);
+  }, [loading, visibleAnimals.length, storageKey]);
 
-  const handleSaveCat = async (payload) => {
+  const handleSave = async (payload) => {
     setIsSubmitting(true);
     try {
-      const res = await apiFetch('/cats/save', {
+      const res = await apiFetch(`/${label}s/save`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         data: payload
       });
-      const savedCat = res?.cat || res?.data || res;
-      setCats(prev => editingCat
-        ? prev.map(d => d._id === savedCat._id ? savedCat : d)
-        : [...prev, savedCat]);
-      ShowPopup(`Cat ${editingCat ? 'updated' : 'added'} successfully`);
+      const saved = res?.[label] || res?.data || res;
+      setAnimals(prev => editingItem
+        ? prev.map(a => a._id === saved._id ? saved : a)
+        : [...prev, saved]);
+      ShowPopup(`${isDog ? 'Dog' : 'Cat'} ${editingItem ? 'updated' : 'added'} successfully`);
       handleCloseAll();
     } catch {
-      ShowPopup('Failed to save cat', 'error');
+      ShowPopup(`Failed to save ${label}`, 'error');
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleDelete = async () => {
-    if (!selectedCat?._id) return;
+    if (!selectedItem?._id) return;
     setIsDeleting(true);
     try {
-      await apiFetch(`/cats/${selectedCat._id}`, {
+      await apiFetch(`/${label}s/${selectedItem._id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
-      setCats(prev => prev.filter(d => d._id !== selectedCat._id));
-      ShowPopup('Cat deleted successfully');
+      setAnimals(prev => prev.filter(a => a._id !== selectedItem._id));
+      ShowPopup(`${isDog ? 'Dog' : 'Cat'} deleted successfully`);
       handleCloseAll();
     } catch {
       ShowPopup('Failed to delete', 'error');
@@ -123,44 +138,35 @@ const AdminCats = () => {
     clearFilters();
     setPage(1);
     setLettersOpen(false);
-    sessionStorage.removeItem('admin_cats_scroll');
-    sessionStorage.setItem('admin_cats_page', '1');
+    sessionStorage.removeItem(`${storageKey}_scroll`);
+    sessionStorage.setItem(`${storageKey}_page`, '1');
     window.scrollTo(0, 0);
   };
 
   return (
     <AdminLayout
-      title="Admin Cat Dashboard"
+      title={`Admin ${isDog ? 'Dog' : 'Cat'} Dashboard`}
       dashboardRef={dashboardRef}
       onLayoutClick={handleFullscreen}
       onAddClick={() => openModal()}
       searchBar={
         <SearchBar
           value={search}
-          onChange={(e) => { 
-            setSearch(e.target.value); 
+          onChange={(e) => {
+            setSearch(e.target.value);
             setPage(1);
           }}
-          placeholder='Search cats...'
+          placeholder={`Search ${label}s...`}
         />
       }
       filterControls={
         <div style={{ position: 'relative', display: 'inline-block' }}>
           <FilterControls
-            size={size}
-            setSize={(val) => { 
-                setSize(val); 
-                setPage(1); 
-            }}
+            {...(isDog ? { size, setSize: (val) => { setSize(val); setPage(1); } } : {})}
             clearFilters={handleClearAll}
           />
-          <IdeaBulb 
-            tip="AdminCats" 
-            storageKey="has_seen_admin_tip" 
-            className="bulb-admin-filters" 
-          />
           <p className="resultsText" style={{ margin: '15px 0' }}>
-            Showing {visibleCats.length} of {filteredCats.length} cats
+            Showing {visibleAnimals.length} of {filteredAnimals.length} {label}s
           </p>
         </div>
       }
@@ -184,16 +190,17 @@ const AdminCats = () => {
         <p className="error">{error}</p>
       ) : (
         <>
-          {visibleCats.length === 0 ? (
-            <p className="resultsText">No cat breeds match your search.</p>
+          {visibleAnimals.length === 0 ? (
+            <p className="resultsText">No {label} breeds match your search.</p>
           ) : (
-            <div className="admin-cat-grid">
-              {visibleCats.map((cat) => (
-                <AdminCatCard
-                  key={cat.id ?? cat._id}
-                  cat={cat}
-                  onEdit={() => openModal(cat)}
-                  onDelete={() => openDeleteModal(cat)}
+            <div className={`admin-${label}-grid`}>
+              {visibleAnimals.map((animal) => (
+                <AdminAnimalCard
+                  key={animal._id}
+                  animal={animal}
+                  type={type}
+                  onEdit={openModal}
+                  onDelete={openDeleteModal}
                 />
               ))}
             </div>
@@ -212,11 +219,12 @@ const AdminCats = () => {
 
       {showModal && (
         <Modal isOpen={showModal} onClose={handleCloseAll}>
-          <CatForm
-            initialData={editingCat || {}}
+          <AnimalForm
+            type={type}
+            initialData={editingItem || {}}
             isSubmitting={isSubmitting}
             onCancel={handleCloseAll}
-            onSubmit={handleSaveCat}
+            onSubmit={handleSave}
           />
         </Modal>
       )}
@@ -226,10 +234,10 @@ const AdminCats = () => {
         onClose={handleCloseAll}
         onConfirm={handleDelete}
         isDeleting={isDeleting}
-        itemName={selectedCat?.name}
+        itemName={selectedItem?.name}
       />
     </AdminLayout>
   );
 };
 
-export default AdminCats;
+export default AdminAnimals;

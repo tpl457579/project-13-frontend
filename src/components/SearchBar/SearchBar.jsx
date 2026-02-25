@@ -1,5 +1,5 @@
-import { useMemo, useCallback } from 'react'
 import './SearchBar.css'
+import { useMemo, useCallback } from 'react'
 
 const SearchBar = ({ value, onChange, placeholder = 'Search...' }) => {
   const handleClear = useCallback(() => {

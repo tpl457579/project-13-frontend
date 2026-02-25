@@ -1,31 +1,48 @@
 import { Route, Routes, useLocation, Navigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import Header from './components/Header/Header.jsx'
 import Home from './Pages/Home/Home.jsx'
 import GuessTheDog from './Pages/GuessTheDog/GuessTheDog.jsx'
 import MatchTheCats from './Pages/MatchTheCats/MatchTheCats.jsx'
-import FunDogFacts from './Pages/FunDogFacts/FunDogFacts.jsx'
-import FunCatFacts from './Pages/FunCatFacts/FunCatFacts.jsx'
 import ChatWidget from './components/ChatButton/ChatButton.jsx'
-import SuitableDog from './Pages/SuitableDog/SuitableDog.jsx'
-import SuitableCat from './Pages/SuitableCat/SuitableCat.jsx'
 import Shop from './Pages/Shop/Shop.jsx'
 import RegisterPage from './Pages/Register/Register.jsx'
 import LoginPage from './Pages/Login/Login.jsx'
 import FavouritesPage from './Pages/FavouritesPage/FavouritesPage.jsx'
 import Profile from './Pages/Profile/Profile.jsx'
 import AdminProducts from './Pages/AdminProducts/AdminProducts.jsx'
-import DogSearch from './Pages/DogSearch/DogSearch.jsx'
-import CatSearch from './Pages/CatSearch/CatSearch.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import ThemeToggle from './components/ThemeToggle/ThemeToggle.jsx'
 import { Footer } from './components/Footer/Footer.jsx'
-import AdminDogs from './Pages/AdminDogs/AdminDogs.jsx'
-import AdminCats from './Pages/AdminCats/AdminCats.jsx'
 import usePetType from './Hooks/usePetType'
+import PetInsurancePopup from './components/PetInsurancePopup/PetInsurancePopup.jsx'
+import SuitableAnimal from './Pages/SuitableAnimal/SuitableAnimal.jsx'
+import FunAnimalFacts from './Pages/FunAnimalFacts/FunAnimalFacts.jsx'
+import AnimalSearch from './Pages/AnimalSearch/AnimalSearch.jsx'
+import AdminAnimals from './Pages/AdminAnimals/AdminAnimals.jsx';
 
 const App = () => {
   const location = useLocation()
   const { petType } = usePetType()
+   const [isFullscreen, setIsFullscreen] = useState(false)
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement)
+    }
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange)
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange)
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange)
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange)
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange)
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange)
+      document.removeEventListener('mozfullscreenchange', handleFullscreenChange)
+      document.removeEventListener('MSFullscreenChange', handleFullscreenChange)
+    }
+  }, [])
 
   return (
     <div>
@@ -44,14 +61,14 @@ const App = () => {
        <Route path="/match-the-cats" element={<MatchTheCats />} />
 
 
-        <Route path='/fun-dog-facts' element={<FunDogFacts />} />
-        <Route path='/fun-cat-facts' element={<FunCatFacts />} />
+        <Route path='/fun-dog-facts' element={<FunAnimalFacts type='dog' />} />
+        <Route path='/fun-cat-facts' element={<FunAnimalFacts type='cat' />} />
 
-        <Route path='/suitable-dog' element={<SuitableDog />} />
-        <Route path='/suitable-cat' element={<SuitableCat />} />
+        <Route path='/suitable-dog' element={<SuitableAnimal type='dog' />} />
+        <Route path='/suitable-cat' element={<SuitableAnimal type='cat' />} />
 
-        <Route path='/dog-search' element={<DogSearch />} />
-        <Route path='/cat-search' element={<CatSearch />} />
+        <Route path='/dog-search' element={<AnimalSearch type='dog' />} />
+        <Route path='/cat-search' element={<AnimalSearch type='cat' />} />
 
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/login' element={<LoginPage />} />
@@ -68,31 +85,17 @@ const App = () => {
           }
         />
 
-        <Route
-          path='/admin-dogs'
-          element={
-            <ProtectedRoute requireAdmin={true}>
-              <AdminDogs />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path='/admin-cats'
-          element={
-            <ProtectedRoute requireAdmin={true}>
-              <AdminCats />
-            </ProtectedRoute>
-          }
-        />
+        <Route path='/admin-dogs' element={<ProtectedRoute requireAdmin={true}><AdminAnimals type='dog' /></ProtectedRoute>} />
+        <Route path='/admin-cats' element={<ProtectedRoute requireAdmin={true}><AdminAnimals type='cat' /></ProtectedRoute>} />
 
         <Route path='/admin' element={<Navigate to='/admin-products' replace />} />
       </Routes>
 
       <ThemeToggle />
       <ChatWidget />
+        <PetInsurancePopup />
 
-      {!location.pathname.startsWith('/admin') && <Footer />}
+    {!location.pathname.startsWith('/admin') && !isFullscreen && <Footer />}
     </div>
   )
 }

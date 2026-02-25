@@ -1,6 +1,6 @@
-import React, { useContext, useCallback, useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
 import './Header.css'
+import React, { useContext, useCallback } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../components/AuthContext.jsx'
 import Button from '../Buttons/Button.jsx'
 import Hamburger from '../Hamburger/Hamburger.jsx'
@@ -11,23 +11,11 @@ const Header = React.memo(() => {
   const { user, logout } = useContext(AuthContext)
   const { animalType, toggleAnimalType } = useContext(AnimalContext)
   const navigate = useNavigate()
-  
-  /* // Add animal preference state - default to 'dog'
-  const [animalType, setAnimalType] = useState(
-    localStorage.getItem('animalPreference') || 'dog'
-  ) */
 
   const handleLogout = useCallback(() => {
     logout()
     navigate('/')
   }, [logout, navigate])
-
- /*  // Toggle between cat and dog
-  const toggleAnimalType = () => {
-    const newType = animalType === 'dog' ? 'cat' : 'dog'
-    setAnimalType(newType)
-    localStorage.setItem('animalPreference', newType)
-  } */
 
   const isAdmin = user?.role === 'admin'
   const isLoggedIn = Boolean(user)

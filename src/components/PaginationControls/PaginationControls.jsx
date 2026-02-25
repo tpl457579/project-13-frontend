@@ -1,6 +1,6 @@
+import './PaginationControls.css'
 import { useMemo, useCallback } from 'react'
 import Button from '../../components/Buttons/Button.jsx'
-import './PaginationControls.css'
 
 const PaginationControls = ({ currentPage, totalPages, goPrev, goNext }) => {
   if (totalPages <= 1) return null

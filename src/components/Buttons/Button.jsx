@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './Button.css'
+import Spinner from '../Spinner/Spinner'
 
 const Button = ({
   children,
@@ -17,7 +18,7 @@ const Button = ({
   disabled = false,
   loading = false,
   showSpinner = false,
-  loadingText = 'Loading',
+  loadingText = 'Loading..',
   className = '',
   style,
   ...props
@@ -48,6 +49,7 @@ const Button = ({
     >
       {loading ? (
         <span className='button-loading'>
+          {showSpinner && <Spinner />}
           {loadingText}
         </span>
       ) : (

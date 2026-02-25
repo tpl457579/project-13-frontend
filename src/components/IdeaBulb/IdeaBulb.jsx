@@ -9,17 +9,22 @@ const filterTip = {
   text: "Clicking the Clear Filters button resets all filters and resets to page 1. You can also click on individual filters to reset only that filter (e.g., click on a rating or a selected alphabet letter to reset it)."
 };
 
+const addEdit = {
+  title: "Add/Edit Tip!",
+  text: "Paste the URL of the image and it inserts automatically. When adding animal info, just type (e.g., 10-20) then click the spacebar, it adds the units and moves to the next step automatically."
+};
+
 const TIPS = {
   AdminDogs: filterTip,
   Shop: filterTip,
   DogSearch: filterTip,
-  DogForm: {
-    title: "Add/Edit Tip!",
-    text: "Paste the URL of the image and it inserts automatically. When adding dog info, just type (e.g., 10-20) then click the spacebar, it adds the units and moves to the next step automatically."
-  },
+
+  DogForm: addEdit,
+  CatForm: addEdit,
+
   ProductForm: {
     title: "Add/Edit Tip!",
-    text: "Paste the URL of the product and the form fills automatically!",
+    text: "Paste the URL of the product and the rest of the form fills automatically!",
   }
 }
 
@@ -36,14 +41,13 @@ export default function IdeaBulb({ tip, storageKey, className = "" }) {
     }
   }, [storageKey]);
 
-  // Pulse animation every 10 seconds
   useEffect(() => {
     if (isHidden) return;
 
     const pulseInterval = setInterval(() => {
       setIsPulsing(true);
-      setTimeout(() => setIsPulsing(false), 2000); // Animation lasts 2 seconds
-    }, 10000); // Changed to 10 seconds
+      setTimeout(() => setIsPulsing(false), 2000);
+    }, 10000);
 
     return () => clearInterval(pulseInterval);
   }, [isHidden]);

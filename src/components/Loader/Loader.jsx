@@ -1,9 +1,7 @@
+import './Loader.css'
 import React from 'react'
 import { useContext } from 'react'
 import { AnimalContext } from '../AnimalContext.jsx'
-
-import './Loader.css'
-
 
 const dogIcon = '../../../dog1.png'
 const catIcon = '../../../cat2.png' 
@@ -18,7 +16,7 @@ const Loader = () => {
       <img
         src={icon}
         className='dog-loader-icon'
-        alt='Loading...'
+        alt='Loading..'
       />
     </div>
   )

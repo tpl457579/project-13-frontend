@@ -1,7 +1,8 @@
+import './DeleteModal.css'
 import React from "react"
 import Modal from "../Modal/Modal"
 import Button from "../Buttons/Button"
-import './DeleteModal.css'
+
 
 const DeleteModal = ({ 
   isOpen, 

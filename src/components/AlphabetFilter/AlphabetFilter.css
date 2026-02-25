@@ -18,7 +18,7 @@
   margin-bottom: 6px;
   border: 1px solid var(--accent-color);
   border-radius: 6px;
-  background: var(--background-color);
+  background: var(--input-color);
   color: var(--text-color);
   font-weight: 200;
   cursor: pointer;
@@ -95,6 +95,6 @@
 
 @media (max-height: 520px){
     .alphabet-container{
-    top:50px;
+    top:70px;
 }
 }

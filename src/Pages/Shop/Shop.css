@@ -176,4 +176,12 @@ background: var(--accent-color);
   .shop h1{
     margin-bottom: 0px;
 }
+
+  .category-tabs{
+    margin-top: 10px;
+}
+
+.filter{
+  margin-bottom: 0px;
+}
 }

@@ -151,52 +151,46 @@ export default function CatForm({ initialData = {}, onSubmit, onCancel, isSubmit
     return !isNaN(n) && n >= 1 && n <= 5
   }, [])
 
- const handleFieldChange = (value) => {
-  const field = fields[step]
-  let newValue = value
-  const rangeRegex = /^\d+\s*-\s*\d+$/
-  const hasTrailingSpace = value.endsWith(' ')
+  const handleFieldChange = (value) => {
+    const field = fields[step]
+    let newValue = value
+    const rangeRegex = /^\d+\s*-\s*\d+$/
+    const hasTrailingSpace = value.endsWith(' ')
 
-  // Check if user just deleted a character (value is shorter than before)
-  const previousValue = formData[field.key] || ''
-  const isDeleting = value.length < previousValue.length
+    const previousValue = formData[field.key] || ''
+    const isDeleting = value.length < previousValue.length
 
-  // Auto-add "years" for lifeSpan when user types range and hits space
-  if (field.key === 'lifeSpan' && hasTrailingSpace && rangeRegex.test(value.trim())) {
-    newValue = `${value.trim()} years`
-  }
+    if (field.key === 'lifeSpan' && hasTrailingSpace && rangeRegex.test(value.trim())) {
+      newValue = `${value.trim()} years`
+    }
 
-  setFormData(prev => ({ ...prev, [field.key]: newValue }))
+    setFormData(prev => ({ ...prev, [field.key]: newValue }))
 
-  // Special handling for lifeSpan - allow text like "12-15 years"
-  if (field.key === 'lifeSpan') {
-    const lifeSpanRegex = /^\d+\s*-\s*\d+\s*years$/i
-    if (lifeSpanRegex.test(newValue.trim()) || newValue.trim()) {
-      setError('')
-      // Only auto-advance if NOT deleting and NOT on last step
-      if (!isDeleting && step < fields.length - 1) {
+    if (field.key === 'lifeSpan') {
+      const lifeSpanRegex = /^\d+\s*-\s*\d+\s*years$/i
+      if (lifeSpanRegex.test(newValue.trim()) || newValue.trim()) {
+        setError('')
+        if (!isDeleting && step < fields.length - 1) {
+          if (autoTimer.current) clearTimeout(autoTimer.current)
+          autoTimer.current = setTimeout(() => setStep(s => s + 1), 800)
+        }
+      } else {
         if (autoTimer.current) clearTimeout(autoTimer.current)
-        autoTimer.current = setTimeout(() => setStep(s => s + 1), 800)
+        setError('Format: "10 - 15 years"')
       }
     } else {
-      if (autoTimer.current) clearTimeout(autoTimer.current)
-      setError('Format: "10 - 15 years"')
-    }
-  } else {
-    // Original validation for numeric fields (1-5)
-    if (isValidValue(value)) {
-      setError('')
-      // Only auto-advance if NOT deleting and NOT on last step
-      if (!isDeleting && step < fields.length - 1) {
+      if (isValidValue(value)) {
+        setError('')
+        if (!isDeleting && step < fields.length - 1) {
+          if (autoTimer.current) clearTimeout(autoTimer.current)
+          autoTimer.current = setTimeout(() => setStep(s => s + 1), 800)
+        }
+      } else {
         if (autoTimer.current) clearTimeout(autoTimer.current)
-        autoTimer.current = setTimeout(() => setStep(s => s + 1), 800)
+        setError('Use a number 1-5')
       }
-    } else {
-      if (autoTimer.current) clearTimeout(autoTimer.current)
-      setError('Use a number 1-5')
     }
   }
-}
 
   const handleManualStep = (index) => {
     setStep(index)
@@ -230,7 +224,6 @@ export default function CatForm({ initialData = {}, onSubmit, onCancel, isSubmit
 
     const currentField = fields[step]
     
-    // Validate current field
     if (currentField.key === 'lifeSpan') {
       if (!formData.lifeSpan.trim()) {
         setError('Life span is required')

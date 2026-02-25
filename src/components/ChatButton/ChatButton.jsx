@@ -1,8 +1,7 @@
+import './ChatButton.css'
 import React, { useState, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { MessageCircle } from 'lucide-react'
-
-import './ChatButton.css'
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false)

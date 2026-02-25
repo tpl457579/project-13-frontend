@@ -9,7 +9,7 @@ export const initialState = {
   started: false
 }
 
-export const gameReducer = (state, action) => {
+export const dogGameReducer = (state, action) => {
   switch (action.type) {
     case 'START_GAME':
       return {

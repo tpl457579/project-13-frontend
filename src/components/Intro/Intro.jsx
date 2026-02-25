@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
 import './Intro.css'
+import React, { useState, useEffect } from 'react'
 
 const Intro = ({ onFinished }) => {
   const [isBreaking, setIsBreaking] = useState(false)
@@ -32,7 +32,7 @@ const Intro = ({ onFinished }) => {
           <img
             src='../dog1.png'
             className='dog-intro-icon'
-            alt='Loading...'
+            alt='Loading..'
           />
         ) : (
           <div className="pixel-wrap">

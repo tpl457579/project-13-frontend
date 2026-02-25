@@ -1,6 +1,5 @@
 .idea-bulb-btn-filter {
     position: absolute;
-    right: -23px;
     top: -2px;
     background: transparent;
     font-size: 24px;
@@ -32,14 +31,14 @@
     text-align: center;
 }
 
-
 .dont-show {
-  display: flex;
-  align-items: center;
-  color: var(--text-color);
-  gap: 8px;
-  cursor: pointer;
-  margin-bottom: 10px;
+    display: flex;
+    width: 290px;
+    color: var(--text-color);
+    gap: 8px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    justify-content: center;
 }
 
 .checkbox{
@@ -104,7 +103,6 @@ display: flex;
   }
 }
 
-/* Hover state */
 .idea-bulb-btn-filter:hover svg {
   transform: scale(1.15);
   filter: brightness(1.3);

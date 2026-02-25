@@ -6,7 +6,6 @@ export const apiFetch = async (endpoint, options = {}) => {
   try {
     const { method = 'GET', data, headers = {}, params } = options
     
-    // Get token from localStorage
     const token = localStorage.getItem('token')
 
     const res = await axios({
@@ -15,7 +14,7 @@ export const apiFetch = async (endpoint, options = {}) => {
       data,
       headers: {
         'Content-Type': 'application/json',
-        ...(token && { 'Authorization': `Bearer ${token}` }), // ← ADD THIS LINE!
+        ...(token && { 'Authorization': `Bearer ${token}` }),
         ...headers
       },
       params

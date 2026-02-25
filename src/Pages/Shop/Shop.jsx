@@ -14,8 +14,8 @@ import Loader from '../../components/Loader/Loader.jsx'
 
 const Shop = () => {
   const { user } = useContext(AuthContext)
-  const { animalType } = useContext(AnimalContext) // Get from context
-  const petType = animalType // 'dog' or 'cat'
+  const { animalType } = useContext(AnimalContext)
+  const petType = animalType
   
   const { products, loadingInitial, error } = useProducts()
   const { favourites, toggleFavourite } = useFavourites()

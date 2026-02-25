@@ -1,11 +1,11 @@
-.admin-cat-card-container {
+.admin-animal-card-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
 }
 
-.admin-cat-card {
+.admin-animal-card {
     position: relative;
     height: 400px;
     width: 300px;
@@ -21,7 +21,7 @@
     flex-direction: column;
 }
 
-.cat-card-title{
+.animal-card-title{
   color: var(--accent-color);
   margin-bottom: 20px;
 }
@@ -33,30 +33,31 @@
     justify-content: center;
 }
 
-.cat-card-img {
+.animal-card-img {
   margin-bottom: 10px;
 }
 
-.cat-card-img img{
+.animal-card-img img{
 width: 100%;
     border-radius: 18px;
     height: 230px;
 }
 
-.admin-cat-card-buttons {
+.admin-animal-card-buttons {
     display: flex;
     gap: 12px;
     margin-top: 25px;
     justify-content: center;
 }
 
-.admin-cat-card-buttons button {
+.admin-animal-card-buttons button {
     width: 100px;
     height: 30px;
     display: flex;
     color: var(--text-color);
     gap:5px;
-    background: var(--input-color);
+    cursor: pointer;
+    background: var(--background-color);
     border: 1px solid var(--accent-color);
     border-radius: 16px;
     align-items: center;
@@ -66,12 +67,8 @@ width: 100%;
 
 @media (max-height: 520px) {
 
-  .admin-cat-card{
+  .admin-animal-card{
     width:40%;
     height: 360px;
-  }
-
-  .cat-card-img{
-    margin-bottom: 60px;
   }
 }

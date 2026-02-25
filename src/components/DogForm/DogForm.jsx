@@ -3,14 +3,14 @@ import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import Button from '../Buttons/Button'
 import Spinner from '../Spinner/Spinner'
 import DropZone from '../DropZone/DropZone' 
-import { AiOutlineArrowDown, AiOutlineArrowUp, AiOutlineClose } from 'react-icons/ai'
+import { AiOutlineClose } from 'react-icons/ai'
 import IdeaBulb from '../IdeaBulb/IdeaBulb'
+import ScrollButton from '../ScrollButton/ScrollButton'
 
 const PLACEHOLDER = '../placeholder.png'
 
 function TemperamentSelector({ options, selected, onChange }) {
   const scrollRef = useRef(null)
-  const [isAtBottom, setIsAtBottom] = useState(false)
 
   const toggle = (t) => {
     if (selected.includes(t)) {
@@ -20,28 +20,9 @@ function TemperamentSelector({ options, selected, onChange }) {
     }
   }
 
-  const handleScrollLogic = () => {
-    if (!scrollRef.current) return
-    if (isAtBottom) {
-      scrollRef.current.scrollTo({ top: 0, behavior: 'smooth' })
-    } else {
-      scrollRef.current.scrollBy({ top: 120, behavior: 'smooth' })
-    }
-  }
-
-  const onScroll = () => {
-    if (!scrollRef.current) return
-    const { scrollTop, scrollHeight, clientHeight } = scrollRef.current
-    setIsAtBottom(scrollTop + clientHeight >= scrollHeight - 5)
-  }
-
   return (
     <div className="temperament-mode-container">
-      <div 
-        className="temperament-selector" 
-        ref={scrollRef}
-        onScroll={onScroll}
-      >
+      <div className="temperament-selector" ref={scrollRef}>
         {options.map(t => (
           <button
             key={t}
@@ -54,15 +35,7 @@ function TemperamentSelector({ options, selected, onChange }) {
         ))}
       </div>
       
-      <div className="scroll-button-container">
-        <button 
-          type="button" 
-          className="scroll-toggle-btn" 
-          onClick={handleScrollLogic}
-        >
-          {isAtBottom ? <AiOutlineArrowUp size={20} /> : <AiOutlineArrowDown size={20} />}
-        </button>
-      </div>
+      <ScrollButton scrollRef={scrollRef} scrollAmount={120} />
     </div>
   )
 }
@@ -147,41 +120,40 @@ export default function DogForm({ initialData = {}, onSubmit, onCancel, isSubmit
     return !isNaN(n) && n >= 1 && n <= 5
   }, [])
 
- const handleFieldChange = (value) => {
-  const field = fields[step]
-  let newValue = value
-  const rangeRegex = /^\d+\s*-\s*\d+$/
-  const hasTrailingSpace = value.endsWith(' ')
+  const handleFieldChange = (value) => {
+    const field = fields[step]
+    let newValue = value
+    const rangeRegex = /^\d+\s*-\s*\d+$/
+    const hasTrailingSpace = value.endsWith(' ')
 
-  // Check if user just deleted a character (value is shorter than before)
-  const previousValue = formData[field.key] || ''
-  const isDeleting = value.length < previousValue.length
+    const previousValue = formData[field.key] || ''
+    const isDeleting = value.length < previousValue.length
 
-  if (hasTrailingSpace && rangeRegex.test(value.trim())) {
-    if (field.key === 'weight') newValue = `${value.trim()} Kg`
-    else if (field.key === 'height') newValue = `${value.trim()} Cm`
-    else if (field.key === 'life_span') newValue = `${value.trim()} Years`
-  }
-
-  setFormData(prev => ({ ...prev, [field.key]: newValue }))
-
-  if (isValidValue(newValue, field)) {
-    setError('')
-    // Only auto-advance if NOT deleting and NOT on last step
-    if (!isDeleting && step < fields.length - 1) {
-      if (autoTimer.current) clearTimeout(autoTimer.current)
-      autoTimer.current = setTimeout(() => setStep(s => s + 1), 800)
+    if (hasTrailingSpace && rangeRegex.test(value.trim())) {
+      if (field.key === 'weight') newValue = `${value.trim()} Kg`
+      else if (field.key === 'height') newValue = `${value.trim()} Cm`
+      else if (field.key === 'life_span') newValue = `${value.trim()} Years`
     }
-  } else {
-    if (autoTimer.current) clearTimeout(autoTimer.current)
-    let errorMsg = ''
-    if (field.key === 'weight') errorMsg = 'Format: "10 - 20 Kg"'
-    else if (field.key === 'height') errorMsg = 'Format: "20 - 30 Cm"'
-    else if (field.key === 'life_span') errorMsg = 'Format: "10 - 15 Years"'
-    else errorMsg = 'Use a number 1-5'
-    setError(errorMsg)
+
+    setFormData(prev => ({ ...prev, [field.key]: newValue }))
+
+    if (isValidValue(newValue, field)) {
+      setError('')
+      if (!isDeleting && step < fields.length - 1) {
+        if (autoTimer.current) clearTimeout(autoTimer.current)
+        autoTimer.current = setTimeout(() => setStep(s => s + 1), 800)
+      }
+    } else {
+      if (autoTimer.current) clearTimeout(autoTimer.current)
+      let errorMsg = ''
+      if (field.key === 'weight') errorMsg = 'Format: "10 - 20 kg"'
+      else if (field.key === 'height') errorMsg = 'Format: "20 - 30 cm"'
+      else if (field.key === 'life_span') errorMsg = 'Format: "10 - 15 years"'
+      else errorMsg = 'Use a number 1-5'
+      setError(errorMsg)
+    }
   }
-}
+
   const handleManualStep = (index) => {
     setStep(index)
     setError('')

@@ -17,11 +17,10 @@
 
 body {
   background: var(--background-color);
-  min-height: 110svh;
 }
 
 @media (max-height: 520px) {
-  body { min-height: 140svh;
+  body { min-height: 105svh;
   }
 }
 

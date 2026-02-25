@@ -9,7 +9,7 @@ import {
 } from 'react'
 import Button from '../../components/Buttons/Button.jsx'
 import { Pause, Play } from 'lucide-react'
-import { gameReducer, initialState } from '../../Reducers/GameReducer.jsx'
+import { dogGameReducer, initialState } from '../../Reducers/DogGameReducer.jsx'
 import { useLocalStorage } from '../../Hooks/useLocalStorage.js'
 import Loader from '../../components/Loader/Loader.jsx'
 
@@ -20,7 +20,7 @@ const getBreedFromUrl = (url) => {
 }
 
 const GuessTheDog = () => {
-  const [state, dispatch] = useReducer(gameReducer, initialState)
+  const [state, dispatch] = useReducer(dogGameReducer, initialState)
   const [savedState, setSavedState] = useLocalStorage(STORAGE_KEY, initialState)
   const {
     dogImages,

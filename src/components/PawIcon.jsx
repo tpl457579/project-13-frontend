@@ -5,13 +5,16 @@ const PawIcon = ({
   className = "",
   width = 28,
   height = 28,
-  filled = false,
+  percent = 0,
   fillColor = "#8e4aad",
-  outline = "#8e4aad",
+  strokeColor = "#cccccc",
   strokeWidth = 10,
   style = {}
 }) => {
-  const fill = filled ? fillColor : "#8e4aad";
+  const filled = percent > 0;
+  const fill = filled ? fillColor : "none";
+  const outline = filled ? fillColor : strokeColor;
+  
   return (
     <svg
       id={id}
