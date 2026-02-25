@@ -316,8 +316,9 @@
 }
 
 @media (max-width: 560px) {
+    
   .search-bar input {
-    margin-bottom: 0px;
+    margin-bottom: 20px;
   }
   .animal-layout-wrapper {
     justify-content: space-between;

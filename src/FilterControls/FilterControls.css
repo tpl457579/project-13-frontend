@@ -66,13 +66,6 @@
   }
 }
 
-@media (max-width: 575px){
-
-  .search-bar{
-    margin-bottom: 20px;
-  }
-}
-
 @media (max-height: 520px) {
 
 .filter{

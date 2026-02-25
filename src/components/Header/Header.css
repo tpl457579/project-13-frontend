@@ -6,7 +6,7 @@ header {
   backdrop-filter: blur(2px);
   background: var(--header-color);
   border-bottom: 1px solid var(--button-border-color);
-box-shadow:  4px 17px 14px var(--background-color);
+  box-shadow: 3px 1px 7px 7px var(--background-color);
 }
 
 .navbar {
