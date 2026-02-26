@@ -50,21 +50,10 @@
 }
 
 .score,
-.timer,
-.lives {
+.timer {
   color: var(--text-color);
   font-size: 1.2rem;
   margin-bottom: 1rem;
-}
-
-.score-num {
-  color: red;
-}
-
-.heart,
-.time,
-.live {
-  color: var(--text-color);
 }
 
 .breed {
@@ -127,9 +116,6 @@
   margin-bottom: 60px;
 }
 
-.footer-container {
-  height: 55px;
-}
 
 @media (max-width: 952px) {
   .dog-grid {
@@ -239,10 +225,6 @@
   .game {
     margin-bottom: 100px;
   }
-
-  /* .footer-container {
-    visibility: hidden;
-  } */
 
   .score-lives {
     position: absolute;

@@ -160,7 +160,7 @@ export default function MatchTheCats() {
 
       <div className="game-info">
         <div className="score">Score: {state.score}</div>
-        <div className="attempts">Attempts Left: {state.attempts}</div>
+        <div className="attempts">Lives: {state.attempts}</div>
       </div>
 
       <div className="card-grid">
