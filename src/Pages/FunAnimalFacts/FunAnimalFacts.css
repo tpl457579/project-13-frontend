@@ -8,7 +8,7 @@
   padding: 15px;
   width:70svw;
   height: 280px;
-  max-height: 60svh;
+  height: 40svh;
   border-radius: 10px;
   border: 1px solid var(--button-border-color);
   text-align: center;
@@ -68,7 +68,7 @@
 
 @media (max-height: 520px) {
   .animal-fact-container {
-    height: 85svh;
+    height: 80svh;
     width: 80svw;
   }
 
