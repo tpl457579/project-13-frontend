@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_BASE = 'http://localhost:3000/api/v1'
+const API_BASE = 'https://project-13-backend-1.onrender.com'
 
 export const apiFetch = async (endpoint, options = {}) => {
   try {
