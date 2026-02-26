@@ -8,7 +8,6 @@
   padding: 15px;
   width:70svw;
   height: 280px;
-  height: 40svh;
   border-radius: 10px;
   border: 1px solid var(--button-border-color);
   text-align: center;
@@ -17,8 +16,10 @@
 }
 
 .animal-fact-header {
-  color: var(--accent-color);
-  background: none;
+    color: var(--accent-color);
+    position: absolute;
+    top: 25px;
+    background: none;
 }
 
 .animal-fact {
@@ -50,6 +51,10 @@
 
 .new-fact-btn {
   width: 140px;
+  position: absolute;
+  bottom:25px;
+  left: 50%;
+  transform: translate(-50%, 0%);
   border: none;
 }
 
@@ -75,11 +80,12 @@
   .fact-text {
     font-size: 16px;
     margin-top: 0px;
+    margin-bottom: 30px;
   }
 
-  .new-fact-btn {
-    width: 120px;
-    height: 28px;
-    margin-bottom: 5px;
-  }
+    .new-fact-btn {
+        width: 120px;
+        height: 28px;
+        margin-bottom: 5px;
+    }
 }
