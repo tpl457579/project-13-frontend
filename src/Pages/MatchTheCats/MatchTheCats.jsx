@@ -46,10 +46,10 @@ export default function MatchTheCats() {
   4: '-25px 0px',
   6: '-37px 0px',
   8: '-75px 10px',
-  13: '-100px 0px',
-  14: '-40px 0px',
-  15: '-60px 0px',
-  16: '-100px 0px',
+  13: '-65px 0px',
+  14: '-20px 0px',
+  15: '-75px 0px',
+  16: '-70px 0px',
   18: '-39px 0px'
  
 }
