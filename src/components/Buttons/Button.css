@@ -43,10 +43,6 @@
   background: var(--fill-button-hover-color);
 }
 
-.site-button:active:not(:disabled) {
-  transform: scale(0.98);
-}
-
 .button-loading {
   display: flex;
   align-items: center;
