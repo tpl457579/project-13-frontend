@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react'
 
 export const useFullscreen = (ref = null) => {
-  const handleFullscreen = useCallback(() => {
+  const enterFullscreen = useCallback(() => {
     const isShortScreen = window.innerHeight <= 520
     if (isShortScreen && !document.fullscreenElement) {
       const element = document.documentElement
@@ -11,19 +11,25 @@ export const useFullscreen = (ref = null) => {
     }
   }, [ref])
 
+  const exitFullscreen = useCallback(() => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen?.().catch(() => {})
+    }
+  }, [])
+
+  const handleOrientationChange = useCallback(() => {
+    exitFullscreen()
+  }, [exitFullscreen])
+
   useEffect(() => {
-    handleFullscreen()
-    window.addEventListener('resize', handleFullscreen)
-    window.addEventListener('orientationchange', handleFullscreen)
+    enterFullscreen()
+    window.addEventListener('orientationchange', handleOrientationChange)
 
     return () => {
-      window.removeEventListener('resize', handleFullscreen)
-      window.removeEventListener('orientationchange', handleFullscreen)
-      if (document.fullscreenElement) {
-        document.exitFullscreen?.()
-      }
+      window.removeEventListener('orientationchange', handleOrientationChange)
+      exitFullscreen()
     }
-  }, [handleFullscreen])
+  }, [])
 
-  return { handleFullscreen }
+  return { enterFullscreen, exitFullscreen }
 }

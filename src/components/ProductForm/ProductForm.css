@@ -37,6 +37,11 @@
   font-size: 14px;
 }
 
+ .product-layout {
+    display: flex;
+    flex-direction: column;
+  }
+
 .product-edit-form textarea::-webkit-scrollbar {
   display: none;
 }
@@ -192,18 +197,9 @@
 }
 
 @media (max-width: 585px) {
-  .product-edit-form {
-    height: 80svh;
-  }
-
-  .product-layout {
-    display: flex;
-    flex-direction: column;
-  }
 
   .product-visual {
     display: flex;
-    height: 280px;
     flex-direction: column-reverse;
     align-items: center;
     justify-content: center;
@@ -213,7 +209,7 @@
 @media (max-height: 520px) {
   .product-edit-form {
     height: 82svh;
-    width: 600px;
+    width: 82svw;
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
@@ -225,8 +221,9 @@
   }
 
   .product-layout {
-    width: 600px;
+    width: 82svw;
     display: flex;
+    flex-direction: row;
     gap: 20px;
     justify-content: center;
   }
