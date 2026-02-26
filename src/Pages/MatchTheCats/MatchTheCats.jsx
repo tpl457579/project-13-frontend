@@ -31,7 +31,7 @@ export default function MatchTheCats() {
     3: [
       { id: 13, img: 'https://cdn-fastly.petguide.com/media/2022/06/21/8297940/top-10-exotic-looking-cat-breeds.jpg?size=720x845&nocrop=1' },
       { id: 14, img: 'https://cdn-fastly.petguide.com/media/2022/06/21/8297934/top-10-exotic-looking-cat-breeds.jpg?size=720x845&nocrop=1' },
-      { id: 15, img: 'https://cdn-fastly.petguide.com/media/2022/06/21/8297931/top-10-exotic-looking-cat-breeds.jpg?size=720x845&nocrop=1' },
+      { id: 15, img: 'https://tse2.mm.bing.net/th/id/OIP.rR9NMVq7FkX42f9y5Kh0mwHaE8?pid=Api&P=0&h=180' },
       { id: 16, img: 'https://cdn-fastly.petguide.com/media/2022/06/21/8297945/top-10-exotic-looking-cat-breeds.jpg?size=720x845&nocrop=1' },
       { id: 17, img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBuBWAISl9Jv62eXbM4XBFnmYBPQYli0vx2g&s' },
       { id: 18, img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNYxq9GgS-anuGgbtDXEP_AcFD28qIy7U2cQ&s' }
@@ -41,15 +41,16 @@ export default function MatchTheCats() {
   const closePopup = () => dispatch({ type: 'HIDE_POPUP' })
 
   const offsets = {
-  3: '-78px 0px',
+  1: '-55px 0px',  
+  3: '-55px 0px',
   4: '-25px 0px',
-  6: '-67px 0px',
-  8: '-110px 10px',
+  6: '-37px 0px',
+  8: '-75px 10px',
   13: '-100px 0px',
   14: '-40px 0px',
   15: '-60px 0px',
   16: '-100px 0px',
-  18: '-65px 0px'
+  18: '-39px 0px'
  
 }
 
