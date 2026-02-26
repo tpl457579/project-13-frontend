@@ -21,6 +21,7 @@
   object-fit: cover;
 }
 
+
 .cat-game-container h1 {
   margin-top: 7svh;
   margin-bottom: 10px;
@@ -113,8 +114,8 @@
 }
 
 
-.cat-game-container .popup .pixelated-text {
-  color: var(--alt-text-color);
+.cat-game-container .popup h2 {
+  color: var(--accent-color);
  
 }
 
@@ -134,9 +135,6 @@
   background-color: var(--accent-color);
 }
 
-audio {
-  display: none;
-}
 
 /* Popup Overlay */
 .overlay {
@@ -214,7 +212,7 @@ audio {
   }
 }
 
-@media (max-width: 810px) {
+@media (max-width: 800px) {
   .cat-game-container .card-grid {
     grid-template-columns: repeat(6, 1fr);
   }
@@ -227,26 +225,46 @@ audio {
   .card img{
     width: 100px;
     height: 180px;
+    scale: 0.8;
   }
 }
 
-@media (max-width: 750px) {
+@media (max-width: 735px) {
   .cat-game-container .card-grid {
     grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
   }
 
+  
+
   .cat-game-container .card {
-    width: 90px;
+    width: 100px;
     height: 175px;
   }
 
   .card img{
-    width: 90px;
+    width: 100px;
     height: 175px;
   }
 }
 
-@media (max-width: 690px) {
+@media (max-width: 700px){
+ .game-info{
+  margin-bottom: 10px;
+ }
+
+  .cat-game-container .card {
+    width: 100px;
+    height: 165px;
+  }
+
+  .card img{
+    width: 100px;
+    height: 165px;
+  }
+}
+
+@media (max-width: 665px) {
   .cat-game-container .card-grid {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -262,7 +280,7 @@ audio {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 585px) {
   .cat-game-container .card-grid {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -294,7 +312,7 @@ audio {
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 440px) {
   .cat-game-container .card-grid {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -316,8 +334,13 @@ audio {
 }
 .cat-game-container .card {
     width: 80px;
-    height: 120px;
+    height: 115px;
   }
+
+  .cat-game-container h1 {
+    margin-bottom: 0;
+  }
+
   .game-info{
     margin-bottom: 5px;
   }

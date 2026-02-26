@@ -1,42 +1,21 @@
 import './MatchTheCats.css'
 import { useEffect, useReducer, useState } from 'react'
 import { catGameReducer, initialState } from '../../Reducers/CatGameReducer.jsx'
+import { useFullscreen } from '../../Hooks/useFullScreen.js'
 
 export default function MatchTheCats() {
+  const { handleFullscreen } = useFullscreen()
   const [state, dispatch] = useReducer(catGameReducer, initialState)
   const [round, setRound] = useState(() => {
     const saved = localStorage.getItem('catGameRound')
     return saved ? parseInt(saved) : 1
   })
 
-  useEffect(() => {
-    const isShortScreen = window.innerHeight <= 520
-
-    if (isShortScreen && !document.fullscreenElement) {
-      const element = document.documentElement
-      if (element.requestFullscreen) {
-        element.requestFullscreen().catch(() => {})
-      } else if (element.webkitRequestFullscreen) {
-        element.webkitRequestFullscreen()
-      } else if (element.mozRequestFullScreen) {
-        element.mozRequestFullScreen()
-      } else if (element.msRequestFullscreen) {
-        element.msRequestFullscreen()
-      }
-    }
-
-    return () => {
-      if (document.fullscreenElement) {
-        document.exitFullscreen().catch(() => {})
-      }
-    }
-  }, [])
-
   const rounds = {
     1: [
       { id: 1, img: 'https://tse3.mm.bing.net/th/id/OIP.BfQvggmdi3bPuCS9Ukp0jwHaFj?pid=Api&P=0&h=180' },
       { id: 2, img: 'https://tse1.mm.bing.net/th/id/OIP.ScTmMrs-pEbVJUNOmxgrxgHaE8?pid=Api&P=0&h=180' },
-      { id: 3, img: 'https://tse3.mm.bing.net/th/id/OIP.Tfm2OceUBYVl-0Q32bpLggHaEo?pid=Api&P=0&h=180' },
+      { id: 3, img: 'https://tse3.mm.bing.net/th/id/OIP.Tfm2OceUBYVl-0Q32bpLggHaEo?pid=Api&P=0&h=180'  }, 
       { id: 4, img: 'https://tse2.mm.bing.net/th/id/OIP.wRkCk6fVJUvriaVP0zaZhwHaHK?pid=Api&P=0&h=180' },
       { id: 5, img: 'https://tse1.mm.bing.net/th/id/OIP.WAN1IBvEbj-Qwpm_z89F1gHaEK?pid=Api&P=0&h=180' },
       { id: 6, img: 'https://tse4.mm.bing.net/th/id/OIP.zYxzsqPajZvnghL7O-q9RgHaHa?pid=Api&P=0&h=180' }
@@ -58,6 +37,21 @@ export default function MatchTheCats() {
       { id: 18, img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNYxq9GgS-anuGgbtDXEP_AcFD28qIy7U2cQ&s' }
     ]
   }
+
+  const closePopup = () => dispatch({ type: 'HIDE_POPUP' })
+
+  const offsets = {
+  3: '-78px 0px',
+  4: '-25px 0px',
+  6: '-67px 0px',
+  8: '-110px 10px',
+  13: '-100px 0px',
+  14: '-40px 0px',
+  15: '-60px 0px',
+  16: '-100px 0px',
+  18: '-65px 0px'
+ 
+}
 
   useEffect(() => {
     const savedState = localStorage.getItem('catGameState')
@@ -160,10 +154,8 @@ export default function MatchTheCats() {
     localStorage.removeItem('catGameRound')
   }
 
-  const closePopup = () => dispatch({ type: 'HIDE_POPUP' })
-
   return (
-    <div className="cat-game-container">
+    <div className="cat-game-container" onClick={handleFullscreen}>
       <h1>Match the Cats</h1>
 
       <div className="game-info">
@@ -185,7 +177,7 @@ export default function MatchTheCats() {
               className={`card ${isFlipped ? 'flipped' : ''} ${isMatched ? 'matched' : ''}`}
               onClick={() => handleFlip(index)}
             >
-              <img src={card.img} alt="cat" />
+              <img src={card.img} alt="cat"  style={{ objectPosition: offsets[card.id] ?? 'center center' }}/>
             </div>
           )
         })}

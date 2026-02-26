@@ -87,8 +87,8 @@
     margin: 20px;
     background-color: transparent;
     border: none;
-    top: -10px;
-    left: -5px;
+    top: -17px;
+    left: -10px;
     font-size: 24px;
     cursor: pointer;
     color: var(--text-color);
@@ -113,7 +113,7 @@
         border: 1px solid var(--button-border-color);
         border-right: none;
         background: var(--background-color);
-        height: 240px;
+        height: 295px;
         margin-top: 12px;
         z-index: 1000;
         scrollbar-width: none;

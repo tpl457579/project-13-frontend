@@ -80,3 +80,12 @@
     
 }
 
+@media (max-height: 520px) {
+
+    .admin-title{
+        margin-bottom: 10px;
+    }
+    .admin-tabs{
+        margin-bottom: 0px;
+    }
+}

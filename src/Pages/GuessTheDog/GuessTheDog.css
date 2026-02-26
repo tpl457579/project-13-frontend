@@ -240,6 +240,10 @@
     margin-bottom: 100px;
   }
 
+  /* .footer-container {
+    visibility: hidden;
+  } */
+
   .score-lives {
     position: absolute;
     left: 20px;

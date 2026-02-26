@@ -31,7 +31,7 @@
 
 .site-button-primary:hover:not(:disabled) {
   border: 2px solid var(--button-hover-border-color);
-}
+} 
 
 .site-button-secondary {
   background: var(--fill-background-color);

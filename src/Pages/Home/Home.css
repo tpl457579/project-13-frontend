@@ -66,13 +66,17 @@
     justify-content: space-evenly;
 }
 
-.home-img{
-  height: 125svh;
-}
+.home-img {
+        height: 125svh;
+        object-position: top(-15px);
+        object-position: top;
+        margin-top: -15px;
+    }
 
       .home-h1 {
        font-size: 38px;
-        top: 28%;
+       position: fixed;
+       top: 35%;
     }
 
   .home h2 {
