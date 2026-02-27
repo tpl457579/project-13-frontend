@@ -29,7 +29,6 @@ const AdminProducts = () => {
     isSubmitting, setIsSubmitting,
     isDeleting, setIsDeleting,
     openModal, openDeleteModal,
-    handleFullscreen
   } = useAdminActions(dashboardRef);
 
   const { searchTerm, setSearchTerm, size, setSize, maxPrice, setMaxPrice, minRating, setMinRating, filteredProducts, clearFilters } = useFilters(products, null, "admin");
@@ -139,7 +138,6 @@ const AdminProducts = () => {
     <AdminLayout 
       title="Admin Product Dashboard"
       dashboardRef={dashboardRef}
-      onLayoutClick={handleFullscreen}
       onAddClick={() => openModal()}
       searchBar={
         <>

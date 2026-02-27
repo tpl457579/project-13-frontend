@@ -37,6 +37,10 @@
   font-size: 14px;
 }
 
+.product-form-fullscreen-btn{
+  visibility: hidden;
+}
+
  .product-layout {
     display: flex;
     flex-direction: column;
@@ -233,6 +237,23 @@
     flex-direction: column-reverse;
     align-items: center;
     margin-top: 0px;
+  }
+
+  .product-form-fullscreen-btn{
+    visibility: visible;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--input-color);
+    border: 1px solid var(--accent-color);
+    display: flex;
+    color: var(--text-color);
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
   }
 
   .add-product-inputs {

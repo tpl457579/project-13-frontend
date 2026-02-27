@@ -7,6 +7,8 @@ import { AiOutlineClose } from 'react-icons/ai'
 import IdeaBulb from '../IdeaBulb/IdeaBulb'
 import ScrollButton from '../ScrollButton/ScrollButton'
 import { useRef } from 'react'
+import { useFullscreen } from '../../Hooks/useFullScreen.js'
+import { Maximize, Minimize } from 'lucide-react'
 
 const PLACEHOLDER = '../placeholder.png'
 
@@ -34,13 +36,17 @@ export default function AnimalForm({ type = 'dog', initialData = {}, onSubmit, o
   const { state, handlers, refs } = useAnimalForm({ type, initialData, onSubmit, onCancel })
   const capitalizedType = type.charAt(0).toUpperCase() + type.slice(1)
   const currentField = state.fields[state.step]
+  const { isFullscreen, toggleFullscreen } = useFullscreen()
 
   return (
     <div onClick={(e) => e.stopPropagation()}>
       <form className="animal-edit-form" onSubmit={handlers.handleFormSubmit}>
-        <div className='modal-close' onClick={onCancel}><AiOutlineClose size={24} /></div>
+        <div className='animal-form-modal-close' onClick={onCancel}><AiOutlineClose size={24} /></div>
         <h2 className="form-title-vertical">{initialData._id ? `Edit ${capitalizedType}` : `Add ${capitalizedType}`}</h2>
         <div className="animal-layout-wrapper">
+            <button className="animal-form-fullscreen-btn" onClick={toggleFullscreen}>
+  {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
+</button>
           <div className="form-section-visuals">
             <div className="visual-toggle">
               <button type="button" className={!state.showTemperaments ? "active" : ""} onClick={() => handlers.setShowTemperaments(false)}>Image</button>

@@ -86,6 +86,10 @@
   color: #f13259;
 }
 
+.dog-game-fullscreen-btn{
+  visibility: hidden;
+}
+
 .pause-btn {
   position: absolute;
   top: 15svh;
@@ -133,7 +137,7 @@
   }
 
   .game h1 {
-    margin-top: 11svh;
+    margin-top: 6svh;
   }
 
   .game h2 {
@@ -166,7 +170,7 @@
   }
 
   .game h2 {
-    margin-top: 70px;
+    margin-top: 80px;
     margin-bottom: 20px;
   }
 
@@ -244,6 +248,37 @@
     margin-bottom: 0;
   }
 
+  .idea-fullscreen-wrapper {
+    position: absolute;
+    top: 60%;
+    left: 1px;
+    width: 80px;
+    height: 50px;
+}
+
+
+  .game .idea-bulb-btn-filter {
+    position: absolute;
+    top: 24px;
+    left: 47px;
+}
+
+  .dog-game-fullscreen-btn{
+    visibility: visible;
+    top: 60%;
+    background: var(--input-color);
+    border: 1px solid var(--accent-color);
+    left: 15px;
+    display: flex;
+    color: var(--text-color);
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+}
+
   .pause-btn {
     right: 40px;
   }
@@ -258,7 +293,7 @@
   }
 
   .dog-image {
-    width: 150px;
-    height: 150px;
+    width: 170px;
+    height: 170px;
   }
 }

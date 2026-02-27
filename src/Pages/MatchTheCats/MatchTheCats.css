@@ -29,8 +29,6 @@
   color: var(--accent-color);
 }
 
-
-
 .card-grid {
   display: grid;
   grid-template-columns: repeat(6, 120px);
@@ -73,7 +71,6 @@
     justify-content: center;
     align-items: center;
 }
-
 
 .card::before {
   content: '';
@@ -118,22 +115,55 @@
   pointer-events: none;
 }
 
-
 .popup h2 {
   color: var(--accent-color);
- 
+  margin-top: 25px;
+}
+
+.match-cats-fullscreen-btn{
+      visibility: hidden;
+}
+
+.popup-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.popup-decline,
+.popup-confirm {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.popup-decline {
+  background: var(--input-color);
+  border: 1px solid var(--button-border-color);
+  color: var(--text-color);
+}
+
+.popup-confirm {
+  background: var(--accent-color);
+  color: white;
 }
 
 .popup button {
     color: var(--text-color);
     border: 1px solid var(--accent-color);
     padding: 10px 20px;
+    display: flex;
     cursor: pointer;
     font-size: 16px;
     border-radius: 10px;
     margin-top: 70px;
     transition: background-color 0.3s ease;
     background: var(--input-color);
+    align-items: center;
+    justify-content: center;
 }
 
 .popup button:hover {
@@ -309,6 +339,20 @@
     margin-bottom: 0;
   }
 
+  .cat-game-fullscreen-wrapper {
+    position: absolute;
+    top: 20%;
+    left: 1px;
+    height: 50px;
+    width: 80px;
+}
+
+  .cat-game-container .idea-bulb-btn-filter {
+    position: absolute;
+    top: 5px;
+    left: 45px;
+  }
+
   .game-info{
     margin-bottom: 5px;
   }
@@ -316,4 +360,20 @@
   .card-grid {
         grid-template-columns: repeat(6, 1fr);
     }
+
+    .match-cats-fullscreen-btn{
+      visibility: visible;
+      top: 20%;
+    background: var(--input-color);
+    border: 1px solid var(--accent-color);
+    left: 12px;
+    display: flex;
+    color: var(--text-color);
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
 }
+    }

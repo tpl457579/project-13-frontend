@@ -1,35 +1,21 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
-export const useFullscreen = (ref = null) => {
-  const enterFullscreen = useCallback(() => {
-    const isShortScreen = window.innerHeight <= 520
-    if (isShortScreen && !document.fullscreenElement) {
-      const element = document.documentElement
-      const request = element.requestFullscreen || element.webkitRequestFullscreen
-      if (request) request.call(element).catch(() => {})
-      if (ref?.current) ref.current.focus()
-    }
-  }, [ref])
-
-  const exitFullscreen = useCallback(() => {
-    if (document.fullscreenElement) {
-      document.exitFullscreen?.().catch(() => {})
-    }
-  }, [])
-
-  const handleOrientationChange = useCallback(() => {
-    exitFullscreen()
-  }, [exitFullscreen])
+export const useFullscreen = () => {
+  const [isFullscreen, setIsFullscreen] = useState(false)
 
   useEffect(() => {
-    enterFullscreen()
-    window.addEventListener('orientationchange', handleOrientationChange)
+    const handleChange = () => setIsFullscreen(!!document.fullscreenElement)
+    document.addEventListener('fullscreenchange', handleChange)
+    return () => document.removeEventListener('fullscreenchange', handleChange)
+  }, [])
 
-    return () => {
-      window.removeEventListener('orientationchange', handleOrientationChange)
-      exitFullscreen()
+  const toggleFullscreen = useCallback(() => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen?.()
+    } else {
+      document.documentElement.requestFullscreen?.().catch(() => {})
     }
   }, [])
 
-  return { enterFullscreen, exitFullscreen }
+  return { isFullscreen, toggleFullscreen }
 }

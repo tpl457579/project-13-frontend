@@ -20,29 +20,12 @@ import SuitableAnimal from './Pages/SuitableAnimal/SuitableAnimal.jsx'
 import FunAnimalFacts from './Pages/FunAnimalFacts/FunAnimalFacts.jsx'
 import AnimalSearch from './Pages/AnimalSearch/AnimalSearch.jsx'
 import AdminAnimals from './Pages/AdminAnimals/AdminAnimals.jsx';
+import { useFullscreen } from './Hooks/useFullScreen.js'
 
 const App = () => {
   const location = useLocation()
   const { petType } = usePetType()
-   const [isFullscreen, setIsFullscreen] = useState(false)
-
-  useEffect(() => {
-    const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement)
-    }
-
-    document.addEventListener('fullscreenchange', handleFullscreenChange)
-    document.addEventListener('webkitfullscreenchange', handleFullscreenChange)
-    document.addEventListener('mozfullscreenchange', handleFullscreenChange)
-    document.addEventListener('MSFullscreenChange', handleFullscreenChange)
-
-    return () => {
-      document.removeEventListener('fullscreenchange', handleFullscreenChange)
-      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange)
-      document.removeEventListener('mozfullscreenchange', handleFullscreenChange)
-      document.removeEventListener('MSFullscreenChange', handleFullscreenChange)
-    }
-  }, [])
+  const { isFullscreen } = useFullscreen()
 
   return (
     <div>

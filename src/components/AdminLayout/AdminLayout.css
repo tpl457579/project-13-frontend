@@ -16,7 +16,6 @@
     align-items: center;
 }
 
-
 .admin-tabs {
     display: flex;
     width: 275px;
@@ -45,6 +44,12 @@
 }
 
 .admin-tab.active {
+    background: var(--accent-color);
+    color: white;
+    font-weight: 500;
+}
+
+.admin-tab:hover{
     background: var(--accent-color);
     color: white;
 }
@@ -86,6 +91,6 @@
         margin-bottom: 10px;
     }
     .admin-tabs{
-        margin-bottom: 0px;
+        margin-bottom: 10px;
     }
 }

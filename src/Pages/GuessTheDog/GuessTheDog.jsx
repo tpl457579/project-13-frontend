@@ -13,6 +13,8 @@ import { dogGameReducer, initialState } from '../../Reducers/DogGameReducer.jsx'
 import { useLocalStorage } from '../../Hooks/useLocalStorage.js'
 import Loader from '../../components/Loader/Loader.jsx'
 import { useFullscreen } from '../../Hooks/useFullScreen.js'
+import { Maximize, Minimize } from 'lucide-react'
+import IdeaBulb from '../../components/IdeaBulb/IdeaBulb.jsx'
 
 const STORAGE_KEY = 'dogGameState'
 const getBreedFromUrl = (url) => {
@@ -21,7 +23,7 @@ const getBreedFromUrl = (url) => {
 }
 
 const GuessTheDog = () => {
-  const { handleFullscreen } = useFullscreen()
+  const { isFullscreen, toggleFullscreen } = useFullscreen()
   const [state, dispatch] = useReducer(dogGameReducer, initialState)
   const [savedState, setSavedState] = useLocalStorage(STORAGE_KEY, initialState)
   const {
@@ -163,7 +165,18 @@ const GuessTheDog = () => {
   }, [dogImages, loading, firstLoad, handleGuess])
 
   return (
-    <div className='game' onClick={handleFullscreen}>
+    
+    <div className='game'>
+      <div className='idea-fullscreen-wrapper'>
+      <button className="dog-game-fullscreen-btn" onClick={toggleFullscreen}>
+  {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
+</button>
+<IdeaBulb
+                className='guess-the-dog-tip'
+                tip="GuessTheDog"
+                storageKey="has_seen_guess_the_dog_tip"
+              />
+</div>
       <h1>Guess the Dog Breed</h1>
       {!started && (
         <>

@@ -6,6 +6,8 @@ import { apiFetch } from '../apiFetch'
 import DropZone from '../DropZone/DropZone'
 import { AiOutlineClose } from 'react-icons/ai'
 import IdeaBulb from '../IdeaBulb/IdeaBulb'
+import { useFullscreen } from '../../Hooks/useFullScreen'
+import { Maximize, Minimize } from 'lucide-react'
 
 const PLACEHOLDER = '../placeholder.png'
 
@@ -128,10 +130,14 @@ export default function ProductForm({
   }
 
   const previewSrc = useMemo(() => preview || PLACEHOLDER, [preview])
+  const { isFullscreen, toggleFullscreen } = useFullscreen()
 
   return (
     <div className='modal-content' onClick={(e) => e.stopPropagation()}>
       <form className='product-edit-form' onSubmit={handleSubmit}>
+        <button className="product-form-fullscreen-btn" onClick={toggleFullscreen}>
+  {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
+</button>
         <div className='modal-close' onClick={onCancel}>
           <AiOutlineClose size={24} />
         </div>

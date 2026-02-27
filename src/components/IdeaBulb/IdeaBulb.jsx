@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import Modal from "../Modal/Modal";
 import Button from "../Buttons/Button";
 import { GoLightBulb } from "react-icons/go";
+import GuessTheDog from "../../Pages/GuessTheDog/GuessTheDog";
+import MatchTheCats from "../../Pages/MatchTheCats/MatchTheCats";
 
 const filterTip = {
   title: "Filter Tip!",
@@ -14,14 +16,23 @@ const addEdit = {
   text: "Paste the URL of the image and it inserts automatically. When adding animal info, just type (e.g., 10-20) then click the spacebar, it adds the units and moves to the next step automatically."
 };
 
+const fullscreenTip = {
+  title: "Fullscreen Tip!",
+  text: "Click the fullscreen button whenever you see it for the best user experience! Click again to exit fullscreen."
+};
+
 const TIPS = {
   AdminDogs: filterTip,
   Shop: filterTip,
   DogSearch: filterTip,
 
-  DogForm: addEdit,
-  CatForm: addEdit,
+  GuessTheDog: fullscreenTip,
+  MatchTheCats: fullscreenTip,
 
+  AnimalForm: addEdit, 
+  AnimalForm: fullscreenTip,
+
+  ProductForm: fullscreenTip,
   ProductForm: {
     title: "Add/Edit Tip!",
     text: "Paste the URL of the product and the rest of the form fills automatically!",

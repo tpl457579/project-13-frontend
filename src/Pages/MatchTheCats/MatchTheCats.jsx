@@ -2,9 +2,11 @@ import './MatchTheCats.css'
 import { useEffect, useReducer, useState } from 'react'
 import { catGameReducer, initialState } from '../../Reducers/CatGameReducer.jsx'
 import { useFullscreen } from '../../Hooks/useFullScreen.js'
+import { Maximize, Minimize } from 'lucide-react'
+import IdeaBulb from '../../components/IdeaBulb/IdeaBulb.jsx'
 
 export default function MatchTheCats() {
-  const { handleFullscreen } = useFullscreen()
+  const { isFullscreen, toggleFullscreen } = useFullscreen()
   const [state, dispatch] = useReducer(catGameReducer, initialState)
   const [round, setRound] = useState(() => {
     const saved = localStorage.getItem('catGameRound')
@@ -155,46 +157,59 @@ export default function MatchTheCats() {
     localStorage.removeItem('catGameRound')
   }
 
-  return (
-    <div className="cat-game-container" onClick={handleFullscreen}>
-      <h1>Match the Cats</h1>
+ return (
+  <div className="cat-game-container">
+    <div className="cat-game-fullscreen-wrapper">
+    <button className="match-cats-fullscreen-btn" onClick={toggleFullscreen}>
+  {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
+</button>
+<IdeaBulb
+                className='match-the-cats-tip'
+                tip="MatchTheCats"
+                storageKey="has_seen_match_the_cats_tip"
+              />
+</div>
+    <h1>Match the Cats</h1>
 
-      <div className="game-info">
-        <div className="score">Score: {state.score}</div>
-        <div className="attempts">Lives: {state.attempts}</div>
-      </div>
-
-      <div className="card-grid">
-        {state.cards.map((card, index) => {
-          const isFlipped =
-            state.flipped.includes(index) ||
-            state.matchedCards.includes(card.id)
-
-          const isMatched = state.matchedCards.includes(card.id)
-
-          return (
-            <div
-              key={index}
-              className={`card ${isFlipped ? 'flipped' : ''} ${isMatched ? 'matched' : ''}`}
-              onClick={() => handleFlip(index)}
-            >
-              <img src={card.img} alt="cat"  style={{ objectPosition: offsets[card.id] ?? 'center center' }}/>
-            </div>
-          )
-        })}
-      </div>
-
-      {state.popup && (
-        <div className="overlay active">
-          <div className="popup">
-            <h2>{state.popupMessage}</h2>
-
-            {state.popup === "final" && (
-              <button onClick={handleReset}>Play Again</button>
-            )}
-          </div>
-        </div>
-      )}
+    <div className="game-info">
+      <div className="score">Score: {state.score}</div>
+      <div className="attempts">Lives: {state.attempts}</div>
     </div>
-  )
-}
+
+    <div className="card-grid">
+      {state.cards.map((card, index) => {
+        const isFlipped =
+          state.flipped.includes(index) ||
+          state.matchedCards.includes(card.id)
+
+        const isMatched = state.matchedCards.includes(card.id)
+
+        return (
+          <div
+            key={index}
+            className={`card ${isFlipped ? 'flipped' : ''} ${isMatched ? 'matched' : ''}`}
+            onClick={() => handleFlip(index)}
+          >
+            <img src={card.img} alt="cat" style={{ objectPosition: offsets[card.id] ?? 'center center' }} />
+          </div>
+        )
+      })}
+    </div>
+
+    {state.popup && (
+      <div className="overlay active">
+        <div className="popup">
+          <h2>{state.popupMessage}</h2>
+          <h3>{state.popup === "final" ? "Play Again?" : "Get Ready!"}</h3>
+
+          {state.popup === "final" && (
+            <div className="popup-buttons">
+              <button className="popup-decline" onClick={() => { exitFullscreen(); closePopup(); }}>✕</button>
+              <button className="popup-confirm" onClick={handleReset}>✓</button>
+            </div>
+          )}
+        </div>
+      </div>
+    )}
+  </div>
+)}

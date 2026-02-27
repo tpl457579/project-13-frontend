@@ -124,7 +124,11 @@ display: flex;
     visibility: hidden;
 }
 
-.modal-close:hover { transform: scale(1.2); color: var(--accent-color); }
+.modal-close:hover { 
+    transform: scale(1.2); 
+    color: var(--accent-color); 
+}
+
 @keyframes popupFadeIn {
     to {
         opacity: 1;

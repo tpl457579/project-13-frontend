@@ -49,7 +49,6 @@ const AdminAnimals = ({ type = 'dog' }) => {
     openModal,
     closeModal,
     openDeleteModal,
-    handleFullscreen
   } = useAdminActions(dashboardRef);
 
   const dogFilters = useDogFilters(isDog ? animals : []);
@@ -147,7 +146,6 @@ const AdminAnimals = ({ type = 'dog' }) => {
     <AdminLayout
       title={`Admin ${isDog ? 'Dog' : 'Cat'} Dashboard`}
       dashboardRef={dashboardRef}
-      onLayoutClick={handleFullscreen}
       onAddClick={() => openModal()}
       searchBar={
         <SearchBar
