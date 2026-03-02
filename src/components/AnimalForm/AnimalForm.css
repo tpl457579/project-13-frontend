@@ -433,4 +433,35 @@
     width: 260px;
     height: 36px;
   }
+
+   .modal-content {
+        border-radius: 12px;
+        transition: all 0.3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+    }
+
+.modal-content.is-scaled {
+  transform: scale(0.75);
+}
+
+.modal-content.is-maximized {
+  transform: scale(1);
+  height: 95svh;
+  margin: 2.5svh auto;
+  border-radius: 8px;
+}
+
+.animal-edit-form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.animal-layout-wrapper, 
+.animal-info-input,
+.add-animal-image {
+  transition: all 0.3s ease-in-out;
+}
 }

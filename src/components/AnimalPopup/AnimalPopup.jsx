@@ -1,6 +1,5 @@
 import './AnimalPopup.css'
 import React, { useState, useEffect, useRef } from 'react'
-import Modal from '../Modal/Modal'
 import PawIcon from '../PawIcon'
 import { useScreenToggle } from '../../Hooks/useScreenToggle.js'
 import { Maximize, Minimize } from 'lucide-react'
@@ -26,7 +25,7 @@ const TraitMeter = ({ label, value, matchPercent, className }) => {
               fillColor="#8e4aed"
               strokeColor="#8e4aed"
               strokeWidth={10}
-              percent={i <= filledCount ? 100 : 0} 
+              percent={i <= filledCount ? 100 : 0}
               className={`trait-icon ${i <= filledCount ? 'filled animate' : ''}`}
               style={{ animationDelay: `${i * 0.12}s` }}
             />
@@ -40,26 +39,10 @@ const TraitMeter = ({ label, value, matchPercent, className }) => {
 const AnimalPopup = ({ isOpen, closePopup, dog, cat, breakdown }) => {
   const [showTraits, setShowTraits] = useState(false)
   const scrollRef = useRef(null)
-  
   const { isFullscreen, toggleFullscreen } = useScreenToggle()
 
   const animal = dog || cat
   const isCat = !!cat
-
-  const handleFullscreenClick = () => {
-    if (isFullscreen) {
-      toggleFullscreen()
-      closePopup()
-    } else {
-      toggleFullscreen()
-    }
-  }
-
-  useEffect(() => {
-    if (!isFullscreen && isOpen) {
-      closePopup()
-    }
-  }, [isFullscreen, isOpen, closePopup])
 
   useEffect(() => {
     if (!isOpen) setShowTraits(false)
@@ -69,7 +52,7 @@ const AnimalPopup = ({ isOpen, closePopup, dog, cat, breakdown }) => {
     if (scrollRef.current) scrollRef.current.scrollTop = 0
   }, [showTraits])
 
-  if (!animal) return null
+  if (!isOpen || !animal) return null
 
   const displayData = {
     name: animal.name,
@@ -100,63 +83,73 @@ const AnimalPopup = ({ isOpen, closePopup, dog, cat, breakdown }) => {
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={closePopup}>
-      <div className="animal-popup-content" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={closePopup}>&times;</button>
-        
-        <button className="fullscreen-btn" onClick={handleFullscreenClick}>
-          {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
-        </button>
+    <div className="modal-overlay" onClick={closePopup}>
+      <div
+        className={`modal-content ${isFullscreen ? 'is-maximized' : 'is-scaled'}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="animal-popup-content">
+          <button type="button" className="modal-close" onClick={closePopup}>&times;</button>
 
-        <h2 style={{ fontSize: displayData.name.length > 21 ? "20px" : "24px" }}>
-          {displayData.name}
-        </h2>
+          <button
+            type="button"
+            className="fullscreen-btn"
+            onClick={(e) => {
+              e.preventDefault()
+              toggleFullscreen()
+            }}
+          >
+            {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
+          </button>
 
-        {breakdown && animal.score != null && (
-          <div className="total-match-badge">
-            <strong>Total Match:</strong> {animal.score}%
-          </div>
-        )}
+          <h2 style={{ fontSize: displayData.name.length > 21 ? "20px" : "24px" }}>
+            {displayData.name}
+          </h2>
 
-        <div className="popup-wrapper">
-          {displayData.image && (
-            <img src={displayData.image} alt={displayData.name} className="dogImgLarge" />
+          {breakdown && animal.score != null && (
+            <div className="total-match-badge">
+              <strong>Total Match:</strong> {animal.score}%
+            </div>
           )}
 
-          <div className="popup-text" ref={scrollRef}>
-            {!showTraits ? (
-              <div className={`info-section ${isCat ? 'info-section-cat' : 'info-section-dog'}`}>
-                {displayData.weight && <p><strong>Weight:</strong> {displayData.weight}</p>}
-                {displayData.height && <p><strong>Height:</strong> {displayData.height}</p>}
-                {formattedTemperament && <p><strong>Temperament:</strong> {formattedTemperament}</p>}
-                {displayData.lifeSpan && <p><strong>Life Span:</strong> {displayData.lifeSpan}</p>}
-
-                <button className="traits-toggle-btn" onClick={() => setShowTraits(true)}>
-                  Show Traits
-                </button>
-              </div>
-            ) : (
-              <div className="traits-section">
-                {isCat && <TraitMeter label="Affection Level" value={displayData.affection} matchPercent={getMatchPercent('affectionLevel')} />}
-                <TraitMeter label={isCat ? "Energy Level" : "Playfulness"} value={displayData.playfulness} matchPercent={getMatchPercent('playfulness')} />
-                {!isCat && <TraitMeter label="Energy" value={displayData.energy} matchPercent={getMatchPercent('energy')} />}
-                <TraitMeter label="Shedding" value={displayData.shedding} matchPercent={getMatchPercent('shedding')} />
-                <TraitMeter label="Grooming" value={displayData.grooming} matchPercent={getMatchPercent('grooming')} />
-                {!isCat && <TraitMeter label="Protectiveness" value={displayData.protectiveness} matchPercent={getMatchPercent('protectiveness')} />}
-                <TraitMeter label="Good with Children" value={displayData.good_with_children} matchPercent={getMatchPercent('good_with_children')} />
-                <TraitMeter label={isCat ? "Dog Friendly" : "Good with Other Dogs"} value={displayData.good_with_other_dogs} matchPercent={getMatchPercent('good_with_other_dogs')} />
-                <TraitMeter label={isCat ? "Stranger Friendly" : "Good with Strangers"} value={displayData.good_with_strangers} matchPercent={getMatchPercent('good_with_strangers')} />
-
-                <button className="traits-toggle-btn" onClick={() => setShowTraits(false)}>
-                  Back to Info
-                </button>
-              </div>
+          <div className="popup-wrapper">
+            {displayData.image && (
+              <img src={displayData.image} alt={displayData.name} className="dogImgLarge" />
             )}
+
+            <div className="popup-text" ref={scrollRef}>
+              {!showTraits ? (
+                <div className={`info-section ${isCat ? 'info-section-cat' : 'info-section-dog'}`}>
+                  {displayData.weight && <p><strong>Weight:</strong> {displayData.weight}</p>}
+                  {displayData.height && <p><strong>Height:</strong> {displayData.height}</p>}
+                  {formattedTemperament && <p><strong>Temperament:</strong> {formattedTemperament}</p>}
+                  {displayData.lifeSpan && <p><strong>Life Span:</strong> {displayData.lifeSpan}</p>}
+                  <button type="button" className="traits-toggle-btn" onClick={() => setShowTraits(true)}>
+                    Show Traits
+                  </button>
+                </div>
+              ) : (
+                <div className="traits-section">
+                  {isCat && <TraitMeter label="Affection Level" value={displayData.affection} matchPercent={getMatchPercent('affectionLevel')} />}
+                  <TraitMeter label={isCat ? "Energy Level" : "Playfulness"} value={displayData.playfulness} matchPercent={getMatchPercent('playfulness')} />
+                  {!isCat && <TraitMeter label="Energy" value={displayData.energy} matchPercent={getMatchPercent('energy')} />}
+                  <TraitMeter label="Shedding" value={displayData.shedding} matchPercent={getMatchPercent('shedding')} />
+                  <TraitMeter label="Grooming" value={displayData.grooming} matchPercent={getMatchPercent('grooming')} />
+                  {!isCat && <TraitMeter label="Protectiveness" value={displayData.protectiveness} matchPercent={getMatchPercent('protectiveness')} />}
+                  <TraitMeter label="Good with Children" value={displayData.good_with_children} matchPercent={getMatchPercent('good_with_children')} />
+                  <TraitMeter label={isCat ? "Dog Friendly" : "Good with Other Dogs"} value={displayData.good_with_other_dogs} matchPercent={getMatchPercent('good_with_other_dogs')} />
+                  <TraitMeter label={isCat ? "Stranger Friendly" : "Good with Strangers"} value={displayData.good_with_strangers} matchPercent={getMatchPercent('good_with_strangers')} />
+                  <button type="button" className="traits-toggle-btn" onClick={() => setShowTraits(false)}>
+                    Back to Info
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </Modal>
+    </div>
   )
 }
 
-export default AnimalPopup;
+export default AnimalPopup

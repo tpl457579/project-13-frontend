@@ -38,73 +38,120 @@ export default function AnimalForm({ type = 'dog', initialData = {}, onSubmit, o
   const currentField = state.fields[state.step]
   const { isFullscreen, toggleFullscreen } = useScreenToggle()
 
-   const handleFullscreenClick = () => {
-    if (isFullscreen) {
-      toggleFullscreen()
-      closePopup()
-    } else {
-      toggleFullscreen()
-    }
-  }
-
   return (
-    <div onClick={(e) => e.stopPropagation()}>
-      <form className="animal-edit-form" onSubmit={handlers.handleFormSubmit}>
-        <div className='animal-form-modal-close' onClick={onCancel}><AiOutlineClose size={24} /></div>
-        <h2 className="form-title-vertical">{initialData._id ? `Edit ${capitalizedType}` : `Add ${capitalizedType}`}</h2>
-        <div className="animal-layout-wrapper">
-            <button className="animal-form-fullscreen-btn" onClick={toggleFullscreen}>
-  {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
-</button>
-          <div className="form-section-visuals">
-            <div className="visual-toggle">
-              <button type="button" className={!state.showTemperaments ? "active" : ""} onClick={() => handlers.setShowTemperaments(false)}>Image</button>
-              <button type="button" className={state.showTemperaments ? "active" : ""} onClick={() => handlers.setShowTemperaments(true)}>Temperaments</button>
-            </div>
-            <div className="visual-content">
-              {!state.showTemperaments ? (
-                <div className="image-mode">
-                  <div className="add-animal-image"><img src={state.preview || PLACEHOLDER} alt={capitalizedType} /></div>
-                  <DropZone handleFileChange={handlers.handleFileChange} height="120px" fontSize="14px" />
-                  {state.uploading && <Spinner />}
-                </div>
-              ) : (
-                <div className="temperament-mode">
-                  <TemperamentSelector options={state.temperamentOptions} selected={state.formData.temperament || []} onChange={(newTemps) => handlers.setFormData(prev => ({ ...prev, temperament: newTemps }))} />
-                </div>
-              )}
-            </div>
+    <div className="modal-overlay" onClick={onCancel}>
+      <div
+        className={`modal-content ${isFullscreen ? 'is-maximized' : 'is-scaled'}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <form className="animal-edit-form" onSubmit={handlers.handleFormSubmit}>
+          <div className="animal-form-modal-close" onClick={onCancel}>
+            <AiOutlineClose size={24} />
           </div>
-          <div className='form-section-inputs'>
-            <h3 className="form-title">{initialData._id ? `Edit ${capitalizedType}` : `Add ${capitalizedType}`}</h3>
-            <div className='identity-inputs'>
-              <input value={state.name} onChange={(e) => handlers.setName(e.target.value)} placeholder='Name' required />
-              <input value={state.imageUrl} onChange={(e) => { handlers.setImageUrl(e.target.value); handlers.setPreview(e.target.value); }} placeholder='Image URL' />
-            </div>
-            <div className='characteristics-step'>
-              <div className="input-wrapper">
-                <input className="animal-info-input" style={{ borderColor: state.error ? 'var(--accent-color)' : '' }} key={currentField.key} ref={refs.inputRef} type="text" value={state.formData[currentField.key] || ''} onChange={(e) => handlers.handleFieldChange(e.target.value)} />
-                <span className="floating-placeholder">{currentField.label}</span>
-                {state.error && <div className="error-tooltip">{state.error}</div>}
-                <IdeaBulb className="animal-form-tip" tip={`${capitalizedType}Form`} storageKey={`has_seen_${type}_form_tip`} />
+
+          <button
+            type="button"
+            className="animal-form-fullscreen-btn"
+            onClick={(e) => {
+              e.preventDefault()
+              toggleFullscreen()
+            }}
+          >
+            {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
+          </button>
+
+          <h2 className="form-title-vertical">
+            {initialData._id ? `Edit ${capitalizedType}` : `Add ${capitalizedType}`}
+          </h2>
+
+          <div className="animal-layout-wrapper">
+            <div className="form-section-visuals">
+              <div className="visual-toggle">
+                <button type="button" className={!state.showTemperaments ? "active" : ""} onClick={() => handlers.setShowTemperaments(false)}>Image</button>
+                <button type="button" className={state.showTemperaments ? "active" : ""} onClick={() => handlers.setShowTemperaments(true)}>Temperaments</button>
+              </div>
+              <div className="visual-content">
+                {!state.showTemperaments ? (
+                  <div className="image-mode">
+                    <div className="add-animal-image">
+                      <img src={state.preview || PLACEHOLDER} alt={capitalizedType} />
+                    </div>
+                    <DropZone handleFileChange={handlers.handleFileChange} height="120px" fontSize="14px" />
+                    {state.uploading && <Spinner />}
+                  </div>
+                ) : (
+                  <div className="temperament-mode">
+                    <TemperamentSelector
+                      options={state.temperamentOptions}
+                      selected={state.formData.temperament || []}
+                      onChange={(newTemps) => handlers.setFormData(prev => ({ ...prev, temperament: newTemps }))}
+                    />
+                  </div>
+                )}
               </div>
             </div>
-            <div className="step-navigation">
-              <button type="button" className="nav-arrow" disabled={state.step === 0} onClick={() => handlers.handleManualStep(state.step - 1)}>&larr;</button>
-              <div className="step-dots">
-                {state.fields.map((_, index) => (
-                  <button key={index} type="button" className={`step-dot ${index === state.step ? 'active' : ''}`} onClick={() => handlers.handleManualStep(index)} />
-                ))}
+
+            <div className="form-section-inputs">
+              <h3 className="form-title">
+                {initialData._id ? `Edit ${capitalizedType}` : `Add ${capitalizedType}`}
+              </h3>
+              <div className="identity-inputs">
+                <input value={state.name} onChange={(e) => handlers.setName(e.target.value)} placeholder="Name" required />
+                <input
+                  value={state.imageUrl}
+                  onChange={(e) => {
+                    handlers.setImageUrl(e.target.value)
+                    handlers.setPreview(e.target.value)
+                  }}
+                  placeholder="Image URL"
+                />
               </div>
-              <button type="button" className="nav-arrow" disabled={state.step === state.fields.length - 1 || !!state.error} onClick={() => handlers.handleManualStep(state.step + 1)}>&rarr;</button>
-            </div>
-            <div className="admin-animal-form-buttons">
-              <Button type='submit' loading={isSubmitting || state.uploading} loadingText="Saving..." showSpinner disabled={!!state.error || !state.name}>Save {capitalizedType}</Button>
-              <button type='button' onClick={onCancel}>Cancel</button>
+              <div className="characteristics-step">
+                <div className="input-wrapper">
+                  <input
+                    className="animal-info-input"
+                    style={{ borderColor: state.error ? 'var(--accent-color)' : '' }}
+                    key={currentField.key}
+                    ref={refs.inputRef}
+                    type="text"
+                    value={state.formData[currentField.key] || ''}
+                    onChange={(e) => handlers.handleFieldChange(e.target.value)}
+                  />
+                  <span className="floating-placeholder">{currentField.label}</span>
+                  {state.error && <div className="error-tooltip">{state.error}</div>}
+                  <IdeaBulb className="animal-form-tip" tip={`${capitalizedType}Form`} storageKey={`has_seen_${type}_form_tip`} />
+                </div>
+              </div>
+              <div className="step-navigation">
+                <button type="button" className="nav-arrow" disabled={state.step === 0} onClick={() => handlers.handleManualStep(state.step - 1)}>&larr;</button>
+                <div className="step-dots">
+                  {state.fields.map((_, index) => (
+                    <button
+                      key={index}
+                      type="button"
+                      className={`step-dot ${index === state.step ? 'active' : ''}`}
+                      onClick={() => handlers.handleManualStep(index)}
+                    />
+                  ))}
+                </div>
+                <button type="button" className="nav-arrow" disabled={state.step === state.fields.length - 1 || !!state.error} onClick={() => handlers.handleManualStep(state.step + 1)}>&rarr;</button>
+              </div>
+              <div className="admin-animal-form-buttons">
+                <Button
+                  type="submit"
+                  loading={isSubmitting || state.uploading}
+                  loadingText="Saving..."
+                  showSpinner
+                  disabled={!!state.error || !state.name}
+                >
+                  Save {capitalizedType}
+                </Button>
+                <button type="button" onClick={onCancel}>Cancel</button>
+              </div>
             </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   )
 }
