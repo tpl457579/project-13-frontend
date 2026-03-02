@@ -72,7 +72,7 @@
 @media (max-width: 620px) {
 
  .small-animal-card {
-        width: 295px;
+        width: 290px;
         justify-content: flex-start;
         border-radius: 12px;
   }
