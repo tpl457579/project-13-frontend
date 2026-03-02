@@ -133,7 +133,11 @@ export default function ProductForm({
   const { isFullscreen, toggleFullscreen } = useScreenToggle()
 
   return (
-    <div className='modal-content' onClick={(e) => e.stopPropagation()}>
+    <div className="modal-overlay" onClick={onCancel}>
+    <div 
+        className={`modal-content ${isFullscreen ? 'is-maximized' : 'is-scaled'}`} 
+        onClick={(e) => e.stopPropagation()}
+      >
       <form className='product-edit-form' onSubmit={handleSubmit}>
         <button 
           type="button" 
@@ -237,6 +241,7 @@ export default function ProductForm({
           </div>
         </div>
       </form>
+    </div>
     </div>
   )
 }

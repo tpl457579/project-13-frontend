@@ -211,13 +211,6 @@
 }
 
 @media (max-height: 520px) {
-
-  .modal-content{
-    .product-edit-form {
-    transform: scale(0.9);
-    transform-origin: center center;
-  }
-  }
   .product-edit-form {
     height: 95svh;
     width: 82svw;
@@ -284,4 +277,48 @@
     justify-content: center;
     gap: 15px;
   }
+
+  /* The container for the form */
+    .modal-content {
+        /* background: white; */
+        border-radius: 12px;
+        transition: all 0.3s ease-in-out;
+        /* transform-origin: center center; */
+        display: flex;
+        flex-direction: column;
+        /* overflow-y: auto; */
+    }
+
+/* Default state: Scale of 0.8 */
+.modal-content.is-scaled {
+  transform: scale(0.7);
+ /*  max-height: 80vh; 
+  width: 90%;
+  max-width: 600px; */
+}
+
+/* Maximized state: 95svh */
+.modal-content.is-maximized {
+  transform: scale(1); /* Reset scale to keep text crisp */
+  height: 95svh;
+  /* width: 95vw; */
+  /* max-width: 1200px; */ /* Or whatever your max design width is */
+  margin: 2.5svh auto;
+  border-radius: 8px;
+}
+
+/* Ensure the form inside fills the space */
+.product-edit-form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+/* Smooth scaling for all internal components */
+.product-layout, 
+.add-product-inputs,
+.product-visual img {
+  transition: all 0.3s ease-in-out;
+}
 }
