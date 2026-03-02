@@ -452,6 +452,7 @@
 
 .modal-content.is-maximized {
   transform: scale(1);
+  height: 95svh;
   margin: 2.5svh auto;
   border-radius: 8px;
 }

@@ -306,7 +306,6 @@ display: flex;
 }
 
 .animal-popup-content {
-  height: 100%;
   display: flex;
   flex-direction: column;
   padding: 20px;
