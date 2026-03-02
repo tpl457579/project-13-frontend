@@ -204,7 +204,7 @@ display: flex;
         justify-content: center;
         align-content: center;
         padding: 20px;
-        height: 115svh;
+        height: 95svh;
     }
 
     .popup-wrapper{
@@ -297,12 +297,11 @@ display: flex;
   }
 
   .modal-content.is-scaled {
-    transform: scale(0.75);
+    transform: scale(0.85);
   }
 
   .modal-content.is-maximized {
     transform: scale(1);
-    max-height: 95svh;
     margin: 2.5svh auto;
     border-radius: 8px;
   }
