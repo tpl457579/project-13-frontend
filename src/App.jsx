@@ -20,7 +20,7 @@ import SuitableAnimal from './Pages/SuitableAnimal/SuitableAnimal.jsx'
 import FunAnimalFacts from './Pages/FunAnimalFacts/FunAnimalFacts.jsx'
 import AnimalSearch from './Pages/AnimalSearch/AnimalSearch.jsx'
 import AdminAnimals from './Pages/AdminAnimals/AdminAnimals.jsx';
-import { useFullscreen } from './hooks/useFullScreen.js'
+import { useFullscreen } from './Hooks/useFullScreen.js'
 
 const App = () => {
   const location = useLocation()
