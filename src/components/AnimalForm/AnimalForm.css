@@ -439,12 +439,13 @@
     height: 36px;
   }
 
-   .modal-content {
-        border-radius: 12px;
-        transition: all 0.3s ease-in-out;
-        display: flex;
-        flex-direction: column;
-    }
+   
+.modal-content {
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease-in-out;
+}
 
 .modal-content.is-scaled {
   transform: scale(0.75);
@@ -455,17 +456,5 @@
   height: 95svh;
   margin: 2.5svh auto;
   border-radius: 8px;
-}
-
-.animal-edit-form {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-}
-
-.animal-layout-wrapper, 
-.animal-info-input,
-.add-animal-image {
-  transition: all 0.3s ease-in-out;
 }
 }
