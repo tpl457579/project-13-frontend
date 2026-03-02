@@ -16,6 +16,10 @@
     animation: popupFadeIn 0.3s forwards;
 }
 
+.fullscreen-btn{
+    visibility: hidden;
+}
+
 .animal-popup-content h2 {
     color: var(--accent-color);
     font-size: 28px;
@@ -110,18 +114,14 @@ display: flex;
 
 .modal-close {
   position: absolute;
-  top: -6px;
-  left: 10px;
+  top: -10px;
+  left: 6px;
   font-size: 50px;
   cursor: pointer;
   color: var(--text-color);
   background: none;
   border: none;
   transition: transform 0.2s;
-}
-
-.animal-popup-scroll-button {
-    visibility: hidden;
 }
 
 .modal-close:hover { 
@@ -167,10 +167,6 @@ display: flex;
     
     }
 
-    .animal-popup-scroll-button{
-        visibility: hidden;
-    }
-
     .popup-wrapper {
         position: unset;
     }
@@ -210,21 +206,45 @@ display: flex;
         align-content: center;
     }
 
+    .popup-wrapper{
+    gap: 20px;
+    display: flex;
+    margin-bottom: 15px;
+}
+
     .popup-text{
-        height:80px;
-        margin-bottom: 30px;
+        height:305px;
+        justify-content: center;
     }
 
      .animal-popup-content h2 {
-        margin-top: 0;
+        margin-top: 35px;
+        margin-bottom: 0px;
     }
 
-        .dogImgLarge {
-        width: 38%;
-        height: 125px;
+    .fullscreen-btn{
+          visibility: visible;
+    top: 10px;
+    background: var(--input-color);
+    border: 1px solid var(--accent-color);
+    right: 10px;
+    display: flex;
+    color: var(--text-color);
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    z-index: 6;
+    }
+
+           .dogImgLarge {
+        width: 225px;
+        height: 225px;
         object-fit: cover;
         margin-bottom: 10px;
-        margin-top: 0px;
+        margin-top: 17px;
     }
 
     .info-section {
@@ -233,9 +253,12 @@ display: flex;
 
     .info-section-cat{
         gap: 20px;
-        margin-top: 0;
+        margin-top: 60px;
     }
 
+    .trait-meter{
+        gap:3px;
+    }
 
     .traits-section {
       height: 55px;
@@ -251,26 +274,17 @@ display: flex;
 }
 
 .trait-label{
-    font-size: 14px;
+    font-size: 12px;
+    width: 290px;
 }
 
 .trait-icons{
-    width: 200px;
+    width: 290px;
+    gap:0px;
 }
 
-.animal-scroll-container {
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translate(-50%);
-    display: flex;
-    height: 40px;
-    justify-content: center;
-    align-items: center;
-    z-index: 10001;
+.info-section-dog{
+    margin-top: 15px;
 }
 
-.animal-popup-scroll-button {
-    visibility: visible;
-}
 }

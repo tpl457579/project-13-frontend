@@ -31,7 +31,7 @@ A fun questionnaire that helps you to find your perfect buddy. The questionnaire
 
 # Shop
 
-A page where users can find the perfect toys, food and clothing for their pets. Users can filter by breed, price, and rating. The **Shop** and **Avertisement Partnerships** are the whole reason for this application to exist, to earn money from **affiliate marketing**, the games etc. are to attract and keep customers engaged.
+A page where users can find the perfect toys, food and clothing for their pets. Users can filter by breed, price, and rating. The **Shop** and **Avertisement Partnerships** are the whole reason for this application to exist, to earn money from **affiliate marketing**, from **sponsorship** and **advertising** from **veterinary clinics**, **boarding kennels** etc. the games etc. are to attract and keep customers engaged.
 
 # Technologies Used
 
