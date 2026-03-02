@@ -204,6 +204,7 @@ display: flex;
         width: 82svw;
         justify-content: center;
         align-content: center;
+        height: 95svh;
     }
 
     .popup-wrapper{
