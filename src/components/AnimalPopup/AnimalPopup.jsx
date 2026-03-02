@@ -46,6 +46,21 @@ const AnimalPopup = ({ isOpen, closePopup, dog, cat, breakdown }) => {
   const animal = dog || cat
   const isCat = !!cat
 
+  const handleFullscreenClick = () => {
+    if (isFullscreen) {
+      toggleFullscreen()
+      closePopup()
+    } else {
+      toggleFullscreen()
+    }
+  }
+
+  useEffect(() => {
+    if (!isFullscreen && isOpen) {
+      closePopup()
+    }
+  }, [isFullscreen, isOpen, closePopup])
+
   useEffect(() => {
     if (!isOpen) setShowTraits(false)
   }, [isOpen])
@@ -89,7 +104,7 @@ const AnimalPopup = ({ isOpen, closePopup, dog, cat, breakdown }) => {
       <div className="animal-popup-content" onClick={(e) => e.stopPropagation()}>
         <button className="modal-close" onClick={closePopup}>&times;</button>
         
-        <button className="fullscreen-btn" onClick={toggleFullscreen}>
+        <button className="fullscreen-btn" onClick={handleFullscreenClick}>
           {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
         </button>
 

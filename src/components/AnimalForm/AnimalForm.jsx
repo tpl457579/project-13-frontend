@@ -38,6 +38,15 @@ export default function AnimalForm({ type = 'dog', initialData = {}, onSubmit, o
   const currentField = state.fields[state.step]
   const { isFullscreen, toggleFullscreen } = useScreenToggle()
 
+   const handleFullscreenClick = () => {
+    if (isFullscreen) {
+      toggleFullscreen()
+      closePopup()
+    } else {
+      toggleFullscreen()
+    }
+  }
+
   return (
     <div onClick={(e) => e.stopPropagation()}>
       <form className="animal-edit-form" onSubmit={handlers.handleFormSubmit}>
