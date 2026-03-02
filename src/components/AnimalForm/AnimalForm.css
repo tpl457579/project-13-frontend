@@ -457,4 +457,11 @@
   margin: 2.5svh auto;
   border-radius: 8px;
 }
+
+.animal-edit-form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
 }
