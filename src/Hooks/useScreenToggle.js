@@ -1,12 +1,19 @@
 import { useCallback, useEffect, useState } from 'react'
 
-export const useFullscreen = () => {
+export const useScreenToggle = () => {
   const [isFullscreen, setIsFullscreen] = useState(false)
 
   useEffect(() => {
     const handleChange = () => setIsFullscreen(!!document.fullscreenElement)
-    document.addEventListener('fullscreenchange', handleChange)
-    return () => document.removeEventListener('fullscreenchange', handleChange)
+   document.addEventListener('fullscreenchange', handleChange)
+    document.addEventListener('webkitfullscreenchange', handleChange)
+    document.addEventListener('mozfullscreenchange', handleChange)
+    
+    return () => {
+      document.removeEventListener('fullscreenchange', handleChange)
+      document.removeEventListener('webkitfullscreenchange', handleChange)
+      document.removeEventListener('mozfullscreenchange', handleChange)
+    }
   }, [])
 
   const toggleFullscreen = useCallback(() => {

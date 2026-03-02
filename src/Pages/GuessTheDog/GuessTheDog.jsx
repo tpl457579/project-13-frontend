@@ -12,9 +12,9 @@ import { Pause, Play } from 'lucide-react'
 import { dogGameReducer, initialState } from '../../Reducers/DogGameReducer.jsx'
 import { useLocalStorage } from '../../Hooks/useLocalStorage.js'
 import Loader from '../../components/Loader/Loader.jsx'
-import { useFullscreen } from '../../Hooks/useFullScreen.js'
 import { Maximize, Minimize } from 'lucide-react'
 import IdeaBulb from '../../components/IdeaBulb/IdeaBulb.jsx'
+import { useScreenToggle } from '../../Hooks/useScreenToggle.js'
 
 const STORAGE_KEY = 'dogGameState'
 const getBreedFromUrl = (url) => {
@@ -23,7 +23,7 @@ const getBreedFromUrl = (url) => {
 }
 
 const GuessTheDog = () => {
-  const { isFullscreen, toggleFullscreen } = useFullscreen()
+  const { isFullscreen, toggleFullscreen } = useScreenToggle()
   const [state, dispatch] = useReducer(dogGameReducer, initialState)
   const [savedState, setSavedState] = useLocalStorage(STORAGE_KEY, initialState)
   const {

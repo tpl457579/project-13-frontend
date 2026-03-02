@@ -6,7 +6,7 @@ import { apiFetch } from '../apiFetch'
 import DropZone from '../DropZone/DropZone'
 import { AiOutlineClose } from 'react-icons/ai'
 import IdeaBulb from '../IdeaBulb/IdeaBulb'
-import { useFullscreen } from '../../Hooks/useFullScreen.js'
+import { useScreenToggle } from '../../Hooks/useScreenToggle'
 import { Maximize, Minimize } from 'lucide-react'
 
 const PLACEHOLDER = '../placeholder.png'
@@ -130,7 +130,7 @@ export default function ProductForm({
   }
 
   const previewSrc = useMemo(() => preview || PLACEHOLDER, [preview])
-  const { isFullscreen, toggleFullscreen } = useFullscreen()
+  const { isFullscreen, toggleFullscreen } = useScreenToggle()
 
   return (
     <div className='modal-content' onClick={(e) => e.stopPropagation()}>

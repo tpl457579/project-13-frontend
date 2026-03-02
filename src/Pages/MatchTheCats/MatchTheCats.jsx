@@ -1,12 +1,12 @@
 import './MatchTheCats.css'
 import { useEffect, useReducer, useState } from 'react'
 import { catGameReducer, initialState } from '../../Reducers/CatGameReducer.jsx'
-import { useFullscreen } from '../../Hooks/useFullScreen.js'
 import { Maximize, Minimize } from 'lucide-react'
 import IdeaBulb from '../../components/IdeaBulb/IdeaBulb.jsx'
+import { useScreenToggle } from '../../Hooks/useScreenToggle.js'
 
 export default function MatchTheCats() {
-  const { isFullscreen, toggleFullscreen } = useFullscreen()
+  const { isFullscreen, toggleFullscreen } = useScreenToggle()
   const [state, dispatch] = useReducer(catGameReducer, initialState)
   const [round, setRound] = useState(() => {
     const saved = localStorage.getItem('catGameRound')

@@ -69,13 +69,15 @@
   .profile-container{
     width: 400px;
         border-radius: 18px;
-        height: 300px;
+        height: 260px;
+        padding:0px;
         border: 1px solid var(--button-border-color);
   }
   
   .profile-container h1{
     font-size: 28px;
     margin-bottom: 5px;
+    margin-top: 5px;
   }
 
   .profile-form{

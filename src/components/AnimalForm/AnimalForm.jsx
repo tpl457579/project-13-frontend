@@ -7,7 +7,7 @@ import { AiOutlineClose } from 'react-icons/ai'
 import IdeaBulb from '../IdeaBulb/IdeaBulb'
 import ScrollButton from '../ScrollButton/ScrollButton'
 import { useRef } from 'react'
-import { useFullscreen } from '../../Hooks/useFullScreen.js'
+import { useScreenToggle } from '../../Hooks/useScreenToggle'
 import { Maximize, Minimize } from 'lucide-react'
 
 const PLACEHOLDER = '../placeholder.png'
@@ -36,7 +36,7 @@ export default function AnimalForm({ type = 'dog', initialData = {}, onSubmit, o
   const { state, handlers, refs } = useAnimalForm({ type, initialData, onSubmit, onCancel })
   const capitalizedType = type.charAt(0).toUpperCase() + type.slice(1)
   const currentField = state.fields[state.step]
-  const { isFullscreen, toggleFullscreen } = useFullscreen()
+  const { isFullscreen, toggleFullscreen } = useScreenToggle()
 
   return (
     <div onClick={(e) => e.stopPropagation()}>
