@@ -2,13 +2,11 @@ import './AnimalPopup.css'
 import React, { useState, useEffect, useRef } from 'react'
 import Modal from '../Modal/Modal'
 import PawIcon from '../PawIcon'
-import { useFullscreen } from '../../Hooks/useFullScreen.js'
-import { Maximize, Minimize } from 'lucide-react'
+
 
 const TraitMeter = ({ label, value, matchPercent, className }) => {
   if (value == null) return null
   const filledCount = Math.max(0, Math.min(5, Math.round(value)))
-
 
   return (
     <div className={`trait-container ${className}`}>
@@ -41,7 +39,6 @@ const TraitMeter = ({ label, value, matchPercent, className }) => {
 const AnimalPopup = ({ isOpen, closePopup, dog, cat, breakdown }) => {
   const [showTraits, setShowTraits] = useState(false)
   const scrollRef = useRef(null)
-  const { isFullscreen, toggleFullscreen } = useFullscreen()
 
   const animal = dog || cat
   const isCat = !!cat
@@ -88,9 +85,7 @@ const AnimalPopup = ({ isOpen, closePopup, dog, cat, breakdown }) => {
     <Modal isOpen={isOpen} onClose={closePopup}>
       <div className="animal-popup-content" onClick={(e) => e.stopPropagation()}>
         <button className="modal-close" onClick={closePopup}>&times;</button>
-<button className="fullscreen-btn" onClick={toggleFullscreen}>
-  {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
-</button>
+
         <h2 style={{ fontSize: displayData.name.length > 21 ? "20px" : "24px" }}>
           {displayData.name}
         </h2>
