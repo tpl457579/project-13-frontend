@@ -447,7 +447,7 @@
     }
 
 .modal-content.is-scaled {
-  transform: scale(0.75);
+  transform: scale(0.85);
 }
 
 .modal-content.is-maximized {
