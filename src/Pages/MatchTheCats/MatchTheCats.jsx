@@ -1,7 +1,7 @@
 import './MatchTheCats.css'
 import { useEffect, useReducer, useState } from 'react'
 import { catGameReducer, initialState } from '../../Reducers/CatGameReducer.jsx'
-import { useFullscreen } from '../../hooks/useFullScreen.js'
+
 import { Maximize, Minimize } from 'lucide-react'
 import IdeaBulb from '../../components/IdeaBulb/IdeaBulb.jsx'
 
