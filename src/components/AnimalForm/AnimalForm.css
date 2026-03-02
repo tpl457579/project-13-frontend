@@ -448,7 +448,6 @@
 
 .modal-content.is-scaled {
   transform: scale(0.75);
-  height: 95svh;
 }
 
 .modal-content.is-maximized {
