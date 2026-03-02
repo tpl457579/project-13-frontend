@@ -89,7 +89,12 @@ const AnimalPopup = ({ isOpen, closePopup, dog, cat, breakdown }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="animal-popup-content">
-          <button type="button" className="modal-close" onClick={closePopup}>&times;</button>
+         <button type="button" className="modal-close" onClick={() => {
+  if (isFullscreen) toggleFullscreen()
+  closePopup()
+}}>
+  &times;
+</button>
 
           <button
             type="button"
