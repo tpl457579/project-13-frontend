@@ -211,6 +211,13 @@
 }
 
 @media (max-height: 520px) {
+
+  .modal-content{
+    .product-edit-form {
+    transform: scale(0.75);
+    transform-origin: center center;
+  }
+  }
   .product-edit-form {
     height: 95svh;
     width: 82svw;

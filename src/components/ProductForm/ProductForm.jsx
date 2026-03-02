@@ -135,9 +135,16 @@ export default function ProductForm({
   return (
     <div className='modal-content' onClick={(e) => e.stopPropagation()}>
       <form className='product-edit-form' onSubmit={handleSubmit}>
-        <button className="product-form-fullscreen-btn" onClick={toggleFullscreen}>
-  {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
-</button>
+        <button 
+          type="button" 
+          className="product-form-fullscreen-btn" 
+          onClick={(e) => {
+            e.preventDefault()
+            toggleFullscreen()
+          }}
+        >
+          {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
+        </button>
         <div className='modal-close' onClick={onCancel}>
           <AiOutlineClose size={24} />
         </div>
