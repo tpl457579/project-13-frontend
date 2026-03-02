@@ -2,7 +2,7 @@ import './AnimalPopup.css'
 import React, { useState, useEffect, useRef } from 'react'
 import Modal from '../Modal/Modal'
 import PawIcon from '../PawIcon'
-import { useFullscreen } from '../../Hooks/useFullScreen'
+import { useFullscreen } from '../../Hooks/useFullScreen.js'
 import { Maximize, Minimize } from 'lucide-react'
 
 const TraitMeter = ({ label, value, matchPercent, className }) => {

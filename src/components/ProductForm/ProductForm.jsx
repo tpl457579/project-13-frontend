@@ -6,7 +6,7 @@ import { apiFetch } from '../apiFetch'
 import DropZone from '../DropZone/DropZone'
 import { AiOutlineClose } from 'react-icons/ai'
 import IdeaBulb from '../IdeaBulb/IdeaBulb'
-import { useFullscreen } from '../../Hooks/useFullScreen'
+import { useFullscreen } from '../../Hooks/useFullScreen.js'
 import { Maximize, Minimize } from 'lucide-react'
 
 const PLACEHOLDER = '../placeholder.png'
