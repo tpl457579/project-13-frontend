@@ -36,20 +36,20 @@ export const useScreenToggle = () => {
   }, [])
 
   const toggleFullscreen = useCallback(async () => {
-    const docEl = document.documentElement
+    const rootElement = document.documentElement
 
     if (!isFullscreen) {
       const requestMethod = 
-        docEl.requestFullscreen || 
-        docEl.webkitRequestFullscreen || 
-        docEl.mozRequestFullScreen || 
-        docEl.msRequestFullscreen
+        rootElement.requestFullscreen || 
+        rootElement.webkitRequestFullscreen || 
+        rootElement.mozRequestFullScreen || 
+        rootElement.msRequestFullscreen
 
       if (requestMethod) {
         try {
-          await requestMethod.call(docEl)
+          await requestMethod.call(rootElement)
         } catch (err) {
-          console.error(`Error attempting to enable fullscreen: ${err.message}`)
+          console.error(err)
         }
       }
     } else {
@@ -63,7 +63,7 @@ export const useScreenToggle = () => {
         try {
           await exitMethod.call(document)
         } catch (err) {
-          console.error(`Error attempting to exit fullscreen: ${err.message}`)
+          console.error(err)
         }
       }
     }

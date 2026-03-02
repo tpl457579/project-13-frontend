@@ -212,7 +212,7 @@
 
 @media (max-height: 520px) {
   .product-edit-form {
-    height: 82svh;
+    height: 115svh;
     width: 82svw;
     flex-direction: row;
     justify-content: center;
