@@ -1,5 +1,4 @@
 import { useState, useCallback, useEffect } from 'react'
-import { useFullscreen } from './useFullScreen.js'
 
 export const useAdminActions = (ref) => {
   const [editingItem, setEditingItem] = useState(null)
