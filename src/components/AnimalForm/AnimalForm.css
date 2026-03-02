@@ -334,7 +334,7 @@
 
 @media (max-width: 580px) {
   .admin-animal-form-buttons {
-    margin-top: 25px;
+    margin-top: 15px;
   }
 
   .search-bar input {
@@ -353,7 +353,7 @@
   }
 
   .form-section-inputs {
-    height: 240px;
+    height: 190px;
     justify-content: center;
   }
 
