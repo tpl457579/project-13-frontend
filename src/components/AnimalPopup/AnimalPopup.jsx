@@ -2,7 +2,7 @@ import './AnimalPopup.css'
 import React, { useState, useEffect, useRef } from 'react'
 import Modal from '../Modal/Modal'
 import PawIcon from '../PawIcon'
-import { useFullscreen } from '../../Hooks/useFullScreen'
+import { useFullScreen } from '../../Hooks/useFullScreen.js'
 
 
 const TraitMeter = ({ label, value, matchPercent, className }) => {
@@ -131,6 +131,8 @@ const AnimalPopup = ({ isOpen, closePopup, dog, cat, breakdown }) => {
                 </button>
               </div>
             )}
+          </div>
+          </div>
           </div>
         </div>
       </div>
