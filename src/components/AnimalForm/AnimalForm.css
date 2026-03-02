@@ -2,7 +2,7 @@
   display: flex;
   position: relative;
   width: 350px;
-  height: 85svh;
+  height: 87svh;
   align-items: center;
   background: var(--background-color);
   border: 2px solid var(--button-border-color);
@@ -357,8 +357,13 @@
     justify-content: center;
   }
 
+  .form-section-visuals{
+    height: 235px;
+  }
+
   .form-title-vertical {
     margin-bottom: 10px;
+    margin-top: 0px;
   }
 }
 
