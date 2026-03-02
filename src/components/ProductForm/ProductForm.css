@@ -295,10 +295,4 @@
   border-radius: 8px;
 }
 
-.product-edit-form {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-}
 }
