@@ -136,7 +136,7 @@
 
 .hamburger-scroll-floating {
   position: absolute; 
-  bottom: 12px;
+  bottom: 33px;
   left: 50%;
   transform: translateX(-50%);
   pointer-events: auto;
