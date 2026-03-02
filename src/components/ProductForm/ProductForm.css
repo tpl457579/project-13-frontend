@@ -225,7 +225,7 @@
   }
 
   .product-layout {
-    width: 82svw;
+    width: 78svw;
     display: flex;
     flex-direction: row;
     gap: 20px;
@@ -233,7 +233,7 @@
   }
 
   .product-visual {
-    width: 250px;
+    width: 270px;
     flex-direction: column-reverse;
     align-items: center;
     margin-top: 0px;
@@ -277,37 +277,24 @@
     justify-content: center;
     gap: 15px;
   }
-
-  /* The container for the form */
     .modal-content {
-        /* background: white; */
         border-radius: 12px;
         transition: all 0.3s ease-in-out;
-        /* transform-origin: center center; */
         display: flex;
         flex-direction: column;
-        /* overflow-y: auto; */
     }
 
-/* Default state: Scale of 0.8 */
 .modal-content.is-scaled {
-  transform: scale(0.7);
- /*  max-height: 80vh; 
-  width: 90%;
-  max-width: 600px; */
+  transform: scale(0.75);
 }
 
-/* Maximized state: 95svh */
 .modal-content.is-maximized {
-  transform: scale(1); /* Reset scale to keep text crisp */
+  transform: scale(1);
   height: 95svh;
-  /* width: 95vw; */
-  /* max-width: 1200px; */ /* Or whatever your max design width is */
   margin: 2.5svh auto;
   border-radius: 8px;
 }
 
-/* Ensure the form inside fills the space */
 .product-edit-form {
   height: 100%;
   display: flex;
@@ -315,10 +302,10 @@
   padding: 20px;
 }
 
-/* Smooth scaling for all internal components */
 .product-layout, 
 .add-product-inputs,
 .product-visual img {
   transition: all 0.3s ease-in-out;
 }
+
 }
