@@ -86,8 +86,8 @@ body.dark-theme {
 }
 
 .modal-content.is-scaled {
-  transform: scale(0.75);
-  height:100%;
+  transform: scale(0.85);
+  height:80svh;
   transform-origin: bottom center;
 }
 
