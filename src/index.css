@@ -78,18 +78,6 @@ body.dark-theme {
 
 @media (max-height: 520px) {
 
-.modal-content {
-  display: flex;
-  flex-direction: column;
-  transition: all 0.3s ease-in-out;
-}
-
- .modal-content.is-scaled {
-    width: 82svw;
-    height: 70svh;
-    overflow-y: auto;
-  }
-
   .modal-content.is-maximized {
     width: 82vw;
     height: 95svh;

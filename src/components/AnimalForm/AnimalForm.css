@@ -170,7 +170,13 @@
 }
 
 .animal-form-dropzone {
+  width:210px;
+  height:120px;
     margin-bottom: 25px;
+}
+
+.animal-form-dropzone p{
+  font-size: 14px;
 }
 
 .floating-placeholder {
@@ -385,7 +391,6 @@
   .animal-layout-wrapper {
     flex-direction: row-reverse;
     align-items: flex-start;
-    justify-content: space-around;
   }
 
   .add-animal-image img {
