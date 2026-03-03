@@ -85,16 +85,15 @@ body.dark-theme {
   transition: all 0.3s ease-in-out;
 }
 
-.modal-content.is-scaled {
-  transform: scale(0.85);
-  height:100svh;
-  transform-origin: center center;
-}
+ .modal-content.is-scaled {
+    width: 90vw;
+    height: 80svh;
+    overflow-y: auto;
+  }
 
-.modal-content.is-maximized {
-  transform: scale(1);
-  height: 95svh;
-  margin: 2.5svh auto;
-  border-radius: 8px;
-}
+  .modal-content.is-maximized {
+    width: 95vw;
+    height: 95svh;
+    overflow-y: auto;
+  }
 }
