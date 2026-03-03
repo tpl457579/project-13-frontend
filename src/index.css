@@ -86,13 +86,13 @@ body.dark-theme {
 }
 
  .modal-content.is-scaled {
-    width: 90vw;
-    height: 80svh;
+    width: 82svw;
+    height: 70svh;
     overflow-y: auto;
   }
 
   .modal-content.is-maximized {
-    width: 95vw;
+    width: 82vw;
     height: 95svh;
     overflow-y: auto;
   }
