@@ -212,6 +212,7 @@ display: flex;
 
     .popup-text{
         height:305px;
+        scale: 0.9;
         justify-content: center;
     }
 
@@ -222,7 +223,7 @@ display: flex;
 
     .fullscreen-btn{
           visibility: visible;
-    top: 10px;
+    bottom: 10px;
     background: var(--input-color);
     border: 1px solid var(--accent-color);
     right: 10px;
