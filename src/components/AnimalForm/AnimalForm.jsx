@@ -40,10 +40,9 @@ export default function AnimalForm({ type = 'dog', initialData = {}, onSubmit, o
 
   return (
     <div className="modal-overlay" onClick={onCancel}>
-      <div
-        className={`modal-content ${isFullscreen ? 'is-maximized' : 'is-scaled'}`}
+      <div className={`modal-content ${isFullscreen ? 'is-maximized' : ''}`}>
         onClick={(e) => e.stopPropagation()}
-      >
+      
         <form className="animal-edit-form" onSubmit={handlers.handleFormSubmit}>
           <div className="animal-form-modal-close" onClick={onCancel}>
             <AiOutlineClose size={24} />

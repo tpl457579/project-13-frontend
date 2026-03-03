@@ -169,12 +169,8 @@ export default function ProductForm({
 
         <div className='product-layout'>
           <div className='product-visual'>
-            <DropZone
+            <DropZone className='product-form-dropzone'
               handleFileChange={handleFileChange}
-              width="210px"
-              height="60px"
-              fontSize="14px"
-              marginTop="0px"
             />
             <div className='product-preview-image'>
               <img
