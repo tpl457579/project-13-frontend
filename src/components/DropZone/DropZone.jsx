@@ -52,7 +52,6 @@ export default function DropZone({
   return (
     <div
       className={`drop-zone-container ${isDragging ? 'dragging' : ''} ${error ? 'has-error' : ''} ${className}`}
-      style={{ width, height, fontSize }}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
