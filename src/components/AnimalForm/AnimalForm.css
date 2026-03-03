@@ -372,7 +372,7 @@
     display: flex;
     position: relative;
     width: 82svw;
-    height: 70svh;
+    height: 90svh;
     background: var(--background-color);
     border: 2px solid var(--button-border-color);
     border-radius: 12px;
