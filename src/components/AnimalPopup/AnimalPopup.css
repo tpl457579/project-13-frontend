@@ -208,12 +208,13 @@ display: flex;
     gap: 20px;
     display: flex;
     margin-bottom: 15px;
+    margin-top: 15px;
 }
 
     .popup-text{
         height:270px;
         margin-bottom: 100px;
-        scale: 0.9;
+        scale: 0.8;
         justify-content: center;
     }
 
