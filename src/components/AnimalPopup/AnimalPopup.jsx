@@ -84,8 +84,10 @@ const AnimalPopup = ({ isOpen, closePopup, dog, cat, breakdown }) => {
 
   return (
     <div className="modal-overlay" onClick={closePopup}>
-      <div className={`modal-content ${isFullscreen ? 'is-maximized' : ''}`}>
-        onClick={(e) => e.stopPropagation()}
+      <div 
+  className={`modal-content ${isFullscreen ? 'is-maximized' : ''}`}
+  onClick={(e) => e.stopPropagation()}
+>
       
         <div className="animal-popup-content">
          <button type="button" className="modal-close" onClick={() => {
