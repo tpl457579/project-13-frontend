@@ -372,7 +372,7 @@
     display: flex;
     position: relative;
     width: 82svw;
-    height: 90svh;
+    height: 100svh;
     background: var(--background-color);
     border: 2px solid var(--button-border-color);
     border-radius: 12px;
@@ -436,6 +436,7 @@
     display: flex;
     height: 320px;
     justify-content: flex-end;
+    margin-bottom: 40px;
   }
       .form-section-inputs {
         display: flex;
