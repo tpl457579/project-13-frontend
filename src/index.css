@@ -87,7 +87,7 @@ body.dark-theme {
 
 .modal-content.is-scaled {
   transform: scale(0.85);
-  height:95svh;
+  height:100svh;
   transform-origin: center center;
 }
 
