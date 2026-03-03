@@ -76,7 +76,7 @@ export default function AnimalForm({ type = 'dog', initialData = {}, onSubmit, o
                     <div className="add-animal-image">
                       <img src={state.preview || PLACEHOLDER} alt={capitalizedType} />
                     </div>
-                    <DropZone handleFileChange={handlers.handleFileChange} height="120px" fontSize="14px" />
+                    <DropZone className='animal-form-dropzone' handleFileChange={handlers.handleFileChange} height="120px" fontSize="14px" />
                     {state.uploading && <Spinner />}
                   </div>
                 ) : (
