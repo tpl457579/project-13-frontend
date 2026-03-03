@@ -169,7 +169,7 @@
   border-color: var(--accent-color);
 }
 
-.drop-zone-container .animal-drop-zone {
+.animal-form-dropzone {
     margin-bottom: 25px;
 }
 
@@ -413,7 +413,7 @@
     box-sizing: border-box;
 }
 
-.animal-drop-zone p {
+.animal-form-dropzone p {
   font-size: 12px;
 }
 
@@ -439,7 +439,7 @@
     display: flex;
     height: 320px;
     justify-content: flex-end;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
   }
       .form-section-inputs {
         display: flex;
