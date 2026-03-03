@@ -79,7 +79,6 @@ body.dark-theme {
 @media (max-height: 520px) {
 
 .modal-content {
-  border-radius: 12px;
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease-in-out;
