@@ -149,9 +149,12 @@ export default function ProductForm({
         >
           {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
         </button>
-        <div className='modal-close' onClick={onCancel}>
-          <AiOutlineClose size={24} />
-        </div>
+        <div className='modal-close' onClick={() => {
+  if (isFullscreen) toggleFullscreen()
+  onCancel()
+}}>
+  <AiOutlineClose size={24} />
+</div>
 
         <h3 className='product-edit-title'>
           {initialData._id ? 'Edit' : 'Add'} Product

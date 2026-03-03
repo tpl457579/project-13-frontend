@@ -65,3 +65,35 @@ body.dark-theme {
   --icon-color: #2b2b2b;
   --placeholder-colr: #bdb8bd;
 }
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+@media (max-height: 520px) {
+
+.modal-content {
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease-in-out;
+}
+
+.modal-content.is-scaled {
+  transform: scale(0.75);
+  transform-origin: center center;
+}
+
+.modal-content.is-maximized {
+  transform: scale(1);
+  height: 95svh;
+  margin: 2.5svh auto;
+  border-radius: 8px;
+}
+}
