@@ -211,7 +211,8 @@ display: flex;
 }
 
     .popup-text{
-        height:305px;
+        height:270px;
+        margin-bottom: 100px;
         scale: 0.9;
         justify-content: center;
     }
