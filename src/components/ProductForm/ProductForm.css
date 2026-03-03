@@ -255,7 +255,7 @@ font-size: 14px;
 
   .product-visual {
     width: 270px;
-    height: 220px;
+    height: 200px;
     flex-direction: column-reverse;
     align-items: center;
     margin-top: 0px;
@@ -283,7 +283,7 @@ font-size: 14px;
   }
 
   .add-product-inputs {
-    height: 200px;
+    height: 160px;
     flex-direction: column;
     align-items: center;
     justify-content: center;

@@ -134,10 +134,9 @@ export default function ProductForm({
 
   return (
     <div className="modal-overlay" onClick={onCancel}>
-    <div 
-        className={`modal-content ${isFullscreen ? 'is-maximized' : 'is-scaled'}`} 
+    <div className={`modal-content ${isFullscreen ? 'is-maximized' : ''}`}>
         onClick={(e) => e.stopPropagation()}
-      >
+      
       <form className='product-edit-form' onSubmit={handleSubmit}>
         <button 
           type="button" 
