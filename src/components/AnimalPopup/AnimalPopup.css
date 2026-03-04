@@ -212,7 +212,6 @@ display: flex;
 }
 
     .popup-text{
-        height:70svh;
         scale: 0.8;
         justify-content: center;
     }
