@@ -299,7 +299,6 @@ font-size: 14px;
     height: 160px;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
   }
 
   .product-edit-form.is-maximized .add-product-inputs {
