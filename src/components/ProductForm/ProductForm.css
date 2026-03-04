@@ -234,7 +234,7 @@ font-size: 14px;
   }
 
   .product-edit-title {
-    margin-bottom: 8px;
+    margin-bottom: 18px;
   }
 
   .product-form-dropzone{
@@ -251,9 +251,7 @@ font-size: 14px;
         height: 75%;
         display: flex;
         flex-direction: row;
-        align-items: center;
-        align-content: center;
-        justify-content: center;
+        align-items: flex-start;
     }
 
   .product-visual {
