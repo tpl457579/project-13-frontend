@@ -213,7 +213,6 @@ display: flex;
 
     .popup-text{
         height:70svh;
-        margin-bottom: 100px;
         scale: 0.8;
         justify-content: center;
     }
@@ -226,7 +225,6 @@ display: flex;
 
      .animal-popup-content h2 {
         margin-top: 15px;
-        margin-bottom: 10px;
     }
 
     .animal-popup-content.is-maximized h2 {
