@@ -17,7 +17,7 @@ export default function MatchTheCats() {
     1: [
       { id: 1, img: 'https://tse3.mm.bing.net/th/id/OIP.BfQvggmdi3bPuCS9Ukp0jwHaFj?pid=Api&P=0&h=180' },
       { id: 2, img: 'https://tse1.mm.bing.net/th/id/OIP.ScTmMrs-pEbVJUNOmxgrxgHaE8?pid=Api&P=0&h=180' },
-      { id: 3, img: 'https://tse3.mm.bing.net/th/id/OIP.Tfm2OceUBYVl-0Q32bpLggHaEo?pid=Api&P=0&h=180'  }, 
+      { id: 3, img: 'https://tse3.mm.bing.net/th/id/OIP.Tfm2OceUBYVl-0Q32bpLggHaEo?pid=Api&P=0&h=180' },
       { id: 4, img: 'https://tse2.mm.bing.net/th/id/OIP.wRkCk6fVJUvriaVP0zaZhwHaHK?pid=Api&P=0&h=180' },
       { id: 5, img: 'https://tse1.mm.bing.net/th/id/OIP.WAN1IBvEbj-Qwpm_z89F1gHaEK?pid=Api&P=0&h=180' },
       { id: 6, img: 'https://tse4.mm.bing.net/th/id/OIP.zYxzsqPajZvnghL7O-q9RgHaHa?pid=Api&P=0&h=180' }
@@ -40,21 +40,20 @@ export default function MatchTheCats() {
     ]
   }
 
-  const closePopup = () => dispatch({ type: 'HIDE_POPUP' })
+  const roundNames = { 1: "Cute Kittens", 2: "Funny Cats", 3: "Exotic Cats" }
 
   const offsets = {
-  1: '-55px 0px',  
-  3: '-55px 0px',
-  4: '-25px 0px',
-  6: '-37px 0px',
-  8: '-75px 10px',
-  13: '-65px 0px',
-  14: '-20px 0px',
-  15: '-75px 0px',
-  16: '-70px 0px',
-  18: '-39px 0px'
- 
-}
+    1: '-85px 0px',
+    3: '-75px 0px',
+    4: '-25px 0px',
+    6: '-60px 0px',
+    8: '-115px 10px',
+    13: '-95px 0px',
+    14: '-30px 0px',
+    15: '-115px 0px',
+    16: '-115px 0px',
+    18: '-70px 0px'
+  }
 
   useEffect(() => {
     const savedState = localStorage.getItem('catGameState')
@@ -65,18 +64,8 @@ export default function MatchTheCats() {
       const baseCards = rounds[round]
       const shuffled = [...baseCards, ...baseCards].sort(() => Math.random() - 0.5)
       dispatch({ type: 'SET_CARDS', cards: shuffled })
-
-      const roundNames = { 1: "Cute Kittens", 2: "Funny Cats", 3: "Exotic Cats" }
-
-      dispatch({
-        type: 'SHOW_POPUP',
-        popup: 'intro',
-        message: `Round ${round}: ${roundNames[round]}`
-      })
-
-      setTimeout(() => {
-        dispatch({ type: 'HIDE_POPUP' })
-      }, 1500)
+      dispatch({ type: 'SHOW_POPUP', popup: 'intro', message: `Round ${round}: ${roundNames[round]}` })
+      setTimeout(() => dispatch({ type: 'HIDE_POPUP' }), 1500)
     }
   }, [])
 
@@ -91,9 +80,7 @@ export default function MatchTheCats() {
 
   useEffect(() => {
     if (state.flipped.length === 2) {
-      setTimeout(() => {
-        dispatch({ type: 'CHECK_MATCH' })
-      }, 800)
+      setTimeout(() => dispatch({ type: 'CHECK_MATCH' }), 800)
     }
   }, [state.flipped])
 
@@ -111,24 +98,10 @@ export default function MatchTheCats() {
         const shuffled = [...baseCards, ...baseCards].sort(() => Math.random() - 0.5)
         setRound(nextRound)
         dispatch({ type: 'RESET_ROUND', cards: shuffled })
-
-        const roundNames = { 1: "Cute Kittens", 2: "Funny Cats", 3: "Exotic Cats" }
-
-        dispatch({
-          type: 'SHOW_POPUP',
-          popup: 'intro',
-          message: `Round ${nextRound}: ${roundNames[nextRound]}`
-        })
-
-        setTimeout(() => {
-          dispatch({ type: 'HIDE_POPUP' })
-        }, 1500)
+        dispatch({ type: 'SHOW_POPUP', popup: 'intro', message: `Round ${nextRound}: ${roundNames[nextRound]}` })
+        setTimeout(() => dispatch({ type: 'HIDE_POPUP' }), 1500)
       } else {
-        dispatch({
-          type: 'SHOW_POPUP',
-          popup: 'final',
-          message: "Congratulations! You completed all 3 rounds!"
-        })
+        dispatch({ type: 'SHOW_POPUP', popup: 'final', message: "Congratulations! You completed all 3 rounds!" })
       }
     }
   }, [state.matched, state.cards.length, round])
@@ -139,77 +112,74 @@ export default function MatchTheCats() {
       state.matchedCards.includes(state.cards[index].id) ||
       state.gameOver
     ) return
-
     dispatch({ type: 'FLIP_CARD', index })
   }
 
   const handleReset = () => {
-    dispatch({ type: 'RESET' })
-    setRound(1)
+    localStorage.removeItem('catGameState')
+    localStorage.removeItem('catGameRound')
 
     const baseCards = rounds[1]
     const shuffled = [...baseCards, ...baseCards].sort(() => Math.random() - 0.5)
+
+    dispatch({ type: 'RESET' })
+    setRound(1)
     dispatch({ type: 'SET_CARDS', cards: shuffled })
-
-    dispatch({ type: 'HIDE_POPUP' })
-
-    localStorage.removeItem('catGameState')
-    localStorage.removeItem('catGameRound')
+    dispatch({ type: 'SHOW_POPUP', popup: 'intro', message: `Round 1: ${roundNames[1]}` })
+    setTimeout(() => dispatch({ type: 'HIDE_POPUP' }), 1500)
   }
 
- return (
-  <div className="cat-game-container">
-    <div className="cat-game-fullscreen-wrapper">
-    <button className="match-cats-fullscreen-btn" onClick={toggleFullscreen}>
-  {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
-</button>
-<IdeaBulb
-                className='match-the-cats-tip'
-                tip="MatchTheCats"
-                storageKey="has_seen_match_the_cats_tip"
-              />
-</div>
-    <h1>Match the Cats</h1>
-
-    <div className="game-info">
-      <div className="score">Score: {state.score}</div>
-      <div className="attempts">Lives: {state.attempts}</div>
-    </div>
-
-    <div className="card-grid">
-      {state.cards.map((card, index) => {
-        const isFlipped =
-          state.flipped.includes(index) ||
-          state.matchedCards.includes(card.id)
-
-        const isMatched = state.matchedCards.includes(card.id)
-
-        return (
-          <div
-            key={index}
-            className={`card ${isFlipped ? 'flipped' : ''} ${isMatched ? 'matched' : ''}`}
-            onClick={() => handleFlip(index)}
-          >
-            <img src={card.img} alt="cat" style={{ objectPosition: offsets[card.id] ?? 'center center' }} />
-          </div>
-        )
-      })}
-    </div>
-
-    {state.popup && (
-      <div className="overlay active">
-        <div className="popup">
-          <h2>{state.popupMessage}</h2>
-          <h3>{state.popup === "final" ? "Play Again?" : "Get Ready!"}</h3>
-
-          {state.popup === "final" && (
-            <div className="popup-buttons">
-              <button className="popup-decline" onClick={() => { exitFullscreen(); closePopup(); }}>✕</button>
-              <button className="popup-confirm" onClick={handleReset}>✓</button>
-            </div>
-          )}
-        </div>
+  return (
+    <div className="cat-game-container">
+      <div className="cat-game-fullscreen-wrapper">
+        <button className="match-cats-fullscreen-btn" onClick={toggleFullscreen}>
+          {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
+        </button>
+        <IdeaBulb
+          className='match-the-cats-tip'
+          tip="MatchTheCats"
+          storageKey="has_seen_match_the_cats_tip"
+        />
       </div>
-    )}
-  </div>
-)}
+
+      <h1>Match the Cats</h1>
+
+      <div className="game-info">
+        <div className="score">Score: {state.score}</div>
+        <div className="attempts">Lives: {state.attempts}</div>
+      </div>
+
+      <div className="card-grid">
+        {state.cards.map((card, index) => {
+          const isFlipped =
+            state.flipped.includes(index) ||
+            state.matchedCards.includes(card.id)
+          const isMatched = state.matchedCards.includes(card.id)
+
+          return (
+            <div
+              key={index}
+              className={`card ${isFlipped ? 'flipped' : ''} ${isMatched ? 'matched' : ''}`}
+              onClick={() => handleFlip(index)}
+            >
+              <img src={card.img} alt="cat" style={{ objectPosition: offsets[card.id] ?? 'center center' }} />
+            </div>
+          )
+        })}
+      </div>
+
+      {state.popup && (
+        <div className="overlay active">
+          <div className="popup">
+            <h2>{state.popupMessage}</h2>
+            {state.popup === "final" && (
+              <button className="popup-button" onClick={handleReset}>
+                Play Again
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}

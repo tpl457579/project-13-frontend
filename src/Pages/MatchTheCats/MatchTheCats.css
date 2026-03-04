@@ -69,6 +69,7 @@
     transform-style: preserve-3d;
     transition: 0.3s;
     justify-content: center;
+    transform:scaleZ(0.3);
     align-items: center;
 }
 
@@ -79,7 +80,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('https://render.fineartamerica.com/images/rendered/default/greeting-card/images/artworkimages/medium/2/poker-cats-bill-bell.jpg?&targetx=-27&targety=0&imagewidth=555&imageheight=700&modelwidth=500&modelheight=700&backgroundcolor=A6A6A1&orientation=1');
+  background-image: url('https://i.etsystatic.com/39402104/r/il/2c42a3/4417008034/il_fullxfull.4417008034_e3n0.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover; 
@@ -124,33 +125,6 @@
       visibility: hidden;
 }
 
-.popup-buttons {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-}
-
-.popup-decline,
-.popup-confirm {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-
-.popup-decline {
-  background: var(--input-color);
-  border: 1px solid var(--button-border-color);
-  color: var(--text-color);
-}
-
-.popup-confirm {
-  background: var(--accent-color);
-  color: white;
-}
-
 .popup button {
     color: var(--text-color);
     border: 1px solid var(--accent-color);
@@ -193,6 +167,9 @@
   background: var(--background-color);
   padding: 30px;
   border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   border: 1px solid var(--button-border-color);
   max-width: 400px;
@@ -350,7 +327,7 @@
   .cat-game-container .idea-bulb-btn-filter {
     position: absolute;
     top: 5px;
-    left: 45px;
+    left: 49px;
   }
 
   .game-info{
