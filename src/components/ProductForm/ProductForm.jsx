@@ -138,24 +138,23 @@ export default function ProductForm({
   className={`modal-content ${isFullscreen ? 'is-maximized' : ''}`}
   onClick={(e) => e.stopPropagation()}
 >
-      
-      <form className='product-edit-form' onSubmit={handleSubmit}>
-        <button 
-          type="button" 
-          className="product-form-fullscreen-btn" 
-          onClick={(e) => {
-            e.preventDefault()
-            toggleFullscreen()
-          }}
-        >
-          {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
-        </button>
-        <div className='modal-close' onClick={() => {
-  if (isFullscreen) toggleFullscreen()
-  onCancel()
-}}>
-  <AiOutlineClose size={24} />
-</div>
+     <form className={`product-edit-form ${isFullscreen ? 'is-maximized' : ''}`} onSubmit={handleSubmit}>
+  <button
+    type="button"
+    className="product-form-fullscreen-btn"
+    onClick={(e) => {
+      e.preventDefault()
+      toggleFullscreen()
+    }}
+  >
+    {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
+  </button>
+  <div className='modal-close' onClick={() => {
+    if (isFullscreen) toggleFullscreen()
+    onCancel()
+  }}>
+    <AiOutlineClose size={24} />
+  </div>
 
         <h3 className='product-edit-title'>
           {initialData._id ? 'Edit' : 'Add'} Product
