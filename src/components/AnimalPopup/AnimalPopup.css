@@ -225,8 +225,8 @@ display: flex;
     }
 
      .animal-popup-content h2 {
-        margin-top: 5px;
-        margin-bottom: 30px;
+        margin-top: 15px;
+        margin-bottom: 10px;
     }
 
     .animal-popup-content.is-maximized h2 {
