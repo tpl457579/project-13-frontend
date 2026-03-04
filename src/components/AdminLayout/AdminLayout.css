@@ -54,6 +54,32 @@
     color: white;
 }
 
+ .admin-add-btn {
+    position: absolute;
+    top:12%;
+    right:15px;
+    background: #fff;
+    color: #8e44ad;
+    font-size: 40px;
+    border: 1px solid #8e44ad;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+  }
+
+  .admin-add-btn:hover {
+    border: 2px solid var(--fill-button-hover-color);
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+
 .admin-title {
         margin-top: 11svh;
         color: var(--accent-color);
@@ -83,6 +109,9 @@
         margin-top: 11svh;
     }
     
+    .admin-add-btn{
+        visibility: hidden;
+    }
 }
 
 @media (max-height: 520px) {

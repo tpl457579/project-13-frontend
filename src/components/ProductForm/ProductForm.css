@@ -52,7 +52,6 @@
 
 .product-form-dropzone{
   width:210px;
-  height:120px;
   border: 2px dashed var(--button-border-color);
   border-radius: 10px;
   display: flex;
@@ -105,7 +104,7 @@ font-size: 14px;
 
 .product-form-tip {
   position: absolute;
-  right: 5px;
+  right: -1px;
   top: -5px;
 }
 
@@ -247,11 +246,15 @@ font-size: 14px;
     font-size: 12px;
   }
 
-  .product-layout {
-    width: 78svw;
-    display: flex;
-    flex-direction: row;
-  }
+     .product-layout {
+        width: 78svw;
+        height: 75%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+    }
 
   .product-visual {
     width: 270px;
@@ -304,4 +307,9 @@ font-size: 14px;
     gap: 15px;
   }
 
+  /*  .modal-content.is-maximized {
+    width: 82vw;
+    height: 95svh;
+  }
+ */
 }

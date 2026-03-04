@@ -3,6 +3,8 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import PageLayout from '../PageLayout/PageLayout';
 import { Footer } from '../Footer/Footer';
+import { useAdminContext } from '../AdminContext'
+
 
 const AdminLayout = ({ 
   title, 
@@ -46,7 +48,10 @@ const AdminLayout = ({
         Cats
       </button>
     </div>
+    
   );
+
+  const adminContext = useAdminContext()
 
   return (
     <div 
@@ -56,6 +61,16 @@ const AdminLayout = ({
       style={{ outline: 'none' }}
       tabIndex="-1"
     >
+    {adminContext?.openModal && (
+  <button
+    className='admin-add-btn'
+    onClick={() => adminContext.openModal()}
+    title='Add'
+    aria-label='Add'
+  >
+    +
+  </button>
+)}
 
       <PageLayout 
         title={title} 

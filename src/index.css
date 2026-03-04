@@ -66,21 +66,10 @@ body.dark-theme {
   --placeholder-colr: #bdb8bd;
 }
 
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-@media (max-height: 520px) {
+/* @media (max-height: 520px) {
 
   .modal-content.is-maximized {
     width: 82vw;
     height: 95svh;
-    overflow-y: auto;
   }
-}
+} */
