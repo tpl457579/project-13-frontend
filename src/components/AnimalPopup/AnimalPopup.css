@@ -208,11 +208,12 @@ display: flex;
     gap: 20px;
     display: flex;
     margin-bottom: 15px;
-    height: 82svh;
+    height: 85svh;
 }
 
     .popup-text{
         scale: 0.8;
+        display: flex;
         justify-content: center;
     }
 
@@ -285,7 +286,7 @@ display: flex;
 
 .trait-label{
     font-size: 12px;
-    width: 290px;
+    width: 300px;
 }
 
 .trait-icons{
