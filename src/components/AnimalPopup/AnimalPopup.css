@@ -220,6 +220,8 @@ display: flex;
 
     .animal-popup-content.is-maximized .popup-text{
         scale: 1;
+        display: flex;
+        align-items: center;
     }
 
      .animal-popup-content h2 {
