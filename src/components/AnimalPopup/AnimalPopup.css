@@ -228,7 +228,8 @@ display: flex;
     }
 
     .animal-popup-content.is-maximized h2 {
-        margin-top: 15px;
+        margin-top: 0px;
+        margin-bottom: 10px;
     }
 
     .fullscreen-btn{
