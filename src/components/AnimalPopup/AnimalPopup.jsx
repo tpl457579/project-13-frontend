@@ -81,32 +81,30 @@ const AnimalPopup = ({ isOpen, closePopup, dog, cat, breakdown }) => {
     const match = breakdown.find(b => b.id === traitId)
     return match ? match.match : null
   }
+return (
+  <div className="modal-overlay" onClick={closePopup}>
+    <div
+      className={`modal-content ${isFullscreen ? 'is-maximized' : ''}`}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <div className={`animal-popup-content ${isFullscreen ? 'is-maximized' : ''}`}>
+        <button type="button" className="modal-close" onClick={() => {
+          if (isFullscreen) toggleFullscreen()
+          closePopup()
+        }}>
+          &times;
+        </button>
 
-  return (
-    <div className="modal-overlay" onClick={closePopup}>
-      <div 
-  className={`modal-content ${isFullscreen ? 'is-maximized' : ''}`}
-  onClick={(e) => e.stopPropagation()}
->
-      
-        <div className="animal-popup-content">
-         <button type="button" className="modal-close" onClick={() => {
-  if (isFullscreen) toggleFullscreen()
-  closePopup()
-}}>
-  &times;
-</button>
-
-          <button
-            type="button"
-            className="fullscreen-btn"
-            onClick={(e) => {
-              e.preventDefault()
-              toggleFullscreen()
-            }}
-          >
-            {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
-          </button>
+        <button
+          type="button"
+          className="fullscreen-btn"
+          onClick={(e) => {
+            e.preventDefault()
+            toggleFullscreen()
+          }}
+        >
+          {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
+        </button>
 
           <h2 style={{ fontSize: displayData.name.length > 21 ? "20px" : "24px" }}>
             {displayData.name}
