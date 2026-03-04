@@ -207,8 +207,7 @@ display: flex;
     .popup-wrapper{
     gap: 20px;
     display: flex;
-    margin-bottom: 15px;
-    height: 85svh;
+    height: 75svh;
 }
 
     .popup-text{
