@@ -208,11 +208,11 @@ display: flex;
     gap: 20px;
     display: flex;
     margin-bottom: 15px;
-    height: 260px;
+    height: 75svh;
 }
 
     .popup-text{
-        height:270px;
+        height:70svh;
         margin-bottom: 100px;
         scale: 0.8;
         justify-content: center;
@@ -225,8 +225,8 @@ display: flex;
     }
 
      .animal-popup-content h2 {
-        margin-top: 55px;
-        margin-bottom: 0px;
+        margin-top: 5px;
+        margin-bottom: 30px;
     }
 
     .animal-popup-content.is-maximized h2 {
