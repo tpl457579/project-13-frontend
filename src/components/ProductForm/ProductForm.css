@@ -250,7 +250,7 @@ font-size: 14px;
         height: 75%;
         display: flex;
         flex-direction: row;
-        align-items: flex-start;
+        align-items: center;
     }
 
     .product-edit-form.is-maximized .product-layout {
