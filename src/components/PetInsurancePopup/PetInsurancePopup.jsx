@@ -9,26 +9,6 @@ export default function PetInsurancePopup() {
   const [dontShowAgain, setDontShowAgain] = useState(false)
   const location = useLocation()
 
-  useEffect(() => {
-  if (!location.pathname.includes('/shop')) return
-
-  const permanentlyDismissed = localStorage.getItem('petInsurancePopupDismissed')
-  if (permanentlyDismissed === 'true') return
-
-  const shownThisSession = sessionStorage.getItem('petInsurancePopupShown')
-  if (shownThisSession === 'true') return
-
-  const timer = setTimeout(() => {
-    setIsOpen(true)
-  }, 15000)
-
-  return () => clearTimeout(timer)
-}, [location.pathname])
- handleLearnMore = () => {
-  window.open('https://petplan.es/en/home/', '_blank')
-  handleClose()
-}
-
   const handleClose = () => {
   if (dontShowAgain) {
     localStorage.setItem('petInsurancePopupDismissed', 'true')
@@ -41,6 +21,23 @@ export default function PetInsurancePopup() {
     window.open('https://petplan.es/en/home/', '_blank')
     handleClose()
   }
+
+    useEffect(() => {
+  if (!location.pathname.includes('/shop')) return
+
+  const permanentlyDismissed = localStorage.getItem('petInsurancePopupDismissed')
+  if (permanentlyDismissed === 'true') return
+
+  const shownThisSession = sessionStorage.getItem('petInsurancePopupShown')
+  if (shownThisSession === 'true') return
+
+  const timer = setTimeout(() => {
+    setIsOpen(true)
+  }, 20000)
+
+  return () => clearTimeout(timer)
+}, [location.pathname])
+
 
   return (
     <Modal isOpen={isOpen} onClose={handleClose}>

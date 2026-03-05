@@ -19,7 +19,7 @@ const Hamburger = () => {
   const { animalType, toggleAnimalType } = useContext(AnimalContext)
   const [menuOpen, setMenuOpen] = useState(false)
   const [showScrollBtn, setShowScrollBtn] = useState(false)
-  const menuRef = useRef(null) // This will now point to the scrollable content container
+  const menuRef = useRef(null)
   const buttonRef = useRef(null)
   
   const isLoggedIn = Boolean(user)
@@ -32,7 +32,6 @@ const Hamburger = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Logic adjusted to treat the whole hamburger-menu as the container
       if (
         menuRef.current && !menuRef.current.parentElement.contains(event.target) &&
         buttonRef.current && !buttonRef.current.contains(event.target)
@@ -55,7 +54,6 @@ const Hamburger = () => {
     }
 
     checkScrollNecessity()
-    // Small timeout ensures the DOM has updated before measuring height
     const timer = setTimeout(checkScrollNecessity, 100)
     window.addEventListener('resize', checkScrollNecessity)
     
@@ -82,10 +80,8 @@ const Hamburger = () => {
         <FaBars className='hamburger-bars' size={28} />
       </div>
 
-      {/* The main sidebar overlay */}
       <div className={`hamburger-menu ${menuOpen ? 'open' : ''}`}>
         
-        {/* The internal scrollable area */}
         <ul ref={menuRef} className="hamburger-scroll-area">
           <li className='close-btn'>
             <button className='close-btn-hamburger' onClick={handleLinkClick}>✕</button>
@@ -106,8 +102,7 @@ const Hamburger = () => {
               Fun {isDog ? 'Dog' : 'Cat'} Facts
             </NavLink>
           </li>
-          <li><NavLink to='/shop-dogs' onClick={handleLinkClick}>Dog Shop</NavLink></li>
-          <li><NavLink to='/shop-cats' onClick={handleLinkClick}>Cat Shop</NavLink></li>
+          <li><NavLink to={animalType === 'cat' ? '/shop-cats' : '/shop-dogs'} onClick={handleLinkClick}>Shop</NavLink></li>
 
           {isLoggedIn ? (
             <>
