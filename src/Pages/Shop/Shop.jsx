@@ -12,10 +12,10 @@ import ShopProductCard from '../../components/ShopProductCard/ShopProductCard.js
 import SearchBar from '../../components/SearchBar/SearchBar'
 import Loader from '../../components/Loader/Loader.jsx'
 
-const Shop = () => {
+const Shop = ({ petType: petTypeProp }) => {
   const { user } = useContext(AuthContext)
   const { animalType } = useContext(AnimalContext)
-  const petType = animalType
+  const petType = petTypeProp || animalType
   
   const { products, loadingInitial, error } = useProducts()
   const { favourites, toggleFavourite } = useFavourites()

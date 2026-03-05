@@ -40,7 +40,8 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Home />} />
 
-       <Route path="/shop" element={<Navigate to={petType === 'cat' ? '/shop-cats' : '/shop-dogs'} replace />} />
+       <Route path="/shop-dogs" element={<Shop petType="dog" />} />
+       <Route path="/shop-cats" element={<Shop petType="cat" />} />
 
         <Route path='/guess-the-dog' element={<GuessTheDog />} />
        <Route path="/match-the-cats" element={<MatchTheCats />} />

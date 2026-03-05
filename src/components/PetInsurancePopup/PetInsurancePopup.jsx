@@ -10,24 +10,32 @@ export default function PetInsurancePopup() {
   const location = useLocation()
 
   useEffect(() => {
-    if (!location.pathname.includes('/shop')) return
+  if (!location.pathname.includes('/shop')) return
 
-    const dismissed = localStorage.getItem('petInsurancePopupDismissed')
-    if (dismissed === 'true') return
+  const permanentlyDismissed = localStorage.getItem('petInsurancePopupDismissed')
+  if (permanentlyDismissed === 'true') return
 
-    const timer = setTimeout(() => {
-      setIsOpen(true)
-    }, 10000)
+  const shownThisSession = sessionStorage.getItem('petInsurancePopupShown')
+  if (shownThisSession === 'true') return
 
-    return () => clearTimeout(timer)
-  }, [location.pathname])
+  const timer = setTimeout(() => {
+    setIsOpen(true)
+  }, 15000)
+
+  return () => clearTimeout(timer)
+}, [location.pathname])
+ handleLearnMore = () => {
+  window.open('https://petplan.es/en/home/', '_blank')
+  handleClose()
+}
 
   const handleClose = () => {
-    if (dontShowAgain) {
-      localStorage.setItem('petInsurancePopupDismissed', 'true')
-    }
-    setIsOpen(false)
+  if (dontShowAgain) {
+    localStorage.setItem('petInsurancePopupDismissed', 'true')
   }
+  sessionStorage.setItem('petInsurancePopupShown', 'true')
+  setIsOpen(false)
+}
 
   const handleLearnMore = () => {
     window.open('https://petplan.es/en/home/', '_blank')
