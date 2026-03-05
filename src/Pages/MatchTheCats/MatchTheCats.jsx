@@ -43,16 +43,16 @@ export default function MatchTheCats() {
   const roundNames = { 1: "Cute Kittens", 2: "Funny Cats", 3: "Exotic Cats" }
 
   const offsets = {
-    1: '-85px 0px',
-    3: '-75px 0px',
+    1: '-70px 0px',
+    3: '-60px 0px',
     4: '-25px 0px',
-    6: '-60px 0px',
-    8: '-115px 10px',
+    6: '-40px 0px',
+    8: '-115px 0px',
     13: '-95px 0px',
     14: '-30px 0px',
     15: '-115px 0px',
     16: '-115px 0px',
-    18: '-70px 0px'
+    18: '-60px 0px'
   }
 
   useEffect(() => {

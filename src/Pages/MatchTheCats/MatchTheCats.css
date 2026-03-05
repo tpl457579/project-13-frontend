@@ -168,6 +168,7 @@
   padding: 30px;
   border-radius: 12px;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
   text-align: center;
@@ -316,18 +317,20 @@
     margin-bottom: 0;
   }
 
-  .cat-game-fullscreen-wrapper {
-    position: absolute;
-    top: 20%;
-    left: 1px;
-    height: 50px;
-    width: 80px;
-}
+    .cat-game-fullscreen-wrapper {
+        position: absolute;
+        display: flex;
+        bottom: 15svh;
+        left: 1px;
+        height: 50px;
+        width: 60px;
+        align-items: flex-end;
+    }
 
   .cat-game-container .idea-bulb-btn-filter {
     position: absolute;
     top: 5px;
-    left: 49px;
+    left: 39px;
   }
 
   .game-info{
@@ -340,10 +343,9 @@
 
     .match-cats-fullscreen-btn{
       visibility: visible;
-      top: 20%;
     background: var(--input-color);
     border: 1px solid var(--accent-color);
-    left: 12px;
+    left: 8px;
     display: flex;
     color: var(--text-color);
     border-radius: 50%;

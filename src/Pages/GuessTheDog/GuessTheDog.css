@@ -113,7 +113,7 @@
 }
 
 .restart-btn {
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 .repeat {
@@ -248,27 +248,28 @@
     margin-bottom: 0;
   }
 
-  .idea-fullscreen-wrapper {
-    position: absolute;
-    top: 60%;
-    left: 1px;
-    width: 80px;
-    height: 50px;
-}
+    .idea-fullscreen-wrapper {
+        position: absolute;
+        bottom: 7svh;
+        display: flex;
+        align-items: flex-end;
+        left: 1px;
+        width: 80px;
+        height: 50px;
+    }
 
 
   .game .idea-bulb-btn-filter {
     position: absolute;
-    top: 24px;
-    left: 51px;
+    top: 10px;
+    left: 43px;
 }
 
   .dog-game-fullscreen-btn{
     visibility: visible;
-    top: 60%;
     background: var(--input-color);
     border: 1px solid var(--accent-color);
-    left: 15px;
+    left: 8px;
     display: flex;
     color: var(--text-color);
     border-radius: 50%;
