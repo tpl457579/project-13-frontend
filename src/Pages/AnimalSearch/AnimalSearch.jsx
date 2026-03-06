@@ -49,7 +49,6 @@ export default function AnimalSearch({ type = 'dog' }) {
 
         setAnimals(validAnimals)
 
-        // Cats: build temperament list from data; dogs: temperaments come from elsewhere
         if (!isDog) {
           const allTemps = validAnimals.flatMap((a) =>
             a.temperament
@@ -213,10 +212,6 @@ export default function AnimalSearch({ type = 'dog' }) {
 
         <h4 className='animal-search-h4'>Click on the {label}s to learn more</h4>
 
-        <p className='resultsText' style={{ margin: '15px 0' }}>
-          Showing {visibleAnimals.length} of {filteredAnimals.length} {label}s
-        </p>
-
         {visibleAnimals.length === 0 ? (
           <p className='resultsText'>No {label} breeds match your search.</p>
         ) : (
@@ -230,6 +225,10 @@ export default function AnimalSearch({ type = 'dog' }) {
             ))}
           </div>
         )}
+
+        <p className='resultsText' style={{ margin: '15px 0' }}>
+          Showing {visibleAnimals.length} of {filteredAnimals.length} {label}s
+        </p>
 
         {showTopBtn && (
           <button className='back-to-top' onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>

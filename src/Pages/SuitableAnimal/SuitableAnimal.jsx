@@ -32,7 +32,6 @@ const API_URLS = {
   dog: 'https://project-13-backend-1.onrender.com/api/v1/dogs'
 }
 
-// Pass type="cat" or type="dog" as a prop
 export default function SuitableAnimal({ type = 'cat' }) {
   const isCat = type === 'cat'
   const label = isCat ? 'cat' : 'dog'

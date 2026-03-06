@@ -21,6 +21,7 @@ import FunAnimalFacts from './Pages/FunAnimalFacts/FunAnimalFacts.jsx'
 import AnimalSearch from './Pages/AnimalSearch/AnimalSearch.jsx'
 import AdminAnimals from './Pages/AdminAnimals/AdminAnimals.jsx';
 import { useScreenToggle } from './Hooks/useScreenToggle.js'
+import PetServices from './Pages/PetServices/PetServices.jsx'
 
 const App = () => {
   const location = useLocation()
@@ -46,6 +47,7 @@ const App = () => {
         <Route path='/guess-the-dog' element={<GuessTheDog />} />
        <Route path="/match-the-cats" element={<MatchTheCats />} />
 
+       <Route path='pet-services' element={<PetServices />} />
 
         <Route path='/fun-dog-facts' element={<FunAnimalFacts type='dog' />} />
         <Route path='/fun-cat-facts' element={<FunAnimalFacts type='cat' />} />
@@ -80,6 +82,7 @@ const App = () => {
       <ThemeToggle />
       <ChatWidget />
         <PetInsurancePopup />
+       
 
     {!location.pathname.startsWith('/admin') && !isFullscreen && <Footer />}
     </div>
