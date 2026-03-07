@@ -65,11 +65,3 @@ body.dark-theme {
   --icon-color: #2b2b2b;
   --placeholder-colr: #bdb8bd;
 }
-
-/* @media (max-height: 520px) {
-
-  .modal-content.is-maximized {
-    width: 82vw;
-    height: 95svh;
-  }
-} */

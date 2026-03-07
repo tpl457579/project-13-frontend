@@ -5,6 +5,8 @@
 }
 
 .pet-services h1 {
+    font-size: 38px;
+    color: var(--accent-color);
   text-align: center;
   margin-bottom: 1.5rem;
 }
@@ -14,31 +16,37 @@
   gap: 0.5rem;
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .location-input {
-  flex: 1;
-  min-width: 200px;
+  min-width: 180px;
   padding: 0.6rem 1rem;
   border-radius: 8px;
-  border: 1px solid var(--border-color, #ddd);
+  border: 1px solid var(--accent-color);
   font-size: 0.95rem;
-  background: var(--card-bg, #fff);
-  color: var(--text-color, #000);
+  background: var(--input-color);
+  color: var(--text-color);
+}
+
+#Location_On {
+    color: var(--text-color);
 }
 
 .location-btn {
   padding: 0.6rem 1.2rem;
   border-radius: 8px;
   border: none;
-  background: var(--primary, #4f46e5);
+  background: var(--accent-color);
   color: white;
   cursor: pointer;
   font-size: 0.9rem;
 }
 
 .location-btn.secondary {
-  background: var(--secondary, #6b7280);
+  background: var(--input-color);
+  border: 1px solid var(--accent-color);
+  color: var(--text-color);
 }
 
 .service-tabs {
@@ -52,18 +60,18 @@
 .service-tab {
   padding: 0.5rem 1rem;
   border-radius: 20px;
-  border: 1px solid var(--border-color, #ddd);
+  border: 1px solid var(--button-border-color);
   background: transparent;
   cursor: pointer;
   font-size: 0.9rem;
   transition: all 0.2s;
-  color: var(--text-color, #000);
+  color: var(--text-color);
 }
 
 .service-tab.active {
-  background: var(--primary, #4f46e5);
+  background: var(--accent-color);
   color: white;
-  border-color: var(--primary, #4f46e5);
+  border:none
 }
 
 .services-map {
@@ -71,19 +79,20 @@
   height: 400px;
   border-radius: 12px;
   margin-bottom: 1.5rem;
-  border: 1px solid var(--border-color, #ddd);
+  border: 1px solid var(--button-border-color);
 }
 
 .results-label {
   text-align: center;
   margin-bottom: 1rem;
-  color: var(--text-muted, #666);
+  color: var(--text-color);
 }
 
 .services-cards {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  margin-bottom: 80px;
 }
 
 .service-card {
@@ -107,7 +116,7 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: var(--primary, #4f46e5);
+  background: var(--accent-color);
   color: white;
   display: flex;
   align-items: center;
@@ -152,4 +161,119 @@
   text-align: center;
   color: var(--text-muted, #888);
   margin: 1rem 0;
+}
+
+.service-card {
+  cursor: pointer;
+}
+
+.place-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.place-popup {
+  background: var(--background-color);
+  border-radius: 16px;
+  border: 1px solid var(--button-border-color);
+  padding: 2rem;
+  max-width: 480px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  color: var(--text-color, #000);
+}
+
+.place-popup-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  padding-right: 2rem;
+  color: var(--accent-color);
+}
+
+.place-popup-address {
+  color: var(--text-color);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.place-popup-phone {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.place-popup-website {
+  display: inline-block;
+  font-size: 1.2rem;
+  color: var(--accent-color);
+  text-decoration: none;
+  margin-bottom: 0.75rem;
+}
+
+.place-popup-rating {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.place-popup-rating span {
+  color: var(--text-color);
+  font-size: 0.85rem;
+}
+
+.place-popup-hours {
+  margin-bottom: 1rem;
+}
+
+.place-popup-hours h4 {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.place-popup-hours p {
+  font-size: 0.85rem;
+  color: var(--text-color);
+  margin: 0.15rem 0;
+}
+
+.place-review {
+  border-top: 1px solid var(--border-color, #eee);
+  padding-top: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.4rem;
+}
+
+.review-author {
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: block;
+}
+
+.review-rating {
+  font-size: 0.8rem;
+}
+
+.review-text {
+  font-size: 0.85rem;
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+@media (max-width: 520px) {
+    .pet-services h1{
+        font-size: 28px;
+    margin-top: 6svh;
+    }
 }

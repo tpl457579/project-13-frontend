@@ -1,14 +1,32 @@
 import './PetServices.css'
 import { useState, useEffect, useRef } from 'react'
-import { apiFetch } from '../../components/apiFetch'
+import { CiLocationOn } from "react-icons/ci"
 
+const getLabels = () => {
+  const lang = navigator.language?.slice(0, 2) || 'en'
+  const translations = {
+    en: ['Vets', 'Groomers', 'Pet Food', 'Accessories', 'Parks', 'Boarding', 'Trainers'],
+    es: ['Veterinario', 'Peluquero Mascota', 'Comida para Mascotas', 'Accesorios para Mascotas', 'Parques para perros', 'Residencia Mascotas', 'Adiestradores'],
+    fr: ['Vétérinaires', 'Toiletteurs', 'Nourriture pour Animaux', 'Accessoires', 'Parcs', 'Pension Animaux', 'Dresseurs'],
+    de: ['Tierärzte', 'Tierpfleger', 'Tierfutter', 'Zubehör', 'Parks', 'Tierpension', 'Trainer'],
+    it: ['Veterinari', 'Toelettatori', 'Cibo per Animali', 'Accessori', 'Parchi', 'Pensione Animali', 'Addestratori'],
+    pt: ['Veterinários', 'Tosadores', 'Comida para Animais', 'Acessórios', 'Parques', 'Hotel Pet', 'Treinadores'],
+    nl: ['Dierenartsen', 'Groomers', 'Dierenvoer', 'Accessoires', 'Parken', 'Dierenpension', 'Trainers'],
+    pl: ['Weterynarze', 'Groomerzy', 'Karma dla Zwierząt', 'Akcesoria', 'Parki', 'Hotel dla Zwierząt', 'Trenerzy'],
+  }
+  return translations[lang] || translations.en
+}
+
+const [vets, groomers, food, accessories, parks, boarding, trainers] = getLabels()
 
 const SERVICE_TYPES = [
-  { label: 'Vets',        value: 'veterinary_care', icon: '🏥' },
-  { label: 'Groomers',    value: 'pet_store',        icon: '✂️' },
-  { label: 'Pet Food',    value: 'pet_store',        icon: '🦴' },
-  { label: 'Accessories', value: 'pet_store',        icon: '🛍️' },
-  { label: 'Parks',       value: 'park',             icon: '🌳' },
+  { label: vets,        value: 'veterinary_care', keyword: 'veterinary' },
+  { label: groomers,    value: 'pet_store',        keyword: 'pet groomer' },
+  { label: food,        value: 'pet_store',        keyword: 'pet food' },
+  { label: accessories, value: 'pet_store',        keyword: 'pet accessories' },
+  { label: parks,       value: 'park',             keyword: 'dog park' },
+  { label: boarding,    value: 'lodging',          keyword: 'pet boarding kennel' },
+  { label: trainers,    value: 'establishment',    keyword: 'dog trainer' },
 ]
 
 export default function PetServices() {
@@ -19,14 +37,15 @@ export default function PetServices() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [locationName, setLocationName] = useState('')
+  const [selectedPlace, setSelectedPlace] = useState(null)
   const mapRef = useRef(null)
   const googleMapRef = useRef(null)
   const markersRef = useRef([])
 
   useEffect(() => {
     navigator.geolocation?.getCurrentPosition(
-      ({ coords }) => {
-        setCoords({ lat: coords.latitude, lng: coords.longitude })
+      ({ coords: c }) => {
+        setCoords({ lat: c.latitude, lng: c.longitude })
         setLocationName('your current location')
       },
       () => setError('Could not get location. Please enter one manually.')
@@ -34,71 +53,132 @@ export default function PetServices() {
   }, [])
 
   useEffect(() => {
-    if (coords) fetchServices()
-  }, [coords, activeService])
-
-  useEffect(() => {
-    if (coords && window.google) initMap()
+    if (!coords) return
+    const waitForGoogle = setInterval(() => {
+      if (window.google) {
+        clearInterval(waitForGoogle)
+        initMap(coords)
+      }
+    }, 100)
+    return () => clearInterval(waitForGoogle)
   }, [coords])
 
   useEffect(() => {
-    if (googleMapRef.current && results.length > 0) updateMarkers()
-  }, [results])
+    if (googleMapRef.current && coords) {
+      searchPlaces(googleMapRef.current, coords, activeService)
+    }
+  }, [activeService])
 
-  const initMap = () => {
-    googleMapRef.current = new window.google.maps.Map(mapRef.current, {
-      center: coords,
-      zoom: 13,
-      styles: [{ featureType: 'poi', stylers: [{ visibility: 'off' }] }]
+  const initMap = (center) => {
+    const map = new window.google.maps.Map(mapRef.current, {
+      center,
+      zoom: 14,
+      mapId: '13e801420677322ee903aec6'
     })
+    googleMapRef.current = map
 
-    new window.google.maps.Marker({
-      position: coords,
-      map: googleMapRef.current,
+    const youEl = document.createElement('div')
+    youEl.style.cssText = 'width:16px;height:16px;background:#4f46e5;border:2px solid white;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.4)'
+    new window.google.maps.marker.AdvancedMarkerElement({
+      position: center,
+      map,
       title: 'You are here',
-      icon: { path: window.google.maps.SymbolPath.CIRCLE, scale: 8, fillColor: '#4f46e5', fillOpacity: 1, strokeColor: '#fff', strokeWeight: 2 }
+      content: youEl
     })
+
+    searchPlaces(map, center, activeService)
   }
 
-  const updateMarkers = () => {
-    markersRef.current.forEach(m => m.setMap(null))
+  const fetchPlaceDetails = (placeId) => {
+    const serviceDiv = document.createElement('div')
+    const service = new window.google.maps.places.PlacesService(serviceDiv)
+
+    service.getDetails(
+      {
+        placeId,
+        fields: ['name', 'formatted_address', 'formatted_phone_number', 'opening_hours', 'rating', 'user_ratings_total', 'reviews', 'website', 'photos', 'geometry']
+      },
+      (result, status) => {
+        if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+          setSelectedPlace(result)
+          googleMapRef.current.setCenter({ lat: result.geometry.location.lat(), lng: result.geometry.location.lng() })
+          googleMapRef.current.setZoom(17)
+        }
+      }
+    )
+  }
+
+  const searchPlaces = (map, center, service) => {
+    setLoading(true)
+    setError(null)
+    setResults([])
+
+    markersRef.current.forEach(m => m.map = null)
     markersRef.current = []
 
-    results.forEach((place, i) => {
-      const marker = new window.google.maps.Marker({
-        position: { lat: place.lat, lng: place.lng },
-        map: googleMapRef.current,
-        title: place.name,
-        label: { text: String(i + 1), color: 'white', fontWeight: 'bold' }
-      })
-      markersRef.current.push(marker)
-    })
+    const serviceDiv = document.createElement('div')
+    const placesService = new window.google.maps.places.PlacesService(serviceDiv)
 
-    if (results.length > 0) {
-      const bounds = new window.google.maps.LatLngBounds()
-      bounds.extend(coords)
-      results.forEach(p => bounds.extend({ lat: p.lat, lng: p.lng }))
-      googleMapRef.current.fitBounds(bounds)
-    }
-  }
+    placesService.nearbySearch(
+      {
+        location: new window.google.maps.LatLng(center.lat, center.lng),
+        radius: 10000,
+        type: service.value,
+        ...(service.keyword && { keyword: service.keyword })
+      },
+      (res, status) => {
+        setLoading(false)
+        if (status !== window.google.maps.places.PlacesServiceStatus.OK || !res) {
+          setError('No results found nearby')
+          return
+        }
 
- const fetchServices = async () => {
-  if (!coords) return
-  setLoading(true)
-  setError(null)
-  try {
-    const data = await apiFetch(`/popup/services?lat=${coords.lat}&lng=${coords.lng}&type=${activeService.value}`)
-    setResults(Array.isArray(data) ? data : [])
-  } catch {
-    setError('Failed to load results')
-    setResults([])
-  } finally {
-    setLoading(false)
+        const top3 = res
+          .sort((a, b) => (b.rating || 0) - (a.rating || 0))
+          .slice(0, 3)
+          .map(r => ({
+            name: r.name,
+            address: r.vicinity,
+            rating: r.rating,
+            totalRatings: r.user_ratings_total,
+            placeId: r.place_id,
+            lat: r.geometry.location.lat(),
+            lng: r.geometry.location.lng(),
+            openNow: r.opening_hours?.isOpen(),
+          }))
+
+        setResults(top3)
+
+        top3.forEach((r, i) => {
+          const el = document.createElement('div')
+          el.style.cssText = `
+            width:28px;height:28px;background:#e53e3e;color:white;
+            border-radius:50%;display:flex;align-items:center;
+            justify-content:center;font-weight:bold;font-size:13px;
+            border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);
+          `
+          el.textContent = String(i + 1)
+
+          const marker = new window.google.maps.marker.AdvancedMarkerElement({
+            position: { lat: r.lat, lng: r.lng },
+            map,
+            title: r.name,
+            content: el
+          })
+          markersRef.current.push(marker)
+        })
+
+        const bounds = new window.google.maps.LatLngBounds()
+        bounds.extend(center)
+        top3.forEach(r => bounds.extend({ lat: r.lat, lng: r.lng }))
+        map.fitBounds(bounds)
+      }
+    )
   }
-}
 
   const handleManualSearch = async () => {
     if (!manualLocation.trim()) return
+    setError(null)
     try {
       const res = await fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(manualLocation)}&key=${import.meta.env.VITE_GOOGLE_PLACES_API_KEY}`
@@ -106,9 +186,10 @@ export default function PetServices() {
       const data = await res.json()
       const loc = data.results?.[0]?.geometry?.location
       if (!loc) return setError('Location not found')
-      setCoords({ lat: loc.lat, lng: loc.lng })
+      const newCoords = { lat: loc.lat, lng: loc.lng }
+      setCoords(newCoords)
       setLocationName(manualLocation)
-      if (window.google) initMap()
+      if (window.google) initMap(newCoords)
     } catch {
       setError('Could not geocode location')
     }
@@ -116,7 +197,7 @@ export default function PetServices() {
 
   return (
     <div className="pet-services">
-      <h1>🐾 Pet Services Near You</h1>
+      <h1>Pet Services Near You</h1>
 
       <div className="location-bar">
         <input
@@ -128,9 +209,19 @@ export default function PetServices() {
           className="location-input"
         />
         <button onClick={handleManualSearch} className="location-btn">Search</button>
-        <button onClick={() => navigator.geolocation?.getCurrentPosition(
-          ({ coords: c }) => { setCoords({ lat: c.latitude, lng: c.longitude }); setLocationName('your current location') }
-        )} className="location-btn secondary">📍 Use My Location</button>
+        <button
+          onClick={() => navigator.geolocation?.getCurrentPosition(
+            ({ coords: c }) => {
+              const newCoords = { lat: c.latitude, lng: c.longitude }
+              setCoords(newCoords)
+              setLocationName('your current location')
+              if (window.google) initMap(newCoords)
+            }
+          )}
+          className="location-btn secondary"
+        >
+          <CiLocationOn /> Use My Location
+        </button>
       </div>
 
       <div className="service-tabs">
@@ -140,7 +231,7 @@ export default function PetServices() {
             className={`service-tab ${activeService.label === s.label ? 'active' : ''}`}
             onClick={() => setActiveService(s)}
           >
-            {s.icon} {s.label}
+            {s.label}
           </button>
         ))}
       </div>
@@ -158,20 +249,18 @@ export default function PetServices() {
 
       <div className="services-cards">
         {results.map((place, i) => (
-          <a
+          <div
             key={place.placeId}
-            href={`https://www.google.com/maps/place/?q=place_id:${place.placeId}`}
-            target="_blank"
-            rel="noopener noreferrer"
             className="service-card"
+            onClick={() => fetchPlaceDetails(place.placeId)}
           >
             <span className="service-number">{i + 1}</span>
             <div className="service-info">
               <span className="service-name">{place.name}</span>
               <span className="service-address">{place.address}</span>
               {place.openNow !== undefined && (
-                <span className={`service-open ${place.openNow ? 'open' : 'closed'}`}>
-                  {place.openNow ? '● Open now' : '● Closed'}
+                <span className={`service-open ${place.isOpen() ? 'open' : 'closed'}`}>
+                  {place.isOpen() ? '● Open now' : '● Closed'}
                 </span>
               )}
             </div>
@@ -179,9 +268,57 @@ export default function PetServices() {
               {place.rating && <span className="service-rating">⭐ {place.rating}</span>}
               {place.totalRatings && <span className="service-reviews">({place.totalRatings})</span>}
             </div>
-          </a>
+          </div>
         ))}
       </div>
+
+      {selectedPlace && (
+        <div className="place-overlay" onClick={() => setSelectedPlace(null)}>
+          <div className="place-popup" onClick={e => e.stopPropagation()}>
+            <button className="popup-close-btn" onClick={() => setSelectedPlace(null)}>×</button>
+
+            <h2 className="place-popup-title">{selectedPlace.name}</h2>
+            <p className="place-popup-address">{selectedPlace.formatted_address}</p>
+
+            {selectedPlace.formatted_phone_number && (
+              <p className="place-popup-phone">📞 {selectedPlace.formatted_phone_number}</p>
+            )}
+
+            {selectedPlace.website && (
+              <a href={selectedPlace.website} target="_blank" rel="noopener noreferrer" className="place-popup-website">
+                🌐 Visit Website
+              </a>
+            )}
+
+            {selectedPlace.rating && (
+              <p className="place-popup-rating">
+                ⭐ {selectedPlace.rating} <span>({selectedPlace.user_ratings_total} reviews)</span>
+              </p>
+            )}
+
+            {selectedPlace.opening_hours?.weekday_text && (
+              <div className="place-popup-hours">
+                <h4>Opening Hours</h4>
+                {selectedPlace.opening_hours.weekday_text.map((day, i) => (
+                  <p key={i}>{day}</p>
+                ))}
+              </div>
+            )}
+
+            {selectedPlace.reviews?.slice(0, 2).map((review, i) => (
+              <div key={i} className="place-review">
+                <div className="review-header">
+                  <div>
+                    <span className="review-author">{review.author_name}</span>
+                    <span className="review-rating">⭐ {review.rating}</span>
+                  </div>
+                </div>
+                <p className="review-text">{review.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

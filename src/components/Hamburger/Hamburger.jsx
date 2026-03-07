@@ -102,6 +102,8 @@ const Hamburger = () => {
               Fun {isDog ? 'Dog' : 'Cat'} Facts
             </NavLink>
           </li>
+
+        <li><NavLink to='/pet-services' onClick={handleLinkClick}>Pet Services</NavLink></li>
           <li><NavLink to={animalType === 'cat' ? '/shop-cats' : '/shop-dogs'} onClick={handleLinkClick}>Shop</NavLink></li>
 
           {isLoggedIn ? (
