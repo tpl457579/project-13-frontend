@@ -12,10 +12,12 @@ export default function ThemeToggle() {
   })
 
   useEffect(() => {
-    document.body.classList.remove('dark-theme', 'light-theme')
-    document.body.classList.add(`${theme}-theme`)
-    localStorage.setItem('theme', theme)
-  }, [theme])
+  document.body.classList.remove('dark-theme', 'light-theme')
+  document.body.classList.add(`${theme}-theme`)
+  localStorage.setItem('theme', theme)
+  window.dispatchEvent(new CustomEvent('themechange', { detail: theme }))
+  console.log('themechange dispatched:', theme)
+}, [theme])
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))

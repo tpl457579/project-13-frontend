@@ -1,6 +1,9 @@
 import './PetServices.css'
 import { useState, useEffect, useRef } from 'react'
 import { CiLocationOn } from "react-icons/ci"
+import { LiaDirectionsSolid } from "react-icons/lia"
+import { CiGlobe } from "react-icons/ci"
+import { PiPhoneOutgoingThin } from "react-icons/pi"
 
 const getLabels = () => {
   const lang = navigator.language?.slice(0, 2) || 'en'
@@ -31,7 +34,7 @@ const SERVICE_TYPES = [
 
 export default function PetServices() {
   const [coords, setCoords] = useState(null)
-  const [manualLocation, setManualLocation] = useState('')
+  const [manualLocation, setManualLocation] = useState('Madrid')
   const [activeService, setActiveService] = useState(SERVICE_TYPES[0])
   const [results, setResults] = useState([])
   const [loading, setLoading] = useState(false)
@@ -53,11 +56,16 @@ export default function PetServices() {
   }, [])
 
   useEffect(() => {
-    if (!coords) return
     const waitForGoogle = setInterval(() => {
       if (window.google) {
         clearInterval(waitForGoogle)
-        initMap(coords)
+        if (coords) {
+          initMap(coords)
+        } else {
+          const madridCoords = { lat: 40.4168, lng: -3.7038 }
+          setLocationName('Madrid')
+          initMap(madridCoords)
+        }
       }
     }, 100)
     return () => clearInterval(waitForGoogle)
@@ -69,20 +77,36 @@ export default function PetServices() {
     }
   }, [activeService])
 
-  const initMap = async (center) => {
+  const initMap = async (center, zoom, skipSearch = false) => {
     const { Map } = await window.google.maps.importLibrary("maps")
     const { AdvancedMarkerElement, PinElement } = await window.google.maps.importLibrary("marker")
+    const { ColorScheme } = await window.google.maps.importLibrary("core")
+
+    const isDark = localStorage.getItem('theme') === 'dark' ||
+      (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)
 
     const map = new Map(mapRef.current, {
-      center,
-      zoom: 14,
-      mapId: '13e801420677322ee903aec6'
+      center: center || { lat: 40.4168, lng: -3.7038 },
+      zoom: zoom ?? (center ? 14 : 12),
+      mapId: '13e801420677322ee903aec6',
+      colorScheme: isDark ? ColorScheme.DARK : ColorScheme.LIGHT,
     })
 
     googleMapRef.current = map
 
+    if (googleMapRef._themeCleanup) googleMapRef._themeCleanup()
+
+    const handleThemeChange = (e) => {
+      const currentCenter = map.getCenter()
+      const currentZoom = map.getZoom()
+      initMap({ lat: currentCenter.lat(), lng: currentCenter.lng() }, currentZoom, true)
+    }
+
+    window.addEventListener('themechange', handleThemeChange)
+    googleMapRef._themeCleanup = () => window.removeEventListener('themechange', handleThemeChange)
+
     const youPin = new PinElement({
-      background: '#4f46e5',
+      background: '#8e44ad',
       borderColor: '#ffffff',
       glyphColor: '#ffffff',
     })
@@ -94,7 +118,17 @@ export default function PetServices() {
       content: youPin.element,
     })
 
-    searchPlaces(map, center, activeService)
+    if (!skipSearch) {
+      searchPlaces(map, center, activeService)
+    }
+  }
+
+  const showDirections = (destination) => {
+    if (!coords) return
+    window.open(
+      `https://www.google.com/maps/dir/?api=1&origin=${coords.lat},${coords.lng}&destination=${destination.lat},${destination.lng}`,
+      '_blank'
+    )
   }
 
   const fetchPlaceDetails = (placeId) => {
@@ -157,8 +191,6 @@ export default function PetServices() {
 
         setResults(top3)
 
-        const infoWindow = new window.google.maps.InfoWindow()
-
         top3.forEach((r, i) => {
           const el = document.createElement('div')
           el.style.cssText = `
@@ -178,8 +210,8 @@ export default function PetServices() {
           })
 
           marker.addListener('click', () => {
-  fetchPlaceDetails(r.placeId)
-})
+            fetchPlaceDetails(r.placeId)
+          })
 
           markersRef.current.push(marker)
         })
@@ -216,14 +248,19 @@ export default function PetServices() {
       <h1>Pet Services Near You</h1>
 
       <div className="location-bar">
-        <input
-          type="text"
-          placeholder="Enter a location..."
-          value={manualLocation}
-          onChange={e => setManualLocation(e.target.value)}
-          onKeyDown={e => e.key === 'Enter' && handleManualSearch()}
-          className="location-input"
-        />
+        <div className="location-input-wrapper">
+          <input
+            type="text"
+            placeholder="Enter a location..."
+            value={manualLocation}
+            onChange={e => setManualLocation(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && handleManualSearch()}
+            className="location-input"
+          />
+          {manualLocation && (
+            <button className="input-clear-btn" onClick={() => setManualLocation('')}>×</button>
+          )}
+        </div>
         <button onClick={handleManualSearch} className="location-btn">Search</button>
         <button
           onClick={() => navigator.geolocation?.getCurrentPosition(
@@ -297,12 +334,12 @@ export default function PetServices() {
             <p className="place-popup-address">{selectedPlace.formatted_address}</p>
 
             {selectedPlace.formatted_phone_number && (
-              <p className="place-popup-phone">📞 {selectedPlace.formatted_phone_number}</p>
+              <p className="place-popup-phone"><PiPhoneOutgoingThin /> {selectedPlace.formatted_phone_number}</p>
             )}
 
             {selectedPlace.website && (
               <a href={selectedPlace.website} target="_blank" rel="noopener noreferrer" className="place-popup-website">
-                🌐 Visit Website
+                <CiGlobe /> Visit Website
               </a>
             )}
 
@@ -311,6 +348,16 @@ export default function PetServices() {
                 ⭐ {selectedPlace.rating} <span>({selectedPlace.user_ratings_total} reviews)</span>
               </p>
             )}
+
+            <button
+              className="directions-btn"
+              onClick={() => showDirections({
+                lat: selectedPlace.geometry.location.lat(),
+                lng: selectedPlace.geometry.location.lng()
+              })}
+            >
+              <LiaDirectionsSolid /> Get Directions
+            </button>
 
             {selectedPlace.opening_hours?.weekday_text && (
               <div className="place-popup-hours">

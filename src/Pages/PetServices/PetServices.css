@@ -19,6 +19,34 @@
   justify-content: center;
 }
 
+.location-input-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.location-input-wrapper .location-input {
+  width: 100%;
+  padding-right: 36px;
+}
+
+.input-clear-btn {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #8e4aad;
+  line-height: 1;
+  padding: 0;
+}
+
+.input-clear-btn:hover {
+  color: var(--fill-button-hover-color);
+}
+
 .location-input {
   min-width: 180px;
   padding: 0.6rem 1rem;
@@ -41,6 +69,10 @@
   color: white;
   cursor: pointer;
   font-size: 0.9rem;
+}
+
+.location-btn:hover{
+    background: var(--fill-button-hover-color);
 }
 
 .location-btn.secondary {
@@ -82,8 +114,17 @@
   border: 1px solid var(--button-border-color);
 }
 
-.gmp-advanced-marker{
-    background: var(--accent-color);
+.directions-btn {
+  display: inline-block;
+  margin: 8px 0;
+  padding: 8px 16px;
+  background: #8e44ad;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 15px;
 }
 
 .results-label {
@@ -182,6 +223,9 @@
 }
 
 .place-popup {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
   background: var(--background-color);
   border-radius: 16px;
   border: 1px solid var(--button-border-color);
@@ -192,6 +236,24 @@
   overflow-y: auto;
   position: relative;
   color: var(--text-color, #000);
+}
+
+.popup-close-btn {
+    position: fixed;
+    top: 85px;
+    right: 35px;
+    background: var(--accent-color);
+    border: none;
+    color: white;
+    font-size: 30px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
 }
 
 .place-popup-title {
@@ -205,7 +267,7 @@
 .place-popup-address {
   color: var(--text-color);
   font-size: 0.9rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 25px;
 }
 
 .place-popup-phone {
