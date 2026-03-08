@@ -69,21 +69,29 @@ export default function PetServices() {
     }
   }, [activeService])
 
-  const initMap = (center) => {
-    const map = new window.google.maps.Map(mapRef.current, {
+  const initMap = async (center) => {
+    const { Map } = await window.google.maps.importLibrary("maps")
+    const { AdvancedMarkerElement, PinElement } = await window.google.maps.importLibrary("marker")
+
+    const map = new Map(mapRef.current, {
       center,
       zoom: 14,
       mapId: '13e801420677322ee903aec6'
     })
+
     googleMapRef.current = map
 
-    const youEl = document.createElement('div')
-    youEl.style.cssText = 'width:16px;height:16px;background:#4f46e5;border:2px solid white;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.4)'
-    new window.google.maps.marker.AdvancedMarkerElement({
+    const youPin = new PinElement({
+      background: '#4f46e5',
+      borderColor: '#ffffff',
+      glyphColor: '#ffffff',
+    })
+
+    new AdvancedMarkerElement({
       position: center,
       map,
       title: 'You are here',
-      content: youEl
+      content: youPin.element,
     })
 
     searchPlaces(map, center, activeService)
@@ -149,10 +157,12 @@ export default function PetServices() {
 
         setResults(top3)
 
+        const infoWindow = new window.google.maps.InfoWindow()
+
         top3.forEach((r, i) => {
           const el = document.createElement('div')
           el.style.cssText = `
-            width:28px;height:28px;background:#e53e3e;color:white;
+            width:28px;height:28px;background:#8e44ad;color:white;
             border-radius:50%;display:flex;align-items:center;
             justify-content:center;font-weight:bold;font-size:13px;
             border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);
@@ -163,8 +173,14 @@ export default function PetServices() {
             position: { lat: r.lat, lng: r.lng },
             map,
             title: r.name,
-            content: el
+            content: el,
+            gmpClickable: true,
           })
+
+          marker.addListener('click', () => {
+  fetchPlaceDetails(r.placeId)
+})
+
           markersRef.current.push(marker)
         })
 
@@ -259,8 +275,8 @@ export default function PetServices() {
               <span className="service-name">{place.name}</span>
               <span className="service-address">{place.address}</span>
               {place.openNow !== undefined && (
-                <span className={`service-open ${place.isOpen() ? 'open' : 'closed'}`}>
-                  {place.isOpen() ? '● Open now' : '● Closed'}
+                <span className={`service-open ${place.openNow ? 'open' : 'closed'}`}>
+                  {place.openNow ? '● Open now' : '● Closed'}
                 </span>
               )}
             </div>
