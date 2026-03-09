@@ -4,3 +4,9 @@
     text-align: center;
     margin-top: 30px;
 }
+
+@media (max-width: 95spx) {
+    .login-required h2{
+        margin-top: 11svh;
+    }
+    }
