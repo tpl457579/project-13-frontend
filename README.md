@@ -1,6 +1,6 @@
 # Pet Lovers
 
-**Pet Lovers** is a fun React app for anyone that loves to know about pets that includes **Fun Games** & a page to learn **Fun Pet facts**. Also a cool questionnaire that help you to find your **perfect buddy**, and a **shop** to find the perfect toys, food and clothing for your best friend.
+**Pet Lovers** is a fun React app for anyone that loves to know about pets that includes **Fun Games** & a page to learn **Fun Pet facts**. Also a cool questionnaire that help you to find your **perfect buddy**, and a **shop** to find the perfect toys, food and clothing for your best friend. Newly added **pet service** finder aswell.
 
 ## Setup Instructions
 
@@ -290,6 +290,7 @@ node createAdmin.js
 - React icons
 - Lucide React
 - React Router
+- Google maps API
 
 **Dev Tools**
 
