@@ -83,70 +83,68 @@ const Hamburger = () => {
       <div className={`hamburger-menu ${menuOpen ? 'open' : ''}`}>
         
         <ul ref={menuRef} className="hamburger-scroll-area">
-          <li className='close-btn'>
-            <button className='close-btn-hamburger' onClick={handleLinkClick}>✕</button>
-          </li>
+  <li className='close-btn'>
+    <button className='close-btn-hamburger' onClick={handleLinkClick}>✕</button>
+  </li>
 
-          <li className='hamburger-animal-toggle'>
-            <AnimalToggle animalType={animalType} onToggle={toggleAnimalType} />
-          </li>
+  <li className='hamburger-animal-toggle'>
+    <AnimalToggle animalType={animalType} onToggle={toggleAnimalType} />
+  </li>
 
-          <li><NavLink to='/' onClick={handleLinkClick}>Home</NavLink></li>
-          <li>
-            <NavLink to={isDog ? '/guess-the-dog' : '/match-the-cats'} onClick={handleLinkClick}>
-              {isDog ? 'Dog' : 'Cat'} Game
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={isDog ? '/fun-dog-facts' : '/fun-cat-facts'} onClick={handleLinkClick}>
-              Fun {isDog ? 'Dog' : 'Cat'} Facts
-            </NavLink>
-          </li>
+  <li><NavLink to='/' onClick={handleLinkClick}>Home</NavLink></li>
+  <li>
+    <NavLink to={isDog ? '/guess-the-dog' : '/match-the-cats'} onClick={handleLinkClick}>
+      {isDog ? 'Dog' : 'Cat'} Game
+    </NavLink>
+  </li>
+  <li>
+    <NavLink to={isDog ? '/fun-dog-facts' : '/fun-cat-facts'} onClick={handleLinkClick}>
+      Fun {isDog ? 'Dog' : 'Cat'} Facts
+    </NavLink>
+  </li>
+  <li><NavLink to={isDog ? '/shop-dogs' : '/shop-cats'} onClick={handleLinkClick}>Shop</NavLink></li>
+  <li><NavLink to='/pet-services' onClick={handleLinkClick}>Pet Services</NavLink></li>
+  <li>
+    <NavLink to={isDog ? '/dog-search' : '/cat-search'} onClick={handleLinkClick}>
+      {isDog ? 'Dog' : 'Cat'} Search
+    </NavLink>
+  </li>
+  <li>
+    <NavLink to={isDog ? '/suitable-dog' : '/suitable-cat'} onClick={handleLinkClick}>
+      My Perfect {isDog ? 'Dog' : 'Cat'}
+    </NavLink>
+  </li>
+  <li><NavLink to='/favourites' onClick={handleLinkClick}>Favourites</NavLink></li>
+  <li><NavLink to='/profile' onClick={handleLinkClick}>Profile</NavLink></li>
 
-        <li><NavLink to='/pet-services' onClick={handleLinkClick}>Pet Services</NavLink></li>
-          <li><NavLink to={animalType === 'cat' ? '/shop-cats' : '/shop-dogs'} onClick={handleLinkClick}>Shop</NavLink></li>
+  {isAdmin && <li><NavLink to='/admin' onClick={handleLinkClick}>Admin</NavLink></li>}
 
-          {isLoggedIn ? (
-            <>
-              <li>
-                <NavLink to={isDog ? '/suitable-dog' : '/suitable-cat'} onClick={handleLinkClick}>
-                  My Perfect {isDog ? 'Dog' : 'Cat'}
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to={isDog ? '/dog-search' : '/cat-search'} onClick={handleLinkClick}>
-                  {isDog ? 'Dog' : 'Cat'} Search
-                </NavLink>
-              </li>
-              <li><NavLink to='/favourites' onClick={handleLinkClick}>Favourites</NavLink></li>
-              <li><NavLink to='/profile' onClick={handleLinkClick}>Profile</NavLink></li>
-              {isAdmin && <li><NavLink to='/admin' onClick={handleLinkClick}>Admin</NavLink></li>}
-              <li>
-                <Button variant='primary' className='hamburger-logout-btn' onClick={handleLogout}>
-                  Logout
-                </Button>
-              </li>
-            </>
-          ) : (
-            <>
-              <li>
-                <NavLink to='/login' onClick={handleLinkClick}>
-                  <Button variant='primary' className='site-button-primary'>Login</Button>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to='/register' onClick={handleLinkClick}>
-                  <Button variant='primary' className='site-button-primary'>Register</Button>
-                </NavLink>
-              </li>
-            </>
-          )}
-        </ul>
+  {isLoggedIn ? (
+    <li>
+      <Button variant='primary' className='hamburger-logout-btn' onClick={handleLogout}>
+        Logout
+      </Button>
+    </li>
+  ) : (
+    <>
+      <li>
+        <NavLink to='/login' onClick={handleLinkClick}>
+          <Button variant='primary' className='site-button-primary'>Login</Button>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to='/register' onClick={handleLinkClick}>
+          <Button variant='primary' className='hamburger-site-button-primary'>Register</Button>
+        </NavLink>
+      </li>
+    </>
+  )}
+</ul>
 
        {showScrollBtn && menuOpen && (
         <div className="hamburger-scroll-container">
         <div className="hamburger-scroll-floating">
-          <ScrollButton className="hamburger-scroll-button" scrollRef={menuRef} scrollAmount={150} />
+          <ScrollButton className="hamburger-scroll-button" scrollRef={menuRef} scrollAmount={180} />
         </div>
         </div>
       )}
