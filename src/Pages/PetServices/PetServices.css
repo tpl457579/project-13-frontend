@@ -236,9 +236,9 @@
 }
 
 .popup-close-btn {
-    position: fixed;
-    top: 85px;
-    right: 35px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
     background: var(--accent-color);
     border: none;
     color: white;
@@ -270,6 +270,7 @@
 .place-popup-phone {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
+  color: var(--accent-color);
 }
 
 .place-popup-website {

@@ -96,7 +96,7 @@ export default function PetServices() {
 
     if (googleMapRef._themeCleanup) googleMapRef._themeCleanup()
 
-    const handleThemeChange = (e) => {
+    const handleThemeChange = () => {
       const currentCenter = map.getCenter()
       const currentZoom = map.getZoom()
       initMap({ lat: currentCenter.lat(), lng: currentCenter.lng() }, currentZoom, true)
@@ -124,11 +124,10 @@ export default function PetServices() {
   }
 
   const showDirections = (destination) => {
-    if (!coords) return
-    window.open(
-      `https://www.google.com/maps/dir/?api=1&origin=${coords.lat},${coords.lng}&destination=${destination.lat},${destination.lng}`,
-      '_blank'
-    )
+    const url = coords
+      ? `https://www.google.com/maps/dir/?api=1&origin=${coords.lat},${coords.lng}&destination=${destination.lat},${destination.lng}`
+      : `https://www.google.com/maps/dir/?api=1&destination=${destination.lat},${destination.lng}`
+    window.open(url, '_blank')
   }
 
   const fetchPlaceDetails = (placeId) => {
@@ -334,7 +333,9 @@ export default function PetServices() {
             <p className="place-popup-address">{selectedPlace.formatted_address}</p>
 
             {selectedPlace.formatted_phone_number && (
-              <p className="place-popup-phone"><PiPhoneOutgoingThin /> {selectedPlace.formatted_phone_number}</p>
+              <a href={`tel:${selectedPlace.formatted_phone_number.replace(/\s/g, '')}`} className="place-popup-phone">
+                <PiPhoneOutgoingThin /> {selectedPlace.formatted_phone_number}
+              </a>
             )}
 
             {selectedPlace.website && (
