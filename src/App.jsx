@@ -23,6 +23,9 @@ import AdminAnimals from './Pages/AdminAnimals/AdminAnimals.jsx';
 import { useScreenToggle } from './Hooks/useScreenToggle.js'
 import PetServices from './Pages/PetServices/PetServices.jsx'
 import { AnimalContext } from './components/AnimalContext.jsx'
+import LoginRequired from './components/LoginRequired/LoginRequired.jsx'
+
+
 
 const App = () => {
   const location = useLocation()
@@ -51,6 +54,14 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Home />} />
 
+<Route path='/pet-services' element={<LoginRequired><PetServices /></LoginRequired>} />
+<Route path='/favourites' element={<LoginRequired><FavouritesPage /></LoginRequired>} />
+<Route path='/profile' element={<LoginRequired><Profile /></LoginRequired>} />
+<Route path='/dog-search' element={<LoginRequired><AnimalSearch type='dog' /></LoginRequired>} />
+<Route path='/cat-search' element={<LoginRequired><AnimalSearch type='cat' /></LoginRequired>} />
+<Route path='/suitable-dog' element={<LoginRequired><SuitableAnimal type='dog' /></LoginRequired>} />
+<Route path='/suitable-cat' element={<LoginRequired><SuitableAnimal type='cat' /></LoginRequired>} />
+
        <Route path="/shop-dogs" element={<Shop animalType="dog" />} />
 <Route path="/shop-cats" element={<Shop animalType="cat" />} />
 <Route path="/shop" element={<Navigate to={animalType === 'cat' ? '/shop-cats' : '/shop-dogs'} replace />} />
@@ -58,22 +69,11 @@ const App = () => {
         <Route path='/guess-the-dog' element={<GuessTheDog />} />
        <Route path="/match-the-cats" element={<MatchTheCats />} />
 
-       <Route path='/pet-services' element={<PetServices />} />
-
         <Route path='/fun-dog-facts' element={<FunAnimalFacts type='dog' />} />
         <Route path='/fun-cat-facts' element={<FunAnimalFacts type='cat' />} />
 
-        <Route path='/suitable-dog' element={<SuitableAnimal type='dog' />} />
-        <Route path='/suitable-cat' element={<SuitableAnimal type='cat' />} />
-
-        <Route path='/dog-search' element={<AnimalSearch type='dog' />} />
-        <Route path='/cat-search' element={<AnimalSearch type='cat' />} />
-
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/login' element={<LoginPage />} />
-
-        <Route path='/favourites' element={<FavouritesPage />} />
-        <Route path='/profile' element={<Profile />} />
 
         <Route
           path='/admin-products'

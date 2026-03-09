@@ -26,74 +26,63 @@ const Header = React.memo(() => {
       <header className='desktop-header'>
         <nav className='navbar'>
           <ul className='nav-list'>
-            <li>
-              <NavLink
-                to='/'
-                className={({ isActive }) => (isActive ? 'active' : '')}
-              >
-                Home
-              </NavLink>
-            </li>
-            
-            <li className='animal-toggle-container'>
-              <AnimalToggle 
-                animalType={animalType} 
-                onToggle={toggleAnimalType}
-              />
-            </li>
-            
-            <li>
-              <NavLink to={isDog ? '/guess-the-dog' : '/match-the-cats'}>
-                {isDog ? 'Dog' : 'Cat'} Game
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to={isDog ? '/fun-dog-facts' : '/fun-cat-facts'}>
-                Fun {isDog ? 'Dog' : 'Cat'} Facts
-              </NavLink>
-            </li>
-              <li>
-  <NavLink to={isDog ? '/shop-dogs' : '/shop-cats'}>Shop</NavLink>
-</li>
+  <li>
+    <NavLink to='/' className={({ isActive }) => (isActive ? 'active' : '')}>
+      Home
+    </NavLink>
+  </li>
 
-            {isLoggedIn && (
-              <>
-              <li>
-              <NavLink to='/pet-services'>Pet Services</NavLink>
-            </li>
-                <li>
-                  <NavLink to={isDog ? '/dog-search' : '/cat-search'}>
-                    {isDog ? 'Dog' : 'Cat'} Search
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to={isDog ? '/suitable-dog' : '/suitable-cat'}>
-                    My Perfect {isDog ? 'Dog' : 'Cat'}
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to='/favourites'>Favourites</NavLink>
-                </li>
-                <li>
-                  <NavLink to='/profile'>Profile</NavLink>
-                </li>
-                {isAdmin && (
-                  <li>
-                    <NavLink to='/admin'>Admin</NavLink>
-                  </li>
-                )}
-                <li>
-                  <Button
-                    variant='primary'
-                    className='logout-btn'
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </Button>
-                </li>
-              </>
-            )}
-          </ul>
+  <li className='animal-toggle-container'>
+    <AnimalToggle animalType={animalType} onToggle={toggleAnimalType} />
+  </li>
+
+  <li>
+    <NavLink to={isDog ? '/guess-the-dog' : '/match-the-cats'}>
+      {isDog ? 'Dog' : 'Cat'} Game
+    </NavLink>
+  </li>
+  <li>
+    <NavLink to={isDog ? '/fun-dog-facts' : '/fun-cat-facts'}>
+      Fun {isDog ? 'Dog' : 'Cat'} Facts
+    </NavLink>
+  </li>
+  <li>
+    <NavLink to={isDog ? '/shop-dogs' : '/shop-cats'}>Shop</NavLink>
+  </li>
+  <li>
+    <NavLink to='/pet-services'>Pet Services</NavLink>
+  </li>
+  <li>
+    <NavLink to={isDog ? '/dog-search' : '/cat-search'}>
+      {isDog ? 'Dog' : 'Cat'} Search
+    </NavLink>
+  </li>
+  <li>
+    <NavLink to={isDog ? '/suitable-dog' : '/suitable-cat'}>
+      My Perfect {isDog ? 'Dog' : 'Cat'}
+    </NavLink>
+  </li>
+  <li>
+    <NavLink to='/favourites'>Favourites</NavLink>
+  </li>
+  <li>
+    <NavLink to='/profile'>Profile</NavLink>
+  </li>
+
+  {isAdmin && (
+    <li>
+      <NavLink to='/admin'>Admin</NavLink>
+    </li>
+  )}
+
+  {isLoggedIn && (
+    <li>
+      <Button variant='primary' className='logout-btn' onClick={handleLogout}>
+        Logout
+      </Button>
+    </li>
+  )}
+</ul>
 
           {!isLoggedIn && (
             <div className='auth-buttons'>

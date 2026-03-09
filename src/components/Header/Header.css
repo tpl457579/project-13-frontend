@@ -43,7 +43,7 @@ header {
 }
 
 .auth-buttons {
-  width: 300px;
+  width: 180px;
   display: flex;
   justify-content: center;
 }

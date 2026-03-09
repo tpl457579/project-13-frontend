@@ -1,0 +1,6 @@
+.login-required h2, .login-required p{
+
+    color: var(--text-color);
+    text-align: center;
+    margin-top: 30px;
+}
