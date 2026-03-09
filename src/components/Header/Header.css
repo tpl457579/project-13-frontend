@@ -53,15 +53,21 @@ header {
 }
 
 
-@media (max-width: 1068px) {
+@media (max-width: 1077px) {
   .nav-list li a {
-    font-size: 14.5px;
+    font-size: 13.5px;
   }
 }
 
-@media (max-width: 998px) {
+@media (max-width: 1045px){
+  .nav-list li a{
+    font-size: 12.5px;
+  }
+}
+
+@media (max-width: 1000px) {
   .nav-list li a {
-    font-size: 14px;
+    font-size: 12px;
   }
   .navbar {
     padding: 10px;
@@ -80,9 +86,7 @@ header {
   .navbar {
     display: none;
   }
-  .shop h1 {
-    padding-top: 5svh;
-  }
+  
   .mobile-icons {
     display: flex;
     align-items: center;

@@ -52,16 +52,15 @@ const Header = React.memo(() => {
                 Fun {isDog ? 'Dog' : 'Cat'} Facts
               </NavLink>
             </li>
-
-             <li>
-              <NavLink to='/pet-services'>Pet Services</NavLink>
-            </li>
-            <li>
-              <NavLink to='/shop'>Shop</NavLink>
-            </li>
+              <li>
+  <NavLink to={isDog ? '/shop-dogs' : '/shop-cats'}>Shop</NavLink>
+</li>
 
             {isLoggedIn && (
               <>
+              <li>
+              <NavLink to='/pet-services'>Pet Services</NavLink>
+            </li>
                 <li>
                   <NavLink to={isDog ? '/dog-search' : '/cat-search'}>
                     {isDog ? 'Dog' : 'Cat'} Search

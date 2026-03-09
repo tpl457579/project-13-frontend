@@ -1,5 +1,5 @@
-import { Route, Routes, useLocation, Navigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { Route, Routes, useLocation, Navigate, useNavigate } from 'react-router-dom'
+import { useState, useEffect, useContext } from 'react'
 import Header from './components/Header/Header.jsx'
 import Home from './Pages/Home/Home.jsx'
 import GuessTheDog from './Pages/GuessTheDog/GuessTheDog.jsx'
@@ -22,11 +22,21 @@ import AnimalSearch from './Pages/AnimalSearch/AnimalSearch.jsx'
 import AdminAnimals from './Pages/AdminAnimals/AdminAnimals.jsx';
 import { useScreenToggle } from './Hooks/useScreenToggle.js'
 import PetServices from './Pages/PetServices/PetServices.jsx'
+import { AnimalContext } from './components/AnimalContext.jsx'
 
 const App = () => {
   const location = useLocation()
-  const { petType } = usePetType()
+  const { animalType } = useContext(AnimalContext)
   const { isFullscreen } = useScreenToggle()
+  const navigate = useNavigate()
+
+ useEffect(() => {
+    if (location.pathname === '/shop-dogs' && animalType === 'cat') {
+      navigate('/shop-cats', { replace: true })
+    } else if (location.pathname === '/shop-cats' && animalType === 'dog') {
+      navigate('/shop-dogs', { replace: true })
+    }
+  }, [animalType])
 
   useEffect(() => {
   if (document.fullscreenElement) {
@@ -41,13 +51,14 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Home />} />
 
-       <Route path="/shop-dogs" element={<Shop petType="dog" />} />
-       <Route path="/shop-cats" element={<Shop petType="cat" />} />
+       <Route path="/shop-dogs" element={<Shop animalType="dog" />} />
+<Route path="/shop-cats" element={<Shop animalType="cat" />} />
+<Route path="/shop" element={<Navigate to={animalType === 'cat' ? '/shop-cats' : '/shop-dogs'} replace />} />
 
         <Route path='/guess-the-dog' element={<GuessTheDog />} />
        <Route path="/match-the-cats" element={<MatchTheCats />} />
 
-       <Route path='pet-services' element={<PetServices />} />
+       <Route path='/pet-services' element={<PetServices />} />
 
         <Route path='/fun-dog-facts' element={<FunAnimalFacts type='dog' />} />
         <Route path='/fun-cat-facts' element={<FunAnimalFacts type='cat' />} />

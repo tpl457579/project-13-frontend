@@ -139,7 +139,7 @@ background: var(--input-color);
 
 @media (max-width: 952px) {
   .shop h1 {
-    margin-top: 7svh;
+    margin-top: 10svh;
   }
 }
 

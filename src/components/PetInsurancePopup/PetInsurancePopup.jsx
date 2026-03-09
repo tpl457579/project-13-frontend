@@ -43,7 +43,7 @@ export default function PetInsurancePopup() {
     <Modal isOpen={isOpen} onClose={handleClose}>
       <div className="popup-container">
       <div className="pet-insurance-popup" onClick={(e) => e.stopPropagation()}>
-        <button className="popup-close-btn" onClick={handleClose}>×</button>
+        <button className="insurance-popup-close-btn" onClick={handleClose}>×</button>
         
         <div className="popup-icon">
           <span className="shield-icon">
