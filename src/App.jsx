@@ -24,10 +24,15 @@ import { useScreenToggle } from './Hooks/useScreenToggle.js'
 import PetServices from './Pages/PetServices/PetServices.jsx'
 import { AnimalContext } from './components/AnimalContext.jsx'
 import LoginRequired from './components/LoginRequired/LoginRequired.jsx'
+import CookieConsent, { Cookies } from "react-cookie-consent"
+import { PiCookieThin } from "react-icons/pi"
+import Privacy from './Pages/Privacy.jsx'
+
 
 
 
 const App = () => {
+
   const location = useLocation()
   const { animalType } = useContext(AnimalContext)
   const { isFullscreen } = useScreenToggle()
@@ -49,11 +54,47 @@ const App = () => {
 
   return (
     <div>
+
+      <CookieConsent
+  location="bottom"
+  buttonText="Accept All"
+  declineButtonText="Decline"
+  enableDeclineButton
+  cookieName="myAppCookieConsent"
+  expires={150}
+  onAccept={() => {
+    Cookies.set('analytics', 'true')
+    Cookies.set('marketing', 'true')
+  }}
+  onDecline={() => {
+    Cookies.remove('analytics')
+    Cookies.remove('marketing')
+  }}
+  style={{ background: '#1a1a1a' }}
+  buttonStyle={{ background: '#8e44ad', color: '#fff', borderRadius: '6px' }}
+  declineButtonStyle={{ background: 'transparent', border: '1px solid #555', color: '#fff', borderRadius: '6px' }}
+  customButtons={[
+    {
+      label: 'Essentials Only',
+      onClick: () => {
+        Cookies.set('myAppCookieConsent', 'essentials')
+        Cookies.remove('analytics')
+        Cookies.remove('marketing')
+      },
+      style: { background: 'transparent', border: '1px solid #8e44ad', color: '#a78bfa', borderRadius: '6px', cursor: 'pointer' }
+    }
+  ]}
+>
+  <PiCookieThin /> Cookies are yummy!!{' '}
+  <a href="/privacy" style={{ color: '#a78bfa' }}>Learn more</a>
+</CookieConsent>
+
       <Header />
 
       <Routes>
         <Route path='/' element={<Home />} />
 
+<Route path='/privacy' element={<Privacy />} />
 <Route path='/pet-services' element={<LoginRequired><PetServices /></LoginRequired>} />
 <Route path='/favourites' element={<LoginRequired><FavouritesPage /></LoginRequired>} />
 <Route path='/profile' element={<LoginRequired><Profile /></LoginRequired>} />
