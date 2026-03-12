@@ -86,7 +86,7 @@ const App = () => {
   ]}
 >
   <PiCookieThin /> Cookies are yummy!!{' '}
-  <a href="/privacy" style={{ color: '#a78bfa' }}>Learn more</a>
+  <a href="/privacy" style={{ color: '#8e44ad' }}>Learn more</a>
 </CookieConsent>
 
       <Header />

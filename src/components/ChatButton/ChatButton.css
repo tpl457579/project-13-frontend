@@ -1,7 +1,7 @@
 .chat-widget-root {
   position: fixed;
   right: -15px;
-  bottom: 50px;
+  bottom: 55px;
   z-index: 100;
   font-family: 'Montserrat', sans-serif;
 }
